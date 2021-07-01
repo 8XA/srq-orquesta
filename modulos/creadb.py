@@ -1,9 +1,6 @@
 #!/bin/env python
 #Este módulo crea la base de datos inicial si esta no existe
 
-import sqlite3
-import os
-
 """
 Tabla settings:
 -----
@@ -23,6 +20,9 @@ menu = Ultima pantalla accesada
 Tabla resultados:
 Lista de subtitulos con su respectivo título, descripción y URL de descarga
 """
+
+import sqlite3
+import os
 
 def creadb():
     if os.path.isfile("data.db"):
