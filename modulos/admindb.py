@@ -15,7 +15,7 @@ def editar_settings(columna, nuevo_valor):
 #Lee en tabla settings
 #Recibe el nombre de la columna como parámetro y retorna su valor
 def leer_settings(columna):
-    columnas = ["actualizar", "ini_aut", "palabras", "scrapers", "recode", "menu"]
+    columnas = ["actualizar", "ini_aut", "ruta_carpeta", "ruta_video","video", "palabras", "scrapers", "recode", "menu", "oneline"]
 
     conexion = sqlite3.connect('data.db')
     cursor = conexion.cursor()
