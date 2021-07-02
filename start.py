@@ -16,18 +16,20 @@ from pantallas.actualizar import *
 
 running = pelicula()
 
-while running != "salir":
-    if running == "pelicula":
+pantallas = ["pelicula","carpeta","palabras","resultados","configuracion","ayuda","acerca_de", "salir"]
+
+while running != 7:
+    if running == 0:
         running = pelicula()
-    elif running == "carpeta":
+    elif running == 1:
         running = carpeta()
-    elif running == "palabras":
+    elif running == 2:
         running = palabras()
-    elif running == "resultados":
+    elif running == 3:
         running = resultados()
-    elif running == "configuracion":
+    elif running == 4:
         running = configuracion()
-    elif running == "ayuda":
+    elif running == 5:
         running = ayuda()
-    elif running == "acerca_de":
+    elif running == 6:
         running = acerca_de()

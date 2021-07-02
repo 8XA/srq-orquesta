@@ -32,10 +32,10 @@ def creadb():
         cursor = conexion.cursor()
         
         cursor.execute("CREATE TABLE resultados (titulo TEXT, descripcion TEXT, url TEXT)")
-        cursor.execute("CREATE TABLE settings (actualizar INTEGER, ini_aut INTEGER, ruta_carpeta TEXT, ruta_video TEXT, video TEXT, palabras TEXT, scrapers TEXT, recode INTEGER, menu INTEGER, oneline INTEGER)")
+        cursor.execute("CREATE TABLE settings (actualizar INTEGER, ini_aut INTEGER, ruta_carpeta TEXT, ruta_video TEXT, video TEXT, palabras TEXT, scrapers TEXT, recode INTEGER, menu INTEGER, menu_anterior INTEGER, oneline INTEGER)")
 
         #valores iniciales
-        cursor.execute("INSERT INTO settings VALUES (1, 1, '/home/saul/Python/Android/sub4time/storage/shared/', '', '', '', 'subdivx,opensubtitles', 1, 0, 1)")
+        cursor.execute("INSERT INTO settings VALUES (1, 1, '/home/saul/Python/Android/sub4time/storage/shared/', '', '', '', 'subdivx,opensubtitles', 1, 0, 0, 1)")
 
         conexion.commit()
         conexion.close()
