@@ -8,11 +8,10 @@ from modulos.menu import menu
 from modulos.fit_frases import fit_frase
 import os
 
-numcols = num_cols()
-version = "SUB4TIME v1.0.0"
-videos = videos_en_ruta()
-
 def pelicula():
+    numcols = num_cols()
+    version = "SUB4TIME v1.0.0"
+    videos = videos_en_ruta()
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","0")
     os.system("clear")
@@ -28,8 +27,7 @@ def pelicula():
         indice = colored(str(x), 'green', attrs=['bold', 'dark'])
         imprimir = indice + ": " + videos[x]
         if leer_settings("oneline") == 1:
-            #El 17 extra es porque al parecer los colores de termcolor agregan esa longitud al string
-            imprimir = imprimir[:numcols + 17]
+            imprimir = imprimir[:numcols + len(indice) - len(str(x))]
         print(imprimir)
     if len(videos) == 0:
         msj = "Nada para mostrar. Prueba con otra carpeta..."
