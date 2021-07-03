@@ -6,7 +6,7 @@ from modulos.admindb import leer_settings
 import os
 
 def videos_en_ruta():
-    extensiones = ["mp4", "mkv", "avi"]
+    extensiones = leer_settings("extensiones_activas").split(",")
     videos = []
 
     for ext in extensiones:
