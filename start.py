@@ -1,35 +1,31 @@
 #!/bin/env python
 
-#import sqlite3
-
 from modulos.creadb import *
 creadb()
 
 from modulos.admindb import *
+from pantallas.actualizar import *
 from pantallas.pelicula import *
 from pantallas.carpeta import *
-from pantallas.actualizar import *
+from pantallas.palabras import *
+from pantallas.resultados import *
+from pantallas.configuracion import *
 
 #Buscar actualizaciones
 #if leer_settings("actualizar") == 1:
 #    actualizar()
 
-running = pelicula()
+s4t = {
+        0: pelicula,
+        1: carpeta,
+        2: palabras,
+        3: resultados,
+        4: configuracion,
+        #5: ayuda,
+        #6: acerca_de,
+        }
 
-pantallas = ["pelicula","carpeta","palabras","resultados","configuracion","ayuda","acerca_de", "salir"]
-
+running = s4t[0]()
 while running != 7:
-    if running == 0:
-        running = pelicula()
-    elif running == 1:
-        running = carpeta()
-    elif running == 2:
-        running = palabras()
-    elif running == 3:
-        running = resultados()
-    elif running == 4:
-        running = configuracion()
-    elif running == 5:
-        running = ayuda()
-    elif running == 6:
-        running = acerca_de()
+    running = s4t[running]()
+

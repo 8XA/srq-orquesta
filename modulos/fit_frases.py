@@ -17,3 +17,17 @@ def fit_frase(numcols, msj):
             frase = frase + "\n" + palabra + " "
 
     return frase
+
+
+#Centra el resultado de la función anterior
+def fit_frase_centrada(numcols, msj):
+    lista = fit_frase(numcols, msj).split("\n")
+    
+    for indice in range(len(lista)):
+        if lista[indice][-1] == " ":
+            lista[indice] = lista[indice][:-1]
+        lista[indice] = ((numcols - len(lista[indice]))//2) * " " + lista[indice]
+
+    return "\n".join(lista)
+
+

@@ -49,6 +49,7 @@ def pelicula():
         if len([x for x in i[1] if x in "0123456789"]) == len(i[1]):
             if int(i[1]) < len(videos):
                 editar_settings("video", videos[int(i[1])])
+                editar_settings("palabras", "")
                 editar_settings("ruta_video", leer_settings("ruta_carpeta"))
                 return 2
         return 0
