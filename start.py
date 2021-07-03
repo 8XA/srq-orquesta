@@ -26,6 +26,6 @@ s4t = {
 #    actualizar()
 
 running = s4t[0]()
-while running != 7:
+while running != 100:
     running = s4t[running]()
 
