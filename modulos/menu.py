@@ -129,7 +129,10 @@ def menu(numcols):
     #Retorna una tupla con dos valores:
     #El primero indica si la opcion ingresada va dirigida al menu o a la pantalla
     #El segundo corresponde a la accion a ejecutar
-    if i.upper() in iniciales and len(i) == 1:
+
+    if i.upper() == "S":
+        return ("menu", 100)
+    elif i.upper() in iniciales and len(i) == 1:
         return ("menu", iniciales.index(i.upper()))
     else:
         return ("accion", i)
