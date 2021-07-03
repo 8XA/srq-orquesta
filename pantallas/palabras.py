@@ -49,11 +49,14 @@ def palabras():
         print(fit_frase_centrada(numcols, " ".join(lista_palabras.split(","))))
     print(linea_roja)
 
+    #Menú
     i = menu(numcols)
-    #Ejecuta una acción dependiendo del comando ingresado
+
+    #Si la accion ingresada corresponde al menú, abre la respectiva pantalla
     if i[0] == "menu":
         return i[1]
 
+    #Ejecuta una acción dependiendo del comando ingresado
     else:
         #Si da enter
         if i[1] == "":
@@ -61,15 +64,55 @@ def palabras():
                 return 3
             else:
                 return 2
-        #Si usas las sugerencias
-        elif len([x for x in i[1] if x in "0123456789,-"]) == len(i[1]):
-            pass
+
+        #Si usas las palabras de la lista:
+        elif all(
+                [
+                    #Solo contiene los caracteres admitidos
+                    len([x for x in i[1] if x in "0123456789,-"]) == len(i[1]),
+
+                    #Tiene por lo menos un número
+                    len([x for x in i[1] if x in "0123456789"]) > 0,
+
+                    #No hay puntos ni comas iniciales ni finales
+                    i[1][0] not in ",-" and i[1][-1] not in ",-",
+                    
+                    #No hay dos símbolos seguidos
+                    len([i[1][x] for x in range(len(i[1])-1) if (i[1][x] in "-," and i[1][x+1] in "-,")]) == 0,
+
+                    #Ningún número es mayor al numero de palabras
+                    len([num for num in [x for x in "-".join(i[1].split(",")).split("-") if (x != "" and len([digito for digito in x if digito in "0123456789"]) == len(x))] if (int(num) >= len(palabras_del_titulo))]) == 0
+                ]
+            ):
+
+            #La coma separa los rangos numéricos de los números aislados
+            separacion = i[1].split(",")
+
+            #Guion indica rango numérico
+            palabras_candidatas = []
+            for x in separacion:
+                #Si es rango, agrega las palabras a la lista
+                if "-" in x:
+                    rango = x.split("-")
+                    #Verifica que el orden del rango sea ascendente, y si no, lo corrige
+                    if int(rango[0]) > int(rango[1]):
+                        rango.reverse()
+                    #Agrega las palabras
+                    palabras_candidatas += [palabras_del_titulo[indice] for indice in [numero for numero in range(int(rango[0]), int(rango[1])+1)]]
+
+                #Si es número, agrega su palabra a la lista
+                else:
+                    palabras_candidatas.append(palabras_del_titulo[int(x)])
+
+            #Si todo esta correcto, guarda
+            editar_settings("palabras", ",".join(palabras_candidatas))
+
         #busqueda libre
         else:
-            #editar_settings("palabras", ",".join([x for x in i[1].split(" ") if x != ""]))
-            editar_settings("palabras", ",".join([x for x in " ".join(i[1].split(",")).split(" ") if x != ""]))
-            #editar_settings("palabras", ",".join(i[1].split(" ")))
-            return 2
-    
+            palabras_candidatas = [x for x in " ".join(i[1].split(",")).split(" ") if x != ""]
+            if len(palabras_candidatas) == 0:
+                return 2
+            else:
+                editar_settings("palabras", ",".join(palabras_candidatas))
 
-
+        return 2
