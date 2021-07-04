@@ -7,8 +7,8 @@
 
 import os
 def subdivx(palabras):
-    subs, subspag, pagina = [], [1], 0
-    while subspag != []:
+    subs, subspag, pagina = [], [], 0
+    while subspag != [] or pagina == 0:
         pagina+=1
 
         #Obtiene el html del link con las palabras de búsqueda
