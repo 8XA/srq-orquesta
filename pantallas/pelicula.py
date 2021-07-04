@@ -46,7 +46,7 @@ def pelicula():
         return i[1]
     else:
         #Verifica que se haya ingresado un valor numérico y que la opcion de película exista
-        if len([x for x in i[1] if x in "0123456789"]) == len(i[1]):
+        if (len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != ""):
             if int(i[1]) < len(videos):
                 editar_settings("video", videos[int(i[1])])
                 editar_settings("palabras", "")
