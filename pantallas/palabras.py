@@ -69,8 +69,12 @@ def palabras():
                 return 2
 
         #Si usa todas las palabras de la lista
-        elif i[1].lower() == "t":
+        elif (i[1].lower() == "t") and \
+                (",".join(palabras_del_titulo) != leer_settings("palabras")):
+
+            editar_settings("cambio_busqueda","1")
             editar_settings("palabras", ",".join(palabras_del_titulo))
+
             return 2
 
         #Si selecciona palabras de la lista:
@@ -118,14 +122,19 @@ def palabras():
                     palabras_candidatas.append(palabras_del_titulo[int(x)])
 
             #Si todo esta correcto, guarda
-            editar_settings("palabras", ",".join(palabras_candidatas))
+            if ",".join(palabras_candidatas) != leer_settings("palabras"):
+                editar_settings("cambio_busqueda","1")
+                editar_settings("palabras", ",".join(palabras_candidatas))
 
         #busqueda libre
         else:
             palabras_candidatas = [x for x in " ".join(i[1].split(",")).split(" ") if x != ""]
-            if len(palabras_candidatas) == 0:
-                return 2
-            else:
+
+            if (",".join(palabras_candidatas) != leer_settings("palabras")) and \
+                    len(palabras_candidatas) > 0:
+                editar_settings("cambio_busqueda","1")
                 editar_settings("palabras", ",".join(palabras_candidatas))
+            else:
+                pass
 
         return 2
