@@ -48,8 +48,7 @@ def resultados():
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
     linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
-    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold'])
-    linea_amarilla_ = colored(numcols*"-", 'yellow', attrs=['bold', 'dark'])
+    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
     titulo = "RESULTADOS"
     print(linea_azul)
@@ -60,7 +59,7 @@ def resultados():
         ID = colored("ID " + str(x), 'green', attrs=['bold', 'dark'])
 
         print(linea_amarilla)
-        print(str(x) + ": " + ID + "-> " + subs[x][0])
+        print(str(x) + ": " + ID + " -> " + subs[x][0])
         print(numcols * "-")
         print(fit_frase_centrada(numcols, subs[x][1]))
 
