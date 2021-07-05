@@ -35,9 +35,11 @@ def menu(numcols):
         for pieza in range(len(tramo[palabra])):
             T[str(palabra) + "_" + str(pieza)] = len(tramo[palabra][pieza])
             if palabra == leer_settings("menu"):
-                t[str(palabra) + "_" + str(pieza)] = colored(tramo[palabra][pieza], 'yellow', marcado, attrs=['bold', 'dark'])
+                t[str(palabra) + "_" + str(pieza)] = \
+                        colored(tramo[palabra][pieza], 'yellow', marcado, attrs=['bold', 'dark'])
             else:
-                t[str(palabra) + "_" + str(pieza)] = colored(tramo[palabra][pieza], 'yellow', attrs=['bold'])
+                t[str(palabra) + "_" + str(pieza)] = \
+                        colored(tramo[palabra][pieza], 'yellow', attrs=['bold'])
 
     #Barra coloreada
     barra = colored(" | ", 'blue', attrs=['bold', 'dark'])
