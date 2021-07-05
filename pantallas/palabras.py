@@ -65,7 +65,12 @@ def palabras():
             else:
                 return 2
 
-        #Si usas las palabras de la lista:
+        #Si usa todas las palabras de la lista
+        elif i[1].lower() == "t":
+            editar_settings("palabras", ",".join(palabras_del_titulo))
+            return 2
+
+        #Si selecciona palabras de la lista:
         elif all(
                 [
                     #Solo contiene los caracteres admitidos

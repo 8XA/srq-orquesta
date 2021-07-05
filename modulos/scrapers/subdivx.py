@@ -17,7 +17,7 @@ def subdivx(palabras):
             #Obtiene el html del link con las palabras de búsqueda
             suma = "+".join(palabras)
             linkBusqueda = "https://www.subdivx.com/index.php?buscar=" + suma + "&accion=5&masdesc=&subtitulos=1&realiza_b=1=&pg=" + str(pagina)
-            txtBusqueda = os.popen("curl '" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
+            txtBusqueda = os.popen("curl -L '" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
 
             #Extrae la información del html descargado
             x = 0
