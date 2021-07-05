@@ -10,21 +10,41 @@ import os
 
 def pelicula():
     numcols = num_cols()
-    version = "SUB4TIME v1.0.0"
-    videos = videos_en_ruta()
+    titulo = "SUB4TIME v1.0.0"
+
+    rutas_y_videos = videos_en_ruta()
+    videos = rutas_y_videos[1]
+    rutas = rutas_y_videos[0]
+    
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","0")
-    os.system("clear")
 
-    print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
-    print(((numcols-len(version))//2) * " " + version)
-    print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
+    linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
+    linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
+
+
+    marca_en_pantalla = False
+
+    print(linea_azul)
+    print(((numcols-len(titulo))//2)*" " + titulo)
+    print(linea_azul)
+
     print(((numcols-14)//2)*" " + "Elige un video")
 
     #IMPRIME NOMBRES DE VIDEOS
     for x in range(len(videos)):
         print(numcols * "-")
-        indice = colored(str(x), 'green', attrs=['bold', 'dark'])
+
+        #Marca el video seleccionado actual
+        if (leer_settings("ruta_video") != "") and \
+           (leer_settings("ruta_video") == rutas[x]) and \
+           (leer_settings("video") == videos[x]):
+
+            marca_en_pantalla = True
+            indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
+        else:
+            indice = colored(str(x), 'green', attrs=['bold', 'dark'])
+
         imprimir = indice + ": " + videos[x]
         if leer_settings("oneline") == 1:
             imprimir = imprimir[:numcols + len(indice) - len(str(x))]
@@ -36,21 +56,41 @@ def pelicula():
         print(fit_frase(numcols, msj))
         print("\n")
 
-    print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
-    print(colored(numcols*"=", 'red', attrs=['bold', 'dark']))
+    print(linea_azul)
+    print(linea_roja)
     print(leer_settings("ruta_carpeta"))
-    print(colored(numcols*"=", 'red', attrs=['bold', 'dark']))
+    print(linea_roja)
 
     i = menu(numcols)
+
     if i[0] == "menu":
         return i[1]
+    elif (i[1] == "") and (marca_en_pantalla):
+        return 2
     else:
-        #Verifica que se haya ingresado un valor numérico y que la opcion de película exista
-        if (len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != ""):
-            if int(i[1]) < len(videos):
-                editar_settings("video", videos[int(i[1])])
-                editar_settings("palabras", "")
-                editar_settings("ruta_video", leer_settings("ruta_carpeta"))
-                return 2
+        #Registrar opción
+        if (
+            #Es valor numérico
+            ((len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != "")) and \
+
+            #Esta dentro del rango de opciones
+            (int(i[1]) < len(videos)) and \
+
+            (True or True) and \
+
+            #Sentencias or
+            #Rutas de video seleccionado y del ya registrado difieren
+            ((leer_settings("ruta_video") != rutas[int(i[1])]) or \
+            
+            #Cambió el nombre del video
+            (leer_settings("video") != videos[int(i[1])]))
+            ):
+
+            editar_settings("cambio_busqueda", "1")
+            editar_settings("video", videos[int(i[1])])
+            editar_settings("palabras", "")
+            editar_settings("ruta_video", rutas[int(i[1])])
+            return 2
+
         return 0
 

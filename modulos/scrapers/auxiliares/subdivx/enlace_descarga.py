@@ -5,9 +5,10 @@
 
 import os
 
-def descarga(enlace_de_lista):
+def get_enlace(enlace_de_lista):
     #Descargando html
-    txtPagina = os.popen("curl '" + enlace_de_lista + "' | iconv -f iso-8859-1 -t utf-8").read()
+    txtPagina = os.popen("curl '" + enlace_de_lista + "' \
+            | iconv -f iso-8859-1 -t utf-8").read()
     
     #Scraping
     ind1 = txtPagina.index('"link1" href="bajar.php?id=')

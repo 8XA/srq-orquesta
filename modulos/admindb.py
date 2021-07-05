@@ -17,7 +17,7 @@ def editar_settings(columna, nuevo_valor):
 def leer_settings(columna):
     columnas = ["actualizar", "ini_aut", "ruta_carpeta", "ruta_video","video",
             "palabras", "scrapers", "recode", "menu", "menu_anterior", "oneline", 
-            "extensiones_activas", "extensiones_disponibles"]
+            "extensiones_activas", "extensiones_disponibles", "cambio_busqueda"]
 
     conexion = sqlite3.connect('data.db')
     cursor = conexion.cursor()

@@ -31,7 +31,9 @@ def carpeta():
         print(linea_azul)
 
         #Imprime carpetas e indices
-        carpetas = sorted([carpeta.path.split("/")[-1:][0] for carpeta in os.scandir(ruta) if carpeta.is_dir()])
+        carpetas = sorted([carpeta.path.split("/")[-1:][0] for \
+                carpeta in os.scandir(ruta) if carpeta.is_dir()])
+
         for x in range(len(carpetas)):
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 

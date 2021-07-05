@@ -10,7 +10,8 @@ def corregir(texto_original):
     texto = "é".join(texto.split("Ã©"))
     texto = "í".join(texto.split("Ã\xad"))
     texto = "ó".join(texto.split("Ã³"))
+    texto = "Ó".join(texto.split("Ã\x93"))
     texto = "ú".join(texto.split("Ãº"))
     texto = "'".join(texto.split("â\x80\x99"))
-   
+
     return texto

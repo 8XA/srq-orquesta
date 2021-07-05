@@ -24,14 +24,17 @@ def palabras():
     print(linea_azul)
 
     if leer_settings("video") == "":
-        msj = "Aquí aparecerán palabras de búsqueda sugeridas cuando selecciones un video..."
+        msj = "Aquí aparecerán palabras de búsqueda sugeridas \
+                cuando selecciones un video..."
         print("\n")
         print(fit_frase(numcols, msj))
         print("\n")
 
     #Lista de palabras
     else:
-        palabras_del_titulo = [palabra for palabra in " ".join(video.split(".")).split(" ") if (palabra != " " and palabra != "" and palabra.lower() not in extensiones)]
+        palabras_del_titulo = [palabra for palabra in \
+                " ".join(video.split(".")).split(" ") if (palabra != " " and \
+                palabra != "" and palabra.lower() not in extensiones)]
 
         for x in range(len(palabras_del_titulo)):
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
@@ -83,10 +86,14 @@ def palabras():
                     i[1][0] not in ",-" and i[1][-1] not in ",-",
                     
                     #No hay dos símbolos seguidos
-                    len([i[1][x] for x in range(len(i[1])-1) if (i[1][x] in "-," and i[1][x+1] in "-,")]) == 0,
+                    len([i[1][x] for x in range(len(i[1])-1) if \
+                            (i[1][x] in "-," and i[1][x+1] in "-,")]) == 0,
 
                     #Ningún número es mayor al numero de palabras
-                    len([num for num in [x for x in "-".join(i[1].split(",")).split("-") if (x != "" and len([digito for digito in x if digito in "0123456789"]) == len(x))] if (int(num) >= len(palabras_del_titulo))]) == 0
+                    len([num for num in [x for x in \
+                            "-".join(i[1].split(",")).split("-") if (x != "" and \
+                            len([digito for digito in x if digito in "0123456789"])\
+                            == len(x))] if (int(num) >= len(palabras_del_titulo))]) == 0
                 ]
             ):
 
@@ -103,7 +110,8 @@ def palabras():
                     if int(rango[0]) > int(rango[1]):
                         rango.reverse()
                     #Agrega las palabras
-                    palabras_candidatas += [palabras_del_titulo[indice] for indice in [numero for numero in range(int(rango[0]), int(rango[1])+1)]]
+                    palabras_candidatas += [palabras_del_titulo[indice] for indice \
+                            in [numero for numero in range(int(rango[0]), int(rango[1])+1)]]
 
                 #Si es número, agrega su palabra a la lista
                 else:
