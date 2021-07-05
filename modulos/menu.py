@@ -39,7 +39,7 @@ def menu(numcols):
                         colored(tramo[palabra][pieza], 'yellow', marcado, attrs=['bold', 'dark'])
             else:
                 t[str(palabra) + "_" + str(pieza)] = \
-                        colored(tramo[palabra][pieza], 'yellow', attrs=['bold'])
+                        colored(tramo[palabra][pieza], 'yellow', attrs=['bold', 'dark'])
 
     #Barra coloreada
     barra = colored(" | ", 'blue', attrs=['bold', 'dark'])
