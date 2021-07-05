@@ -17,20 +17,27 @@ from modulos.scrapers.subdivx import subdivx
 def resultados():
     os.system("clear")
 
-    #Recuperar palabras de búsqueda
-    palabras = leer_settings("palabras").split(",")
-    #Recuperar scrapers a utilizar
-    scrapers = leer_settings("scrapers").split(",")
+    #Evita buscar 2 veces seguidas lo mismo
+    if leer_settings("cambio_busqueda") == 1:
+        #Recuperar palabras de búsqueda
+        palabras = leer_settings("palabras").split(",")
+        #Recuperar scrapers a utilizar
+        scrapers = leer_settings("scrapers").split(",")
 
-    #obtener subtítulos
-    get_subs = {
-            "opensubtitles": opensubtitles,
-            "subdivx": subdivx,
-            }
+        #obtener subtítulos
+        get_subs = {
+                "opensubtitles": opensubtitles,
+                "subdivx": subdivx,
+                }
 
-    subs = []
-    for scraper in scrapers:
-        subs += get_subs[scraper](palabras)
+        hallados = []
+        for scraper in scrapers:
+            hallados += get_subs[scraper](palabras)
+        editar_resultados(hallados)
+        editar_settings("cambio_busqueda", "0")
+
+    subs = leer_resultados()
+
 
     #Pantalla resultados
     numcols = num_cols()

@@ -24,6 +24,7 @@ def pelicula():
 
 
     marca_en_pantalla = False
+    indice_marcado = -1
 
     print(linea_azul)
     print(((numcols-len(titulo))//2)*" " + titulo)
@@ -40,7 +41,7 @@ def pelicula():
            (leer_settings("ruta_video") == rutas[x]) and \
            (leer_settings("video") == videos[x]):
 
-            marca_en_pantalla = True
+            marca_en_pantalla, indice_marcado = True, x
             indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
         else:
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
@@ -65,7 +66,7 @@ def pelicula():
 
     if i[0] == "menu":
         return i[1]
-    elif (i[1] == "") and (marca_en_pantalla):
+    elif (marca_en_pantalla) and ((i[1] == "") or (int(i[1]) == indice_marcado)):
         return 2
     else:
         #Registrar opción
@@ -75,8 +76,6 @@ def pelicula():
 
             #Esta dentro del rango de opciones
             (int(i[1]) < len(videos)) and \
-
-            (True or True) and \
 
             #Sentencias or
             #Rutas de video seleccionado y del ya registrado difieren
