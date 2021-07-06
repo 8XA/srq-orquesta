@@ -40,7 +40,9 @@ def resultados():
         editar_resultados(hallados)
         editar_settings("cambio_busqueda", "0")
 
+    #Subtítulos con indices asignados
     subs = leer_resultados()
+    subs = [list(subs[indice]) + [indice] for indice in range(len(subs))]
 
     #Actualizando info de pantalla en base de datos
     editar_settings("menu_anterior", str(leer_settings("menu")))
@@ -69,7 +71,7 @@ def resultados():
         print(linea_azul)
 
         for x in range(len(subs_filtrados)):
-            ID = colored("ID " + str(x), 'green', attrs=['bold', 'dark'])
+            ID = colored("ID " + str(subs_filtrados[x][3]), 'green', attrs=['bold', 'dark'])
 
             print(linea_amarilla)
             print(str(x) + ": " + ID + " -> " + subs_filtrados[x][0])
