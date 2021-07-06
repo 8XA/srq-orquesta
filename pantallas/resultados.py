@@ -15,10 +15,13 @@ from modulos.scrapers.opensubtitles import opensubtitles
 from modulos.scrapers.subdivx import subdivx
 
 def resultados():
+    #Resultados por pagina (rpp)
+    rpp = 50
     os.system("clear")
 
     #Recuperar scrapers a utilizar
     scrapers = leer_settings("scrapers").split(",")
+    scrapers.reverse()
 
     #Evita buscar 2 veces seguidas lo mismo
     if leer_settings("cambio_busqueda") == 1:
@@ -39,58 +42,86 @@ def resultados():
 
     subs = leer_resultados()
 
-
-    #Pantalla resultados
-    numcols = num_cols()
+    #Actualizando info de pantalla en base de datos
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","3")
 
-    #Definiendo colores de lineas
-    linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
-    linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-    linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
-    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
+    filtro = ""
+    while True:
+        #Pantalla resultados
+        numcols = num_cols()
 
-    titulo = "RESULTADOS"
-    print(linea_azul)
-    print(((numcols-len(titulo))//2)*" " + titulo)
-    print(linea_azul)
+        #Definiendo colores de lineas
+        linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
+        linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
+        linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
+        linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
-    for x in range(len(subs)):
-        ID = colored("ID " + str(x), 'green', attrs=['bold', 'dark'])
+        #Subs filtrados
+        filtro = " ".join(filtro.split(",")).split(" ")
+        subs_filtrados = [sub for sub in subs if len([palabra_filtro \
+                for palabra_filtro in filtro if palabra_filtro.lower() \
+                in (sub[0]+sub[1]).lower()]) == len(filtro)]
+
+        titulo = "RESULTADOS"
+        print(linea_azul)
+        print(((numcols-len(titulo))//2)*" " + titulo)
+        print(linea_azul)
+
+        for x in range(len(subs_filtrados)):
+            ID = colored("ID " + str(x), 'green', attrs=['bold', 'dark'])
+
+            print(linea_amarilla)
+            print(str(x) + ": " + ID + " -> " + subs_filtrados[x][0])
+            print(numcols * "-")
+            print(fit_frase_centrada(numcols, subs_filtrados[x][1]))
+            print()
+            by = [scraper for scraper in scrapers if scraper in subs_filtrados[x][2]][0]
+            by_color = colored(by, 'cyan', attrs=['bold'])
+            print((numcols - len(by)) * " " + by_color)
 
         print(linea_amarilla)
-        print(str(x) + ": " + ID + " -> " + subs[x][0])
-        print(numcols * "-")
-        print(fit_frase_centrada(numcols, subs[x][1]))
-        print()
-        by = [scraper for scraper in scrapers if scraper in subs[x][2]][0]
-        by_color = colored(by, 'cyan', attrs=['bold'])
-        print((numcols - len(by)) * " " + by_color)
+        print(linea_roja)
+        #Nombre del video
+        print(fit_frase_centrada(numcols, leer_settings("video")))
+        print(linea_roja_)
+        #ruta
+        print(fit_frase_centrada(numcols, "Ruta:"))
+        print(leer_settings("ruta_video"))
+        print(linea_roja)
+        i = menu(numcols, "Página: 1 de 2 - 64 subs")
 
-    print(linea_amarilla)
-    print("Página: 1 de 2 - 64 subs")
-    print(linea_amarilla)
-    print(linea_roja)
-    #Nombre del video
-    print(fit_frase_centrada(numcols, leer_settings("video")))
-    print(linea_roja_)
-    #ruta
-    print("Ruta:")
-    print(leer_settings("ruta_video"))
-    print(linea_roja)
-    i = menu(numcols)
+        #Si es alguna pantalla del menu
+        if i[0] == "menu":
+            return i[1]
 
-    return i[1]
+        #Si es enter
+        elif i[1] == "":
+            pass
+        
+        #Si retrocede pantalla
+        elif i[1] == "..":
+            pass
 
-#quiero que no se reejecute la busqueda:
-#en settings: cambio_busqueda = False or True
-#si cambio ruta_video o video, cambio busqueda = True
-#si cambio palabras, cambio_busqueda = True
-#buscar solo si cambio_busqueda == True
-#despues de buscar, agrega todo a db y cambio_busuqueda = False
+        #Si elige un subtitulo
+#        elif es un numero valido:
+#            pass
+
+        else:
+            filtro = i[1]
+
+
+#de aqui tiene que editar en la base de datos el enlace que va a descargar
+#y tiene que retornar un numero de pantalla, logicamente sera la pantalla de descarga
 #
-#leer subs de db
+#Muestra los resultados de 50 en 50
+#    avanzar entre paginas (enter)
+#    retroceder entre paginas ("..")
+#En esta pantalla se pueden filtrar subtitulos:
+#    palabras filtro se separan por espacios y comas
+#se puede elegir un numero de subtitulo 
+#subs descargados se marcan
+
 
 #msj: vaya, no hubo subtítulos para esta búsqueda, prueba con otras palabras...
 #Ningún subtítulo con el filtro indicado...

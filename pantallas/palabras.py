@@ -69,6 +69,8 @@ def palabras():
                 return 2
 
         #Si usa todas las palabras de la lista
+        elif i[1].lower() == "u":
+            editar_settings("cambio_busqueda","1")
         elif (i[1].lower() == "t") and \
                 (",".join(palabras_del_titulo) != leer_settings("palabras")):
 

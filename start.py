@@ -3,6 +3,7 @@
 from modulos.creadb import *
 creadb()
 
+import readline
 from modulos.admindb import leer_settings
 from pantallas.actualizar import *
 from pantallas.pelicula import *
