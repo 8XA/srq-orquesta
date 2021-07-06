@@ -76,6 +76,7 @@ def resultados():
     print(fit_frase_centrada(numcols, leer_settings("video")))
     print(linea_roja_)
     #ruta
+    print("Ruta:")
     print(leer_settings("ruta_video"))
     print(linea_roja)
     i = menu(numcols)
