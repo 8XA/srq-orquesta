@@ -42,7 +42,7 @@ def pelicula():
            (leer_settings("video") == videos[x]):
 
             marca_en_pantalla, indice_marcado = True, x
-            indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
+            indice = colored(str(x), 'grey', 'on_white', attrs=['bold', 'dark'])
         else:
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 

@@ -17,12 +17,13 @@ from modulos.scrapers.subdivx import subdivx
 def resultados():
     os.system("clear")
 
+    #Recuperar scrapers a utilizar
+    scrapers = leer_settings("scrapers").split(",")
+
     #Evita buscar 2 veces seguidas lo mismo
     if leer_settings("cambio_busqueda") == 1:
         #Recuperar palabras de búsqueda
         palabras = leer_settings("palabras").split(",")
-        #Recuperar scrapers a utilizar
-        scrapers = leer_settings("scrapers").split(",")
 
         #obtener subtítulos
         get_subs = {
@@ -62,8 +63,21 @@ def resultados():
         print(str(x) + ": " + ID + " -> " + subs[x][0])
         print(numcols * "-")
         print(fit_frase_centrada(numcols, subs[x][1]))
+        print()
+        by = [scraper for scraper in scrapers if scraper in subs[x][2]][0]
+        by_color = colored(by, 'cyan', attrs=['bold'])
+        print((numcols - len(by)) * " " + by_color)
 
     print(linea_amarilla)
+    print("Página: 1 de 2 - 64 subs")
+    print(linea_amarilla)
+    print(linea_roja)
+    #Nombre del video
+    print(fit_frase_centrada(numcols, leer_settings("video")))
+    print(linea_roja_)
+    #ruta
+    print(leer_settings("ruta_video"))
+    print(linea_roja)
     i = menu(numcols)
 
     return i[1]

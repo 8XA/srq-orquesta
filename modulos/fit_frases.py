@@ -9,7 +9,10 @@ def fit_frase(numcols, msj):
     longitud = 0
 
     for palabra in msj_lista:
-        if longitud + len(palabra) < numcols:
+        if len(palabra) > numcols:
+            frase = frase + "\n" + palabra + " "
+
+        elif longitud + len(palabra) < numcols:
             longitud = longitud + len(palabra) + 1
             frase = frase + palabra + " "
         else:
@@ -21,9 +24,12 @@ def fit_frase(numcols, msj):
 
 #Centra el resultado de la función anterior
 def fit_frase_centrada(numcols, msj):
-    lista = fit_frase(numcols, msj).split("\n")
+    lista = [x for x in fit_frase(numcols, msj).split("\n") if x != ""]
+    #print(lista)
     
     for indice in range(len(lista)):
+        #print(indice)
+        #input()
         if lista[indice][-1] == " ":
             lista[indice] = lista[indice][:-1]
         lista[indice] = ((numcols - len(lista[indice]))//2) * " " + lista[indice]
