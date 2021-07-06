@@ -69,7 +69,9 @@ def opensubtitles(palabras):
         palabras_busqueda = [palabra for palabra in palabras if palabra not in episodio]
         
         captcha, pagina, subs = False, 0, []
-        while ((pagina == 0) or (len(txtBusqueda) > 1000)) and (captcha == False):
+#        while ((pagina == 0) or (len(txtBusqueda) > 1000)) and (captcha == False):
+        #Solo descargará la primera página, a ver si así evita el bloqueo
+        while pagina == 0:
 
             #Curl con headers
             curl = "curl -H 'authority: 25748s.ha.azioncdn.net' -H 'sec-ch-ua: " + '"Chromium";v="91", " Not;A Brand";v="99"' + "' -H 'sec-ch-ua-mobile: ?0' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36' -H 'accept: */*' -H 'origin: https://www.opensubtitles.org' -H 'sec-fetch-site: cross-site' -H 'sec-fetch-mode: cors' -H 'sec-fetch-dest: empty' -H 'referer: https://www.opensubtitles.org/' -H 'accept-language: es-ES,es;q=0.9' --compressed -L "
@@ -146,7 +148,7 @@ def opensubtitles(palabras):
 
             pagina += 1
             #Tiempo de espera para evitar bloqueo
-            time.sleep(1.5)
+            #time.sleep(1.5)
 
         return subs
 
