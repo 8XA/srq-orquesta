@@ -18,7 +18,7 @@ def menu(numcols):
     i = {}
     for x in range(len(iniciales)):
         if leer_settings("menu") == x:
-            i[str(x)] = colored(iniciales[x], 'grey', marcado, attrs=['bold', 'dark'])
+            i[str(x)] = colored(iniciales[x], 'green', marcado, attrs=['bold', 'dark'])
         else:
             i[str(x)] = colored(iniciales[x], 'green', attrs=['bold', 'dark'])
 
