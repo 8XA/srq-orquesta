@@ -64,15 +64,19 @@ def pelicula():
 
     i = menu(numcols)
 
+    if type(i[1]) is str:
+        valor_numerico = ((len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != ""))
+
     if i[0] == "menu":
         return i[1]
-    elif (marca_en_pantalla) and ((i[1] == "") or (int(i[1]) == indice_marcado)):
+    elif (marca_en_pantalla) and ((i[1] == "") or \
+            (valor_numerico and (int(i[1]) == indice_marcado))):
         return 2
     else:
         #Registrar opción
         if (
             #Es valor numérico
-            ((len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != "")) and \
+            valor_numerico and \
 
             #Esta dentro del rango de opciones
             (int(i[1]) < len(videos)) and \
