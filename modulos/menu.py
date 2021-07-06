@@ -2,11 +2,13 @@
 
 #Menú general, apto para todas las pantallas
 #Retorna la acción ingresada e indica si esta acción pertenece al menú o a la pantalla en turno
+#De manera opcional puedes pasar un segundo parámetro como mensaje imprimible debajo del menu
 
 from modulos.admindb import leer_settings
 from termcolor import colored
 
-def menu(numcols):
+def menu(*args):
+    numcols = args[0]
     print(((numcols - 4)//2) *  " " + "MENÚ")
     print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
 
@@ -126,6 +128,8 @@ def menu(numcols):
     print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
 
     #Acción del usuario
+    if len(args) > 1:
+        print(args[1])
     i = input(": ")
     
     #Retorna una tupla con dos valores:

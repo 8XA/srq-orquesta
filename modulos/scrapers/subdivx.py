@@ -21,6 +21,7 @@ def subdivx(palabras):
 
             #Extrae la información del html descargado
             x = 0
+            subspag = []
             while '"titulo_menu_izq" href="' in txtBusqueda[x:]:
                 ind = txtBusqueda[x:].index('"titulo_menu_izq" href="')
                 ind2 = txtBusqueda[x+ind:].index('">')
@@ -37,11 +38,10 @@ def subdivx(palabras):
                 descripcion = corregir(txtBusqueda[31+x+ind4:x+ind4+ind5])
 
                 subspag.append([titulo, descripcion, enlace])
-                subs += subspag
-                subspag = []
 
                 x += (ind4+ind5)
 
+            subs += subspag
         return subs
 
     except:
