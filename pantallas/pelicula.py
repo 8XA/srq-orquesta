@@ -91,6 +91,7 @@ def pelicula():
 
             editar_settings("cambio_busqueda", "1")
             editar_settings("video", videos[int(i[1])])
+            editar_settings("subs_descargados", "")
             editar_settings("palabras", "")
             editar_settings("ruta_video", rutas[int(i[1])])
             return 2

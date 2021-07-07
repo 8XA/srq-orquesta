@@ -79,13 +79,22 @@ def resultados():
         else:
             subs_pagina = subs_filtrados[(rpp*pagina)-1:(pagina-1)*rpp:-1]
 
+        #Subs descargados
+        subs_descargados = [int(sub) for sub in [x for x in \
+                leer_settings("subs_descargados").split(",") if x != ""]]
+
         titulo = "RESULTADOS"
         print(linea_azul)
         print(((numcols-len(titulo))//2)*" " + titulo)
         print(linea_azul)
 
         for x in range(len(subs_pagina)):
-            ID = colored("ID " + str(subs_pagina[x][3]), 'green', attrs=['bold', 'dark'])
+            if subs_pagina[x][3] in subs_descargados:
+                ID = colored("ID " + str(subs_pagina[x][3]), 'green', \
+                        'on_red', attrs=['bold', 'dark'])
+            else:
+                ID = colored("ID " + str(subs_pagina[x][3]), 'green', \
+                        attrs=['bold', 'dark'])
 
             print(linea_amarilla)
             print(str(subs_pagina[x][4]) + ": " + ID + " -> " + subs_pagina[x][0])
@@ -102,10 +111,12 @@ def resultados():
         print(fit_frase_centrada(numcols, leer_settings("video")))
         print(linea_roja_)
         #ruta
-        print(fit_frase_centrada(numcols, "Ruta:"))
+        str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
+        print(fit_frase_centrada(numcols+13, str_Ruta))
         print(leer_settings("ruta_video"))
         print(linea_roja)
-        i = menu(numcols, "Página: " + str(pagina) + " de " + str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
+        i = menu(numcols, "Página: " + str(pagina) + " de " + \
+                str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
 
         #Si es alguna pantalla del menu
         if i[0] == "menu":
@@ -128,19 +139,16 @@ def resultados():
                 pagina -= 1
 
         #Si elige un subtitulo
-#        elif es un numero valido:
-#            pass
+        elif (len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and \
+                (int(i[1]) < len(subs_pagina)):
+            editar_settings("link_descarga", subs[int(i[1])][2])
+            editar_settings("subs_descargados", leer_settings("subs_descargados") \
+                    + "," + str(subs[int(i[1])][3]))
+            return 4
 
         else:
             filtro = i[1]
 
-
-#de aqui tiene que editar en la base de datos el enlace que va a descargar
-#y tiene que retornar un numero de pantalla, logicamente sera la pantalla de descarga
-#
-#Muestra los resultados de 50 en 50
-#se puede elegir un numero de subtitulo 
-#subs descargados se marcan
 
 #msj: vaya, no hubo subtítulos para esta búsqueda, prueba con otras palabras...
 #Ningún subtítulo con el filtro indicado...

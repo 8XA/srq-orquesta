@@ -11,13 +11,14 @@ from pantallas.carpeta import *
 from pantallas.palabras import *
 from pantallas.resultados import *
 from pantallas.configuracion import *
+from pantallas.descarga import *
 
 s4t = {
         0: pelicula,
         1: carpeta,
         2: palabras,
         3: resultados,
-        #4: descarga,
+        4: descarga,
         #5: configuracion,
         #5: ayuda,
         #6: acerca_de,
