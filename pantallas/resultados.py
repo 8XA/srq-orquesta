@@ -65,6 +65,8 @@ def resultados():
                 for palabra_filtro in lista_filtro if palabra_filtro.lower() \
                 in (sub[0]+sub[1]).lower()]) == len(lista_filtro)]
         subs_filtrados = [subs_filtrados[x]+[x] for x in range(len(subs_filtrados))]
+        if len(subs_filtrados) == 0:
+            pagina = 1
 
         #Total de paginas
         total_paginas = len(subs_filtrados)//rpp
