@@ -48,7 +48,7 @@ def resultados():
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","3")
 
-    filtro = ""
+    filtro, pagina = "", 1
     while True:
         #Pantalla resultados
         numcols = num_cols()
@@ -60,25 +60,37 @@ def resultados():
         linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
         #Subs filtrados
-        filtro = " ".join(filtro.split(",")).split(" ")
+        lista_filtro = " ".join(filtro.split(",")).split(" ")
         subs_filtrados = [sub for sub in subs if len([palabra_filtro \
-                for palabra_filtro in filtro if palabra_filtro.lower() \
-                in (sub[0]+sub[1]).lower()]) == len(filtro)]
+                for palabra_filtro in lista_filtro if palabra_filtro.lower() \
+                in (sub[0]+sub[1]).lower()]) == len(lista_filtro)]
+        subs_filtrados = [subs_filtrados[x]+[x] for x in range(len(subs_filtrados))]
+
+        #Total de paginas
+        total_paginas = len(subs_filtrados)//rpp
+        if total_paginas*rpp < len(subs_filtrados):
+            total_paginas += 1
+
+        #Subs de la página actual
+        if pagina == 1:
+            subs_pagina = subs_filtrados[rpp*pagina-1::-1]
+        else:
+            subs_pagina = subs_filtrados[(rpp*pagina)-1:(pagina-1)*rpp:-1]
 
         titulo = "RESULTADOS"
         print(linea_azul)
         print(((numcols-len(titulo))//2)*" " + titulo)
         print(linea_azul)
 
-        for x in range(len(subs_filtrados)):
-            ID = colored("ID " + str(subs_filtrados[x][3]), 'green', attrs=['bold', 'dark'])
+        for x in range(len(subs_pagina)):
+            ID = colored("ID " + str(subs_pagina[x][3]), 'green', attrs=['bold', 'dark'])
 
             print(linea_amarilla)
-            print(str(x) + ": " + ID + " -> " + subs_filtrados[x][0])
+            print(str(subs_pagina[x][4]) + ": " + ID + " -> " + subs_pagina[x][0])
             print(numcols * "-")
-            print(fit_frase_centrada(numcols, subs_filtrados[x][1]))
+            print(fit_frase_centrada(numcols, subs_pagina[x][1]))
             print()
-            by = [scraper for scraper in scrapers if scraper in subs_filtrados[x][2]][0]
+            by = [scraper for scraper in scrapers if scraper in subs_pagina[x][2]][0]
             by_color = colored(by, 'cyan', attrs=['bold'])
             print((numcols - len(by)) * " " + by_color)
 
@@ -91,7 +103,7 @@ def resultados():
         print(fit_frase_centrada(numcols, "Ruta:"))
         print(leer_settings("ruta_video"))
         print(linea_roja)
-        i = menu(numcols, "Página: 1 de 2 - 64 subs")
+        i = menu(numcols, "Página: " + str(pagina) + " de " + str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
 
         #Si es alguna pantalla del menu
         if i[0] == "menu":
@@ -99,11 +111,19 @@ def resultados():
 
         #Si es enter
         elif i[1] == "":
-            pass
+            if pagina < total_paginas:
+                pagina += 1
+            else:
+                pagina = 1
         
         #Si retrocede pantalla
         elif i[1] == "..":
-            pass
+            if total_paginas == 0:
+                pagina = 1
+            elif pagina == 1:
+                pagina = total_paginas
+            else:
+                pagina -= 1
 
         #Si elige un subtitulo
 #        elif es un numero valido:
@@ -117,39 +137,9 @@ def resultados():
 #y tiene que retornar un numero de pantalla, logicamente sera la pantalla de descarga
 #
 #Muestra los resultados de 50 en 50
-#    avanzar entre paginas (enter)
-#    retroceder entre paginas ("..")
-#En esta pantalla se pueden filtrar subtitulos:
-#    palabras filtro se separan por espacios y comas
 #se puede elegir un numero de subtitulo 
 #subs descargados se marcan
-
 
 #msj: vaya, no hubo subtítulos para esta búsqueda, prueba con otras palabras...
 #Ningún subtítulo con el filtro indicado...
 
-#================================== azul
-#SUBTÍTULOS ENCONTRADOS
-#================================== azul
-#================================== amarillo
-#0: ID 0 -> Titulo
-#---------------------------------- amarillo
-#Descripcion
-#
-#                           subdivx
-#==================================
-#0: ID 0 -> Titulo
-#----------------------------------
-#Descripcion
-#
-#                     opensubtitles
-#================================== amarillo
-#Pagina: 1 de 2 - 64 subs
-#================================== amarillo
-#================================== rojo
-#Nombre de video 
-#----------------------------------
-#ruta:
-#================================== rojo
-#            MENU
-#==================================
