@@ -63,7 +63,7 @@ def resultados():
         lista_filtro = " ".join(filtro.split(",")).split(" ")
         subs_filtrados = [sub for sub in subs if len([palabra_filtro \
                 for palabra_filtro in lista_filtro if palabra_filtro.lower() \
-                in (sub[0]+sub[1]).lower()]) == len(lista_filtro)]
+                in (sub[0]+sub[1])+sub[2].lower()]) == len(lista_filtro)]
         subs_filtrados = [subs_filtrados[x]+[x] for x in range(len(subs_filtrados))]
         if len(subs_filtrados) == 0:
             pagina = 1
