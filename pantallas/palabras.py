@@ -69,12 +69,15 @@ def palabras():
                 return 2
 
         #Si usa todas las palabras de la lista
+        #Actualizar busqueda aunque ya se haya hecho con los mismos parámetros
         elif i[1].lower() == "u":
             editar_settings("cambio_busqueda","1")
+            editar_settings("subs_descargados","")
         elif (i[1].lower() == "t") and \
                 (",".join(palabras_del_titulo) != leer_settings("palabras")):
 
             editar_settings("cambio_busqueda","1")
+            editar_settings("subs_descargados","")
             editar_settings("palabras", ",".join(palabras_del_titulo))
 
             return 2
@@ -126,6 +129,7 @@ def palabras():
             #Si todo esta correcto, guarda
             if ",".join(palabras_candidatas) != leer_settings("palabras"):
                 editar_settings("cambio_busqueda","1")
+                editar_settings("subs_descargados","")
                 editar_settings("palabras", ",".join(palabras_candidatas))
 
         #busqueda libre
@@ -135,6 +139,7 @@ def palabras():
             if (",".join(palabras_candidatas) != leer_settings("palabras")) and \
                     len(palabras_candidatas) > 0:
                 editar_settings("cambio_busqueda","1")
+                editar_settings("subs_descargados","")
                 editar_settings("palabras", ",".join(palabras_candidatas))
             else:
                 pass
