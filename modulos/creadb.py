@@ -46,7 +46,7 @@ def creadb():
 
         #valores iniciales
         cursor.execute("INSERT INTO settings VALUES (1, 1, '/sdcard/', '', '', '', \
-                'subdivx,opensubtitles', 1, 0, 0, 1, 'mkv,avi,mp4', 'mkv,avi,mp4', 1, \
+                'subdivx,opensubtitles', 1, 0, 0, 1, 'mkv,avi,mp4', 'mkv,avi,mp4', 0, \
                 '', '')")
 
         conexion.commit()

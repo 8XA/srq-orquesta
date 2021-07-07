@@ -24,8 +24,8 @@ def palabras():
     print(linea_azul)
 
     if leer_settings("video") == "":
-        msj = "Aquí aparecerán palabras de búsqueda sugeridas \
-                cuando selecciones un video..."
+        msj = "Aquí aparecerán palabras de búsqueda sugeridas " + \
+                "cuando selecciones un video..."
         print("\n")
         print(fit_frase(numcols, msj))
         print("\n")

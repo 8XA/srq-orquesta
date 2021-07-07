@@ -13,14 +13,13 @@ from modulos.fit_frases import fit_frase
 def carpeta():
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","1")
-    numcols = num_cols()
 
     ruta = leer_settings("ruta_carpeta")
     cadena = [carpeta for carpeta in ruta.split("/") if carpeta != ""]
 
     accion = "."
     while accion != "":
-        os.system("clear")
+        numcols = num_cols()
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
