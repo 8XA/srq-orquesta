@@ -24,7 +24,8 @@ def resultados():
     scrapers.reverse()
 
     #Evita buscar 2 veces seguidas lo mismo
-    if leer_settings("cambio_busqueda") == 1:
+    if (leer_settings("cambio_busqueda") == 1) and \
+            leer_settings("palabras") != "":
         #Recuperar palabras de búsqueda
         palabras = leer_settings("palabras").split(",")
 
@@ -105,15 +106,43 @@ def resultados():
             by_color = colored(by, 'cyan', attrs=['bold'])
             print((numcols - len(by)) * " " + by_color)
 
-        print(linea_amarilla)
+        #Si no hay subtitulos, envia mensaje
+        if len(subs) == 0:
+            msj = "\n\nNingún subtítulo hallado...\n\n"
+            print(fit_frase(numcols, msj))
+            print(linea_azul)
+        #Si no hay subtitulos filtrados, envia mensaje
+        elif len(subs_filtrados) == 0:
+            msj = "\n\nNingún subtítulo coincide con el " + \
+                    "filtro ingresado en esta pantalla, " + \
+                    "prueba con otras palabras...\n\n"
+            print(fit_frase(numcols, msj))
+            print(linea_azul)
+        #Si hay subtitulos, cierra con línea amarilla
+        else:
+            print(linea_amarilla)
+
         print(linea_roja)
         #Nombre del video
-        print(fit_frase_centrada(numcols, leer_settings("video")))
+        #Si no hay video seleccionado, envía mensaje
+        if leer_settings("video") == "":
+            msj = "Cuando lo selecciones, aquí aparecerá el " + \
+                    "nombre del video para ayudarte a filtrar palabras..."
+            print(fit_frase(numcols, msj))
+        #Imprime video seleccionado
+        else:
+            print(fit_frase_centrada(numcols, leer_settings("video")))
         print(linea_roja_)
         #ruta
         str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
         print(fit_frase_centrada(numcols+13, str_Ruta))
-        print(leer_settings("ruta_video"))
+        #Si no hay video seleccionado, arroja el sig mensaje
+        if leer_settings("video") == "":
+            msj = "Aquí aparecerá la ruta del video que selecciones..."
+            print(fit_frase(numcols, msj))
+        #Si hay video seleccionado, imprime su ruta
+        else:
+            print(leer_settings("ruta_video"))
         print(linea_roja)
         i = menu(numcols, "Página: " + str(pagina) + " de " + \
                 str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
@@ -148,8 +177,3 @@ def resultados():
 
         else:
             filtro = i[1]
-
-
-#msj: vaya, no hubo subtítulos para esta búsqueda, prueba con otras palabras...
-#Ningún subtítulo con el filtro indicado...
-

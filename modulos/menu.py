@@ -16,7 +16,7 @@ def menu(*args):
     marcado = 'on_white'
 
     #Colorea iniciales
-    iniciales = "PCAROYES"
+    iniciales = "PCARDOYES"
     i = {}
     for x in range(len(iniciales)):
         if leer_settings("menu") == x:
