@@ -78,7 +78,7 @@ def resultados():
         if pagina == 1:
             subs_pagina = subs_filtrados[rpp*pagina-1::-1]
         else:
-            subs_pagina = subs_filtrados[(rpp*pagina)-1:(pagina-1)*rpp:-1]
+            subs_pagina = subs_filtrados[(rpp*pagina)-1:((pagina-1)*rpp)-1:-1]
 
         #Subs descargados
         subs_descargados = [int(sub) for sub in [x for x in \
