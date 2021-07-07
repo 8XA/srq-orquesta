@@ -167,7 +167,7 @@ def resultados():
 
         #Si elige un subtitulo
         elif (len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and \
-                (int(i[1]) < len(subs_pagina)):
+                (int(i[1]) in [sub[3] for sub in subs_pagina]):
             editar_settings("link_descarga", subs[int(i[1])][2])
             editar_settings("subs_descargados", leer_settings("subs_descargados") \
                     + "," + str(subs[int(i[1])][3]))
