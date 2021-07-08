@@ -11,15 +11,11 @@ def get_enlace(enlace_de_lista):
             | iconv -f iso-8859-1 -t utf-8").read()
     
     #Scraping
-    ind1 = txtPagina.index('"link1" href="bajar.php?id=')
-    ind2 = txtPagina[ind1+27:].index('&u=')
-    idsub = txtPagina[ind1+27:ind1+27+ind2]
-    u = txtPagina[30+ind1+ind2]
+    index_1 = txtPagina.index('"link1"')
+    index_2 = txtPagina[index_1:].index('">')
+    id_sub = txtPagina[index_1 + 14 : index_1 + index_2]
     
     #Generando link de descarga
-    num = ""
-    if u != "1":
-        num = u
-    link = "https://www.subdivx.com/sub" + num + "/" + idsub
+    link = "https://www.subdivx.com/" + id_sub
 
-    return [link,idsub]
+    return link

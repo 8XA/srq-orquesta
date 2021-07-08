@@ -2,7 +2,7 @@
 
 from termcolor import colored
 from modulos.numcols import *
-from modulos.videos_en_ruta import *
+from modulos.archivos_en_ruta import videos_en_ruta
 from modulos.admindb import leer_settings, editar_settings
 from modulos.menu import menu
 from modulos.fit_frases import fit_frase
