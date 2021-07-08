@@ -171,7 +171,7 @@ def resultados():
             editar_settings("link_descarga", subs[int(i[1])][2])
             editar_settings("subs_descargados", leer_settings("subs_descargados") \
                     + "," + str(subs[int(i[1])][3]))
-            return 4
+            return 8
 
         #Filtrado de palabras
         else:

@@ -16,7 +16,7 @@ def menu(*args):
     marcado = 'on_white'
 
     #Colorea iniciales
-    iniciales = "PCARDOYES"
+    iniciales = "PCAROYESD"
     i = {}
     for x in range(len(iniciales)):
         if leer_settings("menu") == x:
@@ -48,7 +48,7 @@ def menu(*args):
 
     #Lista con el orden de las piezas, utilizando las claves del diccionario
     orden_secciones = ["0","0_0","b","1","1_0","b","2_0","2","2_1","b","3","3_0",
-            "b","4_0","5","4_1","b","5_0","6","5_1","b","6_0","7","6_1","b","8","7_0"]
+            "b","4_0","4","4_1","b","5_0","5","5_1","b","6_0","6","6_1","b","7","7_0"]
 
 
     ######################################################################

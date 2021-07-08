@@ -18,10 +18,10 @@ s4t = {
         1: carpeta,
         2: palabras,
         3: resultados,
-        4: descarga,
-        #5: configuracion,
+        #4: configuracion,
         #5: ayuda,
         #6: acerca_de,
+        8: descarga,
         }
 
 #Buscar actualizaciones
