@@ -11,6 +11,8 @@ from pantallas.carpeta import *
 from pantallas.palabras import *
 from pantallas.resultados import *
 from pantallas.configuracion import *
+from pantallas.ayuda import *
+from pantallas.acerca_de import *
 from pantallas.descarga import *
 
 s4t = {
@@ -18,9 +20,9 @@ s4t = {
         1: carpeta,
         2: palabras,
         3: resultados,
-        #4: configuracion,
-        #5: ayuda,
-        #6: acerca_de,
+        4: configuracion,
+        5: ayuda,
+        6: acerca_de,
         8: descarga,
         }
 
