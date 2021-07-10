@@ -23,7 +23,7 @@ s4t = {
         4: configuracion,
         5: ayuda,
         6: acerca_de,
-        8: descarga,
+        101: descarga,
         }
 
 #Buscar actualizaciones
