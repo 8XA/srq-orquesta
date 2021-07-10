@@ -62,7 +62,8 @@ def descarga():
 
         #Extrae subtitulos
         descomprimir = {
-                "zip": "unzip -o tmp/sub -d tmp/",
+                #"zip": "unzip -o tmp/sub -d tmp/",
+                "zip": "7z x -y tmp/sub -otmp/",
                 "rar": "unrar x -y tmp/sub tmp/"
                 }
         os.system(descomprimir[ext])
@@ -124,10 +125,12 @@ def descarga():
         if leer_settings("recode") == 1:
             txt = "Recodificando y asignando..."
 
-            #Retorna información de la codificacion del subtitulo
-            codextract = os.popen("file --mime-encoding '" + ruta_sub + "'").read()
-            #Extrae la codificacion original del subtítulo
-            codificacion = codextract[codextract.index(":")+2:-1]
+#            #Retorna información de la codificacion del subtitulo
+#            codextract = os.popen("file --mime-encoding '" + ruta_sub + "'").read()
+#            #Extrae la codificacion original del subtítulo
+#            codificacion = codextract[codextract.index(":")+2:-1]
+            os.system('mv "' + ruta_sub + '" "' + sub[0] + '/sub.srt"')
+            codificacion = os.popen('chardetect "' + sub[0] + '"').read().split(" ")[1]
 
         print(bold_white(txt))
 
