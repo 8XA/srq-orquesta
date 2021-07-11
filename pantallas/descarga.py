@@ -108,7 +108,6 @@ def descarga():
             sub = [subs[0][0], subs[1][0]]
             print(linea_azul_)
 
-        ruta_sub = sub[0] + sub[1]
         nombre_final_sub = leer_settings("ruta_video") + \
                 leer_settings("video")[:-3] + sub[1][-3:]
 
@@ -125,12 +124,10 @@ def descarga():
         if leer_settings("recode") == 1:
             txt = "Recodificando y asignando..."
 
-#            #Retorna información de la codificacion del subtitulo
-#            codextract = os.popen("file --mime-encoding '" + ruta_sub + "'").read()
-#            #Extrae la codificacion original del subtítulo
-#            codificacion = codextract[codextract.index(":")+2:-1]
-            os.system('mv "' + ruta_sub + '" "' + sub[0] + '/sub.srt"')
-            codificacion = os.popen('chardetect "' + sub[0] + '"').read().split(" ")[1]
+            os.system('mv "' + sub[0] + sub[1] + '" "' + sub[0] + 'sub.srt"')
+            codificacion = os.popen('chardetect "' + sub[0] + 'sub.srt"').read().split(" ")[1]
+            sub[1] = "sub.srt"
+        ruta_sub = sub[0] + sub[1]
 
         print(bold_white(txt))
 
