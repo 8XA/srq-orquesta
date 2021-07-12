@@ -145,6 +145,14 @@ def resultados():
         i = menu(numcols, "Página: " + str(pagina) + " de " + \
                 str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
 
+        #Determina cuales IDs pueden ser descargados
+        dict_descargables = {
+                "pagina": subs_pagina,
+                "disponibles": subs,
+                "filtrados": subs_filtrados
+                }
+        descargable = dict_descargables[leer_settings("id_descargable")]
+
         #Si es alguna pantalla del menu
         if i[0] == "menu":
             return i[1]
@@ -166,8 +174,7 @@ def resultados():
                 pagina -= 1
 
         #Si elige un subtitulo
-        elif (len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and \
-                (int(i[1]) in [sub[3] for sub in subs_pagina]):
+        elif i[1].isdigit() and (int(i[1]) in [sub[3] for sub in descargable]):
             editar_settings("link_descarga", subs[int(i[1])][2])
             editar_settings("subs_descargados", leer_settings("subs_descargados") \
                     + "," + str(subs[int(i[1])][3]))

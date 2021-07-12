@@ -11,7 +11,7 @@ from termcolor import colored
 def palabras():
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","2")
-    extensiones = leer_settings("extensiones_activas").split(',')
+    extensiones = leer_settings("extensiones").split(',')
     video = leer_settings("video")
     numcols = num_cols()
 

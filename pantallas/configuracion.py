@@ -30,7 +30,8 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
 
 
 def configuracion():
-    editar_settings("menu_anterior", str(leer_settings("menu")))
+    if leer_settings("menu") != 4:
+        editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","4")
     numcols = num_cols()
 
@@ -49,13 +50,6 @@ def configuracion():
     print(linea_roja)
 
 
-    #Inicio automático
-    inicio = leer_settings("ini_aut")
-    opcion(linea_azul_, linea_roja, numcols, "Inicio automático", \
-            [[inicio, "1s", ": Sí"],[int("10"[inicio]), "1n", ": No"]]
-        )
-
-
     #Actualizar ahora
     texto = fit_frase_centrada(numcols, "Buscar actUalizaciones ahora")
     ind = texto.index("act")
@@ -71,24 +65,52 @@ def configuracion():
     updt = leer_settings("actualizar")
     opcion(linea_azul_, linea_roja, numcols, \
             "Buscar actualizaciones al iniciar el programa", \
-            [[updt, "2s", ": Sí"],[int("10"[updt]), "2n", ": No"]]
+            [[updt, "1s", ": Sí"],[int("10"[updt]), "1n", ": No"]]
         )
 
     
+    #Inicio automático
+    inicio = leer_settings("ini_aut")
+    opcion(linea_azul_, linea_roja, numcols, "Inicio automático al abrir Termux", \
+            [[inicio, "2s", ": Sí"],[int("10"[inicio]), "2n", ": No"]]
+        )
+
+
+    #Ver una película y una carpeta por renglón
+    oneline = leer_settings("oneline")
+    opcion(linea_azul_, linea_roja, numcols, "Un renglón para cada película/carpeta", \
+            [[oneline, "3s", ": Sí"],[int("10"[oneline]), "3n", ": No"]])
+
+
     #Extensiones de video admitidas
     ext = leer_settings("extensiones")
     opcion(linea_azul_, linea_roja, numcols, "Extensiones de video admitidas", \
-            [[ext.count("avi"), "3a", ": avi"], 
-            [ext.count("mkv"), "3k", ": mkv"],
-            [ext.count("mp4"), "3m", ": mp4"]]
+            [[ext.count("avi"), "4a", ": avi"], 
+            [ext.count("mkv"), "4k", ": mkv"],
+            [ext.count("mp4"), "4m", ": mp4"]]
         )
+
+
+    #Recodificar a UTF-8
+    recode = leer_settings("recode")
+    opcion(linea_azul_, linea_roja, numcols, "Recodificar subtítulos a UTF-8", \
+            [[recode, "5s", ": Sí"],[int("10"[recode]), "5n", ": No"]])
 
 
     #Fuentes de búsqueda
     scrapers = leer_settings("scrapers")
     opcion(linea_azul_, linea_roja, numcols, "Fuentes de búsqueda", [\
-            [scrapers.count("subdivx"), "4s", ": subdivx"],
-            [scrapers.count("opensubtitles"), "4o", ": opensubtitles (experimental)"]
+            [scrapers.count("subdivx"), "6s", ": subdivx"],
+            [scrapers.count("opensubtitles"), "6o", ": opensubtitles (experimental)"]
+        ])
+
+
+    #IDs descargables
+    ids = leer_settings("id_descargable")
+    opcion(linea_azul_, linea_roja, numcols, "IDs descargables", [\
+            [ids.count("pagina"), "7p", ": Página actual"],
+            [ids.count("filtrados"), "7f", ": Filtrados"],
+            [ids.count("disponibles"), "7d", ": Disponibles"]
         ])
 
 
@@ -104,32 +126,99 @@ def configuracion():
     print(linea_roja)
 
     
-    #IDs descargables
-    ids = leer_settings("id_descargable")
-    opcion(linea_azul_, linea_roja, numcols, "IDs descargables", [\
-            [ids.count("pagina"), "5p", ": Página actual"],
-            [ids.count("filtrados"), "5f", ": Filtrados"],
-            [ids.count("disponibles"), "5d", ": Disponibles"]
-        ])
-
-
-    #Verificar actualizaciones al iniciar
-    recode = leer_settings("recode")
-    opcion(linea_azul_, linea_roja, numcols, "Recodificar subtítulos a UTF-8", \
-            [[recode, "6s", ": Sí"],[int("10"[recode]), "6n", ": No"]])
-
-
-    #Ver una película y una carpeta por renglón
-    oneline = leer_settings("oneline")
-    opcion(linea_azul_, linea_roja, numcols, "Un renglón para cada película/carpeta", \
-            [[oneline, "6s", ": Sí"],[int("10"[oneline]), "6n", ": No"]])
-
-
     i = menu(numcols)
+
+    #Auxiliares para valores booleanos
+    bool_1 = ["1n", "1s"]
+    bool_2 = ["2n", "2s"]
+    bool_3 = ["3n", "3s"]
+    bool_5 = ["5n", "5s"]
 
     #Si la accion ingresada corresponde al menú, abre la respectiva pantalla
     if i[0] == "menu":
         return i[1]
-    return 0
+    
+    #Acciones:
+    elif i[1] == "":
+        return leer_settings("menu_anterior")
+
+
+    #Actualizaciones ahora
+    elif i[1].lower() == "u":
+        pass
+
+    #Actualizaciones al iniciar
+    elif i[1].lower() in bool_1:
+        editar_settings("actualizar", str(bool_1.index(i[1])))
+    
+    #Inicio automático al abrir termux
+    elif i[1].lower() in bool_2:
+        editar_settings("ini_aut", str(bool_2.index(i[1])))
+
+    #Un renglón por película/carpeta
+    elif i[1].lower() in bool_3:
+        editar_settings("oneline", str(bool_3.index(i[1])))
+
+    #Recodificar a UTF-8
+    elif i[1].lower() in bool_5:
+        editar_settings("recode", str(bool_5.index(i[1])))
+
+    #Extensiones de video admitidas
+    elif i[1].lower() in ["4a", "4k", "4m"]:
+        seleccion = i[1].lower()
+        ext = leer_settings("extensiones").split(",")
+        ext.sort()
+        ext_editada = [x for x in ext]
+
+        #Opcion extension
+        op_ext = {"4a": "avi", "4k": "mkv", "4m": "mp4"}
+
+        if op_ext[seleccion] not in ext_editada:
+            ext_editada.append(op_ext[seleccion])
+        elif len(ext_editada) > 1:
+            ext_editada.remove(op_ext[seleccion])
+        ext_editada.sort()
+
+        if ext_editada != ext:
+            editar_settings("extensiones", ",".join(ext_editada))
+
+    #Fuentes de búsqueda
+    elif i[1].lower() in ["6s", "6o"]:
+        seleccion = i[1].lower()
+        fuentes = leer_settings("scrapers").split(",")
+        fuentes.sort()
+        fuentes_editada = [x for x in fuentes]
+
+        #Opcion extension
+        op_fuentes = {"6s": "subdivx", "6o": "opensubtitles"}
+
+        if op_fuentes[seleccion] not in fuentes_editada:
+            fuentes_editada.append(op_fuentes[seleccion])
+        elif len(fuentes_editada) > 1:
+            fuentes_editada.remove(op_fuentes[seleccion])
+        fuentes_editada.sort()
+
+        if fuentes_editada != fuentes:
+            editar_settings("scrapers", ",".join(fuentes_editada))
+
+    #IDs descargables
+    elif i[1].lower() in ["7p","7d","7f"]:
+        seleccion = i[1].lower()
+        
+        op_selec = {
+                "7p": "pagina",
+                "7d": "disponibles",
+                "7f": "filtrados"
+                }
+        editar_settings("id_descargable", op_selec[seleccion])
+
+    #Resultados por página
+    elif i[1].isdigit():
+        editar_settings("rpp", i[1])
+
+    else:
+        return 5
+
+    return 4
 
 
