@@ -24,11 +24,15 @@ s4t = {
         5: ayuda,
         6: acerca_de,
         101: descarga,
+        102: actualizar,
         }
 
+#Loop verificador de acceso a /sdcard
+
+
 #Buscar actualizaciones
-#if leer_settings("actualizar") == 1:
-#    actualizar()
+if leer_settings("actualizar") == 1:
+    actualizar()
 
 running = s4t[0]()
 while running != 100:
