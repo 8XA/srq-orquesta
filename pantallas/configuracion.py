@@ -5,7 +5,7 @@ from termcolor import colored
 from modulos.menu import menu
 from modulos.admindb import leer_settings, editar_settings
 from modulos.fit_frases import *
-
+from pantallas.actualizar import *
 
 def bold_blanco_centrado(n_cols, txt):
     return colored(fit_frase_centrada(n_cols, txt), 'white', attrs=['bold'])
@@ -145,7 +145,7 @@ def configuracion():
 
     #Actualizaciones ahora
     elif i[1].lower() == "u":
-        pass
+        actualizar()
 
     #Actualizaciones al iniciar
     elif i[1].lower() in bool_1:
