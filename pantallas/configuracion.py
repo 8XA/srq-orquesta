@@ -6,8 +6,27 @@ from modulos.menu import menu
 from modulos.admindb import leer_settings, editar_settings
 from modulos.fit_frases import *
 
+
 def bold_blanco_centrado(n_cols, txt):
     return colored(fit_frase_centrada(n_cols, txt), 'white', attrs=['bold'])
+
+
+#Primer número indica si está marcado o no
+#[[1,"1s", ": Sí"], [0, "1n", ": No"]]
+def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
+
+    print(bold_blanco_centrado(numcols, descripcion))
+    print(linea_azul_)
+
+    for opcion in opciones:
+        #Marcada
+        if opcion[0] == 1:
+            print(colored(opcion[1], 'green', 'on_white', attrs=['bold', 'dark']) + \
+                    colored(opcion[2], 'grey', 'on_white', attrs=['bold', 'dark']))
+        #No marcada
+        else:
+            print(colored(opcion[1], 'green', attrs=['bold', 'dark']) + opcion[2])
+    print(linea_roja)
 
 
 def configuracion():
@@ -15,10 +34,13 @@ def configuracion():
     editar_settings("menu","4")
     numcols = num_cols()
 
+
+    #Líneas
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
     linea_azul_ = colored(numcols*"-", 'blue', attrs=['bold', 'dark'])
     linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
+
 
     titulo = "CONFIGURACIÓN"
     print(linea_azul)
@@ -26,35 +48,83 @@ def configuracion():
     print(linea_azul)
     print(linea_roja)
 
+
     #Inicio automático
-    print(bold_blanco_centrado(numcols, "Inicio automático"))
-    print(linea_azul_)
-    print(fit_frase_centrada(numcols, "Si    No"))
+    inicio = leer_settings("ini_aut")
+    opcion(linea_azul_, linea_roja, numcols, "Inicio automático", \
+            [[inicio, "1s", ": Sí"],[int("10"[inicio]), "1n", ": No"]]
+        )
+
+
+    #Actualizar ahora
+    texto = fit_frase_centrada(numcols, "Buscar actUalizaciones ahora")
+    ind = texto.index("act")
+    texto_1 = colored(texto[:ind + 3], 'white', attrs=['bold'])
+    letra_u = colored("U", 'green', attrs=['bold', 'dark'])
+    texto_2 = colored(texto[ind+4:], 'white', attrs=['bold'])
+
+    print(texto_1 + letra_u + texto_2)
     print(linea_roja)
 
+    
     #Verificar actualizaciones al iniciar
-    print(bold_blanco_centrado(numcols, "Buscar actualizaciones al iniciar el programa"))
-    print(linea_azul_)
-    print(fit_frase_centrada(numcols, "Si    No"))
-    print(linea_roja)
+    updt = leer_settings("actualizar")
+    opcion(linea_azul_, linea_roja, numcols, \
+            "Buscar actualizaciones al iniciar el programa", \
+            [[updt, "2s", ": Sí"],[int("10"[updt]), "2n", ": No"]]
+        )
 
-    #Verificar actualizaciones al iniciar
-    print(bold_blanco_centrado(numcols, "Buscar actualizaciones ahora"))
-    print(linea_azul_)
-    print(fit_frase_centrada(numcols, "Si    No"))
-    print(linea_roja)
+    
+    #Extensiones de video admitidas
+    ext = leer_settings("extensiones")
+    opcion(linea_azul_, linea_roja, numcols, "Extensiones de video admitidas", \
+            [[ext.count("avi"), "3a", ": avi"], 
+            [ext.count("mkv"), "3k", ": mkv"],
+            [ext.count("mp4"), "3m", ": mp4"]]
+        )
 
-    #Verificar actualizaciones al iniciar
-    print(bold_blanco_centrado(numcols, "Extensiones de video admitidas"))
-    print(linea_azul_)
-    print(fit_frase_centrada(numcols, "mp4      mkv     avi"))
-    print(linea_roja)
 
     #Fuentes de búsqueda
-    print(fit_frase_centrada(numcols, "Fuentes de búsqueda"))
-    print(linea_azul_)
-    print(fit_frase_centrada(numcols, "subdivx      opensubtitles"))
+    scrapers = leer_settings("scrapers")
+    opcion(linea_azul_, linea_roja, numcols, "Fuentes de búsqueda", [\
+            [scrapers.count("subdivx"), "4s", ": subdivx"],
+            [scrapers.count("opensubtitles"), "4o", ": opensubtitles (experimental)"]
+        ])
+
+
+    #Resultados por página
+    rpp = str(leer_settings("rpp"))
+    texto = fit_frase_centrada(numcols, "Resultados por página (#): " + rpp)
+    ind = texto.index(":") - 2
+    texto_1 = colored(texto[:ind], 'white', attrs=['bold'])
+    numero = colored("#", 'green', attrs=['bold', 'dark'])
+    texto_2 = colored(texto[ind + 1: ind + 4], 'white', attrs=['bold'])
+    texto_3 = colored(rpp, 'grey', 'on_white', attrs=['bold'])
+    print(texto_1 + numero + texto_2 + texto_3)
     print(linea_roja)
+
+    
+    #IDs descargables
+    ids = leer_settings("id_descargable")
+    opcion(linea_azul_, linea_roja, numcols, "IDs descargables", [\
+            [ids.count("pagina"), "5p", ": Página actual"],
+            [ids.count("filtrados"), "5f", ": Filtrados"],
+            [ids.count("disponibles"), "5d", ": Disponibles"]
+        ])
+
+
+    #Verificar actualizaciones al iniciar
+    recode = leer_settings("recode")
+    opcion(linea_azul_, linea_roja, numcols, "Recodificar subtítulos a UTF-8", \
+            [[recode, "6s", ": Sí"],[int("10"[recode]), "6n", ": No"]])
+
+
+    #Ver una película y una carpeta por renglón
+    oneline = leer_settings("oneline")
+    opcion(linea_azul_, linea_roja, numcols, "Un renglón para cada película/carpeta", \
+            [[oneline, "6s", ": Sí"],[int("10"[oneline]), "6n", ": No"]])
+
+
     i = menu(numcols)
 
     #Si la accion ingresada corresponde al menú, abre la respectiva pantalla
@@ -62,66 +132,4 @@ def configuracion():
         return i[1]
     return 0
 
-#=========================
-#      CONFIGURACION
-#=========================
-#Inicio automatico:
-#    Si  No
-#-------------------------
-#Buscar actualizaciones al iniciar el programa:
-#    Si  No
-#-------------------------
-#Buscar actualizaciones ahora
-#-------------------------
-#Extensiones de video admitidas
-#-------------------------
-#Fuentes de búsqueda
-#    subdivx     opensubtitles (experimental)
-#-------------------------
-#Resultados por pagina: 
-#-------------------------
-#IDs descargables:
-#    Página actual
-#    Filtrados
-#    Disponibles
-#-------------------------
-#Recodificar subtítulos a UTF-8
-#    Si  No
-#-------------------------
-#Ver una pelicula y una carpeta por renglón
-#    Si  No
-#-------------------------
-#Menu
 
-
-
-#linea punteada con iguales roja
-#descripcion de opcion, bold y centrada
-#linea punteada con guiones azul
-#opciones coloreadas:
-#    param 1: numcols
-#    param 2: description
-#    param 3: lista de opciones, cada opcion es una sublista:
-#        sublista: 1er elemento: switch marcado
-#        los demas elementos son los componentes de la opcion, el que tenga _ es el verde
-
-def configurar(columnas, texto, opciones):
-    print(colored(columnas * "=", 'red', attrs=['bold', 'dark']))
-    print(colored(fit_frase_centrada(columnas, texto), 'white', attrs=['bold']))
-    print(colored(columnas * "-", 'blue', attrs=['bold', 'dark']))
-
-#    opciones_long = len([opciones[opcion][pieza][c] for opcion in range(len(opciones)) \
-#            for pieza in range(1,len(opciones[opcion])) for c in \
-#            range(len(opciones[opcion][pieza])) if opciones[opcion][pieza][c] != "_"]) + \
-#            (len(opciones) - 1) * 4
-
-    #Cantidad de caracteres que seran centrados, considerando una separacion
-    #de 4 espacios entre cada opción
-    opciones_long = sum([sum(elemento) for elemento in[[len([c for c in pieza \
-            if c != "_"]) for pieza in opcion[1:]] for opcion in opciones]]) + \
-            (len(opciones) - 1) * 4
-
-
-
-
-#[[1, '_1', ':Sí'], [0, '_2', ':No']]

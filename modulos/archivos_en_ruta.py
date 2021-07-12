@@ -33,6 +33,6 @@ def subs_en_ruta():
 
 
 def videos_en_ruta():
-    extensiones = leer_settings("extensiones_activas")
+    extensiones = leer_settings("extensiones")
     ruta = leer_settings("ruta_carpeta")
     return archivos_en_ruta(extensiones, ruta)
