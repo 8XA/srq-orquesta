@@ -14,6 +14,7 @@ from pantallas.configuracion import *
 from pantallas.ayuda import *
 from pantallas.acerca_de import *
 from pantallas.descarga import *
+from modulos.storage_verify import *
 
 s4t = {
         0: pelicula,
@@ -28,7 +29,7 @@ s4t = {
         }
 
 #Loop verificador de acceso a /sdcard
-
+storage_verify()
 
 #Buscar actualizaciones
 if leer_settings("actualizar") == 1:

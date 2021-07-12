@@ -25,13 +25,9 @@ def actualizar():
             os.system('rm -rf ' + rabs[:-1])
             os.system('mv update ' + rabs[:-1] + ' && clear')
             print(((numcols-22)//2)*" " + "ACTUALIZACIÓN COMPLETA")
-            print(numcols*"=")
-            with open(rabs + "/novedades","r") as nov:
-                novedades = nov.readlines()
-            for line in novedades:
-                print(line[:-1])
-            print("\n" + numcols*"=")
-            return 1
+            time.sleep(3)
+
+            return 0
 
     else:
         os.system("clear")
