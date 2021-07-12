@@ -16,7 +16,7 @@ from modulos.scrapers.subdivx import subdivx
 
 def resultados():
     #Resultados por pagina (rpp)
-    rpp = 50
+    rpp = leer_settings("rpp")
     os.system("clear")
 
     #Recuperar scrapers a utilizar

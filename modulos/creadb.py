@@ -41,13 +41,12 @@ def creadb():
         cursor.execute("CREATE TABLE settings (actualizar INTEGER, ini_aut INTEGER, \
                 ruta_carpeta TEXT, ruta_video TEXT, video TEXT, palabras TEXT, scrapers TEXT, \
                 recode INTEGER, menu INTEGER, menu_anterior INTEGER, oneline INTEGER, \
-                extensiones_activas TEXT, extensiones_disponibles TEXT, cambio_busqueda INTEGER, \
-                link_descarga TEXT, subs_descargados TEXT)")
+                extensiones TEXT, id_descargable TEXT, cambio_busqueda INTEGER, \
+                link_descarga TEXT, subs_descargados TEXT, rpp int)")
 
         #valores iniciales
         cursor.execute("INSERT INTO settings VALUES (1, 1, '/sdcard/', '', '', '', \
-                'subdivx,opensubtitles', 1, 0, 0, 1, 'mkv,avi,mp4', 'mkv,avi,mp4', 0, \
-                '', '')")
+                'subdivx', 1, 0, 0, 1, 'mkv,avi,mp4', 'disponibles', 0, '', '', 50)")
 
         conexion.commit()
         conexion.close()
