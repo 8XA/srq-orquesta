@@ -28,7 +28,7 @@ def archivos_en_ruta(*args):
 
 def subs_en_ruta():
     extensiones = "srt,ssa"
-    ruta = "tmp/"
+    ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/tmp/"
     return archivos_en_ruta(extensiones, ruta)
 
 

@@ -31,10 +31,12 @@ import sqlite3
 import os
 
 def creadb():
-    if os.path.isfile("data.db"):
+    ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db"
+
+    if os.path.isfile(ruta):
         return "existe"
     else:
-        conexion = sqlite3.connect("data.db")
+        conexion = sqlite3.connect(ruta)
         cursor = conexion.cursor()
         
         cursor.execute("CREATE TABLE resultados (titulo TEXT, descripcion TEXT, url TEXT)")

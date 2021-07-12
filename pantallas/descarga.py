@@ -14,6 +14,7 @@ def descarga():
     #Actualizando info de pantalla en base de datos
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","8")
+    ruta_tmp = "/data/data/com.termux/files/usr/share/sub4time/sub4time/tmp"
 
     numcols = num_cols()
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
@@ -37,9 +38,9 @@ def descarga():
             link = '--referer="' + link + '" "' + get_enlace(link) + '"'
         
         #Descarga en carpeta temporal
-        os.system("rm -r tmp")
-        os.system("mkdir tmp")
-        os.system("wget -O tmp/sub " + link)
+        os.system("rm -r " + ruta_tmp)
+        os.system("mkdir " + ruta_tmp)
+        os.system("wget -O " + ruta_tmp + "/sub " + link)
         print()
 
     except:
@@ -57,14 +58,13 @@ def descarga():
 
         #Determinando extension de archivo
         ext = "zip"
-        if "rar" in os.popen("file tmp/sub").read().lower():
+        if "rar" in os.popen("file " + ruta_tmp + "/sub").read().lower():
             ext = "rar"
 
         #Extrae subtitulos
         descomprimir = {
-                #"zip": "unzip -o tmp/sub -d tmp/",
-                "zip": "7z x -y tmp/sub -otmp/",
-                "rar": "unrar x -y tmp/sub tmp/"
+                "zip": "7z x -y " + ruta_tmp + "/sub -o" + ruta_tmp + "/",
+                "rar": "unrar x -y " + ruta_tmp + "/sub " + ruta_tmp + "/"
                 }
         os.system(descomprimir[ext])
         print("\n")
@@ -141,7 +141,7 @@ def descarga():
 
         print(".\n.\n.")
         print(bold_white("Listo!"))
-        os.system("rm -r tmp")
+        os.system("rm -r " + ruta_tmp)
         print(linea_azul)
 
     except:
