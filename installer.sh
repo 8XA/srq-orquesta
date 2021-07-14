@@ -15,4 +15,4 @@ echo "alias sub='exec python /data/data/com.termux/files/usr/share/sub4time/sub4
 clear
 termux-setup-storage
 echo "Instalación completa. Presiona Enter para salir e inicia Termux de nuevo."
-read ...
+read listo
