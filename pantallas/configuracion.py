@@ -4,6 +4,7 @@ from modulos.numcols import num_cols
 from termcolor import colored
 from modulos.menu import menu
 from modulos.admindb import leer_settings, editar_settings
+from modulos.inicio_aut import *
 from modulos.fit_frases import *
 from pantallas.actualizar import *
 
@@ -154,6 +155,7 @@ def configuracion():
     #Inicio automático al abrir termux
     elif i[1].lower() in bool_2:
         editar_settings("ini_aut", str(bool_2.index(i[1])))
+        inicio_aut()
 
     #Un renglón por película/carpeta
     elif i[1].lower() in bool_3:
