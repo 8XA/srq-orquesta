@@ -1,3 +1,0 @@
-termcolor 
-chardet
-p7zip
