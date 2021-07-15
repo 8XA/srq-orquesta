@@ -1,5 +1,5 @@
 
-Sub4Time mostrará los videos existentes en la ruta que definas en la franja roja, así como en sus subdirectorios. La ruta irá editándose a medida que navegues.
+Sub4Time mostrará los videos existentes en la ruta que definas dentro de la franja roja, así como en sus subdirectorios. La ruta irá editándose a medida que navegues.
 
 ------------
   - Para entrar a una carpeta de la ruta actual, ingresa el número verde que le corresponde y da 'Enter'.
@@ -10,3 +10,5 @@ Sub4Time mostrará los videos existentes en la ruta que definas en la franja roj
 
   * Salir del programa o ir a otra sección del menú sin confirmar la nueva ruta, hará que conserves la ruta que ya tenías.
 ------------
+
+*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.

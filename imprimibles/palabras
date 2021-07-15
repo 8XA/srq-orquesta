@@ -1,0 +1,46 @@
+
+En está sección aparecerá una lista de palabras numeradas tomadas del nombre del video elegido en la sección 'Películas'. Es necesario que definas las palabras con las cuales se realizará la busqueda de subtítulos. El órden importa, además, evita omitir palabras ubicadas en el centro del título.
+
+Por ejemplo, para el video 'El.Monstruo.Del.Lago.Ness.2021.BRrip.8XA-version.mkv':
+
+Búsqueda incorrecta:
+  - El Monstruo Del Lago Ness 2021 BRrip 8XA-version
+  - Monstruo lago Ness
+  - El Monstruo del lago Ness BRrip
+
+Búsqueda correcta:
+  - monstruo del lago ness
+  - El Monstruo del lago Ness 2021
+
+No te preocupes porque la búsqueda arroje demasiados resultados, en la próxima sección podrás filtrar los subtítulos obtenidos.
+
+Para ingresar las palabras de búsqueda puedes simplemente escribir tu búsqueda de manera libre, o puedes ayudarte de la lista de palabras numeradas si entre éstas están las que conformarán tu búsqueda.
+
+------------
+
+Para utilizar la lista de palabras numeradas:
+
+- Los rangos de palabras son separados por guiones ('-').
+- Los conjuntos de rangos y palabras aisladas son separadas por comas (',').
+
+Ejemplos:
+Ingresando: 1,4,6
+Obtienes las palabras: 1,4, y 6 
+
+Ingresando: 4-7
+Obtienes las palabras: 4,5,6 y 7 
+
+Ingresando: 1,3-5,6,10-12
+Obtienes las palabras: 1,3,4,5,6,10,11 y 12
+
+------------
+
+Una vez que aparezcan las palabras de búsqueda deseadas en la franja roja, simplemente da 'Enter' para confirmar, con esto se realizará la búsqueda y serás dirigido a la sección de resultados.
+
+------------
+
+*Si intentás hacer la misma búsqueda de palabras para el mismo video, la búsqueda sólo se realizará en la primera ocasión para mostrarte en ambas los mismos resultados. Si de cualquier manera quieres repetir la búsqueda, sólo ingresa 'u' y da 'Enter'.
+
+------------
+
+*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
