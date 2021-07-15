@@ -25,7 +25,8 @@ def resultados():
 
     #Evita buscar 2 veces seguidas lo mismo
     if (leer_settings("cambio_busqueda") == 1) and \
-            leer_settings("palabras") != "":
+            (leer_settings("palabras") != "") and \
+            (leer_settings("video") != ""):
         #Recuperar palabras de búsqueda
         palabras = leer_settings("palabras").split(",")
 
