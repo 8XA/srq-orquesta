@@ -1,0 +1,31 @@
+
+En esta seccón aparecerán los subtítulos que hayan sido encontrados, cada uno separado por líneas amarillas.
+
+Cada subtítulo consta de:
+  - Un ID (número verde).
+  - Número asignado en la página actual (A la izquierda del ID).
+  - Nombre (A la derecha del ID).
+  - Descripción (Debajo del nombre, separado por una línea punteada).
+  - Procedencia (Esquina inferior derecha).
+
+------------
+
+En la franja roja se visualizan el video que será subtitulado y su ruta.
+Por la cantidad de subtítulos que pudieran resultar de una búsqueda, por comodidad y por las limitaciones de la terminal en turno. Los resultados se muestran por páginas y puedes navegar entre ellas:
+
+  - 'Enter' para avanzar página.
+  - Dos puntos ('..') y 'Enter' para ir a la página anterior.
+
+------------
+
+Para seleccionar un subtítulo solo debes ingresar el número de ID que le corresponde y dar 'Enter'. Al hacer esto, el subtítulo será descargado y asignado, podrás verlo al reproducir el video.
+
+Tras descargar un subtítulo, este queda con el ID marcado. De manera que si regresas a la misma sección para probar un subtítulo nuevo, sabrás cuáles ya has descargado.
+
+Puedes filtrar los subtítulos ingresando palabras separadas por espacios y/o comas. Como resultado, en el filtro sólo aparecerán aquellos subtítulos que contengan todas las palabras ingresadas. Esto es muy útil si quieres filtrar determinados ripeos (BRrip, WebRip, etc), resoluciones (1080p, 720p, etc), procedencia (subdivx u opensubtitles) o bien, la versión de algún usuario.
+
+Puedes navegar entre los comandos ya ingresados utilizando las flechas de dirección (arriba y abajo), de esta manera no tienes que reescribir todo si quieres filtrar aún mas algún filtro previo.
+
+------------
+
+*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
