@@ -25,13 +25,16 @@ Para utilizar la lista de palabras numeradas:
 
 Ejemplos:
 Ingresando: 1,4,6
-Obtienes las palabras: 1,4, y 6 
+Obtienes las palabras: 1,4, y 6.
 
 Ingresando: 4-7
-Obtienes las palabras: 4,5,6 y 7 
+Obtienes las palabras: 4,5,6 y 7. 
 
 Ingresando: 1,3-5,6,10-12
-Obtienes las palabras: 1,3,4,5,6,10,11 y 12
+Obtienes las palabras: 1,3,4,5,6,10,11 y 12.
+
+Ingresando: 't'
+Obtienes todas las palabras.
 
 ------------
 
