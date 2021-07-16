@@ -10,7 +10,7 @@ import os
 
 def pelicula():
     numcols = num_cols()
-    titulo = "SUB4TIME v1.0.0"
+    titulo = "SUB4TIME"
 
     rutas_y_videos = videos_en_ruta()
     videos = rutas_y_videos[1]
@@ -21,13 +21,14 @@ def pelicula():
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
+    titulo_colored = colored(titulo, 'red', attrs=['bold', 'dark'])
 
 
     marca_en_pantalla = False
     indice_marcado = -1
 
     print(linea_azul)
-    print(((numcols-len(titulo))//2)*" " + titulo)
+    print(((numcols-len(titulo))//2)*" " + titulo_colored)
     print(linea_azul)
 
     print(((numcols-14)//2)*" " + "Elige un video")
