@@ -23,11 +23,13 @@ def actualizar():
         #Si la descarga se realizó con exito, hace la actualización
         if clonar == 0:
             os.system('rm -rf ' + rabs[:-1])
+            #os.system('rm ' + rabs + 'data.db')
             os.system('mv update ' + rabs[:-1] + ' && clear')
-            print(((numcols-22)//2)*" " + "ACTUALIZACIÓN COMPLETA")
-            time.sleep(3)
+            
+            visor("ACTUALIZACIÓN COMPLETA", "actualización")
+            input("Enter para salir...")
 
-            return 0
+            return 100
 
     else:
         os.system("clear")
