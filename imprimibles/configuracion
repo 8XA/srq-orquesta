@@ -1,1 +1,62 @@
-configuracion Pendiente de escribir...
+
+Para buscar actualizaciones de Sub4Time, ingresa 'u' y da 'Enter'.
+
+------------
+
+Para buscar actuaizaciones de Sub4Time cada vez que inicies el programa:
+
+  - Activa la opción con '1s' y da 'Enter'.
+  - Desactiva la opción con '1n' y da 'Enter'.
+
+------------
+
+Para abrir Sub4Time de manera automática al abrir Termux:
+
+  - Activa la opción ingresando '2s' y da 'Enter'.
+  - Desactiva la opción ingresando '2n' y da 'Enter'. Para iniciar Sub4Time, ahora ingresa en Termux el comando 'sub' y da 'Enter'.
+
+------------
+
+Un renglón para cada película/carpeta:
+Tener activa esta opción asegura que los nombres de películas y carpetas ocupen un solo renglón en la pantalla, recortándolos de ser necesario.
+
+  - Activa la opción ingresando '3s' y da 'Enter'.
+  - Desactiva la opción ingresando '3n' y da 'Enter'.
+
+------------
+
+Extensiones de video admitidas:
+Debe permanecer activa por lo menos una. Actívalas o desactívalas ingresando el comando verde que le corresponde a cada una y da 'Enter':
+
+  - '4a' para avi, '4k' para mkv y '4m' para mp4
+
+------------
+
+Recodificar subtítulos a UTF-8:
+Recodificar es especialmente útil cuando la codificación original del subtítulo hace que veas en el reproductor caracteres extraños para las palabras acentuadas.
+
+  - Activa la opción ingresando '5s' y da 'Enter'.
+  - Desactiva la opción ingresando '5n' y da 'Enter'.
+
+------------
+
+Fuentes de búsqueda:
+Selecciona las fuentes donde se realizará la búsqueda de subtítulos. Debes tener activa por lo menos una. Para activar o desactivar, ingresa el comando verde que les corresponde y da 'Enter':
+
+  - '6s' para subdivx y '6o' para opensubtitles.
+
+* La busqueda en opensubtitles es aún experimental, busca como máximo los primeros 40 resultados. Por otro lado, es frecuente que por mantenimiento del sitio, las búsquedas no estén disponibles.
+
+------------
+
+ID's descargables:
+Determina cuales ID's puedes descargar de la sección de resultados ingresando su comando y dando 'Enter':
+
+  - '7d' para ser capaz de descargar cualquiera de los subtítulos hallados.
+  - '7f' para ser capaz de descargar únicamente aquellos subtítulos que fueron filtrados.
+  - '7p' para ser capaz de descargar únicamente los subtítulos que se visualicen en la página actual de la sección 'Resultados'.
+
+------------
+
+Resultados por página:
+  - Para cambiar el número de subtítulos que se muestran por página en la sección resultados, solo ingresa el número y da 'Enter'.
