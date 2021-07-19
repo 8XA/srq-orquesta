@@ -58,7 +58,6 @@ def resultados():
         #Definiendo colores de lineas
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-        linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
         linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
         #Subs filtrados
@@ -131,7 +130,7 @@ def resultados():
         #Imprime video seleccionado
         else:
             print(fit_frase_centrada(numcols, leer_settings("video")))
-        print(linea_roja_)
+        print(linea_roja)
         #ruta
         str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
         print(fit_frase_centrada(numcols+13, str_Ruta))
