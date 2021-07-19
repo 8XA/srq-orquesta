@@ -1,6 +1,7 @@
 #!/bin/env python
 
 import os
+from subprocess import Popen, PIPE
 from termcolor import colored
 from modulos.scrapers.auxiliares.subdivx.enlace_descarga import get_enlace
 from modulos.archivos_en_ruta import subs_en_ruta
@@ -126,6 +127,8 @@ def descarga():
 
             os.system('mv "' + sub[0] + sub[1] + '" "' + sub[0] + 'sub.srt"')
             codificacion = os.popen('chardetect "' + sub[0] + 'sub.srt"').read().split(" ")[1]
+            if "UTF-8" in codificacion:
+                codificacion = "utf-8"
             sub[1] = "sub.srt"
         ruta_sub = sub[0] + sub[1]
 
