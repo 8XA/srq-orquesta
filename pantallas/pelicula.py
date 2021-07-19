@@ -5,7 +5,7 @@ from modulos.numcols import *
 from modulos.archivos_en_ruta import videos_en_ruta
 from modulos.admindb import leer_settings, editar_settings
 from modulos.menu import menu
-from modulos.fit_frases import fit_frase
+from modulos.fit_frases import fit_frase, fit_frase_centrada
 import os
 
 def pelicula():
@@ -13,6 +13,7 @@ def pelicula():
     titulo = "SUB4TIME"
 
     rutas_y_videos = videos_en_ruta()
+    filtro = " ".join(leer_settings("filtro_videos").split(",")).split(" ")
     videos = rutas_y_videos[1]
     rutas = rutas_y_videos[0]
     
@@ -35,22 +36,26 @@ def pelicula():
 
     #IMPRIME NOMBRES DE VIDEOS
     for x in range(len(videos)):
-        print(numcols * "-")
+        #Aplica filtro
+        if len([palabra for palabra in filtro if palabra \
+                in videos[x].lower()]) == len(filtro):
 
-        #Marca el video seleccionado actual
-        if (leer_settings("ruta_video") != "") and \
-           (leer_settings("ruta_video") == rutas[x]) and \
-           (leer_settings("video") == videos[x]):
+            print(numcols * "-")
 
-            marca_en_pantalla, indice_marcado = True, x
-            indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
-        else:
-            indice = colored(str(x), 'green', attrs=['bold', 'dark'])
+            #Marca el video seleccionado actual
+            if (leer_settings("ruta_video") != "") and \
+               (leer_settings("ruta_video") == rutas[x]) and \
+               (leer_settings("video") == videos[x]):
 
-        imprimir = indice + ": " + videos[x]
-        if leer_settings("oneline") == 1:
-            imprimir = imprimir[:numcols + len(indice) - len(str(x))]
-        print(imprimir)
+                marca_en_pantalla, indice_marcado = True, x
+                indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
+            else:
+                indice = colored(str(x), 'green', attrs=['bold', 'dark'])
+
+            imprimir = indice + ": " + videos[x]
+            if leer_settings("oneline") == 1:
+                imprimir = imprimir[:numcols + len(indice) - len(str(x))]
+            print(imprimir)
     if len(videos) == 0:
         msj = "Nada para mostrar. Prueba con otra carpeta..."
         print(numcols * "-")
@@ -61,6 +66,9 @@ def pelicula():
     print(linea_azul)
     print(linea_roja)
     print(leer_settings("ruta_carpeta"))
+    print(linea_roja)
+    print(colored("Filtros:", 'white', attrs=['bold']))
+    print(fit_frase_centrada(numcols, " ".join(filtro)))
     print(linea_roja)
 
     i = menu(numcols)
@@ -97,5 +105,7 @@ def pelicula():
             editar_settings("ruta_video", rutas[int(i[1])])
             return 2
 
+        elif i[1] != "":
+            editar_settings("filtro_videos", i[1].lower())
         return 0
 

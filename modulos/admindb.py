@@ -22,7 +22,7 @@ def leer_settings(columna):
     columnas = ["actualizar", "ini_aut", "ruta_carpeta", "ruta_video","video",
             "palabras", "scrapers", "recode", "menu", "menu_anterior", "oneline", 
             "extensiones", "id_descargable", "cambio_busqueda", "link_descarga",
-            "subs_descargados", "rpp"]
+            "subs_descargados", "rpp", "filtro_videos"]
 
     conexion = sqlite3.connect(ruta)
     cursor = conexion.cursor()
