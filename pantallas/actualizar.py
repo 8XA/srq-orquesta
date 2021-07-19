@@ -2,6 +2,7 @@
 
 import os, time
 from modulos.numcols import num_cols
+from modulos.text_viewer import visor
 
 def actualizar():
     rabs = '/data/data/com.termux/files/usr/share/sub4time/sub4time/'
@@ -26,7 +27,7 @@ def actualizar():
             #os.system('rm ' + rabs + 'data.db')
             os.system('mv update ' + rabs[:-1] + ' && clear')
             
-            visor("ACTUALIZACIÓN COMPLETA", "actualización")
+            visor("ACTUALIZACIÓN COMPLETA", "actualizacion")
             input("Enter para salir...")
 
             return 100
