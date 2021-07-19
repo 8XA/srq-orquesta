@@ -146,7 +146,8 @@ def configuracion():
 
     #Actualizaciones ahora
     elif i[1].lower() == "u":
-        actualizar()
+        if actualizar() == 100:
+            return 100
 
     #Actualizaciones al iniciar
     elif i[1].lower() in bool_1:
