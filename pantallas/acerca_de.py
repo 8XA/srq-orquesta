@@ -13,7 +13,7 @@ def acerca_de():
 
     visor("ACERCA DE", "acerca_de")
 
-    i = menu(numcols)
+    i = menu(numcols, "Navega por el menú o regresa")
     if i[0] == "menu":
         return i[1]
 

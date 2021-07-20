@@ -71,7 +71,7 @@ def pelicula():
     print(fit_frase_centrada(numcols, " ".join(filtro)))
     print(linea_roja)
 
-    i = menu(numcols)
+    i = menu(numcols, "Filtra o selecciona un video")
 
     if type(i[1]) is str:
         valor_numerico = ((len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != ""))
