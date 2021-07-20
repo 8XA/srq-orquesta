@@ -2,9 +2,10 @@
 
 from modulos.creadb import *
 creadb()
+from modulos.admindb import leer_settings, restaurar_settings
+restaurar_settings()
 
 import readline, os
-from modulos.admindb import leer_settings
 from pantallas.actualizar import *
 from pantallas.pelicula import *
 from pantallas.carpeta import *
@@ -14,6 +15,7 @@ from pantallas.configuracion import *
 from pantallas.ayuda import *
 from pantallas.acerca_de import *
 from pantallas.descarga import *
+from pantallas.unasesion import una_sesion
 from modulos.storage_verify import *
 
 #Si ocurre un problema, reinicia la base de datos
@@ -43,15 +45,12 @@ try:
             actualizar()
 
         running = s4t[0]()
-        while True:
+        while running != 100:
             running = s4t[running]()
-            if running == 100:
-                editar_settings("instancia_activa", "0") 
-                break
+        editar_settings("instancia_activa", "0") 
 
     else:
-        os.system("clear") 
-        input("Sub4Time ya se encuentra abierto en otra sesión...")
+        una_sesion()
 
 except:
     os.system("rm '/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db'")
