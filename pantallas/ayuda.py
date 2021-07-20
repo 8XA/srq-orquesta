@@ -30,7 +30,7 @@ def ayuda():
     menu_anterior = leer_settings("menu_anterior")
     visor(titulos[menu_anterior], archivo[menu_anterior])
 
-    i = menu(numcols)
+    i = menu(numcols, "Navega por el menú o regresa")
     if i[0] == "menu":
         return i[1]
 

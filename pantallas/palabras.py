@@ -53,7 +53,7 @@ def palabras():
     print(linea_roja)
 
     #Menú
-    i = menu(numcols)
+    i = menu(numcols, "Define las palabras de búsqueda")
 
     #Si la accion ingresada corresponde al menú, abre la respectiva pantalla
     if i[0] == "menu":

@@ -127,7 +127,7 @@ def configuracion():
     print(linea_roja)
 
     
-    i = menu(numcols)
+    i = menu(numcols, "Cambia una configuración")
 
     #Auxiliares para valores booleanos
     bool_1 = ["1n", "1s"]

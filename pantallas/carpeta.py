@@ -55,7 +55,7 @@ def carpeta():
         print(ruta)
         print(linea_roja)
 
-        i = menu(numcols)
+        i = menu(numcols, "Define la carpeta de búsqueda")
 
         #Ejecuta una acción dependiendo del comando ingresado
         if i[0] == "menu":
