@@ -124,6 +124,9 @@ def resultados():
         print(linea_roja)
         #Nombre del video
         #Si no hay video seleccionado, envía mensaje
+        print(colored(fit_frase_centrada(numcols, "Video a subtitular:"), \
+                'white', attrs=['bold']))
+
         if leer_settings("video") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
