@@ -67,7 +67,7 @@ def pelicula():
     print(linea_roja)
     print(leer_settings("ruta_carpeta"))
     print(linea_roja)
-    print(colored("Filtros:", 'white', attrs=['bold']))
+    print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
     print(fit_frase_centrada(numcols, " ".join(filtro)))
     print(linea_roja)
 
