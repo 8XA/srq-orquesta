@@ -12,6 +12,7 @@ def acerca_de():
     numcols = num_cols()
 
     visor("ACERCA DE", "acerca_de")
+    visor("Novedades de la versión", "actualizacion")
 
     i = menu(numcols, "Navega por el menú o regresa")
     if i[0] == "menu":
