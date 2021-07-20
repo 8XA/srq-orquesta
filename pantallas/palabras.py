@@ -42,6 +42,8 @@ def palabras():
 
     print(linea_azul)
     print(linea_roja)
+    print(colored(fit_frase_centrada(numcols, "Palabras a confirmar:"), \
+            'white', attrs=['bold']))
 
     msj = "Aquí aparecerán las palabras de búsqueda que definas..."
     lista_palabras = leer_settings("palabras")
