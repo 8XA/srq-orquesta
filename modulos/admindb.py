@@ -89,6 +89,7 @@ def restaurar_settings():
 
         for x in range(len(settings[0])):
             editar_settings(settings[0][x], str(settings[1][x]))
+        editar_settings("instancia_activa", "0")
         
         subs = leer_resultados("backup")
         editar_resultados(subs)
