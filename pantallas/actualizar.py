@@ -6,6 +6,7 @@ from modulos.text_viewer import visor
 
 def actualizar():
     rabs = '/data/data/com.termux/files/usr/share/sub4time/sub4time/'
+    ruta_backup = "/data/data/com.termux/files/usr/share/sub4time/data_backup.db"
     numcols = num_cols()
     
     print("Verificando actualizaciones para SUB4TIME...\n")
@@ -23,8 +24,8 @@ def actualizar():
 
         #Si la descarga se realizó con exito, hace la actualización
         if clonar == 0:
+            os.system ("cp " + rabs + "data.db " + ruta_backup)
             os.system('rm -rf ' + rabs[:-1])
-            #os.system('rm ' + rabs + 'data.db')
             os.system('mv update ' + rabs[:-1] + ' && clear')
             
             visor("ACTUALIZACIÓN COMPLETA", "actualizacion")
