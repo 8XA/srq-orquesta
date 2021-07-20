@@ -51,8 +51,8 @@ try:
 
     else:
         os.system("clear") 
-        input("El programa ya se encuentra abierto en otra sesión...")
+        input("Sub4Time ya se encuentra abierto en otra sesión...")
 
 except:
     os.system("rm '/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db'")
-    print("Base de datos corrupta. Reinicia Termux...")
+    print("Base de datos corrupta fue corregida. Reinicia Termux...")
