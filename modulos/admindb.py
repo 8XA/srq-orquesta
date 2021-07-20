@@ -10,11 +10,13 @@ ruta_backup = "/data/data/com.termux/files/usr/share/sub4time/data_backup.db"
 #Edita en tabla settings
 def editar_settings(columna, nuevo_valor):
     global ruta
-    conexion = sqlite3.connect(ruta)
-    cursor = conexion.cursor()
-    cursor.execute("UPDATE settings SET " + columna + "='" + nuevo_valor + "'")
-    conexion.commit()
-    conexion.close() 
+
+    if os.path.isfile(ruta):
+        conexion = sqlite3.connect(ruta)
+        cursor = conexion.cursor()
+        cursor.execute("UPDATE settings SET " + columna + "='" + nuevo_valor + "'")
+        conexion.commit()
+        conexion.close() 
 
 #Lee en tabla settings
 #Recibe el nombre de la columna como parámetro y retorna su valor
