@@ -33,6 +33,10 @@ def leer_settings(columna):
 
     return linea_1[columnas.index(columna)]
 
+#Restaurar backup
+def restaurar_settings():
+    pass
+
 
 #RESULTADOS
 
