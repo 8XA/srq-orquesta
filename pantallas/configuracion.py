@@ -1,12 +1,13 @@
 #!/bin/env python
 
 from modulos.numcols import num_cols
-from termcolor import colored
+from termcolor import colored, os
 from modulos.menu import menu
 from modulos.admindb import leer_settings, editar_settings
 from modulos.inicio_aut import *
 from modulos.fit_frases import *
 from pantallas.actualizar import *
+from modulos.creadb import creadb
 
 def bold_blanco_centrado(n_cols, txt):
     return colored(fit_frase_centrada(n_cols, txt), 'white', attrs=['bold'])
@@ -115,6 +116,17 @@ def configuracion():
         ])
 
 
+    #Reiniciar configuración
+    texto = fit_frase_centrada(numcols, "ReIniciar configuración")
+    ind = texto.index("Re")
+    texto_1 = colored(texto[:ind + 2], 'white', attrs=['bold'])
+    letra_i = colored("I", 'green', attrs=['bold', 'dark'])
+    texto_2 = colored(texto[ind+3:], 'white', attrs=['bold'])
+
+    print(texto_1 + letra_i + texto_2)
+    print(linea_roja)
+
+
     #Resultados por página
     rpp = str(leer_settings("rpp"))
     texto = fit_frase_centrada(numcols, "Resultados por página (#): " + rpp)
@@ -214,6 +226,12 @@ def configuracion():
                 "7f": "filtrados"
                 }
         editar_settings("id_descargable", op_selec[seleccion])
+
+    #Reiniciar configuración
+    elif i[1].lower() == "i":
+        os.system("rm '/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db'")
+        creadb()
+        editar_settings("instancia_activa", "1")
 
     #Resultados por página
     elif i[1].isdigit():

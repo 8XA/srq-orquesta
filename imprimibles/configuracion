@@ -58,5 +58,10 @@ Determina cuales ID's puedes descargar de la sección de resultados ingresando s
 
 ------------
 
+Reiniciar configuración:
+  - Para reiniciar las configuraciones a su estado iniciar, ingresa 'i' y da 'Enter'.
+
+------------
+
 Resultados por página:
   - Para cambiar el número de subtítulos que se muestran por página en la sección resultados, solo ingresa el número y da 'Enter'.
