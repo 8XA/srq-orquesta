@@ -17,6 +17,9 @@ from pantallas.acerca_de import *
 from pantallas.descarga import *
 from pantallas.unasesion import una_sesion
 from modulos.storage_verify import *
+from modulos.numcols import num_cols
+
+numcols = num_cols()
 
 #Si ocurre un problema, reinicia la base de datos
 try:
@@ -52,6 +55,10 @@ try:
     else:
         una_sesion()
 
-except:
+except Exception as e:
+    print(e)
+    print()
+
     os.system("rm '/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db'")
-    print("Base de datos corrupta fue corregida. Reinicia Termux...")
+    print(fit_frase(numcols, "Base de datos corrupta fue corregida. Reinicia Termux..."))
+    input()

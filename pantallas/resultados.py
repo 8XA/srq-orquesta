@@ -50,7 +50,7 @@ def resultados():
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","3")
 
-    filtro, pagina = "", 1
+    filtro, pagina = leer_settings("filtro_resultados"), 1
     while True:
         #Pantalla resultados
         numcols = num_cols()
@@ -61,7 +61,8 @@ def resultados():
         linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
         #Subs filtrados
-        lista_filtro = " ".join(filtro.split(",")).split(" ")
+        lista_filtro_str = " ".join(filtro.split(","))
+        lista_filtro = lista_filtro_str.split(" ")
         subs_filtrados = [sub for sub in subs if len([palabra_filtro \
                 for palabra_filtro in lista_filtro if palabra_filtro.lower() \
                 in sub[0].lower() + sub[1].lower() + sub[2].lower()]) == len(lista_filtro)]
@@ -141,7 +142,12 @@ def resultados():
         #Si hay video seleccionado, imprime su ruta
         else:
             print(leer_settings("ruta_video"))
+        #Imprime filtros
         print(linea_roja)
+        print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
+        print(fit_frase_centrada(numcols, lista_filtro_str))
+        print(linea_roja)
+
         i = menu(numcols, "Página: " + str(pagina) + " de " + \
                 str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
 
@@ -183,4 +189,5 @@ def resultados():
         #Filtrado de palabras
         else:
             filtro = i[1]
+            editar_settings("filtro_resultados", filtro)
             pagina = 1
