@@ -45,11 +45,12 @@ def creadb():
                 recode INTEGER, menu INTEGER, menu_anterior INTEGER, oneline INTEGER, \
                 extensiones TEXT, id_descargable TEXT, cambio_busqueda INTEGER, \
                 link_descarga TEXT, subs_descargados TEXT, rpp int, filtro_videos TEXT, \
-                instancia_activa INTEGER)")
+                filtro_resultados TEXT, instancia_activa INTEGER)")
 
         #valores iniciales
         cursor.execute("INSERT INTO settings VALUES (1, 1, '/sdcard/', '', '', '', \
-                'subdivx', 0, 0, 0, 1, 'mkv,avi,mp4', 'disponibles', 0, '', '', 50, '', 0)")
+                'subdivx', 0, 0, 0, 1, 'mkv,avi,mp4', 'disponibles', 0, '', '', 50, \
+                '', '', 0)")
 
         conexion.commit()
         conexion.close()

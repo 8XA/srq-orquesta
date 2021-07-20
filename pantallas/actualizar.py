@@ -35,7 +35,7 @@ def actualizar():
 
     else:
         os.system("clear")
-        print("Script ya actualizado. Nada para hacer...")
+        print("Ya tienes la última versión de Sub4Time. Nada para hacer...")
         time.sleep(1)
         os.system("clear")
         return 0

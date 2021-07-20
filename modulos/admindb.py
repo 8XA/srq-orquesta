@@ -18,6 +18,7 @@ def editar_settings(columna, nuevo_valor):
 
 #Lee en tabla settings
 #Recibe el nombre de la columna como parámetro y retorna su valor
+#Con 'backup' como segundo parámetro, retorna la lectura del backup
 def leer_settings(*args):
     global ruta, ruta_backup
     columna = args[0]
@@ -25,7 +26,8 @@ def leer_settings(*args):
     columnas = ["actualizar", "ini_aut", "ruta_carpeta", "ruta_video","video",
             "palabras", "scrapers", "recode", "menu", "menu_anterior", "oneline", 
             "extensiones", "id_descargable", "cambio_busqueda", "link_descarga",
-            "subs_descargados", "rpp", "filtro_videos", "instancia_activa"]
+            "subs_descargados", "rpp", "filtro_videos", "filtro_resultados",
+            "instancia_activa"]
 
     data = ruta
     if (len(args) > 1) and (args[1] == "backup"):
