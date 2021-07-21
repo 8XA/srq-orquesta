@@ -72,7 +72,9 @@ def carpeta():
             return i[1]
         else:
             if i[1] == "":
-                editar_settings("ruta_carpeta", ruta)
+                if leer_settings("ruta_carpeta") != ruta:
+                    editar_settings("filtro_videos", "")
+                    editar_settings("ruta_carpeta", ruta)
                 return leer_settings("menu_anterior")
 
             elif (i[1].isdigit()) and (len(carpetas) > int(i[1])):
