@@ -27,6 +27,10 @@ def resultados():
     if (leer_settings("cambio_busqueda") == 1) and \
             (leer_settings("palabras") != "") and \
             (leer_settings("video") != ""):
+
+        #Reiniciar filtro
+        editar_settings("filtro_resultados", "")
+
         #Recuperar palabras de búsqueda
         palabras = leer_settings("palabras").split(",")
 
