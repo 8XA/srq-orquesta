@@ -44,12 +44,14 @@ try:
         storage_verify()
 
         #Buscar actualizaciones
+        ejecutar = 1
         if leer_settings("actualizar") == 1:
-            actualizar()
+            ejecutar = actualizar()
 
-        running = s4t[0]()
-        while running != 100:
-            running = s4t[running]()
+        if ejecutar != 100:
+            running = s4t[0]()
+            while running != 100:
+                running = s4t[running]()
         editar_settings("instancia_activa", "0") 
 
     else:
