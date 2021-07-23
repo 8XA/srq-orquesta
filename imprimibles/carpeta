@@ -1,14 +1,14 @@
+:Lr:
+:ff:Sub4Time mostrará los videos existentes en la ruta que definas dentro de la franja roja, así como en sus subdirectorios. La ruta irá editándose a medida que navegues.
 
-Sub4Time mostrará los videos existentes en la ruta que definas dentro de la franja roja, así como en sus subdirectorios. La ruta irá editándose a medida que navegues.
+:la:
+:ff:- Para entrar a una carpeta de la ruta actual, ingresa el número verde que le corresponde y da 'Enter'.
 
-------------
-  - Para entrar a una carpeta de la ruta actual, ingresa el número verde que le corresponde y da 'Enter'.
+:ff:- Para ir un directorio hacia atrás ingresa dos puntos seguidos '..' y da 'Enter'.
 
-  - Para ir un directorio hacia atrás ingresa dos puntos seguidos '..' y da 'Enter'.
+:ff:- Cuando la ruta deseada quede definida en la franja roja, confirma con 'Enter'.
 
-  - Cuando la ruta deseada quede definida en la franja roja, confirma con 'Enter'.
+:ff:* Salir del programa o ir a otra sección del menú sin confirmar la nueva ruta, hará que conserves la ruta que ya tenías.
+:la:
 
-  * Salir del programa o ir a otra sección del menú sin confirmar la nueva ruta, hará que conserves la ruta que ya tenías.
-------------
-
-*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
+:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
