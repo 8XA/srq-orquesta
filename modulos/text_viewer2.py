@@ -33,6 +33,13 @@ def visor(*arg):
 
     input()
 
+    #Base de impresion
+    screen.clear()
+    screen.addstr(y,x,valor)
+    screen.refresh()
+
+
+
 
     #Título
     #Ventana scroll con texto:
