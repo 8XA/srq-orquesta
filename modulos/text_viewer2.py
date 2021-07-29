@@ -26,9 +26,9 @@ def visor(*arg):
             }
 
     if formato in [":wc:", ":Wc:", ":ff:"]:
-        pass
+        orden[formato[:2].lower()](numcols, msj)
     elif formato[:2].lower() == "l" and formato[3] == ":"
-        pass
+        orden[formato]
 
     #Lista de archivos
     #Cada archivo es una lista de renglones
