@@ -8,17 +8,27 @@ def visor(*arg):
     #arg[1...10] = archivo1... archivo10
     ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/imprimibles/"
 
-    screen = curses.initscr()
-    #Muestra teclas ingresadas en pantalla
-    curses.noecho()
-    #Habilitar flechas
-    screen.keypad(True)
-    #Habilitar configuración de colores
-    curses.start_color()
+#    :wc: white centrado
+#    :Wc: bold, white centrado
+#    :ff: fit frase
+#    :la: linea - azul
+#    :La: linea = azul
+#    :lr: linea - roja
+#    :Lr: linea = roja
+#    :lb: linea - blanca
 
-    #Dimensiones de pantalla
-    largo_pantalla = curses.LINES
-    ancho_pantalla = curses.COLS
+    #Funciones de orden para cada renglón
+    orden = {
+        ":w": fit_frase_centrada
+        ":f": fit_frase
+        ":l": numcols * "-"
+        ":L": numcols * "="
+            }
+
+    if formato in [":wc:", ":Wc:", ":ff:"]:
+        pass
+    elif formato[:2].lower() == "l" and formato[3] == ":"
+        pass
 
     #Lista de archivos
     #Cada archivo es una lista de renglones
@@ -32,12 +42,25 @@ def visor(*arg):
         print(renglon[4:])
 
     input()
-
-    #Base de impresion
-    screen.clear()
-    screen.addstr(y,x,valor)
-    screen.refresh()
-
+#    
+#    screen = curses.initscr()
+#    #Muestra teclas ingresadas en pantalla
+#    curses.noecho()
+#    #Habilitar flechas
+#    screen.keypad(True)
+#    #Habilitar configuración de colores
+#    curses.start_color()
+#
+#    #Dimensiones de pantalla
+#    largo_pantalla = curses.LINES
+#    ancho_pantalla = curses.COLS
+#
+#
+#    #Base de impresion
+#    screen.clear()
+#    screen.addstr(y,x,valor)
+#    screen.refresh()
+#
 
 
 
@@ -57,12 +80,12 @@ def visor(*arg):
 #    :lb: linea - blanca
 #
     #Finaliza curses y restaura pantalla
-    curses.endwin()
-    os.system("stty sane && clear")
-    
-    #Linea de final y leyenda de Enter para regresar
-
-    return largo_pantalla,ancho_pantalla
+#    curses.endwin()
+#    os.system("stty sane && clear")
+#    
+#    #Linea de final y leyenda de Enter para regresar
+#
+#    return largo_pantalla,ancho_pantalla
 
 #abres archivo de texto
 #lista split saltos de renglon

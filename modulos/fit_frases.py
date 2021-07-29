@@ -12,9 +12,12 @@ def fit_frase(numcols, msj):
         if len(palabra) > numcols:
             frase = frase + "\n" + palabra + " "
 
-        elif longitud + len(palabra) < numcols:
-            longitud = longitud + len(palabra) + 1
-            frase = frase + palabra + " "
+        elif longitud + len(palabra) <= numcols:
+            longitud = longitud + len(palabra)
+            frase = frase + palabra
+            if longitud < numcols:
+                longitud += 1
+                frase += " "
         else:
             longitud = len(palabra) + 1
             frase = frase + "\n" + palabra + " "
