@@ -147,6 +147,10 @@ def descarga():
         os.system("rm -r " + ruta_tmp)
         print(linea_azul)
 
+        #Abre el video
+        os.system("termux-open '" + leer_settings("ruta_video") + \
+                leer_settings("video") + "'")
+
     except:
         print(linea_azul_)
         print(fit_frase(numcols, "Falló la codificación del " + \
