@@ -23,9 +23,8 @@ def visor(titulo, archivo):
 
     imprimir = ''
     for renglon in doc:
-        #imprimir += renglon
         imprimir += fit_frase(numcols, renglon)
-
+        imprimir += "\n"
     print(imprimir)
 
     print(linea_roja)
