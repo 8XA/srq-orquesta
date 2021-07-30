@@ -4,6 +4,8 @@
 #Retorna la acción ingresada e indica si esta acción pertenece al menú o a la pantalla en turno
 #De manera opcional puedes pasar un segundo parámetro como mensaje imprimible debajo del menu
 
+from time import sleep
+import os
 from modulos.admindb import leer_settings
 from termcolor import colored
 
@@ -140,6 +142,15 @@ def menu(*args):
         return ("menu", 100)
     elif i.upper() in iniciales and len(i) == 1:
         return ("menu", iniciales.index(i.upper()))
-    else:
-        return ("accion", i)
+    #Abre el video
+    elif i.upper() == "L":
+        if leer_settings("video") != "":
+            os.system("termux-open '" + leer_settings("ruta_video") + \
+                    leer_settings("video") + "'")
+        else:
+            os.system("clear")
+            print("Primero selecciona un video...")
+            sleep(1)
+        return ("menu", leer_settings("menu"))
+    return ("accion", i)
 
