@@ -144,12 +144,13 @@ def menu(*args):
         return ("menu", iniciales.index(i.upper()))
     #Abre el video
     elif i.upper() == "L":
-        if leer_settings("video") != "":
+        if os.path.isfile("'" + leer_settings("ruta_video") + \
+                leer_settings("video") + "'"):
             os.system("termux-open '" + leer_settings("ruta_video") + \
                     leer_settings("video") + "'")
         else:
             os.system("clear")
-            print("Primero selecciona un video...")
+            print("No hay un video seleccionado aún...")
             sleep(1)
         return ("menu", leer_settings("menu"))
     return ("accion", i)
