@@ -93,11 +93,20 @@ def resultados():
         print(linea_azul)
 
         for x in range(len(subs_pagina)):
+            #Marca en blanco el subtítulo actual
+            #Marca en rojo el resto de subs descargados
+            fondo = 'on_red'
+            if (len(subs_descargados) > 0) and \
+                    (subs_pagina[x][3] == subs_descargados[-1]):
+                fondo = 'on_white'
+            #Marca los subtítulos descargados
             if subs_pagina[x][3] in subs_descargados:
-                ID = colored("ID " + str(subs_pagina[x][3]), 'green', \
-                        'on_red', attrs=['bold', 'dark'])
+                ID = colored("ID ", 'cyan', fondo, attrs=['bold']) + \
+                        colored(str(subs_pagina[x][3]), 'green', fondo, \
+                        attrs=['bold', 'dark'])
             else:
-                ID = colored("ID " + str(subs_pagina[x][3]), 'green', \
+                ID = colored("ID ", 'cyan', attrs=['bold']) + \
+                        colored(str(subs_pagina[x][3]), 'green', \
                         attrs=['bold', 'dark'])
 
             print(linea_amarilla)
