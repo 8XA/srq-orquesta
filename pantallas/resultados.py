@@ -101,11 +101,11 @@ def resultados():
                 fondo = 'on_white'
             #Marca los subtítulos descargados
             if subs_pagina[x][3] in subs_descargados:
-                ID = colored("ID ", 'cyan', fondo, attrs=['bold']) + \
+                ID = colored("ID ", 'cyan', fondo, attrs=['bold', 'dark']) + \
                         colored(str(subs_pagina[x][3]), 'green', fondo, \
                         attrs=['bold', 'dark'])
             else:
-                ID = colored("ID ", 'cyan', attrs=['bold']) + \
+                ID = colored("ID ", 'cyan', attrs=['bold', 'dark']) + \
                         colored(str(subs_pagina[x][3]), 'green', \
                         attrs=['bold', 'dark'])
 
