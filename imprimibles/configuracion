@@ -1,19 +1,19 @@
 
-Para buscar actualizaciones de Sub4Time, ingresa 'u' y da 'Enter'.
+Para buscar actualizaciones de APOCALIPSIS ORQUESTA, ingresa 'u' y da 'Enter'.
 
 ------------
 
-Para buscar actuaizaciones de Sub4Time cada vez que inicies el programa:
+Para buscar actuaizaciones de APOCALIPSIS ORQUESTA cada vez que inicies el programa:
 
   - Activa la opción con '1s' y da 'Enter'.
   - Desactiva la opción con '1n' y da 'Enter'.
 
 ------------
 
-Para abrir Sub4Time de manera automática al abrir Termux:
+Para abrir APOCALIPSIS ORQUESTA de manera automática al abrir Termux:
 
   - Activa la opción ingresando '2s' y da 'Enter'.
-  - Desactiva la opción ingresando '2n' y da 'Enter'. Para iniciar Sub4Time, ahora ingresa en Termux el comando 'sub' y da 'Enter'.
+  - Desactiva la opción ingresando '2n' y da 'Enter'. Para iniciar APOCALIPSIS ORQUESTA, ahora ingresa en Termux el comando 'aoq' y da 'Enter'.
 
 ------------
 
