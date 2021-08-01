@@ -18,7 +18,7 @@ def menu(*args):
     marcado = 'on_white'
 
     #Colorea iniciales
-    iniciales = "PCAROYES"
+    iniciales = "VCAROYES"
     i = {}
     for x in range(len(iniciales)):
         if leer_settings("menu") == x:
@@ -27,7 +27,7 @@ def menu(*args):
             i[str(x)] = colored(iniciales[x], 'green', attrs=['bold', 'dark'])
 
     #Tramos sin iniciales ni barras, ordenados
-    tramo = [["elículas"], ["arpeta"], ["P", "labras"], ["esultados"], 
+    tramo = [["ideos"], ["arpeta"], ["P", "labras"], ["esultados"], 
             ["C", "nfiguración"], ["A", "uda"], ["Ac", "rca de"], ["alir"]]
 
     #Diccionarios de tramos coloreados y sus longitudes
@@ -143,7 +143,7 @@ def menu(*args):
     elif i.upper() in iniciales and len(i) == 1:
         return ("menu", iniciales.index(i.upper()))
     #Abre el video
-    elif i.upper() == "L":
+    elif i.upper() == "P":
         if os.path.isfile(leer_settings("ruta_video") + \
                 leer_settings("video")):
             os.system("termux-open '" + leer_settings("ruta_video") + \
