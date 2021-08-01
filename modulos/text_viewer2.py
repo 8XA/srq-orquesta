@@ -6,7 +6,7 @@ from modulos.fit_frases import *
 def visor(*arg):
     #arg[0] = titulo
     #arg[1...10] = archivo1... archivo10
-    ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/imprimibles/"
+    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
 
 #    :wc: white centrado
 #    :Wc: bold, white centrado

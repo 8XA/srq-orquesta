@@ -8,7 +8,7 @@ from modulos.fit_frases import fit_frase
 
 def visor(titulo, archivo):
     numcols = num_cols()
-    ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/imprimibles/"
+    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
 
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])

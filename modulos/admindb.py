@@ -2,8 +2,8 @@
 
 import sqlite3, os
 
-ruta = "/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db"
-ruta_backup = "/data/data/com.termux/files/usr/share/sub4time/data_backup.db"
+ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/data.db"
+ruta_backup = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/data_backup.db"
 
 #SETTINGS
 

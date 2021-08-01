@@ -229,7 +229,7 @@ def configuracion():
 
     #Reiniciar configuración
     elif i[1].lower() == "i":
-        os.system("rm '/data/data/com.termux/files/usr/share/sub4time/sub4time/data.db'")
+        os.system("rm '/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/data.db'")
         creadb()
         editar_settings("instancia_activa", "1")
 
