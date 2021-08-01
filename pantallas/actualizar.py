@@ -38,4 +38,4 @@ def actualizar():
         print("Ya tienes la última versión de APOCALIPSIS ORQUESTA. Nada para hacer...")
         time.sleep(1)
         os.system("clear")
-        return 0
+        return 1

@@ -18,7 +18,7 @@ def menu(*args):
     marcado = 'on_white'
 
     #Colorea iniciales
-    iniciales = "VCAROYES"
+    iniciales = "TVCAROYES"
     i = {}
     for x in range(len(iniciales)):
         if leer_settings("menu") == x:
@@ -27,7 +27,7 @@ def menu(*args):
             i[str(x)] = colored(iniciales[x], 'green', attrs=['bold', 'dark'])
 
     #Tramos sin iniciales ni barras, ordenados
-    tramo = [["ideos"], ["arpeta"], ["P", "labras"], ["esultados"], 
+    tramo = [["orrents"], ["ideos"], ["arpeta"], ["P", "labras"], ["esultados"], 
             ["C", "nfiguración"], ["A", "uda"], ["Ac", "rca de"], ["alir"]]
 
     #Diccionarios de tramos coloreados y sus longitudes
@@ -49,8 +49,8 @@ def menu(*args):
     barra = colored(" | ", 'blue', attrs=['bold', 'dark'])
 
     #Lista con el orden de las piezas, utilizando las claves del diccionario
-    orden_secciones = ["0","0_0","b","1","1_0","b","2_0","2","2_1","b","3","3_0",
-            "b","4_0","4","4_1","b","5_0","5","5_1","b","6_0","6","6_1","b","7","7_0"]
+    orden_secciones = ["0","0_0","b","1","1_0","b","2","2_0","b","3_0","3","3_1","b","4","4_0",
+            "b","5_0","5","5_1","b","6_0","6","6_1","b","7_0","7","7_1","b","8","8_0"]
 
 
     ######################################################################

@@ -32,9 +32,9 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
 
 
 def configuracion():
-    if leer_settings("menu") != 4:
+    if leer_settings("menu") != 5:
         editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","4")
+    editar_settings("menu","5")
     numcols = num_cols()
 
 
@@ -237,9 +237,6 @@ def configuracion():
     elif i[1].isdigit():
         editar_settings("rpp", i[1])
 
-    else:
-        return 5
-
-    return 4
+    return 5
 
 

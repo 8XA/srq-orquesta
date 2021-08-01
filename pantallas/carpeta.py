@@ -12,7 +12,7 @@ from modulos.fit_frases import *
 
 def carpeta():
     editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","1")
+    editar_settings("menu","2")
 
     ruta = leer_settings("ruta_carpeta")
     cadena = [carpeta for carpeta in ruta.split("/") if carpeta != ""]
@@ -75,7 +75,7 @@ def carpeta():
                 if leer_settings("ruta_carpeta") != ruta:
                     editar_settings("filtro_videos", "")
                     editar_settings("ruta_carpeta", ruta)
-                return leer_settings("menu_anterior")
+                return 1
 
             elif (i[1].isdigit()) and (len(carpetas) > int(i[1])):
                 cadena.append(carpetas[int(i[1])])

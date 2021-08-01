@@ -18,7 +18,7 @@ def pelicula():
     rutas = rutas_y_videos[0]
     
     editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","0")
+    editar_settings("menu","1")
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
@@ -81,7 +81,7 @@ def pelicula():
         return i[1]
     elif (marca_en_pantalla) and ((i[1] == "") or \
             (valor_numerico and (int(i[1]) == indice_marcado))):
-        return 2
+        return 3
     else:
         #Registrar opción
         if (
@@ -104,9 +104,9 @@ def pelicula():
             editar_settings("subs_descargados", "")
             editar_settings("palabras", "")
             editar_settings("ruta_video", rutas[int(i[1])])
-            return 2
+            return 3
 
         elif i[1] != "":
             editar_settings("filtro_videos", i[1].lower())
-        return 0
+        return 1
 

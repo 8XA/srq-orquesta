@@ -10,7 +10,7 @@ from termcolor import colored
 
 def palabras():
     editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","2")
+    editar_settings("menu","3")
     extensiones = leer_settings("extensiones").split(',')
     video = leer_settings("video")
     numcols = num_cols()
@@ -66,25 +66,25 @@ def palabras():
         #Si da enter
         if i[1] == "":
             if leer_settings("palabras") != "":
-                return 3
+                return 4
             else:
-                return 2
+                return 3
 
         #Si usa todas las palabras de la lista
         #Actualizar busqueda aunque ya se haya hecho con los mismos parámetros
         elif i[1].lower() == "u":
             editar_settings("cambio_busqueda","1")
             editar_settings("subs_descargados","")
-            return 3
+            return 4
 
-        elif (i[1].lower() == "t") and \
+        elif (i[1].lower() == "all") and \
                 (",".join(palabras_del_titulo) != leer_settings("palabras")):
 
             editar_settings("cambio_busqueda","1")
             editar_settings("subs_descargados","")
             editar_settings("palabras", ",".join(palabras_del_titulo))
 
-            return 2
+            return 3
 
         #Si selecciona palabras de la lista:
         elif all(
@@ -148,4 +148,4 @@ def palabras():
             else:
                 pass
 
-        return 2
+        return 3
