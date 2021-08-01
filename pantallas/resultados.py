@@ -52,7 +52,7 @@ def resultados():
 
     #Actualizando info de pantalla en base de datos
     editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","3")
+    editar_settings("menu","4")
 
     filtro, pagina = leer_settings("filtro_resultados"), 1
     while True:

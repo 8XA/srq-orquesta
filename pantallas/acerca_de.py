@@ -6,9 +6,9 @@ from modulos.admindb import leer_settings, editar_settings
 from modulos.menu import menu
 
 def acerca_de():
-    if leer_settings("menu") not in [5,6]:
+    if leer_settings("menu") not in [6,7]:
         editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","6")
+    editar_settings("menu","7")
     numcols = num_cols()
 
     visor("ACERCA DE", "acerca_de")
@@ -21,5 +21,5 @@ def acerca_de():
     elif i[1] == "":
         return leer_settings("menu_anterior")
     else:
-        return 6
+        return 7
         

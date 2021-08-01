@@ -7,6 +7,7 @@ restaurar_settings()
 
 import readline, os
 from pantallas.actualizar import *
+from pantallas.torrents import *
 from pantallas.pelicula import *
 from pantallas.carpeta import *
 from pantallas.palabras import *
@@ -29,13 +30,14 @@ try:
         editar_settings("instancia_activa", "1")
 
         s4t = {
-                0: pelicula,
-                1: carpeta,
-                2: palabras,
-                3: resultados,
-                4: configuracion,
-                5: ayuda,
-                6: acerca_de,
+                0: torrents,
+                1: pelicula,
+                2: carpeta,
+                3: palabras,
+                4: resultados,
+                5: configuracion,
+                6: ayuda,
+                7: acerca_de,
                 101: descarga,
                 102: actualizar,
                 }
@@ -49,7 +51,7 @@ try:
             ejecutar = actualizar()
 
         if ejecutar != 100:
-            running = s4t[0]()
+            running = s4t[1]()
             while running != 100:
                 running = s4t[running]()
         editar_settings("instancia_activa", "0") 

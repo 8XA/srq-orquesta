@@ -50,7 +50,7 @@ def descarga():
                 " descargado, verifica tu conexión e intenta de nuevo..."))
         print("\n")
         input("Enter para continuar...")
-        return 3
+        return 4
 
     try:
         print(linea_azul_)
@@ -118,7 +118,7 @@ def descarga():
                 " intenta con otro subtítulo..."))
         print("\n")
         input("Enter para continuar...")
-        return 3
+        return 4
 
     try:
         txt, codificacion = "Asignando...", ''
@@ -157,12 +157,12 @@ def descarga():
                 "subtítulo, intenta con otro..."))
         print("\n")
         input("Enter para continuar...")
-        return 3
+        return 4
 
     i = menu(numcols)
 
     if i[0] == "menu":
         return i[1]
     else:
-        return 3
+        return 4
 

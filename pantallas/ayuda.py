@@ -6,25 +6,25 @@ from modulos.admindb import leer_settings, editar_settings
 from modulos.menu import menu
 
 def ayuda():
-    if leer_settings("menu") not in [5,6]:
+    if leer_settings("menu") not in [6,7]:
         editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","5")
+    editar_settings("menu","6")
     numcols = num_cols()
 
     titulos = {
-            0: "AYUDA: PELÍCULAS",
-            1: "AYUDA: CARPETA",
-            2: "AYUDA: PALABRAS",
-            3: "AYUDA: RESULTADOS",
-            4: "AYUDA: CONFIGURACIÓN",
+            1: "AYUDA: VIDEOS",
+            2: "AYUDA: CARPETA",
+            3: "AYUDA: PALABRAS",
+            4: "AYUDA: RESULTADOS",
+            5: "AYUDA: CONFIGURACIÓN",
             }
 
     archivo = {
-            0: "peliculas",
-            1: "carpeta",
-            2: "palabras",
-            3: "resultados",
-            4: "configuracion",
+            1: "videos",
+            2: "carpeta",
+            3: "palabras",
+            4: "resultados",
+            5: "configuracion",
             }
 
     menu_anterior = leer_settings("menu_anterior")
