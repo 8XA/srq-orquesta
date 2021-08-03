@@ -3,15 +3,6 @@
 import os, curses
 from modulos.fit_frases import *
 
-def visor(*arg):
-    #arg[0] = titulo
-    #arg[1] = numcols
-    #arg[2...10] = archivo1... archivo10
-
-    titulo = arg[0]
-    numcols = arg[1]
-    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
-
 #    :wc: white centrado
 #    :Wc: bold, white centrado
 #    :ff: fit frase
@@ -21,6 +12,26 @@ def visor(*arg):
 #    :Lr: linea = roja
 #    :lb: linea - blanca
 #    :sl: salto de linea
+
+#arg[0] = titulo
+#arg[1...10] = archivo1... archivo10
+def visor(*arg):
+    screen = curses.initscr()
+    #Hace el cursor invisible
+    curses.curs_set(0)
+    #Muestra teclas ingresadas en pantalla
+    curses.noecho()
+    #Habilitar flechas
+    screen.keypad(True)
+    #Habilitar configuración de colores
+    curses.start_color()
+
+    #Dimensiones de pantalla
+    numlines = curses.LINES
+    numcols = curses.COLS
+
+    titulo = arg[0]
+    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
 
     #Funciones de orden para cada renglón
     orden = {
@@ -35,7 +46,7 @@ def visor(*arg):
     
     #Lista de archivos
     #Cada archivo es una lista de renglones
-    for archivo in arg[2:]:
+    for archivo in arg[1:]:
         #Abre cada documento
         with open(ruta + archivo, "r") as archivo_texto:
             renglones = archivo_texto.readlines()
@@ -54,61 +65,55 @@ def visor(*arg):
 
             hoja += [formato + renglon for renglon in renglon_formateado]
 
-    print(hoja)
+        #Divisor de documentos
+        hoja += [":sl: ", ":Lr:" + numcols*"="]
+
+    par = {
+            "c": 1,
+            "f": 1,
+            "b": 1,
+            "l": 1,
+            "r": 2,
+            "a": 3
+            }
+
+    #Colores por defecto (-1):
+    curses.use_default_colors()
+
+    #Colores personalizados
+    curses.init_pair(1, -1, -1)
+    curses.init_pair(2, curses.COLOR_RED, -1)
+    curses.init_pair(3, curses.COLOR_BLUE, -1)
+
+
+    #Impresión de pantalla
+
+    posicion = 0
+    while True:
+        screen.clear()
+        for linea in range(numlines):
+            formato = hoja[linea + posicion][:4]
+            if formato in [":sl:", ":ff:", ":wc:"]:
+                screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+            elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+                screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+
+        screen.refresh()
+
+        i = screen.getch()
+        if i == curses.KEY_UP:
+            posicion += 1
+        elif i == curses.KEY_DOWN:
+            posicion -= 1
+
+
     input()
-    os.system("clear")
-    for x in hoja:
-        print(x)
-    input()
-#    
-#    screen = curses.initscr()
-#    #Muestra teclas ingresadas en pantalla
-#    curses.noecho()
-#    #Habilitar flechas
-#    screen.keypad(True)
-#    #Habilitar configuración de colores
-#    curses.start_color()
-#
-#    #Dimensiones de pantalla
-#    largo_pantalla = curses.LINES
-#    ancho_pantalla = curses.COLS
-#
-#
-#    #Base de impresion
-#    screen.clear()
-#    screen.addstr(y,x,valor)
-#    screen.refresh()
-#
+    curses.endwin()
+    os.system("stty sane && clear")
 
+#    print(hoja)
+#    input()
+#    os.system("clear")
+#    for x in hoja:
+#        print(x)
 
-
-    #Título
-    #Ventana scroll con texto:
-        #Flechas arriba y abajo navegan por el texto
-        #Flechas izq y der, navegan saltando párrafos
-
-    #Renglon admite:
-#    :wc: white centrado
-#    :Wc: bold, white centrado
-#    :ff: fit frase
-#    :la: linea - azul
-#    :La: linea = azul
-#    :lr: linea - roja
-#    :Lr: linea = roja
-#    :lb: linea - blanca
-#
-    #Finaliza curses y restaura pantalla
-#    curses.endwin()
-#    os.system("stty sane && clear")
-#    
-#    #Linea de final y leyenda de Enter para regresar
-#
-#    return largo_pantalla,ancho_pantalla
-
-#abres archivo de texto
-#lista split saltos de renglon
-#a cada renglón se le aplica la función de acomodo definida al inicio, teniendo en cuenta el num de columnas
-#separar cada renglon en caracteres para hacer un grid
-#
-#posicionar el grid dependiendo de las flechas, asignando a cada caracter el color que te toque dependiendo de
-#el renglon al que pertenezca
