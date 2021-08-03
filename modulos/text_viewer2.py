@@ -5,7 +5,11 @@ from modulos.fit_frases import *
 
 def visor(*arg):
     #arg[0] = titulo
-    #arg[1...10] = archivo1... archivo10
+    #arg[1] = numcols
+    #arg[2...10] = archivo1... archivo10
+
+    titulo = arg[0]
+    numcols = arg[1]
     ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
 
 #    :wc: white centrado
@@ -16,31 +20,45 @@ def visor(*arg):
 #    :lr: linea - roja
 #    :Lr: linea = roja
 #    :lb: linea - blanca
+#    :sl: salto de linea
 
     #Funciones de orden para cada renglón
     orden = {
-        ":w": fit_frase_centrada
-        ":f": fit_frase
-        ":l": numcols * "-"
-        ":L": numcols * "="
+        ":w": fit_frase_centrada,
+        ":f": fit_frase,
+        ":l": numcols * "-",
+        ":L": numcols * "=",
             }
 
-    if formato in [":wc:", ":Wc:", ":ff:"]:
-        orden[formato[:2].lower()](numcols, msj)
-    elif formato[:2].lower() == "l" and formato[3] == ":"
-        orden[formato]
-
+    #Lista de renglones de la hoja final
+    hoja = []
+    
     #Lista de archivos
     #Cada archivo es una lista de renglones
-    archivos_lista = []
-    for archivo in arg[1:]:
+    for archivo in arg[2:]:
+        #Abre cada documento
         with open(ruta + archivo, "r") as archivo_texto:
-            archivos_lista.append(archivo_texto.readlines())
+            renglones = archivo_texto.readlines()
+        
+        #Rectifica cada renglon y lo agrega a 'hoja'
+        for renglon in renglones:
+            formato = renglon[:4]
 
-    #Prueba imprimiendo primer archivo
-    for renglon in archivos_lista[0]:
-        print(renglon[4:])
+            if formato in [":wc:", ":Wc:", ":ff:"]:
+                renglon_formateado = orden[formato[:2].lower()](numcols, renglon[4:][:-1]).split("\n")
+            elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
+                renglon_formateado = [orden[formato[:2]]]
+            else:
+                formato = ":sl:"
+                renglon_formateado = [" "]
 
+            hoja += [formato + renglon for renglon in renglon_formateado]
+
+    print(hoja)
+    input()
+    os.system("clear")
+    for x in hoja:
+        print(x)
     input()
 #    
 #    screen = curses.initscr()
