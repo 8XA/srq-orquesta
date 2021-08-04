@@ -27,8 +27,10 @@ def visor(*arg):
     curses.start_color()
 
     #Dimensiones de pantalla
-    numlines = curses.LINES
-    numcols = curses.COLS
+    #numlines = curses.LINES
+    numlines = screen.getmaxyx()[0]
+    numcols = screen.getmaxyx()[1]
+    #numcols = curses.COLS
 
     titulo = arg[0]
     ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
@@ -87,25 +89,25 @@ def visor(*arg):
 
 
     #Impresión de pantalla
-
     posicion = 0
     while True:
         screen.clear()
-        for linea in range(numlines):
-            formato = hoja[linea + posicion][:4]
-            if formato in [":sl:", ":ff:", ":wc:"]:
-                screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
-            elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+        for linea in range(numlines - 1):
+            if linea+posicion < len(hoja):
+                formato = hoja[linea + posicion][:4]
+                if formato in [":sl:", ":ff:", ":wc:"]:
+                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
 
         screen.refresh()
 
         i = screen.getch()
-        if i == curses.KEY_UP:
+        if (i == curses.KEY_UP) and \
+                ((numlines + posicion -1) < len(hoja)):
             posicion += 1
-        elif i == curses.KEY_DOWN:
+        elif (i == curses.KEY_DOWN) and (posicion > 0):
             posicion -= 1
-
 
     input()
     curses.endwin()
