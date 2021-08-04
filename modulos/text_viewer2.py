@@ -103,10 +103,10 @@ def visor(*arg):
         screen.refresh()
 
         i = screen.getch()
-        if (i == curses.KEY_UP) and \
+        if (i == curses.KEY_DOWN) and \
                 ((numlines + posicion -1) < len(hoja)):
             posicion += 1
-        elif (i == curses.KEY_DOWN) and (posicion > 0):
+        elif (i == curses.KEY_UP) and (posicion > 0):
             posicion -= 1
 
     input()
