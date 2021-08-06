@@ -21,8 +21,6 @@ def visor(*arg):
     curses.curs_set(0)
     #Muestra teclas ingresadas en pantalla
     curses.noecho()
-    #Habilitar flechas
-    screen.keypad(True)
     #Habilitar configuración de colores
     curses.start_color()
 
@@ -39,8 +37,8 @@ def visor(*arg):
     orden = {
         ":w": fit_frase_centrada,
         ":f": fit_frase,
-        ":l": numcols * "-",
-        ":L": numcols * "=",
+        ":l": (numcols - 2) * "-",
+        ":L": (numcols - 2) * "="
             }
 
     #Lista de renglones de la hoja final
@@ -58,7 +56,7 @@ def visor(*arg):
             formato = renglon[:4]
 
             if formato in [":wc:", ":Wc:", ":ff:"]:
-                renglon_formateado = orden[formato[:2].lower()](numcols, renglon[4:][:-1]).split("\n")
+                renglon_formateado = orden[formato[:2].lower()](numcols - 2, renglon[4:][:-1]).split("\n")
             elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
                 renglon_formateado = [orden[formato[:2]]]
             else:
@@ -68,7 +66,7 @@ def visor(*arg):
             hoja += [formato + renglon for renglon in renglon_formateado]
 
         #Divisor de documentos
-        hoja += [":sl: ", ":Lr:" + numcols*"="]
+        hoja += [":sl: ", ":Lr:" + (numcols - 2) * "="]
 
     par = {
             "c": 1,
@@ -90,39 +88,40 @@ def visor(*arg):
 
     #Ventanas
     #Scrollable
+    window = curses.newwin(numlines-5, numcols, 5, 0)
+    #Habilitar flechas
+    window.keypad(True)
+
+
     #newwin(lineas, columnas, y, x)
-    window1 = curses.newwin(5, numcols-2, 0, 0)
-    window = curses.newwin(numlines//2, numcols-2, 7, 0)
-    window1.addstr(2,1,"hola!")
-    window.addstr(2,1,"hola1!")
-    window1.box()
-    window.box()
-    window.refresh()
-    window1.refresh()
-    input()
+#    window1 = curses.newwin(5, numcols-2, 0, 0)
+#    window1.addstr(2,1,"hola!")
+#    window1.box()
+#    window1.refresh()
+#    input()
     #window = newwin(numlines//2, numcols-2, 7, 0)
 
     #Impresión de pantalla
-#    posicion = 0
-#    while True:
-#        screen.clear()
-#        for linea in range(numlines - 1):
-#            if linea+posicion < len(hoja):
-#                formato = hoja[linea + posicion][:4]
-#                if formato in [":sl:", ":ff:", ":wc:"]:
-#                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
-#                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-#                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
-#
-#        screen.box()
-#        screen.refresh()
-#
-#        i = screen.getch()
-#        if (i == curses.KEY_DOWN) and \
-#                ((numlines + posicion -1) < len(hoja)):
-#            posicion += 1
-#        elif (i == curses.KEY_UP) and (posicion > 0):
-#            posicion -= 1
+    posicion = 0
+    while True:
+        window.clear()
+        for linea in range(numlines - 7):
+            if linea+posicion < len(hoja):
+                formato = hoja[linea + posicion][:4]
+                if formato in [":sl:", ":ff:", ":wc:"]:
+                    window.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+                    window.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+
+        window.box()
+        window.refresh()
+
+        i = window.getch()
+        if (i == curses.KEY_DOWN) and \
+                ((numlines + posicion -1) < len(hoja)):
+            posicion += 1
+        elif (i == curses.KEY_UP) and (posicion > 0):
+            posicion -= 1
 
     input()
     curses.endwin()
