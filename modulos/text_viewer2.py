@@ -88,26 +88,41 @@ def visor(*arg):
     curses.init_pair(3, curses.COLOR_BLUE, -1)
 
 
+    #Ventanas
+    #Scrollable
+    #newwin(lineas, columnas, y, x)
+    window1 = curses.newwin(5, numcols-2, 0, 0)
+    window = curses.newwin(numlines//2, numcols-2, 7, 0)
+    window1.addstr(2,1,"hola!")
+    window.addstr(2,1,"hola1!")
+    window1.box()
+    window.box()
+    window.refresh()
+    window1.refresh()
+    input()
+    #window = newwin(numlines//2, numcols-2, 7, 0)
+
     #Impresión de pantalla
-    posicion = 0
-    while True:
-        screen.clear()
-        for linea in range(numlines - 1):
-            if linea+posicion < len(hoja):
-                formato = hoja[linea + posicion][:4]
-                if formato in [":sl:", ":ff:", ":wc:"]:
-                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
-                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
-
-        screen.refresh()
-
-        i = screen.getch()
-        if (i == curses.KEY_DOWN) and \
-                ((numlines + posicion -1) < len(hoja)):
-            posicion += 1
-        elif (i == curses.KEY_UP) and (posicion > 0):
-            posicion -= 1
+#    posicion = 0
+#    while True:
+#        screen.clear()
+#        for linea in range(numlines - 1):
+#            if linea+posicion < len(hoja):
+#                formato = hoja[linea + posicion][:4]
+#                if formato in [":sl:", ":ff:", ":wc:"]:
+#                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+#                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+#                    screen.addstr(linea,0, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+#
+#        screen.box()
+#        screen.refresh()
+#
+#        i = screen.getch()
+#        if (i == curses.KEY_DOWN) and \
+#                ((numlines + posicion -1) < len(hoja)):
+#            posicion += 1
+#        elif (i == curses.KEY_UP) and (posicion > 0):
+#            posicion -= 1
 
     input()
     curses.endwin()
