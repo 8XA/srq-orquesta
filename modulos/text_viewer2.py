@@ -89,45 +89,50 @@ def visor(*arg):
     #Ventanas
     #Título
     titulo = fit_frase_centrada(numcols, titulo).split("\n")
-    win_titulo = curses.newwin(len(titulo) + 3, numcols, 0, 0)
+    long_win_titulo = len(titulo) + 3
+    win_titulo = curses.newwin(long_win_titulo, numcols, 0, 0)
     win_titulo.addstr(0,0, numcols * "=", curses.color_pair(3))
     for indice in range(len(titulo)):
         win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
     win_titulo.addstr(len(titulo)+1,0, numcols * "=", curses.color_pair(3))
     win_titulo.refresh()
     
-    #Scrollable
-    win_manual = curses.newwin(numlines-(len(titulo) + 2), numcols, len(titulo) + 2, 0)
+
+    #Menú
+    long_win_menu = 5
+    win_menu = curses.newwin((5), numcols, numlines-6,0)
     #Habilitar flechas
-    win_manual.keypad(True)
+    win_menu.keypad(True)
+    win_menu.box()
+    win_menu.refresh()
 
 
-    #newwin(lineas, columnas, y, x)
-#    win_manual = curses.newwin(5, numcols-2, 0, 0)
-#    win_manual.addstr(2,1,"hola!")
-#    win_manual.box()
-#    win_manual.refresh()
-#    input()
-    #win_manual = newwin(numlines//2, numcols-2, 7, 0)
+    #Scrollable
+    long_win_manual = numlines - long_win_titulo - long_win_menu
+    win_manual = curses.newwin(long_win_manual, numcols, len(titulo) + 2, 0)
 
     #Impresión de pantalla
     posicion = 0
+    long_lineas = numlines - long_win_menu - long_win_titulo -2
     while True:
         win_manual.clear()
-        for linea in range(numlines - 7):
+        for linea in range(long_lineas):
             if linea+posicion < len(hoja):
                 formato = hoja[linea + posicion][:4]
                 if formato in [":sl:", ":ff:", ":wc:"]:
-                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                            curses.color_pair(par[formato[2]]))
                 elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                            curses.color_pair(par[formato[2]]) | curses.A_BOLD)
 
         win_manual.box()
         win_manual.refresh()
 
-        i = win_manual.getch()
+
+        i = win_menu.getch()
         if (i == curses.KEY_DOWN) and \
-                ((numlines + posicion -1) < len(hoja)):
+                ((long_win_manual + posicion -1) < len(hoja)):
             posicion += 1
         elif (i == curses.KEY_UP) and (posicion > 0):
             posicion -= 1
@@ -135,10 +140,4 @@ def visor(*arg):
     input()
     curses.endwin()
     os.system("stty sane && clear")
-
-#    print(hoja)
-#    input()
-#    os.system("clear")
-#    for x in hoja:
-#        print(x)
 
