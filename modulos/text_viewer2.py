@@ -25,10 +25,10 @@ def visor(*arg):
     curses.start_color()
 
     #Dimensiones de pantalla
-    #numlines = curses.LINES
-    numlines = screen.getmaxyx()[0]
-    numcols = screen.getmaxyx()[1]
-    #numcols = curses.COLS
+    numlines = curses.LINES
+    numcols = curses.COLS
+#    numlines = screen.getmaxyx()[0]
+#    numcols = screen.getmaxyx()[1]
 
     titulo = arg[0]
     ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
@@ -87,36 +87,45 @@ def visor(*arg):
 
 
     #Ventanas
+    #Título
+    titulo = fit_frase_centrada(numcols, titulo).split("\n")
+    win_titulo = curses.newwin(len(titulo) + 3, numcols, 0, 0)
+    win_titulo.addstr(0,0, numcols * "=", curses.color_pair(3))
+    for indice in range(len(titulo)):
+        win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
+    win_titulo.addstr(len(titulo)+1,0, numcols * "=", curses.color_pair(3))
+    win_titulo.refresh()
+    
     #Scrollable
-    window = curses.newwin(numlines-5, numcols, 5, 0)
+    win_manual = curses.newwin(numlines-(len(titulo) + 2), numcols, len(titulo) + 2, 0)
     #Habilitar flechas
-    window.keypad(True)
+    win_manual.keypad(True)
 
 
     #newwin(lineas, columnas, y, x)
-#    window1 = curses.newwin(5, numcols-2, 0, 0)
-#    window1.addstr(2,1,"hola!")
-#    window1.box()
-#    window1.refresh()
+#    win_manual = curses.newwin(5, numcols-2, 0, 0)
+#    win_manual.addstr(2,1,"hola!")
+#    win_manual.box()
+#    win_manual.refresh()
 #    input()
-    #window = newwin(numlines//2, numcols-2, 7, 0)
+    #win_manual = newwin(numlines//2, numcols-2, 7, 0)
 
     #Impresión de pantalla
     posicion = 0
     while True:
-        window.clear()
+        win_manual.clear()
         for linea in range(numlines - 7):
             if linea+posicion < len(hoja):
                 formato = hoja[linea + posicion][:4]
                 if formato in [":sl:", ":ff:", ":wc:"]:
-                    window.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
+                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]))
                 elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                    window.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], curses.color_pair(par[formato[2]]) | curses.A_BOLD)
 
-        window.box()
-        window.refresh()
+        win_manual.box()
+        win_manual.refresh()
 
-        i = window.getch()
+        i = win_manual.getch()
         if (i == curses.KEY_DOWN) and \
                 ((numlines + posicion -1) < len(hoja)):
             posicion += 1
