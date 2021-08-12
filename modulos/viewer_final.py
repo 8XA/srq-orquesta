@@ -68,7 +68,7 @@ def visor(*arg):
     #Inicializa hoja con valor nulo
     hoja = None
 
-    while True:
+    while hoja == None:
         titulo = arg[0]
 
         screen = curses.initscr()
@@ -132,28 +132,34 @@ def visor(*arg):
 
         #Impresión de pantalla
         long_lineas = numlines - long_win_menu - long_win_titulo -2
-        win_manual.clear()
-        for linea in range(long_lineas):
-            if linea+posicion < len(hoja):
-                formato = hoja[linea + posicion][:4]
-                if formato in [":sl:", ":ff:", ":wc:"]:
-                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
-                            curses.color_pair(par[formato[2]]))
-                elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                    win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
-                            curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+        i = None
+        while i not in (-1, 410):
+            win_manual.clear()
+            for linea in range(long_lineas):
+                if linea+posicion < len(hoja):
+                    formato = hoja[linea + posicion][:4]
+                    if formato in [":sl:", ":ff:", ":wc:"]:
+                        win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                                curses.color_pair(par[formato[2]]))
+                    elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+                        win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                                curses.color_pair(par[formato[2]]) | curses.A_BOLD)
 
-        win_manual.box()
-        win_manual.refresh()
+            win_manual.box()
+            win_manual.refresh()
+            
+            if i == 97:
+                break
+            i = win_menu.getch()
+            if (i == curses.KEY_DOWN) and \
+                    ((long_win_manual + posicion -1) < len(hoja)):
+                posicion += 1
+            elif (i == curses.KEY_UP) and (posicion > 0):
+                posicion -= 1
 
-
-        i = win_menu.getch()
-        if (i == curses.KEY_DOWN) and \
-                ((long_win_manual + posicion -1) < len(hoja)):
-            posicion += 1
-        elif (i == curses.KEY_UP) and (posicion > 0):
-            posicion -= 1
-
+        hoja = None
         curses.endwin()
         os.system("stty sane && clear")
 
+        if i == 97:
+            return 0
