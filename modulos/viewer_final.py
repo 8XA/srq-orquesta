@@ -1,7 +1,53 @@
 #!/bin/env python
 
-import os, curses
 from modulos.fit_frases import *
+import os, curses
+
+###################################################
+
+def hoja_imprimible(*arg):
+    numcols = arg[0]
+
+    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
+
+    #Funciones de orden para cada renglón
+    orden = {
+        ":w": fit_frase_centrada,
+        ":f": fit_frase,
+        ":l": (numcols - 2) * "-",
+        ":L": (numcols - 2) * "="
+            }
+
+    #Lista de renglones de la hoja final
+    hoja = []
+    
+    #Lista de archivos
+    #Cada archivo es una lista de renglones
+    for archivo in arg[1:]:
+        #Abre cada documento
+        with open(ruta + archivo, "r") as archivo_texto:
+            renglones = archivo_texto.readlines()
+        
+        #Rectifica cada renglon y lo agrega a 'hoja'
+        for renglon in renglones:
+            formato = renglon[:4]
+
+            if formato in [":wc:", ":Wc:", ":ff:"]:
+                renglon_formateado = orden[formato[:2].lower()](numcols - 2, renglon[4:][:-1]).split("\n")
+            elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
+                renglon_formateado = [orden[formato[:2]]]
+            else:
+                formato = ":sl:"
+                renglon_formateado = [" "]
+
+            hoja += [formato + renglon for renglon in renglon_formateado]
+
+        #Divisor de documentos
+        hoja += [":sl: ", ":Lr:" + (numcols - 2) * "="]
+
+    return hoja
+
+###################################################
 
 #    :wc: white centrado
 #    :Wc: bold, white centrado
@@ -16,11 +62,15 @@ from modulos.fit_frases import *
 #arg[0] = titulo
 #arg[1...10] = archivo1... archivo10
 def visor(*arg):
-    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
+
     posicion = 0
+
+    #Inicializa hoja con valor nulo
+    hoja = None
 
     while True:
         titulo = arg[0]
+
         screen = curses.initscr()
         #Hace el cursor invisible
         curses.curs_set(0)
@@ -30,55 +80,12 @@ def visor(*arg):
         curses.start_color()
 
         #Dimensiones de pantalla
-        #numlines = curses.LINES
-        #numcols = curses.COLS
         numlines = screen.getmaxyx()[0]
         numcols = screen.getmaxyx()[1]
 
-
-        #Funciones de orden para cada renglón
-        orden = {
-            ":w": fit_frase_centrada,
-            ":f": fit_frase,
-            ":l": (numcols - 2) * "-",
-            ":L": (numcols - 2) * "="
-                }
-
-        #Lista de renglones de la hoja final
-        hoja = []
-        
-        #Lista de archivos
-        #Cada archivo es una lista de renglones
-        for archivo in arg[1:]:
-            #Abre cada documento
-            with open(ruta + archivo, "r") as archivo_texto:
-                renglones = archivo_texto.readlines()
-            
-            #Rectifica cada renglon y lo agrega a 'hoja'
-            for renglon in renglones:
-                formato = renglon[:4]
-
-                if formato in [":wc:", ":Wc:", ":ff:"]:
-                    renglon_formateado = orden[formato[:2].lower()](numcols - 2, renglon[4:][:-1]).split("\n")
-                elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
-                    renglon_formateado = [orden[formato[:2]]]
-                else:
-                    formato = ":sl:"
-                    renglon_formateado = [" "]
-
-                hoja += [formato + renglon for renglon in renglon_formateado]
-
-            #Divisor de documentos
-            hoja += [":sl: ", ":Lr:" + (numcols - 2) * "="]
-
-        par = {
-                "c": 1,
-                "f": 1,
-                "b": 1,
-                "l": 1,
-                "r": 2,
-                "a": 3
-                }
+        #Hoja imprimible
+        if hoja == None:
+            hoja = hoja_imprimible(numcols, "carpeta", "carpeta")
 
         #Colores por defecto (-1):
         curses.use_default_colors()
@@ -88,6 +95,15 @@ def visor(*arg):
         curses.init_pair(2, curses.COLOR_RED, -1)
         curses.init_pair(3, curses.COLOR_BLUE, -1)
 
+        #Par de colores
+        par = {
+                "c": 1,
+                "f": 1,
+                "b": 1,
+                "l": 1,
+                "r": 2,
+                "a": 3
+                }
 
         #Ventanas
         #Título
