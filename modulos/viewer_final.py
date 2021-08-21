@@ -74,10 +74,10 @@ def visor(*arg):
         screen = curses.initscr()
         #Hace el cursor invisible
         curses.curs_set(0)
-        #Muestra teclas ingresadas en pantalla
-        curses.noecho()
         #Habilitar configuración de colores
         curses.start_color()
+        #Demanda Enter
+        #curses.nocbreak()
 
         #Dimensiones de pantalla
         numlines = screen.getmaxyx()[0]
@@ -109,57 +109,75 @@ def visor(*arg):
         #Título
         titulo = fit_frase_centrada(numcols, titulo).split("\n")
         long_win_titulo = len(titulo) + 3
-        win_titulo = curses.newwin(long_win_titulo, numcols, 0, 0)
-        win_titulo.addstr(0,0, numcols * "=", curses.color_pair(3))
-        for indice in range(len(titulo)):
-            win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
-        win_titulo.addstr(len(titulo)+1,0, numcols * "=", curses.color_pair(3))
-        win_titulo.refresh()
         
+        #Solo si hay espacio para el titulo y para el mensaje de retorno:
+        if numlines > long_win_titulo + 1:
+            win_titulo = curses.newwin(long_win_titulo, numcols, 0, 0)
+            win_titulo.addstr(0,0, numcols * "=", curses.color_pair(3))
+            for indice in range(len(titulo)):
+                win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
+            win_titulo.addstr(len(titulo)+1,0, numcols * "=", curses.color_pair(3))
+            win_titulo.refresh()
 
-        #Menú
-        long_win_menu = 5
-        win_menu = curses.newwin((5), numcols, numlines-6,0)
-        #Habilitar flechas
-        win_menu.keypad(True)
-        win_menu.box()
-        win_menu.refresh()
-
+            #Mensaje de retorno
+            win_retorno = curses.newwin(1, numcols, numlines-1,0)
+            win_retorno.addstr(0,0, ": ")
+            win_retorno.keypad(True)
+            win_retorno.refresh()
 
         #Scrollable
-        long_win_manual = numlines - long_win_titulo - long_win_menu
-        win_manual = curses.newwin(long_win_manual, numcols, len(titulo) + 2, 0)
+        long_win_manual = numlines - long_win_titulo
+        #Solo si cabe la ventana manual:
+        if long_win_manual > 2:
+            win_manual = curses.newwin(long_win_manual, numcols, long_win_titulo -1, 0)
 
-        #Impresión de pantalla
-        long_lineas = numlines - long_win_menu - long_win_titulo -2
-        i = None
-        while i not in (-1, 410):
-            win_manual.clear()
-            for linea in range(long_lineas):
-                if linea+posicion < len(hoja):
-                    formato = hoja[linea + posicion][:4]
-                    if formato in [":sl:", ":ff:", ":wc:"]:
-                        win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
-                                curses.color_pair(par[formato[2]]))
-                    elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
-                        win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
-                                curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+            #Impresión de pantalla
+            long_lineas = numlines - long_win_titulo -2
+            i = None
+            #Con esta lista puedo controlar el string de ingreso... jaque mate ;)
+            #Lo que sigue es imprimir el menu y hacer lo correspondiente :)
+            caracteres_i = []
+            caracteres_dic = {
+                    116: "t", 84: "t", 118: "v", 86: "v", 99: "c", 67: "c", 97: "a", 65: "a",
+                    114: "r", 82: "r", 111: "o", 79: "o", 121: "y", 89: "y", 101: "e", 69: "e",
+                    115: "s", 83: "s", 112: "p", 80: "p",
+                    }
 
-            win_manual.box()
-            win_manual.refresh()
-            
-            if i == 97:
-                break
-            i = win_menu.getch()
-            if (i == curses.KEY_DOWN) and \
-                    ((long_win_manual + posicion -1) < len(hoja)):
-                posicion += 1
-            elif (i == curses.KEY_UP) and (posicion > 0):
-                posicion -= 1
+            #Mientras no haya un resize de pantalla
+            while i not in (-1, 410):
+                win_manual.clear()
+                for linea in range(long_lineas):
+                    if linea+posicion < len(hoja):
+                        formato = hoja[linea + posicion][:4]
+                        if formato in [":sl:", ":ff:", ":wc:"]:
+                            win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                                    curses.color_pair(par[formato[2]]))
+                        elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
+                            win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
+                                    curses.color_pair(par[formato[2]]) | curses.A_BOLD)
+
+                win_manual.box()
+                win_manual.refresh()
+                
+                if i == 10:
+                    break
+                elif i == 127:
+                    caracteres_i = []
+                    win_retorno.clear()
+                    win_retorno.addstr(0,0, ": ")
+                    win_retorno.refresh()
+                i = win_retorno.getch()
+                if i not in [258,259]:
+                    caracteres_i.append(i)
+                if (i == curses.KEY_DOWN) and \
+                        ((long_win_manual + posicion -1) < len(hoja)):
+                    posicion += 1
+                elif (i == curses.KEY_UP) and (posicion > 0):
+                    posicion -= 1
 
         hoja = None
         curses.endwin()
         os.system("stty sane && clear")
 
-        if i == 97:
-            return 0
+        if i == 10:
+            return type(i),i, caracteres_i
