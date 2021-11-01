@@ -79,8 +79,7 @@ def pelicula():
 
     if i[0] == "menu":
         return i[1]
-    elif (marca_en_pantalla) and ((i[1] == "") or \
-            (valor_numerico and (int(i[1]) == indice_marcado))):
+    elif (marca_en_pantalla) and ((i[1] == "")):
         return 3
     else:
         #Registrar opción
@@ -89,22 +88,13 @@ def pelicula():
             valor_numerico and \
 
             #Esta dentro del rango de opciones
-            (int(i[1]) < len(videos)) and \
-
-            #Sentencias or
-            #Rutas de video seleccionado y del ya registrado difieren
-            ((leer_settings("ruta_video") != rutas[int(i[1])]) or \
-            
-            #Cambió el nombre del video
-            (leer_settings("video") != videos[int(i[1])]))
-            ):
+            (int(i[1]) < len(videos))):
 
             editar_settings("cambio_busqueda", "1")
             editar_settings("video", videos[int(i[1])])
             editar_settings("subs_descargados", "")
             editar_settings("palabras", "")
             editar_settings("ruta_video", rutas[int(i[1])])
-            return 3
 
         elif i[1] != "":
             editar_settings("filtro_videos", i[1].lower())
