@@ -1,7 +1,7 @@
 #!/bin/env python
 
 from modulos.numcols import num_cols
-from modulos.text_viewer import visor
+from modulos.viewer import visor
 from modulos.admindb import leer_settings, editar_settings
 from modulos.menu import menu
 
@@ -12,14 +12,6 @@ def acerca_de():
     numcols = num_cols()
 
     visor("ACERCA DE", "acerca_de")
-    visor("Novedades de la versión", "actualizacion")
+    visor("NOVEDADES DE LA VERSIÓN", "actualizacion")
 
-    i = menu(numcols, "Navega por el menú o regresa")
-    if i[0] == "menu":
-        return i[1]
-
-    elif i[1] == "":
-        return leer_settings("menu_anterior")
-    else:
-        return 7
-        
+    return leer_settings("menu_anterior")

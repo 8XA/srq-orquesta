@@ -2,7 +2,7 @@
 
 import os, time
 from modulos.numcols import num_cols
-from modulos.text_viewer import visor
+from modulos.viewer import visor
 
 def actualizar():
     rabs = '/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/'
