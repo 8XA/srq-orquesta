@@ -1,5 +1,7 @@
+Versión 0.2.0
+- Visor de ayuda y mensajes ahora funciona con curses.
 
-Versión 1.0.0
+Versión 0.1.0
 
 - Configuración de carpeta de búsqueda.
 - Búsqueda y filtrado de videos en carpeta definida y subcarpetas.
