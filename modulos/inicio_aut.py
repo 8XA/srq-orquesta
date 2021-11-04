@@ -8,7 +8,7 @@ def inicio_aut():
     ini = leer_settings("ini_aut")
     ruta_bash = '/data/data/com.termux/files/usr/etc/bash.bashrc'
     comando = 'exec python /data/data/com.termux/files/usr/share' + \
-            '/apocalipsis-orquesta/apocalipsis-orquesta/start.py\n'
+            '/srq-orquesta/srq-orquesta/start.py\n'
 
     with open(ruta_bash, "r") as bash:
         conf = bash.readlines()

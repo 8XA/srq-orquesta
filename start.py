@@ -63,6 +63,6 @@ except Exception as e:
     print(e)
     print()
 
-    os.system("rm '/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/data.db'")
+    os.system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
     print(fit_frase(numcols, "Base de datos corrupta fue corregida. Reinicia Termux..."))
     input()

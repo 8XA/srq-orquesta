@@ -10,7 +10,7 @@ import os
 
 def pelicula():
     numcols = num_cols()
-    titulo = "APOCALIPSIS ORQUESTA"
+    titulo = "SRQ ORQUESTA"
 
     rutas_y_videos = videos_en_ruta()
     filtro = " ".join(leer_settings("filtro_videos").split(",")).split(" ")
