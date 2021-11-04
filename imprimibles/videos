@@ -1,16 +1,40 @@
 
-En esta sección elegirás el video a subtitular. Verás listados los videos disponibles en la ruta de la franja roja, así como en sus subdirectorios.
+:ff:En esta sección elegirás el video a subtitular y/o reproducir. Verás listados los videos disponibles en la ruta de la franja roja, así como en sus subdirectorios.
 
-------------
+:Lr:
+:Wc:Subsecciones
+:Lr:
 
-  - Para elegir un video, ingresa el número verde que le corresponde y da 'Enter'. Esto marcará el video y te enviará a la sección de palabras.
+:Wc:Elige un video
 
-Si la lista de videos es muy extensa:
-  - Puedes filtrar la lista ingresando las palabras de búsqueda que desees, separadas por comas o espacios. Con esto verás solo aquellos videos que contengan en su nombre todas las palabras ingresadas.
-  *Para reiniciar el filtro, ingresa un espacio ' ' y da 'enter'.
-  - Puedes ser más específico con la ruta de búsqueda. Para ello ve a la sección 'Carpeta' del menú.
+:ff:En esta subsección verás listados los videos disponibles en la ruta configurada y sus subcarpetas, cada uno tendrá asignado un número ID de color verde. El ID del vídeo seleccionado (en caso de haberlo) se mostrará marcado.
 
-------------
+:ff:  - Para seleccionar un video, ingresa el número de ID (señalado en verde) que le corresponde.
 
-*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
+:ff:  - Si hay un video seleccionado y das 'Enter', serás dirigido a la sección 'Palabras', donde podrás buscar un subtítulo adecuado.
 
+:ff:  - Para reproducir el video seleccionado, ingresa 'p'. Esta acción la puedes ejecutar desde cualquier sección.
+
+:la:
+
+:Wc:Ruta
+
+:ff:En esta subsección aparece la ruta configurada que fue explorada.
+
+:ff:  - Para cambiar la ruta vaya a la sección Carpeta, disponible en el menú.
+
+:la:
+
+:Wc:Filtros
+
+:ff:En esta subsección aparecerán las palabras que ingreses para filtrar los videos listados en la subsección 'Elige un video'.
+
+:ff:  - Para filtrar videos ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán los videos que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+
+:ff:  - Para eliminar los filtros ingresa un espacio.
+
+:ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '2' en su nombre, ingresa ' 2'.
+
+:Lr:
+:Wc:*Puedes ir a cualquier sección del menú (Última franja azul) ingresando la letra verde que le corresponde y dando 'Enter'.
+:Lr:
