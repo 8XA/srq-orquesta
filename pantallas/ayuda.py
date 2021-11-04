@@ -12,9 +12,9 @@ def ayuda():
     numcols = num_cols()
 
     titulos = {
-            1: "AYUDA: VIDEOS",
-            2: "AYUDA: CARPETA",
-            3: "AYUDA: PALABRAS",
+            1: "AYUDA: SELECCIÓN DE VIDEO",
+            2: "AYUDA: SELECCIÓN DE CARPETA",
+            3: "AYUDA: PALABRAS DE BÚSQUEDA",
             4: "AYUDA: RESULTADOS",
             5: "AYUDA: CONFIGURACIÓN",
             }
@@ -32,25 +32,3 @@ def ayuda():
 
     return leer_settings("menu_anterior")
 
-
-
-
-#
-#
-#
-#    editar_settings("menu_anterior", str(leer_settings("menu")))
-#    editar_settings("menu","2")
-#    extensiones = leer_settings("extensiones").split(',')
-#    video = leer_settings("video")
-#    numcols = num_cols()
-#
-#    linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
-#    linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-#
-#    titulo = "PALABRAS DE BÚSQUEDA"
-#    print(linea_azul)
-#    print(((numcols - len(titulo))//2) * " " + titulo)
-#    print(linea_azul)
-#
-#    if leer_settings("video") == "":
-#        msj = "Aquí aparecerán palabras de búsqueda sugeridas " + \
