@@ -1,12 +1,12 @@
-:sl:
+
 :Wc:Versión 0.1.1
-:sl:
+
 :ff:- Visor de ayuda y mensajes ahora funciona con curses.
-:sl:
+
 :la:
-:sl:
+
 :Wc:Versión 0.1.0
-:sl:
+
 :ff:- Configuración de carpeta de búsqueda.
 :ff:- Búsqueda y filtrado de videos en carpeta definida y subcarpetas.
 :ff:- Selección y marcado de video.

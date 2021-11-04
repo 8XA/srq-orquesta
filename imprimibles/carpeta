@@ -27,7 +27,11 @@
 
 :ff:En la segunda franja roja hallarás la sección de filtros, aquí aparecerán las palabras que ingreses para filtrar las subcarpetas listadas en la primera franja azul.
 
-:ff:  - Para filtrar subcarpetas, ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán las subcarpetas que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+:ff:  - Para filtrar subcarpetas ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán las subcarpetas que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+
+:ff:  - Para eliminar los filtros ingresa un espacio.
+
+:ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar las carpetas que contengan '2' en su nombre, ingresa ' 2'.
 
 :Lr:
 :Wc:*Puedes ir a cualquier sección del menú (Última franja azul) ingresando la letra verde que le corresponde y dando 'Enter'.
