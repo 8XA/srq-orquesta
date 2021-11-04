@@ -1,13 +1,17 @@
-Versión 0.2.0
-- Visor de ayuda y mensajes ahora funciona con curses.
-
-Versión 0.1.0
-
-- Configuración de carpeta de búsqueda.
-- Búsqueda y filtrado de videos en carpeta definida y subcarpetas.
-- Selección y marcado de video.
-- Búsqueda de subtítulos mediante selección de palabras.
-- Filtrado, descarga y asignacion de subtítulos.
-- Conversión de subtítulos a UTF-8
-- Reproducción de video.
-- Actualizaciones opcionales.
+:sl:
+:Wc:Versión 0.1.1
+:sl:
+:ff:- Visor de ayuda y mensajes ahora funciona con curses.
+:sl:
+:la:
+:sl:
+:Wc:Versión 0.1.0
+:sl:
+:ff:- Configuración de carpeta de búsqueda.
+:ff:- Búsqueda y filtrado de videos en carpeta definida y subcarpetas.
+:ff:- Selección y marcado de video.
+:ff:- Búsqueda de subtítulos mediante selección de palabras.
+:ff:- Filtrado, descarga y asignacion de subtítulos.
+:ff:- Conversión de subtítulos a UTF-8.
+:ff:- Abre videos con reproductor externo.
+:ff:- Actualizaciones opcionales.

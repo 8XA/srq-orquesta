@@ -11,7 +11,6 @@ def acerca_de():
     editar_settings("menu","7")
     numcols = num_cols()
 
-    visor("ACERCA DE", "acerca_de")
-    visor("NOVEDADES DE LA VERSIÓN", "actualizacion")
+    visor("ACERCA DE", "acerca_de","actualizacion")
 
     return leer_settings("menu_anterior")
