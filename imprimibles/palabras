@@ -1,49 +1,73 @@
 
-En está sección aparecerá una lista de palabras numeradas tomadas del nombre del video elegido en la sección 'Películas'. Es necesario que definas las palabras con las cuales se realizará la busqueda de subtítulos. El órden importa, además, evita omitir palabras ubicadas en el centro del título.
+:ff:En esta sección defines las palabras de búsqueda para subtítulos, mismos que podrás visualizar en la sección 'Resultados'.
 
-Por ejemplo, para el video 'El.Monstruo.Del.Lago.Ness.2021.BRrip.8XA-version.mkv':
+:Lr:
+:Wc:Subsecciones
+:Lr:
 
-Búsqueda incorrecta:
-  - El Monstruo Del Lago Ness 2021 BRrip 8XA-version
-  - Monstruo lago Ness
-  - El Monstruo del lago Ness BRrip
+:Wc:Palabras listadas
 
-Búsqueda correcta:
-  - monstruo del lago ness
-  - El Monstruo del lago Ness 2021
+:ff:En esta primera subsección aparecerán listadas las palabras que componen el título de la película/serie seleccionada en 'Video'. Cada palabra tendra un número de ID en color verde.
 
-No te preocupes porque la búsqueda arroje demasiados resultados, en la próxima sección podrás filtrar los subtítulos obtenidos.
+:lb:
+:wc:Ejemplo de lista:
+:lb:
+:ff:0: El
+:ff:1: Perrito
+:ff:2: Alegre
+:ff:3: 2020
+:ff:4: WEBRip
+:ff:5: x264
+:ff:6: aac
+:lb:
 
-Para ingresar las palabras de búsqueda puedes simplemente escribir tu búsqueda de manera libre, o puedes ayudarte de la lista de palabras numeradas si entre éstas están las que conformarán tu búsqueda.
+:Wc:Opciones
 
-------------
+:ff:  - Para seleccionar palabras ingresa los ID separados por comas.
 
-Para utilizar la lista de palabras numeradas:
+:ff:  - Para seleccionar rangos de palabras ingresa los ID separados por guiones.
 
-- Los rangos de palabras son separados por guiones ('-').
-- Los conjuntos de rangos y palabras aisladas son separadas por comas (',').
+:ff:  - Puedes combinar comas y guiones.
 
-Ejemplos:
-Ingresando: 1,4,6
-Obtienes las palabras: 1,4, y 6.
+:ff:  - Puedes ignorar las palabras listadas y escribir tu búsqueda de forma libre ingresando el texto.
 
-Ingresando: 4-7
-Obtienes las palabras: 4,5,6 y 7. 
+:lb:
+:wc:Ejemplo de selección:
+:lb:
+:ff: 0,2    :  El Alegre
+:ff: 0-2    :  El Perrito Alegre
+:ff: 0-2,4  :  El Perrito Alegre WEBRip
+:ff: 0,2-4  :  El Alegre 2020 WEBRip
+:lb:
 
-Ingresando: 1,3-5,6,10-12
-Obtienes las palabras: 1,3,4,5,6,10,11 y 12.
+:la:
 
-Ingresando: 't'
-Obtienes todas las palabras.
+:Wc:Palabras a confirmar
 
-------------
+:ff:En esta subsección aparecerán las palabras que vayas definiendo.
 
-Una vez que aparezcan las palabras de búsqueda deseadas en la franja roja, simplemente da 'Enter' para confirmar, con esto se realizará la búsqueda y serás dirigido a la sección de resultados.
+:ff:  - Cuando las palabras de búsqueda hayan sido definidas podrás confirmar con 'Enter', eso hará la búsqueda correspondiente y te dirigirá a la sección 'Resultados'.
 
-------------
+:Lr:
 
-*Si intentás hacer la misma búsqueda de palabras para el mismo video, la búsqueda sólo se realizará en la primera ocasión para mostrarte en ambas los mismos resultados. Si de cualquier manera quieres repetir la búsqueda, sólo ingresa 'u' y da 'Enter'.
+:Wc:Consideraciones generales
 
-------------
+:ff:  - El orden de las palabras importa y repercute en la búsqueda.
 
-*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
+:ff:  - La búsqueda no distingue mayúsculas/minúsculas.
+
+:ff:  - No hay problema con ingresar el título incompleto, siempre y cuando lo ingresado sea un fragmento corrido del título.
+
+:ff:    *Para 'El Perrito Alegre':
+
+:ff:      - Bien: 'El Perrito'
+:ff:      - Bien: 'El Perrito Alegre'
+:ff:      - Mal : 'El Alegre'
+
+:ff:  - Es recomendable ingresar solo el título sin temor a obtener demasiados resultados. Si se busca un capítulo en específico para una serie, este podrá ser filtrado en la sección 'Resultados'.
+
+:ff:  - Para recalcular la búsqueda utilizando las mismas palabras, ingresa 'u'.
+
+:Lr:
+:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
+:Lr:
