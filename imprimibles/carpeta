@@ -13,7 +13,7 @@
 
 :Wc:Ruta editable
 
-:ff:En la primera franja roja podrás ver la edición de la ruta tal y como la vayas definiendo:
+:ff:En esta subsección podrás ver la edición de la ruta tal y cual la vayas definiendo:
 
 :ff:  - Para entrar a una subcarpeta, ingresa el número de ID (señalado en verde) que le corresponde.
 
@@ -25,7 +25,7 @@
 
 :Wc:Filtros
 
-:ff:En la segunda franja roja hallarás la sección de filtros, aquí aparecerán las palabras que ingreses para filtrar las subcarpetas listadas en la primera franja azul.
+:ff:Aquí aparecerán las palabras que ingreses para filtrar las subcarpetas listadas.
 
 :ff:  - Para filtrar subcarpetas ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán las subcarpetas que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
 
@@ -34,5 +34,5 @@
 :ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar las carpetas que contengan '2' en su nombre, ingresa ' 2'.
 
 :Lr:
-:Wc:*Puedes ir a cualquier sección del menú (Última franja azul) ingresando la letra verde que le corresponde y dando 'Enter'.
+:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
 :Lr:

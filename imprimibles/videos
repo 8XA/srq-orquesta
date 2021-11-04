@@ -1,5 +1,5 @@
 
-:ff:En esta sección elegirás el video a subtitular y/o reproducir. Verás listados los videos disponibles en la ruta de la franja roja, así como en sus subdirectorios.
+:ff:En esta sección elegirás el video a subtitular y/o reproducir. Verás listados los videos disponibles en la ruta definida en la subsección 'Ruta', así como los disponibles en sus subdirectorios.
 
 :Lr:
 :Wc:Subsecciones
@@ -36,5 +36,5 @@
 :ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '2' en su nombre, ingresa ' 2'.
 
 :Lr:
-:Wc:*Puedes ir a cualquier sección del menú (Última franja azul) ingresando la letra verde que le corresponde y dando 'Enter'.
+:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
 :Lr:
