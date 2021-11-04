@@ -15,7 +15,7 @@ def descarga():
     #Actualizando info de pantalla en base de datos
     editar_settings("menu_anterior", str(leer_settings("menu")))
     editar_settings("menu","101")
-    ruta_tmp = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/tmp"
+    ruta_tmp = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/tmp"
 
     numcols = num_cols()
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])

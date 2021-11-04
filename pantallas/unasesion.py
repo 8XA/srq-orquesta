@@ -15,7 +15,7 @@ def una_sesion():
     uno_verde = colored("1", 'green', attrs=['bold','dark'])
 
     print(linea_azul)
-    msj = "APOCALIPSIS ORQUESTA está actualmente en ejecución o no se cerró correctamente. " + \
+    msj = "SRQ ORQUESTA está actualmente en ejecución o no se cerró correctamente. " + \
             "Tener más de una instancia abierta puede provocar un comportamiento inesperado."
 
     opciones = uno_verde + ": Sí\n" + cero_verde + ": No\n"

@@ -8,7 +8,7 @@ import os, curses
 def hoja_imprimible(num_cols, tupla_hojas):
     numcols = num_cols
 
-    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
+    ruta = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/imprimibles/"
 
     #Funciones de orden para cada renglón
     orden = {

@@ -31,7 +31,7 @@ import sqlite3
 import os
 
 def creadb():
-    ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/data.db"
+    ruta = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 
     if os.path.isfile(ruta):
         return "existe"
