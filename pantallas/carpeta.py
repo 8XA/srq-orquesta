@@ -57,7 +57,7 @@ def carpeta():
 
         #Ruta actual en franja roja
         print(linea_roja)
-        print(colored(fit_frase_centrada(numcols, "Ruta:"), 'white', attrs=['bold']))
+        print(colored(fit_frase_centrada(numcols, "Ruta editable:"), 'white', attrs=['bold']))
         print(ruta)
         print(linea_roja)
         #Filtros
