@@ -1,9 +1,34 @@
-:ff:APOCALIPSIS ORQUESTA mostrará los videos existentes en la ruta que definas dentro de la franja roja, así como en sus subdirectorios. La ruta irá editándose a medida que navegues.
-:la:
-:ff:- Para entrar a una carpeta de la ruta actual, ingresa el número verde que le corresponde y da 'Enter'.
 
-:ff:- Para ir un directorio hacia atrás ingresa dos puntos seguidos '..' y da 'Enter'.
-:ff:- Cuando la ruta deseada quede definida en la franja roja, confirma con 'Enter'.
-:ff:* Salir del programa o ir a otra sección del menú sin confirmar la nueva ruta, hará que conserves la ruta que ya tenías.
+:ff:En esta sección defines la ruta de búsqueda de videos en tu teléfono. La sección "Videos" te mostrará los videos hallados en esta ruta, así como en sus subcarpetas.
+
+:Lr:
+:Wc:Subsecciones
+:Lr:
+
+:Wc:Subcarpetas
+
+:ff:Si la ruta actual contiene subcarpetas, podrás verlas listadas en la primera franja azul, cada una con un número ID verde asignado.
+
 :la:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
+
+:Wc:Ruta editable
+
+:ff:En la primera franja roja podrás ver la edición de la ruta tal y como la vayas definiendo:
+
+:ff:  - Para entrar a una subcarpeta, ingresa el número de ID (señalado en verde) que le corresponde.
+
+:ff:  - Para regresar a la carpeta anterior (carpeta padre) de tu carpeta actual, ingresa dos pontos seguidos (..).
+
+:ff:  - Para confirmar la ruta editada, da 'Enter'.
+
+:la:
+
+:Wc:Filtros
+
+:ff:En la segunda franja roja hallarás la sección de filtros, aquí aparecerán las palabras que ingreses para filtrar las subcarpetas listadas en la primera franja azul.
+
+:ff:  - Para filtrar subcarpetas, ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán las subcarpetas que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+
+:Lr:
+:Wc:*Puedes ir a cualquier sección del menú (Última franja azul) ingresando la letra verde que le corresponde y dando 'Enter'.
+:Lr:

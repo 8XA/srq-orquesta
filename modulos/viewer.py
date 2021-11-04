@@ -5,8 +5,8 @@ import os, curses
 
 ###################################################
 
-def hoja_imprimible(*arg):
-    numcols = arg[0]
+def hoja_imprimible(num_cols, tupla_hojas):
+    numcols = num_cols
 
     ruta = "/data/data/com.termux/files/usr/share/apocalipsis-orquesta/apocalipsis-orquesta/imprimibles/"
 
@@ -23,7 +23,7 @@ def hoja_imprimible(*arg):
     
     #Lista de archivos
     #Cada archivo es una lista de renglones
-    for archivo in arg[1:]:
+    for archivo in tupla_hojas:
         #Abre cada documento
         with open(ruta + archivo, "r") as archivo_texto:
             renglones = archivo_texto.readlines()
@@ -85,7 +85,7 @@ def visor(*arg):
 
         #Hoja imprimible
         if hoja == None:
-            hoja = hoja_imprimible(numcols, "carpeta", "carpeta")
+            hoja = hoja_imprimible(numcols, arg[1:])
 
         #Colores por defecto (-1):
         curses.use_default_colors()
