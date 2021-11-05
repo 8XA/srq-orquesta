@@ -121,7 +121,7 @@ def visor(*arg):
 
             #Mensaje de retorno
             win_retorno = curses.newwin(1, numcols, numlines-1,0)
-            win_retorno.addstr(0,0, ": ")
+            win_retorno.addstr(0,0, "Enter: ")
             win_retorno.keypad(True)
             win_retorno.refresh()
 
