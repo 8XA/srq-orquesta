@@ -1,31 +1,79 @@
 
-En esta seccón aparecerán los subtítulos que hayan sido encontrados, cada uno separado por líneas amarillas.
+:ff:Aquí podrás ver y descargar los subtítulos que arrojó como resultado tu búsqueda en la sección 'Palabras'. Al descargar un subtítulo, este será asignado de manera automática al video seleccionado y se abrirá el reproductor que tengas instalado (se sugiere mpv-android).
 
-Cada subtítulo consta de:
-  - Un ID (número verde).
-  - Número asignado en la página actual (A la izquierda del ID).
-  - Nombre (A la derecha del ID).
-  - Descripción (Debajo del nombre, separado por una línea punteada).
-  - Procedencia (Esquina inferior derecha).
+:Lr:
+:Wc:Subsecciones
+:Lr:
 
-------------
+:Wc:Subtítulos
 
-En la franja roja se visualizan el video que será subtitulado y su ruta.
-Por la cantidad de subtítulos que pudieran resultar de una búsqueda, por comodidad y por las limitaciones de la terminal en turno. Los resultados se muestran por páginas y puedes navegar entre ellas:
+:ff:En esta subsección aparecerán los subtítulos descargables, separados entre sí por líneas amarillas.
 
-  - 'Enter' para avanzar página.
-  - Dos puntos ('..') y 'Enter' para ir a la página anterior.
+:lb:
+:wc:Elementos de cada subtítulo:
+:lb:
 
-------------
+:ff:- Un número ID de color verde.
 
-Para seleccionar un subtítulo solo debes ingresar el número de ID que le corresponde y dar 'Enter'. Al hacer esto, el subtítulo será descargado y asignado, podrás verlo al reproducir el video.
+:ff:- Un número relativo que numera los subtítulos visibles, por lo que cambia con cada filtrado. Se encuentra del lado izquiero del ID.
 
-Tras descargar un subtítulo, este queda con el ID marcado. De manera que si regresas a la misma sección para probar un subtítulo nuevo, sabrás cuáles ya has descargado.
+:ff:- Nombre del subtítulo. Se encuentra a la derecha del número ID.
 
-Puedes filtrar los subtítulos ingresando palabras separadas por espacios y/o comas. Como resultado, en el filtro sólo aparecerán aquellos subtítulos que contengan todas las palabras ingresadas. Esto es muy útil si quieres filtrar determinados ripeos (BRrip, WebRip, etc), resoluciones (1080p, 720p, etc), procedencia (subdivx u opensubtitles) o bien, la versión de algún usuario.
+:ff:- Descripción del subtítulo. Se encuentra debajo del nombre, separado por una línea blanca.
 
-Puedes navegar entre los comandos ya ingresados utilizando las flechas de dirección (arriba y abajo), de esta manera no tienes que reescribir todo si quieres filtrar aún mas algún filtro previo.
+:ff:- Procedencia. Es la plataforma de procedencia del subtítulo, aparece en la esquina inferior derecha con color cyan.
 
-------------
+:lb:
 
-*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde y dando 'Enter'.
+:ff:- Para descargar un subtítulo ingresa el número ID que lo identifica.
+
+:la:
+
+:Wc:Video a subtitular
+
+:ff:Esta subsección muestra el nombre del video seleccionado.
+
+:la:
+
+:Wc:Ruta
+
+:ff:Esta subsección muestra la ruta del video seleccionado.
+
+:la:
+
+:Wc: Filtros
+
+:ff:Aquí aparecerán las palabras que ingreses para filtrar los subtítulos listados.
+
+:ff:  - Para filtrar subtítulos ingresa las palabras filtro separadas por espacios y/o comas. En la lista solo aparecerán los subtítulos que contengan todos los filtros ingresados.
+
+:ff:  - Utiliza las flechas (arriba y abajo) para navegar entre los fltros ingresados previamente.
+
+:lb:
+:wc:Sugerencias de filtrado:
+:lb:
+:ff:- Por ripeos:    BRrip, WEBRip, etc.
+:ff:- Resoluciones:  1080p, 720p, etc.
+:ff:- Versión:       EVO, RARBG, YTS, etc.
+:ff:- Procedencia:   subdivx, opensubtitles
+:lb:
+
+:wc:*el filtro no distingue mayúsculas/minúsculas.
+
+:Lr:
+
+:Wc:Consideraciones generales
+
+:ff:- Debido a la cantidad de subtítulos que pueden llegar a listarse, estos se separan en páginas. 
+:ff:  - Para avanzar una página, da 'Enter'.
+:ff:  - Para retroceder una página, ingresa dos puntos seguidos (..).
+
+:ff:- La leyenda bajo el menú indica cuántos subtítulos están listados con el filtro actual, de cuántas páginas consta la lista y en cuál te hallas.
+
+:ff:- Por defecto cada página contiene máximo 50 subtítulos, puedes cambiar esto en la sección 'Configuración'.
+
+:ff:- Al descargar un subtítulo su ID será marcado, de manera que si regresas a la misma seccón para probar uno nuevo, sabrás cuáles ya has usado (marcas roja) y cuál es el actual (marca blanca).
+
+:Lr:
+:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
+:Lr:
