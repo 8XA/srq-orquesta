@@ -7,7 +7,7 @@
 
 :Wc:Actualizar SRQ ORQUESTA
 
-:ff:Puedes verificar actualizaciones de forma manual o automática. La vía automática hará verificación cada vez que abras SRQ ORQUESTA.
+:ff:Puedes verificar actualizaciones de forma manual o automática. La vía automática hará verificación al inicio de cada apertura de SRQ ORQUESTA.
 
 :ff:  - Para desactivar las actualizaciones automáticas, ingresa '1n'.
 
