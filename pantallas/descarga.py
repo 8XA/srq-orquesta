@@ -3,7 +3,7 @@
 import os
 from subprocess import Popen, PIPE
 from termcolor import colored
-from modulos.scrapers.auxiliares.subdivx.enlace_descarga import get_enlace
+from modulos.scrapers.subs.auxiliares.subdivx.enlace_descarga import get_enlace
 from modulos.archivos_en_ruta import subs_en_ruta
 from modulos.admindb import leer_settings
 from modulos.fit_frases import *

@@ -11,8 +11,8 @@ from modulos.admindb import *
 from modulos.fit_frases import *
 from modulos.menu import menu
 from modulos.numcols import num_cols
-from modulos.scrapers.opensubtitles import opensubtitles
-from modulos.scrapers.subdivx import subdivx
+from modulos.scrapers.subs.opensubtitles import opensubtitles
+from modulos.scrapers.subs.subdivx import subdivx
 
 def resultados():
     #Resultados por pagina (rpp)
