@@ -24,6 +24,9 @@
 #extensiones_disponibles = extensiones de video disponibles
 #cambio_busqueda = True si los parametros de busqueda (video, ruta o palabras) cambiaron
 #
+#Tabla torrents:
+#lista de torrents y sus datos
+
 #Tabla resultados:
 #Lista de subtitulos con su respectivo título, descripción y URL de descarga
 
@@ -39,7 +42,11 @@ def creadb():
         conexion = sqlite3.connect(ruta)
         cursor = conexion.cursor()
         
+        cursor.execute("CREATE TABLE torrents (titulo TEXT, peso TEXT, seeds INTEGER, \
+                leechers INTEGER, procedencia TEXT, magnetlink TEXT)")
+
         cursor.execute("CREATE TABLE resultados (titulo TEXT, descripcion TEXT, url TEXT)")
+        
         cursor.execute("CREATE TABLE settings (actualizar INTEGER, ini_aut INTEGER, \
                 ruta_carpeta TEXT, ruta_video TEXT, video TEXT, palabras TEXT, scrapers TEXT, \
                 recode INTEGER, menu INTEGER, menu_anterior INTEGER, oneline INTEGER, \
