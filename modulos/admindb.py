@@ -100,3 +100,31 @@ def restaurar_settings():
     
     os.system("rm " + ruta_backup)
 
+#LEER TORRENTS
+def leer_torrents(*args):
+    global ruta, ruta_backup
+    
+    data = ruta
+    if (len(args) == 1) and (args[0] == "backup"):
+        data = ruta_backup
+
+    conexion = sqlite3.connect(data)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM torrents")
+
+    subs = cursor.fetchall()
+    conexion.close()
+
+    return torrents
+
+#EDITAR TORRENTS
+def editar_torrents(lista_subs):
+    global ruta
+    conexion = sqlite3.connect(ruta)
+    cursor = conexion.cursor()
+
+    cursor.execute("DELETE FROM torrents")
+    cursor.executemany("INSERT INTO resultados VALUES (?,?,?)", torrents)
+
+    conexion.commit()
+    conexion.close()

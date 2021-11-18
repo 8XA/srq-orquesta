@@ -12,6 +12,7 @@ def ayuda():
     numcols = num_cols()
 
     titulos = {
+            0: "AYUDA: BÚSQUEDA Y DESCARGA DE TORRENTS",
             1: "AYUDA: SELECCIÓN DE VIDEO",
             2: "AYUDA: SELECCIÓN DE CARPETA",
             3: "AYUDA: PALABRAS DE BÚSQUEDA",
@@ -20,6 +21,7 @@ def ayuda():
             }
 
     archivo = {
+            0: "torrents",
             1: "videos",
             2: "carpeta",
             3: "palabras",
