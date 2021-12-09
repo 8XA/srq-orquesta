@@ -6,7 +6,7 @@ from os.path import isfile
 def create_db():
     """
     This module creates the database if this doesn't exist.
-    *The function doesn't take any parameter.
+    *This function takes no parameters.
 
     Boolean values in the database:
     -----
@@ -22,46 +22,46 @@ def create_db():
         connection = connect(route)
         cursor = connection.cursor()
 
-#        #TABLES
-#        ##################################################
-#        
-#        #Tabla torrents hallados y sus características
-#        cursor.execute("CREATE TABLE torrents (" \
-#                #Nombre del torrent
-#                "titulo TEXT, " \
-#                #Número de sembradores del torrent
-#                "seeds INTEGER, " \
-#                #Número de sanguijuelas
-#                "leechers INTEGER, " \
-#                #Plataforma de donde se obtuvo el torrent
-#                "procedencia TEXT, " \
-#                #Enlace magnético
-#                "magnetlink TEXT, " \
-#                #Estado:
-#                    #0: No descargado
-#                    #1: Descargado
-#                    #2: Último descargado (actual)
-#                "status INTEGER " \
-#                ")")
-#
-#        ##################################################
-#
-#        #Lista de subtítulos hallados y sus características
-#        cursor.execute("CREATE TABLE subtitulos (" \
-#                #Nombre del subtítulo
-#                "titulo TEXT, " \
-#                #Descripción del subtítulo
-#                "descripcion TEXT, " \
-#                #URL del subtítulo
-#                "url TEXT, " \
-#                #Estado:
-#                    #0: No descargado
-#                    #1: Descargado
-#                    #2: Último descargado (actual)
-#                "status INTEGER " \
-#                ")")
-#
-#        ##################################################
+        #TABLES
+        ##################################################
+        
+        #Found torrents table and its properties
+        cursor.execute("CREATE TABLE torrents (" \
+                #Torrent name
+                "title TEXT, " \
+                #Number of seeds
+                "seeds INTEGER, " \
+                #Number of leechers
+                "leechers INTEGER, " \
+                #Platform where the torrent came from
+                "platform TEXT, " \
+                #Magnetlink for torrenting
+                "magnetlink TEXT, " \
+                #Status:
+                    #0: Not downloaded
+                    #1: Downloaded
+                    #2: Last downloaded torrent (current one)
+                "status INTEGER " \
+                ")")
+
+        ##################################################
+
+        #Found subtitles table and its properties
+        cursor.execute("CREATE TABLE subtitles (" \
+                #Subtitle title
+                "title TEXT, " \
+                #Subtitle description
+                "description TEXT, " \
+                #Subtitle URL to download it
+                "url TEXT, " \
+                #Status:
+                    #0: Not downloaded
+                    #1: Downloaded
+                    #2: Last downloaded torrent (current one)
+                "status INTEGER " \
+                ")")
+
+        ##################################################
 
         #Settings table
         cursor.execute("CREATE TABLE settings (" \
