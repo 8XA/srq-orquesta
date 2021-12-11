@@ -2,18 +2,18 @@
 
 #Selecciona las palabras de busqueda o ingresa una busqueda libre
 
-from modulos.numcols import num_cols
-from modulos.admindb import leer_settings, editar_settings
-from modulos.menu import menu
-from modulos.fit_frases import *
+from modules.columns_number import columns_number_func
+from modules.admin_db import read_settings, edit_settings
+from modules.menu import menu
+from modules.strings_fitting import *
 from termcolor import colored
 
 def palabras():
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","3")
-    extensiones = leer_settings("extensiones").split(',')
-    video = leer_settings("video")
-    numcols = num_cols()
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","3")
+    extensiones = read_settings("extensions").split(',')
+    video = read_settings("selected_video_name")
+    numcols = columns_number_func()
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
@@ -23,7 +23,7 @@ def palabras():
     print(((numcols - len(titulo))//2) * " " + titulo)
     print(linea_azul)
 
-    if leer_settings("video") == "":
+    if read_settings("selected_video_name") == "":
         msj = "Aquí aparecerán palabras de búsqueda sugeridas " + \
                 "cuando selecciones un video..."
         print("\n")
@@ -46,7 +46,7 @@ def palabras():
             'white', attrs=['bold']))
 
     msj = "Aquí aparecerán las palabras de búsqueda que definas..."
-    lista_palabras = leer_settings("palabras")
+    lista_palabras = read_settings("sub_words")
     if lista_palabras == "":
         print(fit_frase(numcols, msj))
 
@@ -65,7 +65,7 @@ def palabras():
     else:
         #Si da enter
         if i[1] == "":
-            if leer_settings("palabras") != "":
+            if read_settings("sub_words") != "":
                 return 4
             else:
                 return 3
@@ -73,16 +73,14 @@ def palabras():
         #Si usa todas las palabras de la lista
         #Actualizar busqueda aunque ya se haya hecho con los mismos parámetros
         elif i[1].lower() == "u":
-            editar_settings("cambio_busqueda","1")
-            editar_settings("subs_descargados","")
+            edit_settings("sub_search_changed","1")
             return 4
 
         elif (i[1].lower() == "all") and \
-                (",".join(palabras_del_titulo) != leer_settings("palabras")):
+                (",".join(palabras_del_titulo) != read_settings("sub_words")):
 
-            editar_settings("cambio_busqueda","1")
-            editar_settings("subs_descargados","")
-            editar_settings("palabras", ",".join(palabras_del_titulo))
+            edit_settings("sub_search_changed","1")
+            edit_settings("sub_words", ",".join(palabras_del_titulo))
 
             return 3
 
@@ -131,20 +129,18 @@ def palabras():
                     palabras_candidatas.append(palabras_del_titulo[int(x)])
 
             #Si todo esta correcto, guarda
-            if ",".join(palabras_candidatas) != leer_settings("palabras"):
-                editar_settings("cambio_busqueda","1")
-                editar_settings("subs_descargados","")
-                editar_settings("palabras", ",".join(palabras_candidatas))
+            if ",".join(palabras_candidatas) != read_settings("sub_words"):
+                edit_settings("sub_search_changed","1")
+                edit_settings("sub_words", ",".join(palabras_candidatas))
 
         #busqueda libre
         else:
             palabras_candidatas = [x for x in " ".join(i[1].split(",")).split(" ") if x != ""]
 
-            if (",".join(palabras_candidatas) != leer_settings("palabras")) and \
+            if (",".join(palabras_candidatas) != read_settings("sub_words")) and \
                     len(palabras_candidatas) > 0:
-                editar_settings("cambio_busqueda","1")
-                editar_settings("subs_descargados","")
-                editar_settings("palabras", ",".join(palabras_candidatas))
+                edit_settings("sub_search_changed","1")
+                edit_settings("sub_words", ",".join(palabras_candidatas))
             else:
                 pass
 

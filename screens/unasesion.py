@@ -1,13 +1,13 @@
 #!/bin/env python 
 
-from modulos.numcols import num_cols
-from modulos.admindb import leer_settings, editar_settings
-from modulos.fit_frases import *
+from modules.columns_number import columns_number_func
+from modules.admin_db import edit_settings
+from modules.strings_fitting import *
 from termcolor import colored
 import time
 
 def una_sesion():
-    numcols = num_cols()
+    numcols = columns_number_func()
 
     linea_azul_ = colored(numcols*"-", 'blue', attrs=['bold', 'dark'])
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
@@ -27,7 +27,7 @@ def una_sesion():
     i = input(imprimir)
 
     if i.isdigit() and int(i) == 1:
-        editar_settings("instancia_activa", "0")
+        edit_settings("active_instance", "0")
         
         print("\nForzando apertura. Inicia de nuevo...")
         time.sleep(1)

@@ -1,16 +1,16 @@
 #!/bin/env python
 
-from modulos.numcols import num_cols
-from modulos.viewer import visor
-from modulos.admindb import leer_settings, editar_settings
-from modulos.menu import menu
+from modules.columns_number import columns_number_func
+from modules.viewer import visor
+from modules.admin_db import read_settings, edit_settings
+from modules.menu import menu
 
 def acerca_de():
-    if leer_settings("menu") not in [6,7]:
-        editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","7")
-    numcols = num_cols()
+    if read_settings("menu") not in [6,7]:
+        edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","7")
+    numcols = columns_number_func()
 
-    visor("ACERCA DE", "acerca_de","actualizacion")
+    visor("ACERCA DE", "about","update")
 
-    return leer_settings("menu_anterior")
+    return read_settings("previous_menu")

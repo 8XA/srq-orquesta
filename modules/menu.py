@@ -6,7 +6,7 @@
 
 from time import sleep
 import os
-from modulos.admindb import leer_settings
+from modules.admin_db import read_settings
 from termcolor import colored
 
 def menu(*args):
@@ -21,7 +21,7 @@ def menu(*args):
     iniciales = "TVCAROYES"
     i = {}
     for x in range(len(iniciales)):
-        if leer_settings("menu") == x:
+        if read_settings("menu") == x:
             i[str(x)] = colored(iniciales[x], 'green', marcado, attrs=['bold', 'dark'])
         else:
             i[str(x)] = colored(iniciales[x], 'green', attrs=['bold', 'dark'])
@@ -38,7 +38,7 @@ def menu(*args):
     for palabra in range(len(tramo)):
         for pieza in range(len(tramo[palabra])):
             T[str(palabra) + "_" + str(pieza)] = len(tramo[palabra][pieza])
-            if palabra == leer_settings("menu"):
+            if palabra == read_settings("menu"):
                 t[str(palabra) + "_" + str(pieza)] = \
                         colored(tramo[palabra][pieza], 'red', marcado, attrs=['bold', 'dark'])
             else:
@@ -144,10 +144,10 @@ def menu(*args):
         return ("menu", iniciales.index(i.upper()))
     #Abre el video
     elif i.upper() == "P":
-        if os.path.isfile(leer_settings("ruta_video") + \
-                leer_settings("video")):
-            os.system("termux-open '" + leer_settings("ruta_video") + \
-                    leer_settings("video") + "'")
+        if os.path.isfile(read_settings("selected_video_route") + \
+                read_settings("selected_video_name")):
+            os.system("termux-open '" + read_settings("selected_video_route") + \
+                    read_settings("selected_video_name") + "'")
         else:
             os.system("clear")
             print("No hay un video seleccionado aún...")
@@ -155,8 +155,8 @@ def menu(*args):
 
         #Evita repetir descarga
         pantalla = 3
-        if leer_settings("menu") != 101:
-            pantalla = leer_settings("menu")
+        if read_settings("menu") != 101:
+            pantalla = read_settings("menu")
         return ("menu", pantalla)
     
     return ("accion", i)

@@ -1,13 +1,13 @@
 #!/bin/env python
 
-from modulos.numcols import num_cols
+from modules.columns_number import columns_number_func
 from termcolor import colored, os
-from modulos.menu import menu
-from modulos.admindb import leer_settings, editar_settings
-from modulos.inicio_aut import *
-from modulos.fit_frases import *
-from pantallas.actualizar import *
-from modulos.creadb import creadb
+from modules.menu import menu
+from modules.admin_db import read_settings, edit_settings
+from modules.auto_start import *
+from modules.strings_fitting import *
+from screens.update import *
+from modules.create_db import create_db
 
 def bold_blanco_centrado(n_cols, txt):
     return colored(fit_frase_centrada(n_cols, txt), 'white', attrs=['bold'])
@@ -32,10 +32,10 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
 
 
 def configuracion():
-    if leer_settings("menu") != 5:
-        editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","5")
-    numcols = num_cols()
+    if read_settings("menu") != 5:
+        edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","5")
+    numcols = columns_number_func()
 
 
     #Líneas
@@ -64,7 +64,7 @@ def configuracion():
 
     
     #Verificar actualizaciones al iniciar
-    updt = leer_settings("actualizar")
+    updt = read_settings("auto_update")
     opcion(linea_azul_, linea_roja, numcols, \
             "Buscar actualizaciones al iniciar el programa", \
             [[updt, "1s", ": Sí"],[int("10"[updt]), "1n", ": No"]]
@@ -72,20 +72,20 @@ def configuracion():
 
     
     #Inicio automático
-    inicio = leer_settings("ini_aut")
+    inicio = read_settings("auto_start")
     opcion(linea_azul_, linea_roja, numcols, "Inicio automático al abrir Termux", \
             [[inicio, "2s", ": Sí"],[int("10"[inicio]), "2n", ": No"]]
         )
 
 
     #Ver una película y una carpeta por renglón
-    oneline = leer_settings("oneline")
+    oneline = read_settings("one_line")
     opcion(linea_azul_, linea_roja, numcols, "Un renglón para cada película/carpeta", \
             [[oneline, "3s", ": Sí"],[int("10"[oneline]), "3n", ": No"]])
 
 
     #Extensiones de video admitidas
-    ext = leer_settings("extensiones")
+    ext = read_settings("extensions")
     opcion(linea_azul_, linea_roja, numcols, "Extensiones de video admitidas", \
             [[ext.count("avi"), "4a", ": avi"], 
             [ext.count("mkv"), "4k", ": mkv"],
@@ -94,13 +94,13 @@ def configuracion():
 
 
     #Recodificar a UTF-8
-    recode = leer_settings("recode")
+    recode = read_settings("recode")
     opcion(linea_azul_, linea_roja, numcols, "Recodificar subtítulos a UTF-8", \
             [[recode, "5s", ": Sí"],[int("10"[recode]), "5n", ": No"]])
 
 
     #Fuentes de búsqueda
-    scrapers = leer_settings("scrapers")
+    scrapers = read_settings("sub_getters")
     opcion(linea_azul_, linea_roja, numcols, "Fuentes de búsqueda", [\
             [scrapers.count("subdivx"), "6s", ": subdivx"],
             [scrapers.count("opensubtitles"), "6o", ": opensubtitles (experimental)"]
@@ -108,7 +108,7 @@ def configuracion():
 
 
     #IDs descargables
-    ids = leer_settings("id_descargable")
+    ids = read_settings("downloadable_ids")
     opcion(linea_azul_, linea_roja, numcols, "IDs descargables", [\
             [ids.count("pagina"), "7p", ": Página actual"],
             [ids.count("filtrados"), "7f", ": Filtrados"],
@@ -128,7 +128,7 @@ def configuracion():
 
 
     #Resultados por página
-    rpp = str(leer_settings("rpp"))
+    rpp = str(read_settings("results_per_page"))
     texto = fit_frase_centrada(numcols, "Resultados por página (#): " + rpp)
     ind = texto.index(":") - 2
     texto_1 = colored(texto[:ind], 'white', attrs=['bold'])
@@ -153,7 +153,7 @@ def configuracion():
     
     #Acciones:
     elif i[1] == "":
-        return leer_settings("menu_anterior")
+        return read_settings("previous_menu")
 
 
     #Actualizaciones ahora
@@ -163,25 +163,25 @@ def configuracion():
 
     #Actualizaciones al iniciar
     elif i[1].lower() in bool_1:
-        editar_settings("actualizar", str(bool_1.index(i[1])))
+        edit_settings("auto_update", str(bool_1.index(i[1])))
     
     #Inicio automático al abrir termux
     elif i[1].lower() in bool_2:
-        editar_settings("ini_aut", str(bool_2.index(i[1])))
+        edit_settings("auto_start", str(bool_2.index(i[1])))
         inicio_aut()
 
     #Un renglón por película/carpeta
     elif i[1].lower() in bool_3:
-        editar_settings("oneline", str(bool_3.index(i[1])))
+        edit_settings("one_line", str(bool_3.index(i[1])))
 
     #Recodificar a UTF-8
     elif i[1].lower() in bool_5:
-        editar_settings("recode", str(bool_5.index(i[1])))
+        edit_settings("recode", str(bool_5.index(i[1])))
 
     #Extensiones de video admitidas
     elif i[1].lower() in ["4a", "4k", "4m"]:
         seleccion = i[1].lower()
-        ext = leer_settings("extensiones").split(",")
+        ext = read_settings("extensions").split(",")
         ext.sort()
         ext_editada = [x for x in ext]
 
@@ -195,12 +195,12 @@ def configuracion():
         ext_editada.sort()
 
         if ext_editada != ext:
-            editar_settings("extensiones", ",".join(ext_editada))
+            edit_settings("extensions", ",".join(ext_editada))
 
     #Fuentes de búsqueda
     elif i[1].lower() in ["6s", "6o"]:
         seleccion = i[1].lower()
-        fuentes = leer_settings("scrapers").split(",")
+        fuentes = read_settings("sub_getters").split(",")
         fuentes.sort()
         fuentes_editada = [x for x in fuentes]
 
@@ -214,7 +214,7 @@ def configuracion():
         fuentes_editada.sort()
 
         if fuentes_editada != fuentes:
-            editar_settings("scrapers", ",".join(fuentes_editada))
+            edit_settings("sub_getters", ",".join(fuentes_editada))
 
     #IDs descargables
     elif i[1].lower() in ["7p","7d","7f"]:
@@ -225,17 +225,17 @@ def configuracion():
                 "7d": "disponibles",
                 "7f": "filtrados"
                 }
-        editar_settings("id_descargable", op_selec[seleccion])
+        edit_settings("downloadable_ids", op_selec[seleccion])
 
     #Reiniciar configuración
     elif i[1].lower() == "i":
         os.system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
         creadb()
-        editar_settings("instancia_activa", "1")
+        edit_settings("active_instance", "1")
 
     #Resultados por página
     elif i[1].isdigit():
-        editar_settings("rpp", i[1])
+        edit_settings("results_per_page", i[1])
 
     return 5
 

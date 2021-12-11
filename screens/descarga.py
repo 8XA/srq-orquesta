@@ -3,21 +3,21 @@
 import os
 from subprocess import Popen, PIPE
 from termcolor import colored
-from modulos.scrapers.subs.auxiliares.subdivx.enlace_descarga import get_enlace
-from modulos.archivos_en_ruta import subs_en_ruta
-from modulos.admindb import leer_settings
-from modulos.fit_frases import *
-from modulos.numcols import num_cols
-from modulos.admindb import leer_settings, editar_settings
-from modulos.menu import menu
+from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
+from modules.files_from_route import subs_en_ruta
+from modules.admin_db import read_settings
+from modules.strings_fitting import *
+from modules.columns_number import columns_number_func
+from modules.admin_db import read_settings, edit_settings
+from modules.menu import menu
 
 def descarga():
     #Actualizando info de pantalla en base de datos
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","101")
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","101")
     ruta_tmp = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/tmp"
 
-    numcols = num_cols()
+    numcols = columns_number_func()
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_azul_ = colored(numcols*"-", 'blue', attrs=['bold', 'dark'])
     linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
@@ -34,7 +34,7 @@ def descarga():
         print("\n")
 
         #Recupera enlace de descarga
-        link = leer_settings("link_descarga")
+        link = read_settings("downloadable_sub_url")
         if "subdivx" in link:
             link = '--referer="' + link + '" "' + get_enlace(link) + '"'
         
@@ -109,8 +109,8 @@ def descarga():
             sub = [subs[0][0], subs[1][0]]
             print(linea_azul_)
 
-        nombre_final_sub = leer_settings("ruta_video") + \
-                leer_settings("video")[:-3] + sub[1][-3:]
+        nombre_final_sub = read_settings("selected_video_route") + \
+                read_settings("selected_video_name")[:-3] + sub[1][-3:]
 
     except:
         print(linea_azul_)
@@ -122,7 +122,7 @@ def descarga():
 
     try:
         txt, codificacion = "Asignando...", ''
-        if leer_settings("recode") == 1:
+        if read_settings("recode") == 1:
             txt = "Recodificando y asignando..."
 
             os.system('mv "' + sub[0] + sub[1] + '" "' + sub[0] + 'sub.srt"')
@@ -140,7 +140,7 @@ def descarga():
                 1: 'iconv --from-code=' + codificacion + ' --to-code=utf-8 "' + \
                         ruta_sub + '" > "' + nombre_final_sub + '"'
                 }
-        os.system(asigna[leer_settings("recode")])
+        os.system(asigna[read_settings("recode")])
 
         print(".\n.\n.")
         print(bold_white("Listo!"))
@@ -148,8 +148,8 @@ def descarga():
         print(linea_azul)
 
         #Abre el video
-        os.system("termux-open '" + leer_settings("ruta_video") + \
-                leer_settings("video") + "'")
+        os.system("termux-open '" + read_settings("selected_video_route") + \
+                read_settings("selected_video_name") + "'")
 
     except:
         print(linea_azul_)
