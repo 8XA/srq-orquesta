@@ -5,7 +5,7 @@ from modules.viewer import visor
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
-def ayuda():
+def help_section():
     if read_settings("menu") not in [6,7]:
         edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","6")

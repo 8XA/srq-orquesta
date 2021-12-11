@@ -14,7 +14,7 @@ from modules.columns_number import columns_number_func
 from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
 from modules.scrapers.subtitles.spanish.subdivx import subdivx
 
-def resultados():
+def results():
     #Resultados por pagina (rpp)
     rpp = read_settings("results_per_page")
     os.system("clear")

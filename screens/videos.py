@@ -8,7 +8,7 @@ from modules.menu import menu
 from modules.strings_fitting import fit_frase, fit_frase_centrada
 import os
 
-def pelicula():
+def videos():
     numcols = columns_number_func()
     titulo = "SRQ ORQUESTA"
 

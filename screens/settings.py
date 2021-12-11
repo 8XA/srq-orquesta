@@ -31,7 +31,7 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
     print(linea_roja)
 
 
-def configuracion():
+def settings():
     if read_settings("menu") != 5:
         edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","5")
