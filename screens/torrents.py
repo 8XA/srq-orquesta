@@ -2,18 +2,18 @@
 
 import os
 from termcolor import colored
-from modulos.menu import menu
-from modulos.scrapers.torrents.tpb import tpb
-from modulos.admindb import leer_settings, editar_settings
-from modulos.numcols import *
-from modulos.fit_frases import *
+from modules.menu import menu
+from modules.scrapers.torrents.tpb import tpb
+from modules.admin_db import read_settings, edit_settings
+from modules.columns_number import columns_number_func
+from modules.strings_fitting import *
 
 def torrents():
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","0")
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","0")
 
-    numcols = num_cols()
-    rpp = leer_settings("rpp")
+    numcols = columns_number_func()
+    rpp = read_settings("results_per_page")
     os.system("clear")
 
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])

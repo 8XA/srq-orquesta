@@ -1,11 +1,11 @@
 #!/bin/env python
 
-from modulos.admindb import leer_settings
+from modules.admin_db import read_settings
 
 #Cambia el bashrc para iniciar o no,
 #el script de forma automática
 def inicio_aut():
-    ini = leer_settings("ini_aut")
+    ini = read_settings("auto_start")
     ruta_bash = '/data/data/com.termux/files/usr/etc/bash.bashrc'
     comando = 'exec python /data/data/com.termux/files/usr/share' + \
             '/srq-orquesta/srq-orquesta/start.py\n'

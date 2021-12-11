@@ -1,13 +1,15 @@
 #!/bin/env python
 
 import os, time
-from modulos.numcols import num_cols
-from modulos.viewer import visor
+#from modules.columns_number import columns_number_func
+from modules.viewer import visor
 
-def actualizar():
+def update():
     rabs = '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/'
     ruta_backup = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
-    numcols = num_cols()
+
+#    columns_num = columns_number_func()
+#    numcols = num_cols()
     
     print("Verificando actualizaciones para SRQ ORQUESTA...\n")
 

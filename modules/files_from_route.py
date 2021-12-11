@@ -2,7 +2,7 @@
 
 #Lista de los archivos + lista de sus rutas mostrados
 
-from modulos.admindb import leer_settings
+from modules.admin_db import read_settings
 import os
 
 #args[0]: extensiones separadas por coma
@@ -33,6 +33,6 @@ def subs_en_ruta():
 
 
 def videos_en_ruta():
-    extensiones = leer_settings("extensiones")
-    ruta = leer_settings("ruta_carpeta")
+    extensiones = read_settings("extensions")
+    ruta = read_settings("folder_route")
     return archivos_en_ruta(extensiones, ruta)

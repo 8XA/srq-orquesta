@@ -1,15 +1,15 @@
 #!/bin/env python
 
-from modulos.numcols import num_cols
-from modulos.viewer import visor
-from modulos.admindb import leer_settings, editar_settings
-from modulos.menu import menu
+from modules.columns_number import columns_number_func
+from modules.viewer import visor
+from modules.admin_db import read_settings, edit_settings
+from modules.menu import menu
 
 def ayuda():
-    if leer_settings("menu") not in [6,7]:
-        editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","6")
-    numcols = num_cols()
+    if read_settings("menu") not in [6,7]:
+        edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","6")
+    numcols = columns_number_func()
 
     titulos = {
             0: "AYUDA: BÚSQUEDA Y DESCARGA DE TORRENTS",
@@ -23,14 +23,14 @@ def ayuda():
     archivo = {
             0: "torrents",
             1: "videos",
-            2: "carpeta",
-            3: "palabras",
-            4: "resultados",
-            5: "configuracion",
+            2: "folder",
+            3: "words",
+            4: "results",
+            5: "settings",
             }
 
-    menu_anterior = leer_settings("menu_anterior")
+    menu_anterior = read_settings("previous_menu")
     visor(titulos[menu_anterior], archivo[menu_anterior])
 
-    return leer_settings("menu_anterior")
+    return read_settings("previous_menu")
 

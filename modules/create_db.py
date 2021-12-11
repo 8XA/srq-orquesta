@@ -17,7 +17,7 @@ def create_db():
     route = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 
     if isfile(route):
-        return "Exist"
+        return "The database exists"
     else:
         connection = connect(route)
         cursor = connection.cursor()
@@ -89,15 +89,17 @@ def create_db():
                 #True if there is a SRQ ORQUESTA instance running
                 "active_instance INTEGER, " \
                 #Subtitle download URL
-                "sub_download_url TEXT, " \
+                "downloadable_sub_url TEXT, " \
                 #Folder route
                 "folder_route TEXT, " \
+                #Selected video route
+                "selected_video_route TEXT, " \
                 #Selected video name
-                "selected_video TEXT, " \
-                #Current menu name
-                "menu TEXT, " \
-                #Previous menu name
-                "previous_menu TEXT, " \
+                "selected_video_name TEXT, " \
+                #Current menu ID
+                "menu INTEGER, " \
+                #Previous menu ID
+                "previous_menu INTEGER, " \
                 #True if the subtitle search has changed
                 "sub_search_changed INTEGER, " \
                 #True if the torrent search has changed
@@ -127,9 +129,10 @@ def create_db():
 
         #Default values for temporary settings
         cursor.execute("UPDATE settings SET active_instance = 0")
-        cursor.execute("UPDATE settings SET sub_download_url = ''")
+        cursor.execute("UPDATE settings SET downloadable_sub_url = ''")
         cursor.execute("UPDATE settings SET folder_route = '/sdcard/'")
-        cursor.execute("UPDATE settings SET selected_video = ''")
+        cursor.execute("UPDATE settings SET selected_video_route = ''")
+        cursor.execute("UPDATE settings SET selected_video_name = ''")
         cursor.execute("UPDATE settings SET menu = 'videos'")
         cursor.execute("UPDATE settings SET previous_menu = ''")
         cursor.execute("UPDATE settings SET sub_search_changed = 0")
