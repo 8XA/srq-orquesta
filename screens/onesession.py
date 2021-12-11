@@ -6,7 +6,7 @@ from modules.strings_fitting import *
 from termcolor import colored
 import time
 
-def una_sesion():
+def one_session():
     numcols = columns_number_func()
 
     linea_azul_ = colored(numcols*"-", 'blue', attrs=['bold', 'dark'])

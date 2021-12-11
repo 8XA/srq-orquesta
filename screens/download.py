@@ -11,7 +11,7 @@ from modules.columns_number import columns_number_func
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
-def descarga():
+def download():
     #Actualizando info de pantalla en base de datos
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","101")
