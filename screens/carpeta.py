@@ -5,21 +5,21 @@
 
 import os
 from termcolor import colored
-from modulos.admindb import leer_settings, editar_settings
-from modulos.numcols import num_cols
-from modulos.menu import menu
-from modulos.fit_frases import *
+from modules.admin_db import read_settings, edit_settings
+from modules.columns_number import columns_number_func
+from modules.menu import menu
+from modules.strings_fitting import *
 
 def carpeta():
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","2")
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","2")
 
-    ruta = leer_settings("ruta_carpeta")
+    ruta = read_settings("folder_route")
     cadena = [carpeta for carpeta in ruta.split("/") if carpeta != ""]
 
     filtros_str = " "
     while filtros_str != "":
-        numcols = num_cols()
+        numcols = columns_number_func()
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
@@ -42,7 +42,7 @@ def carpeta():
                 indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 
                 #Recorta el renglon si está activado "oneline" en settings
-                if leer_settings("oneline") == 1:
+                if read_settings("one_line") == 1:
                     print(indice + ":",carpetas[x][:numcols - len(str(x)) - 2])
                 else:
                     print(indice + ":",carpetas[x])
@@ -72,9 +72,9 @@ def carpeta():
             return i[1]
         else:
             if i[1] == "":
-                if leer_settings("ruta_carpeta") != ruta:
-                    editar_settings("filtro_videos", "")
-                    editar_settings("ruta_carpeta", ruta)
+                if read_settings("folder_route") != ruta:
+                    edit_settings("videos_filter", "")
+                    edit_settings("folder_route", ruta)
                 return 1
 
             elif (i[1].isdigit()) and (len(carpetas) > int(i[1])):

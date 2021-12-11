@@ -1,24 +1,24 @@
 #!/bin/env python
 
 from termcolor import colored
-from modulos.numcols import *
-from modulos.archivos_en_ruta import videos_en_ruta
-from modulos.admindb import leer_settings, editar_settings
-from modulos.menu import menu
-from modulos.fit_frases import fit_frase, fit_frase_centrada
+from modules.columns_number import columns_number_func
+from modules.files_from_route import videos_en_ruta
+from modules.admin_db import read_settings, edit_settings
+from modules.menu import menu
+from modules.strings_fitting import fit_frase, fit_frase_centrada
 import os
 
 def pelicula():
-    numcols = num_cols()
+    numcols = columns_number_func()
     titulo = "SRQ ORQUESTA"
 
     rutas_y_videos = videos_en_ruta()
-    filtro = " ".join(leer_settings("filtro_videos").split(",")).split(" ")
+    filtro = " ".join(read_settings("videos_filter").split(",")).split(" ")
     videos = rutas_y_videos[1]
     rutas = rutas_y_videos[0]
     
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","1")
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","1")
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
@@ -43,9 +43,9 @@ def pelicula():
             print(numcols * "-")
 
             #Marca el video seleccionado actual
-            if (leer_settings("ruta_video") != "") and \
-               (leer_settings("ruta_video") == rutas[x]) and \
-               (leer_settings("video") == videos[x]):
+            if (read_settings("selected_video_route") != "") and \
+               (read_settings("selected_video_route") == rutas[x]) and \
+               (read_settings("selected_video_name") == videos[x]):
 
                 marca_en_pantalla, indice_marcado = True, x
                 indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
@@ -53,7 +53,7 @@ def pelicula():
                 indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 
             imprimir = indice + ": " + videos[x]
-            if leer_settings("oneline") == 1:
+            if read_settings("one_line") == 1:
                 imprimir = imprimir[:numcols + len(indice) - len(str(x))]
             print(imprimir)
     if len(videos) == 0:
@@ -66,7 +66,7 @@ def pelicula():
     print(linea_azul)
     print(linea_roja)
     print(colored(fit_frase_centrada(numcols, "Ruta:"), 'white', attrs=['bold']))
-    print(leer_settings("ruta_carpeta"))
+    print(read_settings("folder_route"))
     print(linea_roja)
     print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
     print(fit_frase_centrada(numcols, " ".join(filtro)))
@@ -90,13 +90,12 @@ def pelicula():
             #Esta dentro del rango de opciones
             (int(i[1]) < len(videos))):
 
-            editar_settings("cambio_busqueda", "1")
-            editar_settings("video", videos[int(i[1])])
-            editar_settings("subs_descargados", "")
-            editar_settings("palabras", "")
-            editar_settings("ruta_video", rutas[int(i[1])])
+            edit_settings("sub_search_changed", "1")
+            edit_settings("selected_video_name", videos[int(i[1])])
+            edit_settings("sub_words", "")
+            edit_settings("selected_video_route", rutas[int(i[1])])
 
         elif i[1] != "":
-            editar_settings("filtro_videos", i[1].lower())
+            edit_settings("videos_filter", i[1].lower())
         return 1
 

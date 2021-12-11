@@ -4,6 +4,7 @@
 
 from sqlite3 import connect
 from os.path import isfile
+from os import system
 
 data_route = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 data_backup_route = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
@@ -25,20 +26,20 @@ def read_settings(
 
     HOW TO USE:
         - Get a value from the database:
-            call settings_read('column_name').
+            call read_settings('column_name').
         - Get all the values from the database:
-            call settings_read().
+            call read_settings().
         - Get a value from the database backup:
-            call settings_read('column_name', 'data_backup_route').
+            call read_settings('column_name', 'data_backup_route').
         - Get all the values from the database backup:
-            call settings_read(db='data_backup_route').
+            call read_settings(db='data_backup_route').
 
     RETURNS:
         - If you specify a column name:
             It returns its particular value.
          
         - If you don't specify a column name:
-            It return all the settings values with this format:
+            It returns all the settings values with this format:
                 [[column1, column2], (value1, value2)].
     """
 
@@ -95,6 +96,33 @@ def edit_settings(
         connection.commit()
         connection.close() 
 
+
+def restore_settings():
+
+    """DESCRIPTION:
+        - This module restores the database from a backup perviously generated.
+
+    HOW TO USE:
+        call restore_settings
+
+    RETURNS:
+        - Nothing.
+        """
+
+    global data_backup_route
+
+    if isfile(data_backup_route):
+        settings = read_settings(db='data_backup_route')
+
+        for x in range(len(settings[0])):
+            edit_settings(settings[0][x], str(settings[1][x]))
+        edit_settings("active_instance", "0")
+        
+        subtitles = read_scraped_list('subtitles', 'data_backup_route')
+        edit_scraped_list('subtitles', 'replace', list_=subtitles)
+    
+    system("rm " + data_backup_route)
+
 #######################################################################
 
 def read_scraped_list(
@@ -120,12 +148,12 @@ def read_scraped_list(
         *The table parameter must be replaced by 'subtitles' or 'torrents'.
 
     RETURNS:
-        - It returns the scraped list:
-            For the torrents table:
+        - It returns a list of tuples containing the registered scraped values
+            in the database:
+            - For the torrents table:
                 [(title_1, seeds_1, leechers_1, platform_1, magnetlink_1, status_1)... (...)].
-            For the subtitles table:
+            - For the subtitles table:
                 [(title_1, description_1, url_1, status_1)...(...)]
-                *This is a list of tuples containing the values.
 
     """
     global data_route, data_backup_route
@@ -148,7 +176,7 @@ def read_scraped_list(
 
 def edit_scraped_list(
         table: str,
-        mode: str = 'edit', 
+        mode: str = 'current_download', 
         id_: int = None,
         status: int = None,
         list_: list = None
@@ -176,7 +204,10 @@ def edit_scraped_list(
 
     HOW TO USE:
         - Edit an element status.
-            call edit_scraped_list(table, id_=elemnt_id, status=new_status).
+            - Mark the current download as a downloaded element (1):
+                call edit_scraped_list(table, 'downloaded').
+            - Mark an element as the current download (2):
+                call edit_scraped_list(table, id_=elemnt_id, status=new_status).
         - Replace a table content.
             call edit_scraped_list(table, 'replace', list_=new_list).
                 - Subtitles list:
@@ -198,9 +229,11 @@ def edit_scraped_list(
         cursor = connection.cursor()
 
         #Edit an element status
-        if mode == 'edit':
-            cursor.execute("UPDATE " + table + " SET status=" + str(status) + \
-                    " WHERE rowid=" + str(id_ + 1))
+        if mode == 'current_download':
+            cursor.execute("UPDATE " + table + " SET status=2 WHERE rowid=" + \
+                    str(id_ + 1))
+        elif mode == 'downloaded':
+            cursor.execute("UPDATE " + table + " SET status=1 WHERE status=2")
 
         elif mode in ['replace', 'clean']:
             #Clean the table

@@ -1,21 +1,20 @@
 #!/bin/env python
 
-from modulos.fit_frases import *
+from modules.strings_fitting import *
 import os, curses
 
 ###################################################
 
-def hoja_imprimible(num_cols, tupla_hojas):
-    numcols = num_cols
+def hoja_imprimible(columns_number, tupla_hojas):
 
-    ruta = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/imprimibles/"
+    ruta = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/printables/spanish/"
 
     #Funciones de orden para cada renglón
     orden = {
         ":w": fit_frase_centrada,
         ":f": fit_frase,
-        ":l": (numcols - 2) * "-",
-        ":L": (numcols - 2) * "="
+        ":l": (columns_number - 2) * "-",
+        ":L": (columns_number - 2) * "="
             }
 
     #Lista de renglones de la hoja final
@@ -33,7 +32,7 @@ def hoja_imprimible(num_cols, tupla_hojas):
             formato = renglon[:4]
 
             if formato in [":wc:", ":Wc:", ":ff:"]:
-                renglon_formateado = orden[formato[:2].lower()](numcols - 2, renglon[4:][:-1]).split("\n")
+                renglon_formateado = orden[formato[:2].lower()](columns_number - 2, renglon[4:][:-1]).split("\n")
             elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
                 renglon_formateado = [orden[formato[:2]]]
             else:
@@ -43,7 +42,7 @@ def hoja_imprimible(num_cols, tupla_hojas):
             hoja += [formato + renglon for renglon in renglon_formateado]
 
         #Divisor de documentos
-        hoja += [":sl: ", ":Lr:" + (numcols - 2) * "="]
+        hoja += [":sl: ", ":Lr:" + (columns_number - 2) * "="]
 
     return hoja
 
@@ -81,11 +80,11 @@ def visor(*arg):
 
         #Dimensiones de pantalla
         numlines = screen.getmaxyx()[0]
-        numcols = screen.getmaxyx()[1]
+        columns_number = screen.getmaxyx()[1]
 
         #Hoja imprimible
         if hoja == None:
-            hoja = hoja_imprimible(numcols, arg[1:])
+            hoja = hoja_imprimible(columns_number, arg[1:])
 
         #Colores por defecto (-1):
         curses.use_default_colors()
@@ -107,20 +106,20 @@ def visor(*arg):
 
         #Ventanas
         #Título
-        titulo = fit_frase_centrada(numcols, titulo).split("\n")
+        titulo = fit_frase_centrada(columns_number, titulo).split("\n")
         long_win_titulo = len(titulo) + 3
         
         #Solo si hay espacio para el titulo y para el mensaje de retorno:
         if numlines > long_win_titulo + 1:
-            win_titulo = curses.newwin(long_win_titulo, numcols, 0, 0)
-            win_titulo.addstr(0,0, numcols * "=", curses.color_pair(3))
+            win_titulo = curses.newwin(long_win_titulo, columns_number, 0, 0)
+            win_titulo.addstr(0,0, columns_number * "=", curses.color_pair(3))
             for indice in range(len(titulo)):
                 win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
-            win_titulo.addstr(len(titulo)+1,0, numcols * "=", curses.color_pair(3))
+            win_titulo.addstr(len(titulo)+1,0, columns_number * "=", curses.color_pair(3))
             win_titulo.refresh()
 
             #Mensaje de retorno
-            win_retorno = curses.newwin(1, numcols, numlines-1,0)
+            win_retorno = curses.newwin(1, columns_number, numlines-1,0)
             win_retorno.addstr(0,0, "Enter: ")
             win_retorno.keypad(True)
             win_retorno.refresh()
@@ -129,7 +128,7 @@ def visor(*arg):
         long_win_manual = numlines - long_win_titulo
         #Solo si cabe la ventana manual:
         if long_win_manual > 2:
-            win_manual = curses.newwin(long_win_manual, numcols, long_win_titulo -1, 0)
+            win_manual = curses.newwin(long_win_manual, columns_number, long_win_titulo -1, 0)
 
             #Impresión de pantalla
             long_lineas = numlines - long_win_titulo -2

@@ -7,32 +7,32 @@
 
 import os
 from termcolor import colored
-from modulos.admindb import *
-from modulos.fit_frases import *
-from modulos.menu import menu
-from modulos.numcols import num_cols
-from modulos.scrapers.subs.opensubtitles import opensubtitles
-from modulos.scrapers.subs.subdivx import subdivx
+from modules.admin_db import *
+from modules.strings_fitting import *
+from modules.menu import menu
+from modules.columns_number import columns_number_func
+from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
+from modules.scrapers.subtitles.spanish.subdivx import subdivx
 
 def resultados():
     #Resultados por pagina (rpp)
-    rpp = leer_settings("rpp")
+    rpp = read_settings("results_per_page")
     os.system("clear")
 
     #Recuperar scrapers a utilizar
-    scrapers = leer_settings("scrapers").split(",")
+    scrapers = read_settings("sub_getters").split(",")
     scrapers.reverse()
 
     #Evita buscar 2 veces seguidas lo mismo
-    if (leer_settings("cambio_busqueda") == 1) and \
-            (leer_settings("palabras") != "") and \
-            (leer_settings("video") != ""):
+    if (read_settings("sub_search_changed") == 1) and \
+            (read_settings("sub_words") != "") and \
+            (read_settings("selected_video_name") != ""):
 
         #Reiniciar filtro
-        editar_settings("filtro_resultados", "")
+        edit_settings("subs_filter", "")
 
         #Recuperar palabras de búsqueda
-        palabras = leer_settings("palabras").split(",")
+        palabras = read_settings("sub_words").split(",")
 
         #obtener subtítulos
         get_subs = {
@@ -43,21 +43,25 @@ def resultados():
         hallados = []
         for scraper in scrapers:
             hallados += get_subs[scraper](palabras)
-        editar_resultados(hallados)
-        editar_settings("cambio_busqueda", "0")
+        #Agrega status
+        for sub in hallados:
+            sub += [0]
+        edit_scraped_list('subtitles', 'replace', list_=hallados)
+        edit_settings("sub_search_changed", "0")
 
     #Subtítulos con indices asignados
-    subs = leer_resultados()
-    subs = [list(subs[indice]) + [indice] for indice in range(len(subs))]
-
+    raw_subs = read_scraped_list('subtitles')
+    subs = [list(raw_subs[indice]) + [indice] for indice in range(len(raw_subs))]
+    print(subs)
     #Actualizando info de pantalla en base de datos
-    editar_settings("menu_anterior", str(leer_settings("menu")))
-    editar_settings("menu","4")
+    edit_settings("previous_menu", str(read_settings("menu")))
+    edit_settings("menu","4")
 
-    filtro, pagina = leer_settings("filtro_resultados"), 1
+    filtro = read_settings("subs_filter")
+    pagina = 1
     while True:
         #Pantalla resultados
-        numcols = num_cols()
+        numcols = columns_number_func()
 
         #Definiendo colores de lineas
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
@@ -83,10 +87,6 @@ def resultados():
         else:
             subs_pagina = subs_filtrados[(rpp*pagina)-1:((pagina-1)*rpp)-1:-1]
 
-        #Subs descargados
-        subs_descargados = [int(sub) for sub in [x for x in \
-                leer_settings("subs_descargados").split(",") if x != ""]]
-
         titulo = "RESULTADOS"
         print(linea_azul)
         print(((numcols-len(titulo))//2)*" " + titulo)
@@ -96,21 +96,20 @@ def resultados():
             #Marca en blanco el subtítulo actual
             #Marca en rojo el resto de subs descargados
             fondo = 'on_red'
-            if (len(subs_descargados) > 0) and \
-                    (subs_pagina[x][3] == subs_descargados[-1]):
+            if subs_pagina[x][3] == 2:
                 fondo = 'on_white'
             #Marca los subtítulos descargados
-            if subs_pagina[x][3] in subs_descargados:
+            if subs_pagina[x][3] != 0:
                 ID = colored("ID ", 'cyan', fondo, attrs=['bold', 'dark']) + \
-                        colored(str(subs_pagina[x][3]), 'green', fondo, \
+                        colored(str(subs_pagina[x][4]), 'green', fondo, \
                         attrs=['bold', 'dark'])
             else:
                 ID = colored("ID ", 'cyan', attrs=['bold', 'dark']) + \
-                        colored(str(subs_pagina[x][3]), 'green', \
+                        colored(str(subs_pagina[x][4]), 'green', \
                         attrs=['bold', 'dark'])
 
             print(linea_amarilla)
-            print(str(subs_pagina[x][4]) + ": " + ID + " -> " + subs_pagina[x][0])
+            print(str(subs_pagina[x][5]) + ": " + ID + " -> " + subs_pagina[x][0])
             print(numcols * "-")
             print(fit_frase_centrada(numcols, subs_pagina[x][1]))
             print()
@@ -140,24 +139,24 @@ def resultados():
         print(colored(fit_frase_centrada(numcols, "Video a subtitular:"), \
                 'white', attrs=['bold']))
 
-        if leer_settings("video") == "":
+        if read_settings("selected_video_name") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
             print(fit_frase(numcols, msj))
         #Imprime video seleccionado
         else:
-            print(fit_frase_centrada(numcols, leer_settings("video")))
+            print(fit_frase_centrada(numcols, read_settings("selected_video_name")))
         print(linea_roja)
         #ruta
         str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
         print(fit_frase_centrada(numcols+13, str_Ruta))
         #Si no hay video seleccionado, arroja el sig mensaje
-        if leer_settings("video") == "":
+        if read_settings("selected_video_name") == "":
             msj = "Aquí aparecerá la ruta del video que selecciones..."
             print(fit_frase(numcols, msj))
         #Si hay video seleccionado, imprime su ruta
         else:
-            print(leer_settings("ruta_video"))
+            print(read_settings("selected_video_route"))
         #Imprime filtros
         print(linea_roja)
         print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
@@ -173,7 +172,7 @@ def resultados():
                 "disponibles": subs,
                 "filtrados": subs_filtrados
                 }
-        descargable = dict_descargables[leer_settings("id_descargable")]
+        descargable = dict_descargables[read_settings("downloadable_ids")]
 
         #Si es alguna pantalla del menu
         if i[0] == "menu":
@@ -196,14 +195,15 @@ def resultados():
                 pagina -= 1
 
         #Si elige un subtitulo
-        elif i[1].isdigit() and (int(i[1]) in [sub[3] for sub in descargable]):
-            editar_settings("link_descarga", subs[int(i[1])][2])
-            editar_settings("subs_descargados", leer_settings("subs_descargados") \
-                    + "," + str(subs[int(i[1])][3]))
+        elif i[1].isdigit() and (int(i[1]) in [sub[4] for sub in descargable]):
+            edit_settings("downloadable_sub_url", subs[int(i[1])][2])
+            
+            edit_scraped_list('subtitles', 'downloaded')
+            edit_scraped_list('subtitles', id_=subs[int(i[1])][4], status=2)
             return 101
 
         #Filtrado de palabras
         else:
             filtro = i[1]
-            editar_settings("filtro_resultados", filtro)
+            edit_settings("subs_filter", filtro)
             pagina = 1

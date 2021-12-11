@@ -1,12 +1,21 @@
 #!/bin/env python
 
-#Limpia la pantalla y retorna el número de columnas
+from curses import initscr, endwin
+from os import system
 
-import curses, os
+def columns_number_func():
 
-def num_cols():
-    screen = curses.initscr() 
-    num_cols = screen.getmaxyx()[1]
-    curses.endwin()
-    os.system("stty sane && clear")
-    return num_cols
+    """DESCRIPTION:
+        - This function cleans the screen and returns the current columns number.
+
+    HOW TO USE:
+        - call columns_number_func().
+    """
+
+    screen = initscr() 
+    columns_number = screen.getmaxyx()[1]
+    endwin()
+
+    system("stty sane && clear")
+
+    return columns_number

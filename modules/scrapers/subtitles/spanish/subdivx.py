@@ -6,7 +6,7 @@
 #[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 import os
-from modulos.caracteres_raros import corregir
+from modules.strange_characters import corregir
 
 def subdivx(palabras):
     try:
