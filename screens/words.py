@@ -8,7 +8,7 @@ from modules.menu import menu
 from modules.strings_fitting import *
 from termcolor import colored
 
-def palabras():
+def words():
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","3")
     extensiones = read_settings("extensions").split(',')

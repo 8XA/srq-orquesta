@@ -8,62 +8,63 @@ restore_settings()
 import readline
 from os import system
 from screens.update import update
-from screens.torrents import *
-from screens.pelicula import *
-from screens.carpeta import *
-from screens.palabras import *
-from screens.resultados import *
-from screens.configuracion import *
-from screens.ayuda import *
-from screens.acerca_de import *
-from screens.descarga import *
-from screens.unasesion import una_sesion
+from screens.torrents import torrents
+from screens.videos import videos
+from screens.folder import folder
+from screens.words import words
+from screens.results import results
+from screens.settings import settings
+from screens.help import help_section
+from screens.about import about
+from screens.download import download
+from screens.onesession import one_session
 from modules.storage_verify import *
 from modules.columns_number import columns_number_func
+#from modules.strings_fitting import phrase_fitting
 
 columns_num = columns_number_func()
 
-#Si ocurre un problema, reinicia la base de datos
 #try:
-#El programa inicia sólo si no se está
-#ejecutando otra instancia
 if read_settings("active_instance") == 0:
     edit_settings("active_instance", "1")
 
-    s4t = {
-            0: torrents,
-            1: pelicula,
-            2: carpeta,
-            3: palabras,
-            4: resultados,
-            5: configuracion,
-            6: ayuda,
-            7: acerca_de,
-            101: descarga,
-            102: update,
-            }
+    #All the user interaction screens:
+    srq_orquesta = {
+        0: torrents,
+        1: videos,
+        2: folder,
+        3: words,
+        4: results,
+        5: settings,
+        6: help_section,
+        7: about,
+        101: download,
+        102: update,
+    }
 
-    #Loop verificador de acceso a /sdcard
+    #This is a loop function. It verifies the access to the storage.
     storage_verify()
 
-    #Buscar actualizaciones
-    ejecutar = 1
+    #Update search
+    execute = 1
     if read_settings("auto_update") == 1:
-        ejecutar = update()
+        execute = update()
 
-    if ejecutar != 100:
-        running = s4t[1]()
+    #This piece of code runs all the interaction screens
+    if execute != 100:
+        running = srq_orquesta[1]()
         while running != 100:
-            running = s4t[running]()
+            running = srq_orquesta[running]()
     edit_settings("active_instance", "0") 
 
 else:
-    una_sesion()
+    #This function avoid the double run of srq-orquesta
+    one_session()
 
 #except Exception as e:
 #    print(e)
 #    print()
 #
 #    system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
-#    print(fit_frase(columns_num, "Base de datos corrupta fue corregida. Reinicia Termux..."))
+#    print(phrase_fitting(columns_num, "Base de datos corrupta fue corregida. Reinicia Termux..."))
 #    input()

@@ -10,7 +10,7 @@ from modules.columns_number import columns_number_func
 from modules.menu import menu
 from modules.strings_fitting import *
 
-def carpeta():
+def folder():
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","2")
 
