@@ -10,7 +10,7 @@ from modules.strings_fitting import *
 
 def torrents():
     edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","0")
+    edit_settings("menu","torrents")
 
     numcols = columns_number_func()
     rpp = read_settings("results_per_page")
@@ -41,7 +41,7 @@ def torrents():
     if i[0] == "menu":
         return i[1]
     else:
-        return 0
+        return 'torrents'
 
 #torrents
 #marcado de torrents descargados

@@ -33,11 +33,11 @@ def update():
             visor("ACTUALIZACIÓN COMPLETA", "actualizacion")
             input("Enter para salir...")
 
-            return 100
+            return 'exit_srq'
 
     else:
         os.system("clear")
         print("Ya tienes la última versión de SRQ ORQUESTA. Nada para hacer...")
         time.sleep(1)
         os.system("clear")
-        return 1
+        return 'videos'

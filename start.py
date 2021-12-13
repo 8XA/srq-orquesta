@@ -30,17 +30,30 @@ if read_settings("active_instance") == 0:
 
     #All the user interaction screens:
     srq_orquesta = {
-        0: torrents,
-        1: videos,
-        2: folder,
-        3: words,
-        4: results,
-        5: settings,
-        6: help_section,
-        7: about,
-        101: download,
-        102: update,
+        'torrents': torrents,
+        'videos': videos,
+        'folder': folder,
+        'words': words,
+        'results': results,
+        'settings': settings,
+        'help_section': help_section,
+        'about': about,
+        'download': download,
+        'update': update,
     }
+#
+#    srq_orquesta = {
+#        0: torrents,
+#        1: videos,
+#        2: folder,
+#        3: words,
+#        4: results,
+#        5: settings,
+#        6: help_section,
+#        7: about,
+#        101: download,
+#        102: update,
+#
 
     #This is a loop function. It verifies the access to the storage.
     storage_verify()
@@ -51,9 +64,9 @@ if read_settings("active_instance") == 0:
         execute = update()
 
     #This piece of code runs all the interaction screens
-    if execute != 100:
-        running = srq_orquesta[1]()
-        while running != 100:
+    if execute != 'exit_srq':
+        running = srq_orquesta['videos']()
+        while running != 'exit_srq':
             running = srq_orquesta[running]()
     edit_settings("active_instance", "0") 
 

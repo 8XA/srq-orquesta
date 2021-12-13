@@ -55,7 +55,7 @@ def results():
     print(subs)
     #Actualizando info de pantalla en base de datos
     edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","4")
+    edit_settings("menu","results")
 
     filtro = read_settings("subs_filter")
     pagina = 1
@@ -200,7 +200,7 @@ def results():
             
             edit_scraped_list('subtitles', 'downloaded')
             edit_scraped_list('subtitles', id_=subs[int(i[1])][4], status=2)
-            return 101
+            return 'download'
 
         #Filtrado de palabras
         else:

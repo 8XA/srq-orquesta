@@ -13,4 +13,3 @@ def storage_verify():
             os.system("termux-setup-storage")
         else:
             break
-    return 0
