@@ -6,9 +6,9 @@ from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
 def about():
-    if read_settings("menu") not in [6,7]:
+    if read_settings("menu") not in ['help_section','about']:
         edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","7")
+    edit_settings("menu","about")
     numcols = columns_number_func()
 
     visor("ACERCA DE", "about","update")

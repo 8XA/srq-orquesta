@@ -11,6 +11,20 @@ from termcolor import colored
 
 def menu(*args):
     numcols = args[0]
+
+    #Iniciales de retorno
+    return_keys = {
+        'T': 'torrents',
+        'V': 'videos',
+        'C': 'folder',
+        'A': 'words',
+        'R': 'results',
+        'O': 'settings',
+        'Y': 'help_section',
+        'E': 'about',
+        'S': 'exit_srq'
+    }
+
     print(((numcols - 4)//2) *  " " + "MENÚ")
     print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
 
@@ -138,10 +152,9 @@ def menu(*args):
     #El primero indica si la opcion ingresada va dirigida al menu o a la pantalla
     #El segundo corresponde a la accion a ejecutar
 
-    if i.upper() == "S":
-        return ("menu", 100)
-    elif i.upper() in iniciales and len(i) == 1:
-        return ("menu", iniciales.index(i.upper()))
+    if i.upper() in return_keys:
+        return ("menu", return_keys[i.upper()])
+
     #Abre el video
     elif i.upper() == "P":
         if os.path.isfile(read_settings("selected_video_route") + \

@@ -97,9 +97,9 @@ def create_db():
                 #Selected video name
                 "selected_video_name TEXT, " \
                 #Current menu ID
-                "menu INTEGER, " \
+                "menu TEXT, " \
                 #Previous menu ID
-                "previous_menu INTEGER, " \
+                "previous_menu TEXT, " \
                 #True if the subtitle search has changed
                 "sub_search_changed INTEGER, " \
                 #True if the torrent search has changed

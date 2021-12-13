@@ -14,7 +14,7 @@ from modules.menu import menu
 def download():
     #Actualizando info de pantalla en base de datos
     edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","101")
+    edit_settings("menu","download")
     ruta_tmp = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/tmp"
 
     numcols = columns_number_func()
@@ -50,7 +50,7 @@ def download():
                 " descargado, verifica tu conexión e intenta de nuevo..."))
         print("\n")
         input("Enter para continuar...")
-        return 4
+        return 'results'
 
     try:
         print(linea_azul_)
@@ -118,7 +118,7 @@ def download():
                 " intenta con otro subtítulo..."))
         print("\n")
         input("Enter para continuar...")
-        return 4
+        return 'results'
 
     try:
         txt, codificacion = "Asignando...", ''
@@ -157,12 +157,12 @@ def download():
                 "subtítulo, intenta con otro..."))
         print("\n")
         input("Enter para continuar...")
-        return 4
+        return 'results'
 
     i = menu(numcols)
 
     if i[0] == "menu":
         return i[1]
     else:
-        return 4
+        return 'results'
 

@@ -34,7 +34,7 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
 def settings():
     if read_settings("menu") != 5:
         edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","5")
+    edit_settings("menu","settings")
     numcols = columns_number_func()
 
 
@@ -159,7 +159,7 @@ def settings():
     #Actualizaciones ahora
     elif i[1].lower() == "u":
         if actualizar() == 100:
-            return 100
+            return 'exit_srq'
 
     #Actualizaciones al iniciar
     elif i[1].lower() in bool_1:
@@ -237,6 +237,6 @@ def settings():
     elif i[1].isdigit():
         edit_settings("results_per_page", i[1])
 
-    return 5
+    return 'settings'
 
 

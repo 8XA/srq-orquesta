@@ -12,7 +12,7 @@ from modules.strings_fitting import *
 
 def folder():
     edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","2")
+    edit_settings("menu","folder")
 
     ruta = read_settings("folder_route")
     cadena = [carpeta for carpeta in ruta.split("/") if carpeta != ""]
@@ -75,7 +75,7 @@ def folder():
                 if read_settings("folder_route") != ruta:
                     edit_settings("videos_filter", "")
                     edit_settings("folder_route", ruta)
-                return 1
+                return 'videos'
 
             elif (i[1].isdigit()) and (len(carpetas) > int(i[1])):
                 cadena.append(carpetas[int(i[1])])

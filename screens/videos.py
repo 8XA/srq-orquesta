@@ -18,7 +18,7 @@ def videos():
     rutas = rutas_y_videos[0]
     
     edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","1")
+    edit_settings("menu","videos")
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
@@ -80,7 +80,7 @@ def videos():
     if i[0] == "menu":
         return i[1]
     elif (marca_en_pantalla) and ((i[1] == "")):
-        return 3
+        return 'words'
     else:
         #Registrar opción
         if (
@@ -97,5 +97,5 @@ def videos():
 
         elif i[1] != "":
             edit_settings("videos_filter", i[1].lower())
-        return 1
+        return 'videos'
 
