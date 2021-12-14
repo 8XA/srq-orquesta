@@ -36,5 +36,15 @@
 :ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '2' en su nombre, ingresa ' 2'.
 
 :Lr:
+
+:Wc:Marcado
+
+:ff:Al reproducir un vídeo, este será marcado de manera automática mediante el subrayado amarillo de su nombre. Puedes marcar y desmarcar videos ingresando las siguientes opciones:
+
+:ff:  - Para marcar/desmarcar el video seleccionado, ingresa 'm'.
+
+:ff:  - Para desmarcar todos los videos, ingresa 'clean'.
+
+:Lr:
 :Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
 :Lr:

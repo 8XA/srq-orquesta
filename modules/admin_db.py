@@ -167,7 +167,7 @@ def read_scraped_list(
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM " + table)
 
-    #Reads the first row
+    #It reads all the values
     values = cursor.fetchall()
     connection.close()
 
@@ -252,12 +252,86 @@ def edit_scraped_list(
         connection.close() 
 
 ######################################################################
-#
-##leer_lista_simple
-##editar_lista_simple
-##  -- Agregar elemento a la lista
-##  -- Eliminar elemento de la lista
-##  -- Limpiar tabla
-##
-##RESTAURAR
-##
+
+def read_simple_list(table: str):
+
+    """DESCRIPTION:
+        - This module reads a simple list.
+
+    PARAMETERS:
+        - table: This is the table name you're reading. Set it as 'downloaded_subtitles' or
+            'played_videos'.
+
+    HOW TO USE:
+        - Read a list from the database and its information:
+            call read_simple_list(table).
+            *The table parameter must be replaced by 'subtitles' or 'torrents'.
+
+    RETURNS:
+        - It returns a list of tuples containing the registered scraped values
+    global data_route
+
+"""
+
+    connection = connect(data_route)
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM " + table)
+
+    values = cursor.fetchall()
+    connection.close()
+
+    return [value[0] for value in values]
+
+
+def edit_simple_list(table: str, value: str=None, mode: str='delete'):
+
+    """DESCRIPTION:
+        - This module edit a simple list, you can:
+            - Delete a table.
+            - Delete an element of a table.
+            - Add an element to a table.
+
+    PARAMETERS:
+        - table: This is the table name you're reading. Set it as 'downloaded_subtitles' or
+            'played_videos'.
+        - value: The value you want to delete. If you don't specify it, the module will clear
+            the table.
+        - mode: This paramater specify the action that will be executed by the function.
+            - 'delete': Its the default mode and you can detele a table or a row with it.
+            - 'add': You can add an element to a table with it.
+
+    HOW TO USE:
+        - Delete an element:
+            call edit_simple_list(table, value_to_delete).
+        - Clear a table:
+            call edit_simple_list(table).
+        - Add an element:
+            call edit_simple_list(table,value,'add').
+    """
+    
+    if isfile(data_route):
+        connection = connect(data_route)
+        cursor = connection.cursor()
+
+        column_name = table[table.index("_")+1:]
+
+        # Delete an element or clear a table
+        if mode == 'delete':
+            # The command_complement determines the deletion:
+            # one row or the complete table
+            command_complement = ''
+            if value != None:
+                command_complement = ' WHERE ' + column_name + "='" + value + "'"
+
+            sentence = "DELETE FROM " + table + command_complement
+
+        # Add an element
+        elif mode == 'add':
+            sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + value + "')"
+
+        cursor.execute(sentence)
+
+        connection.commit()
+        connection.close() 
+
+######################################################################

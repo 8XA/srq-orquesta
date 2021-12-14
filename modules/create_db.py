@@ -145,23 +145,22 @@ def create_db():
 
         ##################################################
 
-#        #Lista de videos reproducidos
-#        #Marca el contenido de esta lista en la sección 'Videos'
-#        cursor.execute("CREATE TABLE videos_reproducidos (" \
-#                #Video reproducido con ruta
-#                "video TEXT " \
-#                ")")
-#
-#        ##################################################
-#
-#        #Lista subtítulos descargados
-#        #Auxiliar al eliminar carpetas de torrent vacías
-#        cursor.execute("CREATE TABLE subtitulos_descargados (" \
-#                #Subtítulo descargado con ruta
-#                "sub TEXT " \
-#                ")")
-#
-#        ##################################################
+        #Played videos list
+        cursor.execute("CREATE TABLE played_videos (" \
+                #It contains all the route and the name of the video
+                "videos TEXT " \
+                ")")
+
+        ##################################################
+
+        #Downloaded subtitles list
+        #It helps to indentify and delete the empty folders
+        cursor.execute("CREATE TABLE downloaded_subtitles (" \
+                #Route and name of the local downloaded subtitle
+                "subtitles TEXT " \
+                ")")
+
+        ##################################################
 
         connection.commit()
         connection.close()
