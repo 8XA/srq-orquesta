@@ -3,7 +3,8 @@
 from termcolor import colored
 from modules.columns_number import columns_number_func
 from modules.files_from_route import videos_en_ruta
-from modules.admin_db import read_settings, edit_settings
+from modules.admin_db import read_settings, edit_settings, \
+read_simple_list, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import fit_frase, fit_frase_centrada
 import os
@@ -35,6 +36,7 @@ def videos():
     print(((numcols-14)//2)*" " + "Elige un video")
 
     #IMPRIME NOMBRES DE VIDEOS
+    played_videos = read_simple_list("played_videos")
     for x in range(len(videos)):
         #Aplica filtro
         if len([palabra for palabra in filtro if palabra \
@@ -47,15 +49,20 @@ def videos():
                (read_settings("selected_video_route") == rutas[x]) and \
                (read_settings("selected_video_name") == videos[x]):
 
-                marca_en_pantalla, indice_marcado = True, x
+                marca_en_pantalla = True
+                indice_marcado = x
                 indice = colored(str(x), 'green', 'on_white', attrs=['bold', 'dark'])
             else:
                 indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 
-            imprimir = indice + ": " + videos[x]
+            imprimir = videos[x]
             if read_settings("one_line") == 1:
-                imprimir = imprimir[:numcols + len(indice) - len(str(x))]
-            print(imprimir)
+                imprimir = imprimir[:numcols - len(str(x)) -2]
+
+            if rutas[x] + videos[x] in played_videos:
+                imprimir = colored(imprimir, 'red', 'on_yellow', attrs=['bold'])
+
+            print(indice + ": " + imprimir)
     if len(videos) == 0:
         msj = "Nada para mostrar. Prueba con otra carpeta..."
         print(numcols * "-")
@@ -81,6 +88,15 @@ def videos():
         return i[1]
     elif (marca_en_pantalla) and ((i[1] == "")):
         return 'words'
+    elif i[1].lower() == 'clean':
+        edit_simple_list('played_videos')
+    elif i[1].lower() == 'm':
+        selected_video = read_settings('selected_video_route') + \
+                read_settings('selected_video_name')
+        if selected_video in played_videos:
+            edit_simple_list('played_videos', selected_video)
+        else:
+            edit_simple_list('played_videos', selected_video, 'add')
     else:
         #Registrar opción
         if (
@@ -97,5 +113,5 @@ def videos():
 
         elif i[1] != "":
             edit_settings("videos_filter", i[1].lower())
-        return 'videos'
+    return 'videos'
 

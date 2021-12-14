@@ -1,4 +1,14 @@
 
+:Wc:Versión 0.2.0
+
+:ff:- Marcado automático y manual de videos reproducidos.
+:ff:- Primera aproximación (no funcional) de la pantalla 'Torrents'.
+:ff:- Refactorización del modelo de base de datos.
+:ff:- Primera aproximación al cambio de lenguaje a inglés en el código (comentarios, nombres de variables, constantes y funciones).
+:ff:- Funciones relativas a la base de datos, documentadas.
+
+:la:
+
 :Wc:Versión 0.1.1
 
 :ff:- Visor de ayuda y mensajes ahora funciona con curses.
