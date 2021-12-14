@@ -2,16 +2,17 @@
 
 from tpblite import TPB, ORDERS, CATEGORIES
 
-def tpb(busqueda):
+def tpb(search):
 
-    #Objeto TPB con dominio por defecto
+    # TPB object with the default domain
     t = TPB()
 
-    #Recopilación de datos
-    torrents = t.search(busqueda, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.MOVIES)
+    # Getting the data
+    torrents = t.search(search, order=ORDERS.SEEDERS.DES, \
+            category=CATEGORIES.VIDEO.MOVIES)
 
-    lista = [[torrent.title, torrent.filesize, torrent.seeds, \
+    torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
             torrent.leeches, "TPB", torrent.magnetlink] \
             for torrent in torrents]
 
-    return lista
+    return torrent_list

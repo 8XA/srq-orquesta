@@ -3,7 +3,7 @@
 import os
 from termcolor import colored
 from modules.menu import menu
-#from modules.scrapers.torrents.tpb import tpb
+from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import read_settings, edit_settings
 from modules.columns_number import columns_number_func
 from modules.strings_fitting import *
