@@ -6,7 +6,7 @@ from termcolor import colored
 from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
 from modules.files_from_route import subs_en_ruta
 from modules.admin_db import read_settings
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from modules.columns_number import columns_number_func
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
@@ -46,7 +46,7 @@ def download():
 
     except:
         print(linea_azul_)
-        print(fit_frase(numcols, "El subtítulo no pudo ser" + \
+        print(phrase_fitting(numcols, "El subtítulo no pudo ser" + \
                 " descargado, verifica tu conexión e intenta de nuevo..."))
         print("\n")
         input("Enter para continuar...")
@@ -76,7 +76,7 @@ def download():
             print(linea_azul)
             while True:
                 msj = "*Este archivo contiene más de un subtítulo..."
-                msj = fit_frase_centrada(numcols, msj)
+                msj = centered_phrase_fitting(numcols, msj)
                 msj = msj.split("\n")
                 for renglon in msj:
                     print(colored(renglon + (numcols-len(renglon)) * " ", \
@@ -114,7 +114,7 @@ def download():
 
     except:
         print(linea_azul_)
-        print(fit_frase(numcols, "El archivo presenta problemas," + \
+        print(phrase_fitting(numcols, "El archivo presenta problemas," + \
                 " intenta con otro subtítulo..."))
         print("\n")
         input("Enter para continuar...")
@@ -153,7 +153,7 @@ def download():
 
     except:
         print(linea_azul_)
-        print(fit_frase(numcols, "Falló la codificación del " + \
+        print(phrase_fitting(numcols, "Falló la codificación del " + \
                 "subtítulo, intenta con otro..."))
         print("\n")
         input("Enter para continuar...")

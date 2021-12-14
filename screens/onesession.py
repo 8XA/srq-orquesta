@@ -2,7 +2,7 @@
 
 from modules.columns_number import columns_number_func
 from modules.admin_db import edit_settings
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from termcolor import colored
 import time
 
@@ -19,9 +19,9 @@ def one_session():
             "Tener más de una instancia abierta puede provocar un comportamiento inesperado."
 
     opciones = uno_verde + ": Sí\n" + cero_verde + ": No\n"
-    print(fit_frase(numcols, msj))
+    print(phrase_fitting(numcols, msj))
     print(linea_azul_)
-    print(colored(fit_frase_centrada(numcols, "Desea forzar inicio?"), 'white', attrs=['bold']))
+    print(colored(centered_phrase_fitting(numcols, "Desea forzar inicio?"), 'white', attrs=['bold']))
     print(linea_azul_)
     imprimir = opciones + linea_azul + "\n: "
     i = input(imprimir)

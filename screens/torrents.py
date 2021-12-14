@@ -1,43 +1,42 @@
 #!/bin/env python 
 
-import os
+from os import system
 from termcolor import colored
 from modules.menu import menu
 from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import read_settings, edit_settings
 from modules.columns_number import columns_number_func
-from modules.strings_fitting import *
+from modules.strings_fitting import centered_phrase_fitting
 
 def torrents():
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","torrents")
 
-    numcols = columns_number_func()
+    columns_number = columns_number_func()
     rpp = read_settings("results_per_page")
-    os.system("clear")
+    system("clear")
 
-    linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
-    linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
+    red_line = colored(columns_number*"=", 'red', attrs=['bold', 'dark'])
+    yellow_line = colored(columns_number*"=", 'yellow', attrs=['bold', 'dark'])
+    blue_line = colored(columns_number*"=", 'blue', attrs=['bold', 'dark'])
 
     titulo = "TORRENTS"
-    print(linea_azul)
-    print(((numcols-len(titulo))//2)*" " + titulo)
-    print(linea_azul)
+    print(blue_line)
+    print(((columns_number-len(titulo))//2)*" " + titulo)
+    print(blue_line)
     
     #lista_resultados = tpb(i)
     
-    print(linea_amarilla)
+    print(yellow_line)
 
-    print(linea_amarilla)
+    print(yellow_line)
     #Imprime filtros
-    print(linea_roja)
-    print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
-    print(linea_roja)
+    print(red_line)
+    print(colored(centered_phrase_fitting(columns_number, "Filtros:"), 'white', attrs=['bold']))
+    print(red_line)
 
-    i = menu(numcols, "Busca, filtra o elige un torrent")
+    i = menu(columns_number, "Busca, filtra o elige un torrent")
 
-    #Si es alguna pantalla del menu
     if i[0] == "menu":
         return i[1]
     else:

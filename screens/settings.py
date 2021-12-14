@@ -5,12 +5,12 @@ from termcolor import colored, os
 from modules.menu import menu
 from modules.admin_db import read_settings, edit_settings
 from modules.auto_start import *
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from screens.update import *
 from modules.create_db import create_db
 
 def bold_blanco_centrado(n_cols, txt):
-    return colored(fit_frase_centrada(n_cols, txt), 'white', attrs=['bold'])
+    return colored(centered_phrase_fitting(n_cols, txt), 'white', attrs=['bold'])
 
 
 #Primer número indica si está marcado o no
@@ -53,7 +53,7 @@ def settings():
 
 
     #Actualizar ahora
-    texto = fit_frase_centrada(numcols, "Buscar actUalizaciones ahora")
+    texto = centered_phrase_fitting(numcols, "Buscar actUalizaciones ahora")
     ind = texto.index("act")
     texto_1 = colored(texto[:ind + 3], 'white', attrs=['bold'])
     letra_u = colored("U", 'green', attrs=['bold', 'dark'])
@@ -117,7 +117,7 @@ def settings():
 
 
     #Reiniciar configuración
-    texto = fit_frase_centrada(numcols, "ReIniciar configuración")
+    texto = centered_phrase_fitting(numcols, "ReIniciar configuración")
     ind = texto.index("Re")
     texto_1 = colored(texto[:ind + 2], 'white', attrs=['bold'])
     letra_i = colored("I", 'green', attrs=['bold', 'dark'])
@@ -129,7 +129,7 @@ def settings():
 
     #Resultados por página
     rpp = str(read_settings("results_per_page"))
-    texto = fit_frase_centrada(numcols, "Resultados por página (#): " + rpp)
+    texto = centered_phrase_fitting(numcols, "Resultados por página (#): " + rpp)
     ind = texto.index(":") - 2
     texto_1 = colored(texto[:ind], 'white', attrs=['bold'])
     numero = colored("#", 'green', attrs=['bold', 'dark'])
