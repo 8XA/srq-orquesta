@@ -158,7 +158,7 @@ def settings():
 
     #Actualizaciones ahora
     elif i[1].lower() == "u":
-        if actualizar() == 100:
+        if update() == 100:
             return 'exit_srq'
 
     #Actualizaciones al iniciar
