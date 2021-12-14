@@ -8,7 +8,7 @@
 import os
 from termcolor import colored
 from modules.admin_db import *
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from modules.menu import menu
 from modules.columns_number import columns_number_func
 from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
@@ -111,7 +111,7 @@ def results():
             print(linea_amarilla)
             print(str(subs_pagina[x][5]) + ": " + ID + " -> " + subs_pagina[x][0])
             print(numcols * "-")
-            print(fit_frase_centrada(numcols, subs_pagina[x][1]))
+            print(centered_phrase_fitting(numcols, subs_pagina[x][1]))
             print()
             by = [scraper for scraper in scrapers if scraper in subs_pagina[x][2]][0]
             by_color = colored(by, 'cyan', attrs=['bold'])
@@ -120,14 +120,14 @@ def results():
         #Si no hay subtitulos, envia mensaje
         if len(subs) == 0:
             msj = "\n\nNingún subtítulo hallado...\n\n"
-            print(fit_frase(numcols, msj))
+            print(phrase_fitting(numcols, msj))
             print(linea_azul)
         #Si no hay subtitulos filtrados, envia mensaje
         elif len(subs_filtrados) == 0:
             msj = "\n\nNingún subtítulo coincide con el " + \
                     "filtro ingresado en esta pantalla, " + \
                     "prueba con otras palabras...\n\n"
-            print(fit_frase(numcols, msj))
+            print(phrase_fitting(numcols, msj))
             print(linea_azul)
         #Si hay subtitulos, cierra con línea amarilla
         else:
@@ -136,31 +136,31 @@ def results():
         print(linea_roja)
         #Nombre del video
         #Si no hay video seleccionado, envía mensaje
-        print(colored(fit_frase_centrada(numcols, "Video a subtitular:"), \
+        print(colored(centered_phrase_fitting(numcols, "Video a subtitular:"), \
                 'white', attrs=['bold']))
 
         if read_settings("selected_video_name") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
-            print(fit_frase(numcols, msj))
+            print(phrase_fitting(numcols, msj))
         #Imprime video seleccionado
         else:
-            print(fit_frase_centrada(numcols, read_settings("selected_video_name")))
+            print(centered_phrase_fitting(numcols, read_settings("selected_video_name")))
         print(linea_roja)
         #ruta
         str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
-        print(fit_frase_centrada(numcols+13, str_Ruta))
+        print(centered_phrase_fitting(numcols+13, str_Ruta))
         #Si no hay video seleccionado, arroja el sig mensaje
         if read_settings("selected_video_name") == "":
             msj = "Aquí aparecerá la ruta del video que selecciones..."
-            print(fit_frase(numcols, msj))
+            print(phrase_fitting(numcols, msj))
         #Si hay video seleccionado, imprime su ruta
         else:
             print(read_settings("selected_video_route"))
         #Imprime filtros
         print(linea_roja)
-        print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
-        print(fit_frase_centrada(numcols, lista_filtro_str))
+        print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
+        print(centered_phrase_fitting(numcols, lista_filtro_str))
         print(linea_roja)
 
         i = menu(numcols, "Página: " + str(pagina) + " de " + \

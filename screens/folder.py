@@ -8,7 +8,7 @@ from termcolor import colored
 from modules.admin_db import read_settings, edit_settings
 from modules.columns_number import columns_number_func
 from modules.menu import menu
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 
 def folder():
     edit_settings("previous_menu", str(read_settings("menu")))
@@ -50,19 +50,19 @@ def folder():
         if len(carpetas) == 0:
             msj = "Fin de la ruta, no hay más carpetas adelante..."
             print("\n")
-            print(fit_frase(numcols, msj))
+            print(phrase_fitting(numcols, msj))
             print("\n")
 
         print(linea_azul)
 
         #Ruta actual en franja roja
         print(linea_roja)
-        print(colored(fit_frase_centrada(numcols, "Ruta editable:"), 'white', attrs=['bold']))
+        print(colored(centered_phrase_fitting(numcols, "Ruta editable:"), 'white', attrs=['bold']))
         print(ruta)
         print(linea_roja)
         #Filtros
-        print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
-        print(fit_frase_centrada(numcols, filtros_str))
+        print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
+        print(centered_phrase_fitting(numcols, filtros_str))
         print(linea_roja)
 
         i = menu(numcols, "Define la carpeta de búsqueda")

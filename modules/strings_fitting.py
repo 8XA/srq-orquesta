@@ -2,7 +2,7 @@
 
 #Ingresa una frase y retorna la misma frase ajustada al ancho de pantalla
 
-def fit_frase(numcols, msj):
+def phrase_fitting(numcols, msj):
     
     msj_lista = msj.split(" ")
     frase = ""
@@ -26,8 +26,8 @@ def fit_frase(numcols, msj):
 
 
 #Centra el resultado de la función anterior
-def fit_frase_centrada(numcols, msj):
-    lista = [x for x in fit_frase(numcols, msj).split("\n") if x != ""]
+def centered_phrase_fitting(numcols, msj):
+    lista = [x for x in phrase_fitting(numcols, msj).split("\n") if x != ""]
     #print(lista)
     
     for indice in range(len(lista)):

@@ -1,6 +1,6 @@
 #!/bin/env python
 
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 import os, curses
 
 ###################################################
@@ -11,8 +11,8 @@ def hoja_imprimible(columns_number, tupla_hojas):
 
     #Funciones de orden para cada renglón
     orden = {
-        ":w": fit_frase_centrada,
-        ":f": fit_frase,
+        ":w": centered_phrase_fitting,
+        ":f": phrase_fitting,
         ":l": (columns_number - 2) * "-",
         ":L": (columns_number - 2) * "="
             }
@@ -106,7 +106,7 @@ def visor(*arg):
 
         #Ventanas
         #Título
-        titulo = fit_frase_centrada(columns_number, titulo).split("\n")
+        titulo = centered_phrase_fitting(columns_number, titulo).split("\n")
         long_win_titulo = len(titulo) + 3
         
         #Solo si hay espacio para el titulo y para el mensaje de retorno:
