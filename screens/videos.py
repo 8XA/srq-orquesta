@@ -6,7 +6,7 @@ from modules.files_from_route import videos_en_ruta
 from modules.admin_db import read_settings, edit_settings, \
 read_simple_list, edit_simple_list
 from modules.menu import menu
-from modules.strings_fitting import fit_frase, fit_frase_centrada
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 import os
 
 def videos():
@@ -67,16 +67,16 @@ def videos():
         msj = "Nada para mostrar. Prueba con otra carpeta..."
         print(numcols * "-")
         print("\n")
-        print(fit_frase(numcols, msj))
+        print(phrase_fitting(numcols, msj))
         print("\n")
 
     print(linea_azul)
     print(linea_roja)
-    print(colored(fit_frase_centrada(numcols, "Ruta:"), 'white', attrs=['bold']))
+    print(colored(centered_phrase_fitting(numcols, "Ruta:"), 'white', attrs=['bold']))
     print(read_settings("folder_route"))
     print(linea_roja)
-    print(colored(fit_frase_centrada(numcols, "Filtros:"), 'white', attrs=['bold']))
-    print(fit_frase_centrada(numcols, " ".join(filtro)))
+    print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
+    print(centered_phrase_fitting(numcols, " ".join(filtro)))
     print(linea_roja)
 
     i = menu(numcols, "Filtra o selecciona un video")

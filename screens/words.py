@@ -5,7 +5,7 @@
 from modules.columns_number import columns_number_func
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
-from modules.strings_fitting import *
+from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from termcolor import colored
 
 def words():
@@ -27,7 +27,7 @@ def words():
         msj = "Aquí aparecerán palabras de búsqueda sugeridas " + \
                 "cuando selecciones un video..."
         print("\n")
-        print(fit_frase(numcols, msj))
+        print(phrase_fitting(numcols, msj))
         print("\n")
 
     #Lista de palabras
@@ -42,16 +42,16 @@ def words():
 
     print(linea_azul)
     print(linea_roja)
-    print(colored(fit_frase_centrada(numcols, "Palabras a confirmar:"), \
+    print(colored(centered_phrase_fitting(numcols, "Palabras a confirmar:"), \
             'white', attrs=['bold']))
 
     msj = "Aquí aparecerán las palabras de búsqueda que definas..."
     lista_palabras = read_settings("sub_words")
     if lista_palabras == "":
-        print(fit_frase(numcols, msj))
+        print(phrase_fitting(numcols, msj))
 
     else:
-        print(fit_frase_centrada(numcols, " ".join(lista_palabras.split(","))))
+        print(centered_phrase_fitting(numcols, " ".join(lista_palabras.split(","))))
     print(linea_roja)
 
     #Menú
