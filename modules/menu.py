@@ -6,7 +6,7 @@
 
 from time import sleep
 import os
-from modules.admin_db import read_settings
+from modules.admin_db import read_settings, edit_simple_list
 from termcolor import colored
 
 def menu(*args):
@@ -157,11 +157,13 @@ def menu(*args):
 
     #Abre el video
     elif i.upper() == "P":
-        if os.path.isfile(read_settings("selected_video_route") + \
-                read_settings("selected_video_name")):
-            os.system("termux-open '" + read_settings("selected_video_route") + \
-                    read_settings("selected_video_name") + "'")
+        video_route = read_settings("selected_video_route") + \
+                read_settings("selected_video_name")
+        if os.path.isfile(video_route):
+            edit_simple_list('played_videos', video_route, 'add')
+            os.system("termux-open '" + video_route + "'")
         else:
+            edit_simple_list('played_videos', video_route)
             os.system("clear")
             print("No hay un video seleccionado aún...")
             sleep(1)
