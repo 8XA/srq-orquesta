@@ -29,6 +29,8 @@ def create_db():
         cursor.execute("CREATE TABLE torrents (" \
                 #Torrent name
                 "title TEXT, " \
+                #File size
+                "size TEXT, " \
                 #Number of seeds
                 "seeds INTEGER, " \
                 #Number of leechers

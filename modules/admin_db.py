@@ -244,7 +244,7 @@ def edit_scraped_list(
 
                 signs = "?,?,?,?"
                 if table == "torrents":
-                    signs = "?,?,?,?,?,?"
+                    signs = "?,?,?,?,?,?,?"
                 
                 cursor.executemany("INSERT INTO " + table + " VALUES (" + signs + ")", list_)
 
