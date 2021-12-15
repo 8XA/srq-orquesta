@@ -35,7 +35,7 @@ def menu(*args):
     iniciales = "TVCAROYES"
     i = {}
     for x in range(len(iniciales)):
-        if read_settings("menu") == x:
+        if read_settings("menu") == return_keys[iniciales[x]]:
             i[str(x)] = colored(iniciales[x], 'green', marcado, attrs=['bold', 'dark'])
         else:
             i[str(x)] = colored(iniciales[x], 'green', attrs=['bold', 'dark'])
@@ -52,7 +52,7 @@ def menu(*args):
     for palabra in range(len(tramo)):
         for pieza in range(len(tramo[palabra])):
             T[str(palabra) + "_" + str(pieza)] = len(tramo[palabra][pieza])
-            if palabra == read_settings("menu"):
+            if return_keys[iniciales[palabra]] == read_settings("menu"):
                 t[str(palabra) + "_" + str(pieza)] = \
                         colored(tramo[palabra][pieza], 'red', marcado, attrs=['bold', 'dark'])
             else:
