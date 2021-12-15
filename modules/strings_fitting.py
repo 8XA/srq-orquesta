@@ -1,5 +1,7 @@
 #!/bin/env python
 
+from termcolor import colored
+
 #Ingresa una frase y retorna la misma frase ajustada al ancho de pantalla
 
 def phrase_fitting(numcols, msj):
@@ -38,5 +40,19 @@ def centered_phrase_fitting(numcols, msj):
         lista[indice] = ((numcols - len(lista[indice]))//2) * " " + lista[indice]
 
     return "\n".join(lista)
+
+
+def colored_centered_filter(columns_number, phrase, color:str='white', background:str='on_red'):
+    """
+    Enter a filter as a string and get it centered and colored
+    """
+    centered_phrase = centered_phrase_fitting(columns_number, phrase)
+    colored_list = list(centered_phrase)
+
+    for x in range(len(colored_list)):
+        if colored_list[x] not in [' ', '\n']:
+           colored_list[x] = colored(colored_list[x], color, background, attrs=['bold','dark'])
+
+    return "".join(colored_list)
 
 
