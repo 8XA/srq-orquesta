@@ -115,12 +115,16 @@ def restore_settings():
         settings = read_settings(db='data_backup_route')
 
         for x in range(len(settings[0])):
-            edit_settings(settings[0][x], str(settings[1][x]))
+            try:
+                edit_settings(settings[0][x], str(settings[1][x]))
+            except:
+                pass
         edit_settings("active_instance", "0")
         
         subtitles = read_scraped_list('subtitles', 'data_backup_route')
         edit_scraped_list('subtitles', 'replace', list_=subtitles)
-    
+        torrents = read_scraped_list('torrents', 'data_backup_route')
+        edit_scraped_list('torrents', 'replace', list_=torrents)
     system("rm " + data_backup_route)
 
 #######################################################################

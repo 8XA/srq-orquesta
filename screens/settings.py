@@ -32,7 +32,7 @@ def opcion(linea_azul_, linea_roja, numcols, descripcion, opciones):
 
 
 def settings():
-    if read_settings("menu") != 5:
+    if read_settings("menu") != 'settings':
         edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","settings")
     numcols = columns_number_func()
