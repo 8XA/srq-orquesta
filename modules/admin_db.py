@@ -122,10 +122,18 @@ def restore_settings():
                 pass
         edit_settings("active_instance", "0")
         
+        #Restore user data
         subtitles = read_scraped_list('subtitles', 'data_backup_route')
         edit_scraped_list('subtitles', 'replace', list_=subtitles)
+        
         torrents = read_scraped_list('torrents', 'data_backup_route')
         edit_scraped_list('torrents', 'replace', list_=torrents)
+        
+        for played_video in read_simple_list("played_videos", "data_backup_route"):
+            edit_scraped_list("played_videos", played_video, 'add')
+        for downloaded_subtitles in read_simple_list("downloaded_subtitles", "data_backup_route"):
+            edit_scraped_list("downloaded_subtitles", downloaded_subtitles, 'add')
+
     system("rm " + data_backup_route)
 
 #######################################################################
@@ -258,7 +266,7 @@ def edit_scraped_list(
 
 ######################################################################
 
-def read_simple_list(table: str):
+def read_simple_list(table: str, db:str='data_route'):
 
     """DESCRIPTION:
         - This module reads a simple list.
@@ -277,8 +285,14 @@ def read_simple_list(table: str):
     global data_route
 
 """
+    global data_route, data_backup_route
 
-    connection = connect(data_route)
+    db_keys = {
+            'data_route': data_route,
+            'data_backup_route': data_backup_route
+            }
+
+    connection = connect(db_keys[db])
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM " + table)
 
