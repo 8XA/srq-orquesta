@@ -8,7 +8,8 @@
 import os
 from termcolor import colored
 from modules.admin_db import *
-from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
+from modules.strings_fitting import phrase_fitting, \
+        centered_phrase_fitting, colored_centered_filter
 from modules.menu import menu
 from modules.columns_number import columns_number_func
 from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
@@ -71,6 +72,8 @@ def results():
         #Subs filtrados
         lista_filtro_str = " ".join(filtro.split(","))
         lista_filtro = lista_filtro_str.split(" ")
+        while '' in lista_filtro:
+            lista_filtro.remove('')
         subs_filtrados = [sub for sub in subs if len([palabra_filtro \
                 for palabra_filtro in lista_filtro if palabra_filtro.lower() \
                 in sub[0].lower() + sub[1].lower() + sub[2].lower()]) == len(lista_filtro)]
@@ -160,7 +163,10 @@ def results():
         #Imprime filtros
         print(linea_roja)
         print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
-        print(centered_phrase_fitting(numcols, lista_filtro_str))
+        colored_filters = colored_centered_filter(numcols, \
+                " ".join(lista_filtro))
+        if len(lista_filtro) > 0:
+            print(colored_filters)
         print(linea_roja)
 
         i = menu(numcols, "Página: " + str(pagina) + " de " + \
