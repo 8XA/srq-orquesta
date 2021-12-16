@@ -168,9 +168,9 @@ def results():
 
         #Determina cuales IDs pueden ser descargados
         dict_descargables = {
-                "pagina": subs_pagina,
-                "disponibles": subs,
-                "filtrados": subs_filtrados
+                "page": subs_pagina,
+                "avaliables": subs,
+                "filtered": subs_filtrados
                 }
         descargable = dict_descargables[read_settings("downloadable_ids")]
 
