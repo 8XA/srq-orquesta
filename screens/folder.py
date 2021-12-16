@@ -8,7 +8,8 @@ from termcolor import colored
 from modules.admin_db import read_settings, edit_settings
 from modules.columns_number import columns_number_func
 from modules.menu import menu
-from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
+from modules.strings_fitting import phrase_fitting, \
+        centered_phrase_fitting, colored_centered_filter
 
 def folder():
     edit_settings("previous_menu", str(read_settings("menu")))
@@ -35,6 +36,8 @@ def folder():
 
         filtros_str = " ".join(filtros_str.lower().split(","))
         filtros = filtros_str.split(" ")
+        while '' in filtros:
+            filtros.remove('')
         for x in range(len(carpetas)):
             if len([filtro for filtro in filtros if filtro in \
                     carpetas[x].lower()]) == len(filtros):
@@ -62,7 +65,10 @@ def folder():
         print(linea_roja)
         #Filtros
         print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
-        print(centered_phrase_fitting(numcols, filtros_str))
+        colored_filters = colored_centered_filter(numcols, \
+                "  ".join(filtros))
+        if len(filtros) > 0:
+            print(colored_filters)
         print(linea_roja)
 
         i = menu(numcols, "Define la carpeta de búsqueda")
