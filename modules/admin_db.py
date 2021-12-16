@@ -5,6 +5,7 @@
 from sqlite3 import connect
 from os.path import isfile
 from os import system
+from os.path import isfile
 
 data_route = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 data_backup_route = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
@@ -284,7 +285,15 @@ def read_simple_list(table: str):
     values = cursor.fetchall()
     connection.close()
 
-    return [value[0] for value in values]
+    # Delete URIs that point to deleted videos
+    played_list = []
+    for value in values:
+        if isfile(value[0]):
+            played_list.append(value[0])
+        else:
+            edit_simple_list(table, value[0])
+
+    return played_list
 
 
 def edit_simple_list(table: str, value: str=None, mode: str='delete'):
