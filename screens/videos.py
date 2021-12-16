@@ -6,7 +6,8 @@ from modules.files_from_route import videos_en_ruta
 from modules.admin_db import read_settings, edit_settings, \
 read_simple_list, edit_simple_list
 from modules.menu import menu
-from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
+from modules.strings_fitting import phrase_fitting, \
+        centered_phrase_fitting, colored_centered_filter
 import os
 
 def videos():
@@ -14,7 +15,11 @@ def videos():
     titulo = "SRQ ORQUESTA"
 
     rutas_y_videos = videos_en_ruta()
+
     filtro = " ".join(read_settings("videos_filter").split(",")).split(" ")
+    while '' in filtro:
+        filtro.remove('')
+
     videos = rutas_y_videos[1]
     rutas = rutas_y_videos[0]
     
@@ -76,7 +81,13 @@ def videos():
     print(read_settings("folder_route"))
     print(linea_roja)
     print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
-    print(centered_phrase_fitting(numcols, " ".join(filtro)))
+
+    colored_filters = colored_centered_filter(numcols, \
+            "  ".join(filtro))
+    
+    if len(filtro) > 0:
+        print(colored_filters)
+
     print(linea_roja)
 
     i = menu(numcols, "Filtra o selecciona un video")
