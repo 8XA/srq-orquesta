@@ -6,7 +6,7 @@ from modules.menu import menu
 from modules.admin_db import read_settings, edit_settings
 from modules.auto_start import *
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
-from screens.update import *
+from screens.update import update
 from modules.create_db import create_db
 
 def bold_blanco_centrado(n_cols, txt):
@@ -158,7 +158,7 @@ def settings():
 
     #Actualizaciones ahora
     elif i[1].lower() == "u":
-        if update() == 100:
+        if update() == 'exit_srq':
             return 'exit_srq'
 
     #Actualizaciones al iniciar
