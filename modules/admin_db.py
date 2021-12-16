@@ -130,9 +130,9 @@ def restore_settings():
         edit_scraped_list('torrents', 'replace', list_=torrents)
         
         for played_video in read_simple_list("played_videos", "data_backup_route"):
-            edit_scraped_list("played_videos", played_video, 'add')
+            edit_simple_list("played_videos", played_video, 'add')
         for downloaded_subtitles in read_simple_list("downloaded_subtitles", "data_backup_route"):
-            edit_scraped_list("downloaded_subtitles", downloaded_subtitles, 'add')
+            edit_simple_list("downloaded_subtitles", downloaded_subtitles, 'add')
 
     system("rm " + data_backup_route)
 
