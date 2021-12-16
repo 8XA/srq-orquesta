@@ -6,7 +6,8 @@
 
 from time import sleep
 import os
-from modules.admin_db import read_settings, edit_simple_list
+from modules.admin_db import read_settings, edit_settings, \
+        edit_simple_list, edit_scraped_list
 from termcolor import colored
 
 def menu(*args):
@@ -173,6 +174,11 @@ def menu(*args):
         if read_settings("menu") != 101:
             pantalla = read_settings("menu")
         return ("menu", pantalla)
+
+    elif i.upper() == "N":
+        edit_scraped_list('torrents', 'clean')
+        edit_settings('torrents_filter', '')
+        return ("menu", 'torrents')
     
     return ("accion", i)
 
