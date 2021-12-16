@@ -170,8 +170,8 @@ def menu(*args):
             sleep(1)
 
         #Evita repetir descarga
-        pantalla = 3
-        if read_settings("menu") != 101:
+        pantalla = 'words'
+        if read_settings("menu") != 'download':
             pantalla = read_settings("menu")
         return ("menu", pantalla)
 
