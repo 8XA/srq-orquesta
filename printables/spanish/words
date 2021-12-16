@@ -31,6 +31,8 @@
 
 :ff:  - Puedes ignorar las palabras listadas y escribir tu búsqueda de forma libre ingresando el texto.
 
+:ff:  - Puedes seleccionar todas las palabras ingresando 'all'.
+
 :lb:
 :wc:Ejemplos de selección:
 :lb:
@@ -38,6 +40,7 @@
 :ff: 0-2    :  El Perrito Alegre
 :ff: 0-2,4  :  El Perrito Alegre WEBRip
 :ff: 0,2-4  :  El Alegre 2020 WEBRip
+:ff: all    :  El Perrito Alegre 2020 WEBRip x264 aac
 :lb:
 
 :la:
