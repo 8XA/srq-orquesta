@@ -5,7 +5,7 @@ from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
 from modules.files_from_route import subs_en_ruta
-from modules.admin_db import read_settings
+from modules.admin_db import read_settings, edit_simple_list
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from modules.columns_number import columns_number_func
 from modules.admin_db import read_settings, edit_settings
@@ -150,6 +150,9 @@ def download():
         #Abre el video
         os.system("termux-open '" + read_settings("selected_video_route") + \
                 read_settings("selected_video_name") + "'")
+        selected_video = read_settings('selected_video_route') + \
+                read_settings('selected_video_name')
+        edit_simple_list('played_videos',selected_video,'add')
 
     except:
         print(linea_azul_)
