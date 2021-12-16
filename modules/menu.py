@@ -134,6 +134,23 @@ def menu(*args):
             else:
                 renglon[pieza+1] = i[renglon[pieza+1]]
 
+    ##################################################
+    
+    #Agregado provisional de la 'N' en torrents, todo el módulo menú será rediseñado/refactorizado
+    
+    if read_settings("menu") == 'torrents':
+        orrents = '\x1b[2m\x1b[1m\x1b[47m\x1b[31morre\x1b[0m' + \
+        '\x1b[2m\x1b[1m\x1b[47m\x1b[32mN\x1b[0m' + \
+        '\x1b[2m\x1b[1m\x1b[47m\x1b[31mts\x1b[0m'
+    else:
+        orrents = '\x1b[1m\x1b[33morre\x1b[0m' + \
+        '\x1b[2m\x1b[1m\x1b[32mN\x1b[0m' + \
+        '\x1b[1m\x1b[33mts\x1b[0m'
+
+    imprimir[0][2] = orrents
+
+    ##################################################
+
     #Arma e imprime los renglones imprimibles
     for renglon in imprimir:
         print(((numcols - renglon[0])//2) * " " + "".join(renglon[1:]))
