@@ -126,7 +126,7 @@ def create_db():
         cursor.execute("UPDATE settings SET recode = 0")
         cursor.execute("UPDATE settings SET one_line = 1")
         cursor.execute("UPDATE settings SET extensions = 'avi,mp4,mkv'")
-        cursor.execute("UPDATE settings SET downloadable_ids = 'disponibles'")
+        cursor.execute("UPDATE settings SET downloadable_ids = 'avaliables'")
         cursor.execute("UPDATE settings SET results_per_page = 50")
 
         #Default values for temporary settings

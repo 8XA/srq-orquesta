@@ -110,9 +110,9 @@ def settings():
     #IDs descargables
     ids = read_settings("downloadable_ids")
     opcion(linea_azul_, linea_roja, numcols, "IDs descargables", [\
-            [ids.count("pagina"), "7p", ": Página actual"],
-            [ids.count("filtrados"), "7f", ": Filtrados"],
-            [ids.count("disponibles"), "7d", ": Disponibles"]
+            [ids.count("page"), "7p", ": Página actual"],
+            [ids.count("filtered"), "7f", ": Filtrados"],
+            [ids.count("avaliables"), "7d", ": Disponibles"]
         ])
 
 
@@ -221,9 +221,9 @@ def settings():
         seleccion = i[1].lower()
         
         op_selec = {
-                "7p": "pagina",
-                "7d": "disponibles",
-                "7f": "filtrados"
+                "7p": "page",
+                "7d": "avaliables",
+                "7f": "filtered"
                 }
         edit_settings("downloadable_ids", op_selec[seleccion])
 
