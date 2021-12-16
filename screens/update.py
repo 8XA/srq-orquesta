@@ -30,7 +30,7 @@ def update():
             os.system('rm -rf ' + rabs[:-1])
             os.system('mv update ' + rabs[:-1] + ' && clear')
             
-            visor("ACTUALIZACIÓN COMPLETA", "actualizacion")
+            visor("ACTUALIZACIÓN COMPLETA", "update")
             input("Enter para salir...")
 
             return 'exit_srq'
