@@ -5,7 +5,7 @@ from tpblite import TPB, ORDERS, CATEGORIES
 def tpb(search):
 
     # TPB object with the default domain
-    t = TPB()
+    t = TPB('https://tpb.party')
 
     # Getting the data
     torrents = t.search(search, order=ORDERS.SEEDERS.DES, \
