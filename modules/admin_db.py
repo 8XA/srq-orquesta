@@ -299,16 +299,19 @@ def read_simple_list(table: str, db:str='data_route'):
     values = cursor.fetchall()
     connection.close()
 
-    # Delete URIs that point to deleted videos
-    played_list = []
-    for value in values:
-        if isfile(value[0]):
-            played_list.append(value[0])
-        else:
-            edit_simple_list(table, value[0])
+    ##################################################
+    if table == 'played_videos':
+        # Delete URIs that point to deleted videos
+        played_list = []
+        for value in values:
+            if isfile(value[0]):
+                played_list.append(value[0])
+            else:
+                edit_simple_list(table, value[0])
+        return played_list
+    ##################################################
 
-    return played_list
-
+    return [value[0] for value in values]
 
 def edit_simple_list(table: str, value: str=None, mode: str='delete'):
 

@@ -5,6 +5,8 @@
 
 import os
 from termcolor import colored
+from modules.admin_db import edit_simple_list
+from modules.refresh_history import refresh_history
 from modules.admin_db import read_settings, edit_settings
 from modules.columns_number import columns_number_func
 from modules.menu import menu
@@ -12,6 +14,7 @@ from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
 
 def folder():
+    refresh_history('folder_history')
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","folder")
 
@@ -94,4 +97,5 @@ def folder():
                     filtros_str = " "
                 ruta = "/" + "/".join(cadena) + "/"
             else:
+                edit_simple_list('folder_history', i[1], 'add')
                 filtros_str = i[1]

@@ -1,6 +1,7 @@
 #!/bin/env python
 
 from termcolor import colored
+from modules.refresh_history import refresh_history
 from modules.columns_number import columns_number_func
 from modules.files_from_route import videos_en_ruta
 from modules.admin_db import read_settings, edit_settings, \
@@ -11,6 +12,7 @@ from modules.strings_fitting import phrase_fitting, \
 import os
 
 def videos():
+    refresh_history('videos_history')
     numcols = columns_number_func()
     titulo = "SRQ ORQUESTA"
 
@@ -123,6 +125,7 @@ def videos():
             edit_settings("selected_video_route", rutas[int(i[1])])
 
         elif i[1] != "":
+            edit_simple_list('videos_history', i[1], 'add')
             edit_settings("videos_filter", i[1].lower())
     return 'videos'
 

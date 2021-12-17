@@ -164,6 +164,48 @@ def create_db():
 
         ##################################################
 
+        # New torrents history for readlines
+        cursor.execute("CREATE TABLE newtorrents_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
+        # Torrents history for readlines
+        cursor.execute("CREATE TABLE torrents_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
+        # Videos history for readlines
+        cursor.execute("CREATE TABLE videos_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
+        # Folder history for readlines
+        cursor.execute("CREATE TABLE folder_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
+        # Words history for readlines
+        cursor.execute("CREATE TABLE words_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
+        # Results history for readlines
+        cursor.execute("CREATE TABLE results_history (" \
+                "history TEXT " \
+                ")")
+
+        ##################################################
+
         connection.commit()
         connection.close()
 

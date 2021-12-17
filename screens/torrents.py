@@ -3,8 +3,9 @@
 from os import system
 from termcolor import colored
 from modules.menu import menu
+from modules.refresh_history import refresh_history
 from modules.scrapers.torrents.tpb import tpb
-from modules.admin_db import read_settings, edit_settings
+from modules.admin_db import read_settings, edit_settings, edit_simple_list, read_simple_list
 from modules.columns_number import columns_number_func
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter 
@@ -19,6 +20,13 @@ def torrents():
     page = 1
 
     while True:
+        torrent_results = read_scraped_list('torrents')
+        
+        table = 'torrents_history' 
+        if len(torrent_results) == 0:
+            table = 'new' + table
+        refresh_history(table)
+
         columns_number = columns_number_func()
         filters = " ".join(read_settings('torrents_filter').split(','))
         filters = filters.split(" ")
@@ -26,7 +34,6 @@ def torrents():
             filters.remove('')
 
         # Download ID assigned
-        torrent_results = read_scraped_list('torrents')
         torrent_results_ids = [[id_] + list(torrent_results[id_]) for id_ in \
                 range(len(torrent_results))]
 
@@ -130,6 +137,7 @@ def torrents():
             if page < 1:
                 page = total_pages
         elif len(torrent_results) == 0:
+            edit_simple_list(table, i[1],'add')
             try:
                 system("clear")
                 print("Buscando torrents...")
@@ -142,4 +150,5 @@ def torrents():
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
             system("termux-open '" + torrent_results_ids[int(i[1])][6] + "'")
         else:
+            edit_simple_list('torrents_history', i[1],'add')
             edit_settings("torrents_filter", i[1])
