@@ -95,6 +95,8 @@ def results():
         print(linea_azul)
         print(((numcols-len(titulo))//2)*" " + titulo)
         print(linea_azul)
+        
+        print(linea_amarilla)
 
         for x in range(len(subs_pagina)):
             #Marca en blanco el subtítulo actual
@@ -112,7 +114,6 @@ def results():
                         colored(str(subs_pagina[x][4]), 'green', \
                         attrs=['bold', 'dark'])
 
-            print(linea_amarilla)
             print(str(subs_pagina[x][5]) + ": " + ID + " -> " + subs_pagina[x][0])
             print(numcols * "-")
             print(centered_phrase_fitting(numcols, subs_pagina[x][1]))
@@ -120,21 +121,20 @@ def results():
             by = [scraper for scraper in scrapers if scraper in subs_pagina[x][2]][0]
             by_color = colored(by, 'cyan', attrs=['bold'])
             print((numcols - len(by)) * " " + by_color)
+            print(linea_amarilla)
 
         #Si no hay subtitulos, envia mensaje
         if len(subs) == 0:
             msj = "\n\nNingún subtítulo hallado...\n\n"
             print(phrase_fitting(numcols, msj))
-            print(linea_azul)
         #Si no hay subtitulos filtrados, envia mensaje
         elif len(subs_filtrados) == 0:
             msj = "\n\nNingún subtítulo coincide con el " + \
                     "filtro ingresado en esta pantalla, " + \
                     "prueba con otras palabras...\n\n"
             print(phrase_fitting(numcols, msj))
-            print(linea_azul)
         #Si hay subtitulos, cierra con línea amarilla
-        else:
+        if len(subs) == 0 or len(subs_filtrados) == 0:
             print(linea_amarilla)
 
         print(linea_roja)
