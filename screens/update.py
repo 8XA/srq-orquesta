@@ -8,9 +8,7 @@ def update():
     rabs = '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/'
     ruta_backup = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
 
-#    columns_num = columns_number_func()
-#    numcols = num_cols()
-    
+    os.system("clear")
     print("Verificando actualizaciones para SRQ ORQUESTA...\n")
 
     remoto = os.popen('cd '+ rabs + ' && git fetch origin master ' + \
