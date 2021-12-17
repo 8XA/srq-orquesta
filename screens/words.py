@@ -141,12 +141,11 @@ def words():
         else:
             palabras_candidatas = [x for x in " ".join(i[1].split(",")).split(" ") if x != ""]
 
-            if (",".join(palabras_candidatas) != read_settings("sub_words")) and \
-                    len(palabras_candidatas) > 0:
-                edit_settings("sub_search_changed","1")
+            if (",".join(palabras_candidatas) != read_settings("sub_words")):
                 edit_settings("sub_words", ",".join(palabras_candidatas))
-            else:
-                pass
-            edit_simple_list('words_history', i[1], 'add')
+
+                if len(palabras_candidatas) > 0:
+                    edit_simple_list('words_history', i[1], 'add')
+                    edit_settings("sub_search_changed","1")
 
         return 'words'
