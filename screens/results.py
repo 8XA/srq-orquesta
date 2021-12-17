@@ -8,6 +8,7 @@
 import os
 from termcolor import colored
 from modules.admin_db import *
+from modules.refresh_history import refresh_history
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
 from modules.menu import menu
@@ -16,6 +17,7 @@ from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
 from modules.scrapers.subtitles.spanish.subdivx import subdivx
 
 def results():
+    refresh_history('results_history')
     #Resultados por pagina (rpp)
     rpp = read_settings("results_per_page")
     os.system("clear")
@@ -212,3 +214,4 @@ def results():
             filtro = i[1]
             edit_settings("subs_filter", filtro)
             pagina = 1
+            edit_simple_list('results_history', i[1], 'add')

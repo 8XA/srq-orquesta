@@ -2,13 +2,15 @@
 
 #Selecciona las palabras de busqueda o ingresa una busqueda libre
 
+from modules.refresh_history import refresh_history
 from modules.columns_number import columns_number_func
-from modules.admin_db import read_settings, edit_settings
+from modules.admin_db import read_settings, edit_settings, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from termcolor import colored
 
 def words():
+    refresh_history('words_history')
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","words")
     extensiones = read_settings("extensions").split(',')
@@ -132,6 +134,7 @@ def words():
             if ",".join(palabras_candidatas) != read_settings("sub_words"):
                 edit_settings("sub_search_changed","1")
                 edit_settings("sub_words", ",".join(palabras_candidatas))
+                edit_simple_list('words_history', i[1], 'add')
 
         #busqueda libre
         else:
@@ -143,5 +146,6 @@ def words():
                 edit_settings("sub_words", ",".join(palabras_candidatas))
             else:
                 pass
+            edit_simple_list('words_history', i[1], 'add')
 
         return 'words'

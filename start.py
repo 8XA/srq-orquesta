@@ -20,6 +20,7 @@ from screens.download import download
 from screens.onesession import one_session
 from modules.storage_verify import *
 from modules.columns_number import columns_number_func
+from modules.refresh_history import clean_history_tables
 #from modules.strings_fitting import phrase_fitting
 
 columns_num = columns_number_func()
@@ -64,9 +65,11 @@ if read_settings("active_instance") == 0:
         execute = update()
 
     #This piece of code runs all the interaction screens
+    clean_history_tables()
     if execute != 'exit_srq':
         running = srq_orquesta['videos']()
         while running != 'exit_srq':
+            readline.clear_history()
             running = srq_orquesta[running]()
     edit_settings("active_instance", "0") 
 
