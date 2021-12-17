@@ -18,6 +18,7 @@ def words():
     video = read_settings("selected_video_name")
     numcols = columns_number_func()
 
+    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
@@ -25,6 +26,7 @@ def words():
     print(linea_azul)
     print(((numcols - len(titulo))//2) * " " + titulo)
     print(linea_azul)
+    print(linea_amarilla)
 
     if read_settings("selected_video_name") == "":
         msj = "Aquí aparecerán palabras de búsqueda sugeridas " + \
@@ -43,7 +45,7 @@ def words():
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
             print(indice + ": " + palabras_del_titulo[x])
 
-    print(linea_azul)
+    print(linea_amarilla)
     print(linea_roja)
     print(colored(centered_phrase_fitting(numcols, "Palabras a confirmar:"), \
             'white', attrs=['bold']))
