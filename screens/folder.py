@@ -24,6 +24,7 @@ def folder():
     filtros_str = " "
     while filtros_str != "":
         numcols = columns_number_func()
+        linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
@@ -33,6 +34,8 @@ def folder():
         print(((numcols-len(titulo))//2)*" " + titulo)
         print(linea_azul)
 
+        print(linea_amarilla)
+
         #Imprime carpetas e indices
         carpetas = sorted([carpeta.path.split("/")[-1:][0] for \
                 carpeta in os.scandir(ruta) if carpeta.is_dir()])
@@ -41,6 +44,8 @@ def folder():
         filtros = filtros_str.split(" ")
         while '' in filtros:
             filtros.remove('')
+
+        show_message = False
         for x in range(len(carpetas)):
             if len([filtro for filtro in filtros if filtro in \
                     carpetas[x].lower()]) == len(filtros):
@@ -52,14 +57,18 @@ def folder():
                     print(indice + ":",carpetas[x][:numcols - len(str(x)) - 2])
                 else:
                     print(indice + ":",carpetas[x])
+                show_message = True
 
         if len(carpetas) == 0:
             msj = "Fin de la ruta, no hay más carpetas adelante..."
+        elif show_message == False:
+            msj = "Prueba con otro filtro..."
+        if show_message == False or len(carpetas) == 0:
             print("\n")
             print(phrase_fitting(numcols, msj))
             print("\n")
 
-        print(linea_azul)
+        print(linea_amarilla)
 
         #Ruta actual en franja roja
         print(linea_roja)
