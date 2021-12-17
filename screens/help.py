@@ -1,7 +1,7 @@
 #!/bin/env python
 
 from modules.columns_number import columns_number_func
-from modules.viewer import visor
+from modules.viewer import viewer
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
@@ -21,7 +21,7 @@ def help_section():
     }
 
     menu_anterior = read_settings("previous_menu")
-    visor(titulos[menu_anterior], menu_anterior)
+    viewer(titulos[menu_anterior], menu_anterior)
 
     return read_settings("previous_menu")
 
