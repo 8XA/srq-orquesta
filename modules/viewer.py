@@ -60,7 +60,7 @@ def hoja_imprimible(columns_number, tupla_hojas):
 
 #arg[0] = titulo
 #arg[1...10] = archivo1... archivo10
-def visor(*arg):
+def viewer(*arg):
 
     posicion = 0
 

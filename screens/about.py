@@ -1,7 +1,7 @@
 #!/bin/env python
 
 from modules.columns_number import columns_number_func
-from modules.viewer import visor
+from modules.viewer import viewer
 from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
@@ -11,6 +11,6 @@ def about():
     edit_settings("menu","about")
     numcols = columns_number_func()
 
-    visor("ACERCA DE", "about","update")
+    viewer("ACERCA DE", "about","update")
 
     return read_settings("previous_menu")
