@@ -6,7 +6,8 @@ from modules.refresh_history import refresh_history
 from modules.columns_number import columns_number_func
 from modules.admin_db import read_settings, edit_settings, edit_simple_list
 from modules.menu import menu
-from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
+from modules.strings_fitting import phrase_fitting, \
+        centered_phrase_fitting, colored_centered_filter
 from termcolor import colored
 
 def words():
@@ -53,7 +54,7 @@ def words():
         print(phrase_fitting(numcols, msj))
 
     else:
-        print(centered_phrase_fitting(numcols, " ".join(lista_palabras.split(","))))
+        print(colored_centered_filter(numcols, " ".join(lista_palabras.split(","))))
     print(linea_roja)
 
     #Menú
