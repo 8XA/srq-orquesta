@@ -42,7 +42,8 @@ def hoja_imprimible(columns_number, tupla_hojas):
             hoja += [formato + renglon for renglon in renglon_formateado]
 
         #Divisor de documentos
-        hoja += [":sl: ", ":Lr:" + (columns_number - 2) * "="]
+        if len(tupla_hojas) > 1 and archivo != tupla_hojas[-1]:
+            hoja += [":sl: ", ":Lr:" + (columns_number - 2) * "="]
 
     return hoja
 
@@ -169,7 +170,7 @@ def viewer(*arg):
                 if i not in [258,259]:
                     caracteres_i.append(i)
                 if (i == curses.KEY_DOWN) and \
-                        ((long_win_manual + posicion -1) < len(hoja)):
+                        ((long_win_manual + posicion -1) <= len(hoja)):
                     posicion += 1
                 elif (i == curses.KEY_UP) and (posicion > 0):
                     posicion -= 1
