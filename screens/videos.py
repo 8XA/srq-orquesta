@@ -22,8 +22,12 @@ def videos():
     while '' in filtro:
         filtro.remove('')
 
+    # Ordered videos and their routes
     videos = rutas_y_videos[1]
-    rutas = rutas_y_videos[0]
+    rutas = {}
+    for index in range(len(videos)):
+        rutas[videos[index]] = rutas_y_videos[0][index]
+    videos = sorted(videos, key=str.casefold)
     
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","videos")
@@ -53,7 +57,7 @@ def videos():
 
             #Marca el video seleccionado actual
             if (read_settings("selected_video_route") != "") and \
-               (read_settings("selected_video_route") == rutas[x]) and \
+               (read_settings("selected_video_route") == rutas[videos[x]]) and \
                (read_settings("selected_video_name") == videos[x]):
 
                 marca_en_pantalla = True
@@ -66,7 +70,7 @@ def videos():
             if read_settings("one_line") == 1:
                 imprimir = imprimir[:numcols - len(str(x)) -2]
 
-            if rutas[x] + videos[x] in played_videos:
+            if rutas[videos[x]] + videos[x] in played_videos:
                 imprimir = colored(imprimir, 'red', 'on_yellow', attrs=['bold'])
 
             print(indice + ": " + imprimir)
@@ -122,7 +126,7 @@ def videos():
             edit_settings("sub_search_changed", "1")
             edit_settings("selected_video_name", videos[int(i[1])])
             edit_settings("sub_words", "")
-            edit_settings("selected_video_route", rutas[int(i[1])])
+            edit_settings("selected_video_route", rutas[videos[int(i[1])]])
 
         elif i[1] != "":
             edit_simple_list('videos_history', i[1], 'add')
