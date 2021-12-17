@@ -149,7 +149,7 @@ def results():
             print(phrase_fitting(numcols, msj))
         #Imprime video seleccionado
         else:
-            print(centered_phrase_fitting(numcols, read_settings("selected_video_name")))
+            print(colored_centered_filter(numcols, read_settings('selected_video_name')))
         print(linea_roja)
         #ruta
         str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
