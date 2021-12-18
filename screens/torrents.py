@@ -149,6 +149,7 @@ def torrents():
             edit_scraped_list('torrents', 'downloaded')
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
             system("termux-open '" + torrent_results_ids[int(i[1])][6] + "'")
+            return 'videos'
         else:
             edit_simple_list('torrents_history', i[1],'add')
             edit_settings("torrents_filter", i[1])
