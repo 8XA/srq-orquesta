@@ -65,7 +65,8 @@ if read_settings("active_instance") == 0:
         execute = update()
 
     #This piece of code runs all the interaction screens
-    clean_history_tables()
+    if read_settings("clean_history") == 1:
+        clean_history_tables()
     if execute != 'exit_srq':
         running = srq_orquesta['videos']()
         while running != 'exit_srq':

@@ -82,6 +82,10 @@ def create_db():
                 "one_line INTEGER, " \
                 #Admited video extensions on the 'Videos' screen
                 "extensions TEXT, "  \
+                #Clean the history commands when it starts
+                "clean_history INTEGER, "  \
+                #Lenght of the history for each screen
+                "history_lenght INTEGER, "  \
                 #Downloadable IDs for torrents and subs
                 "downloadable_ids TEXT, "  \
                 #Results per page for torrents and subs
@@ -126,6 +130,8 @@ def create_db():
         cursor.execute("UPDATE settings SET recode = 0")
         cursor.execute("UPDATE settings SET one_line = 1")
         cursor.execute("UPDATE settings SET extensions = 'avi,mp4,mkv'")
+        cursor.execute("UPDATE settings SET clean_history = 0")
+        cursor.execute("UPDATE settings SET history_lenght = 20")
         cursor.execute("UPDATE settings SET downloadable_ids = 'avaliables'")
         cursor.execute("UPDATE settings SET results_per_page = 50")
 
