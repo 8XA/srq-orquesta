@@ -1,14 +1,15 @@
 #!/bin/env python
 
 import readline
-from modules.admin_db import read_simple_list, edit_simple_list
+from modules.admin_db import read_simple_list, \
+        edit_simple_list, read_settings
 
 def refresh_history(table):
     
     history = read_simple_list(table)
     readline.clear_history()
 
-    if len(history) > 20:
+    if len(history) > read_settings("history_lenght") and len(history) != 0:
         history.pop(0)
 
     # Clear table
