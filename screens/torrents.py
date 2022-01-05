@@ -4,6 +4,7 @@ from os import system
 from termcolor import colored
 from modules.menu import menu
 from modules.refresh_history import refresh_history
+from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import read_settings, edit_settings, edit_simple_list, read_simple_list
 from modules.columns_number import columns_number_func
@@ -140,8 +141,13 @@ def torrents():
             edit_simple_list(table, i[1],'add')
             try:
                 system("clear")
-                print("Buscando torrents...")
-                torrent_search = [torrent + [0] for torrent in tpb(i[1])]
+                print("Buscando torrents...\n\n")
+
+                torrent_nyaa = nyaa(i[1])
+                torrent_tpb = tpb(i[1])
+                multi_torrents = torrent_nyaa + torrent_tpb
+
+                torrent_search = [torrent + [0] for torrent in multi_torrents]
                 edit_scraped_list('torrents','replace', list_=torrent_search)
             except:
                 pass
