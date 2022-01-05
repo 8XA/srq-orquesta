@@ -93,7 +93,8 @@ def edit_settings(
     if isfile(data_route):
         connection = connect(data_route)
         cursor = connection.cursor()
-        cursor.execute("UPDATE settings SET " + column + "='" + str(new_value) + "'")
+        clean_new_value = new_value.replace("'","''")
+        cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")
         connection.commit()
         connection.close() 
 
@@ -357,7 +358,8 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
 
         # Add an element
         elif mode == 'add':
-            sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + value + "')"
+            clean_value = value.replace("'","''")
+            sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + clean_value + "')"
 
         cursor.execute(sentence)
 
