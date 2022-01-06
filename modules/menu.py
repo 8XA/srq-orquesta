@@ -192,10 +192,13 @@ def menu(*args):
             pantalla = read_settings("menu")
         return ("menu", pantalla)
 
+    elif i.upper() == "LT":
+        os.system('am start -n org.proninyaroslav.libretorrent/.ui.main.MainActivity')
+        return ("menu", pantalla)
+
     elif i.upper() == "N":
         edit_scraped_list('torrents', 'clean')
         edit_settings('torrents_filter', '')
         return ("menu", 'torrents')
     
     return ("accion", i)
-
