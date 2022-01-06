@@ -1,4 +1,21 @@
 
+:Wc:Versión 0.3.0
+
+:ff:- Fix: El scraper de subdivx puede manejar apóstrofos.
+:ff:- Fix: Viewer muestra la última linea imprimible.
+:ff:- Style: Diseño de las pantallas más homogeneizado.
+:ff:- Feat: La ruta del video en 'Resultados' y las palabras seleccionadas en 'Palabras' son coloreadas.
+:ff:- Feat: Las listas en la sección 'Videos' se muestran ordenadas alfabéticamente.
+:ff:- Feat: Cada pantalla tiene su propio historial de comandos.
+:ff:- Fix: La corrección de caracteres contempla todas las vocales acentuadas.
+:ff:- Fix: Scraper de subdivx funciona con la nueva página del sitio.
+:ff:- Fix: Marca el video al ser reproducido en automático tras descargar un subtítulo.
+:ff:- Feat: Los filtros de todas las secciones aparecen coloreados.
+:ff:- Feat: Búsqueda de torrents funcional desde TPB y NYAA.
+:ff:- Fix: Búsqueda manual de actualizaciones desde Configuración.
+
+:la:
+
 :Wc:Versión 0.2.0
 
 :ff:- Marcado automático y manual de videos reproducidos.
