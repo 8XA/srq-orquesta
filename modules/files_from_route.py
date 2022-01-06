@@ -27,7 +27,7 @@ def archivos_en_ruta(*args):
 
 
 def subs_en_ruta():
-    extensiones = "srt,ssa"
+    extensiones = "srt,ssa,ass"
     ruta = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/tmp/"
     return archivos_en_ruta(extensiones, ruta)
 
