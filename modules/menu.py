@@ -194,6 +194,11 @@ def menu(*args):
 
     elif i.upper() == "LT":
         os.system('am start -n org.proninyaroslav.libretorrent/.ui.main.MainActivity')
+
+        #Evita repetir descarga
+        pantalla = 'results'
+        if read_settings("menu") != 'download':
+            pantalla = read_settings("menu")
         return ("menu", pantalla)
 
     elif i.upper() == "N":
