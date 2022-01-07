@@ -15,6 +15,7 @@ pip install tpblite
 
 pip install termcolor
 pip install chardet
+pip install requests
 sed -i '1i exec python /data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/start.py' /data/data/com.termux/files/usr/etc/bash.bashrc
 echo "alias srq='exec python /data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/start.py'" >> "/data/data/com.termux/files/usr/etc/bash.bashrc"
 clear
