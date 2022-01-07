@@ -95,5 +95,5 @@ def nyaa_onepage(
     if read_pages_number == True:
         return torrent_list, numb_of_pages
     
-    global_torrent_list = global_torrent_list + torrent_list
+    global_torrent_list += torrent_list
 
