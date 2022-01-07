@@ -19,6 +19,7 @@ def torrents():
 
     title = "TORRENTS"
     rpp = read_settings("results_per_page")
+    suggested_words = ""
     page = 1
 
     while True:
@@ -43,6 +44,7 @@ def torrents():
                 len([word for word in filters if word.lower() in \
                 (torrent[1] + " " + torrent[5]).lower()]) == len(filters)]
 
+        red_line_ = colored(columns_number*"-", 'red', attrs=['bold', 'dark'])
         red_line = colored(columns_number*"=", 'red', attrs=['bold', 'dark'])
         yellow_line = colored(columns_number*"=", 'yellow', attrs=['bold', 'dark'])
         blue_line = colored(columns_number*"=", 'blue', attrs=['bold', 'dark'])
@@ -101,9 +103,13 @@ def torrents():
             print(yellow_line)
 
 
+        #Print the words used for searching
+        print(red_line)
+        print(colored("Búsqueda:", 'white', attrs=['bold']))
+        print(suggested_words)
+
         #Print filters
         print(red_line)
-        
         print(colored(centered_phrase_fitting(columns_number, \
                 "Filtros:"), 'white', attrs=['bold']))
 
