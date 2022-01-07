@@ -3,6 +3,7 @@
 from os import system
 from termcolor import colored
 from modules.menu import menu
+from modules.suggested_search import suggested_search
 from modules.refresh_history import refresh_history
 from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
@@ -143,8 +144,9 @@ def torrents():
                 system("clear")
                 print("Buscando torrents...\n\n")
 
-                torrent_nyaa = nyaa(i[1])
-                torrent_tpb = tpb(i[1])
+                suggested_words = suggested_search(i[1])
+                torrent_nyaa = nyaa(suggested_words)
+                torrent_tpb = tpb(suggested_words)
                 multi_torrents = torrent_nyaa + torrent_tpb
 
                 torrent_search = [torrent + [0] for torrent in multi_torrents]

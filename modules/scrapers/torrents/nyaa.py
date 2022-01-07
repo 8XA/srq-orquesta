@@ -1,7 +1,9 @@
 #!/bin/env python
 
 from os import popen
+from time import sleep
 from threading import Thread
+from requests import get
 
 def nyaa(search:str):
     """
@@ -11,35 +13,33 @@ def nyaa(search:str):
             "NYAA", str_magnetlink_1], [str_title_2, ...]...]
     """
 
+    global global_torrent_list
+
     torrent_dict = {}
 
     first_search = nyaa_onepage(search, 1, True)
     numb_of_pages = first_search[1]
-    torrent_list = first_search[0]
+    global_torrent_list = first_search[0]
 
     current_page = 1
     threads_dict = {}
+
     while current_page < numb_of_pages:
-
         current_page += 1
+        threads_dict[current_page] = Thread(
+                target=nyaa_onepage,
+                args=(search, current_page),
+                daemon=True
+            )
+        threads_dict[current_page].start()
+        sleep(0.3)
+    
+    current_thread = 1
+    while current_thread < numb_of_pages:
+        current_thread+=1
+        threads_dict[current_page].join()
 
-        torrent_list += nyaa_onepage(search, current_page)
-
-#        threads_dict[current_page] = Thread(
-#                target=nyaa_onepage,
-#                args=(search, current_page)
-#            )
-#        
-#        threads_dict[current_page].start()
-#        threads_dict[current_page].join()
-#    
-#    keys = [key for key in torrent_dict]
-#    keys.sort()
-#
-#    torrent_list = []
-#    for key in keys:
-#        torrent_list += torrent_dict[key]
-    return torrent_list
+    return global_torrent_list
 
 
 def nyaa_onepage(
@@ -48,11 +48,13 @@ def nyaa_onepage(
         read_pages_number:bool=False
     ):
 
+    global global_torrent_list
+
     words_sum = "+".join(search.split(" "))
     words_sum = words_sum.replace("'","%27")
 
     search_url = "https://nyaa.si/?f=0&c=0_0&q=" + words_sum + "&s=seeders&o=desc&p=" + str(page_number)
-    raw_result = popen("curl -L '" + search_url + "' | iconv -f iso-8859-1 -t utf-8").read()
+    raw_result = get(search_url).text
 
     torrent_list = []
     while "magnet:?xt=" in raw_result:
@@ -92,5 +94,6 @@ def nyaa_onepage(
 
     if read_pages_number == True:
         return torrent_list, numb_of_pages
-    return torrent_list
+    
+    global_torrent_list = global_torrent_list + torrent_list
 
