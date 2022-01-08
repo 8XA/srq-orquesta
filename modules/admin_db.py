@@ -125,10 +125,10 @@ def restore_settings():
         
         #Restore user data
         subtitles = read_scraped_list('subtitles', 'data_backup_route')
-        edit_scraped_list('subtitles', 'replace', list_=subtitles)
+        edit_scraped_list('subtitles', 'addition', list_=subtitles)
         
         torrents = read_scraped_list('torrents', 'data_backup_route')
-        edit_scraped_list('torrents', 'replace', list_=torrents)
+        edit_scraped_list('torrents', 'addition', list_=torrents)
         
         for played_video in read_simple_list("played_videos", "data_backup_route"):
             edit_simple_list("played_videos", played_video, 'add')
