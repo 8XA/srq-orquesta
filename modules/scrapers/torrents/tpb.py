@@ -41,17 +41,20 @@ def tpb(search):
 def tpb_onepage(search, page):
     global global_torrent_list_tpb, flag
 
-    # TPB object with the default domain
-    t = TPB()
+    try:
+        # TPB object with the default domain
+        t = TPB()
 
-    # Getting the data
-    torrents = t.search(search, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.ALL, page=page)
+        # Getting the data
+        torrents = t.search(search, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.ALL, page=page)
 
-    torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
-            torrent.leeches, "TPB", torrent.magnetlink, 0] \
-            for torrent in torrents]
-    global_torrent_list_tpb += torrent_list
-    
-    if 0 in [torrent.seeds for torrent in torrents]:
+        torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
+                torrent.leeches, "TPB", torrent.magnetlink, 0] \
+                for torrent in torrents]
+        global_torrent_list_tpb += torrent_list
+        
+        if 0 in [torrent.seeds for torrent in torrents]:
+            flag = False
+    except:
         flag = False
 
