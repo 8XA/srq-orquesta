@@ -4,6 +4,7 @@ from os import popen
 from time import sleep
 from threading import Thread
 from requests import get
+from modules.admin_db import edit_scraped_list
 
 def nyaa(search:str):
     """
@@ -13,13 +14,13 @@ def nyaa(search:str):
             "NYAA", str_magnetlink_1], [str_title_2, ...]...]
     """
 
-    global global_torrent_list
+    global global_torrent_list_nyaa
 
     torrent_dict = {}
 
     first_search = nyaa_onepage(search, 1, True)
     numb_of_pages = first_search[1]
-    global_torrent_list = first_search[0]
+    global_torrent_list_nyaa = first_search[0]
 
     current_page = 1
     threads_dict = {}
@@ -39,7 +40,10 @@ def nyaa(search:str):
         current_thread+=1
         threads_dict[current_page].join()
 
-    return global_torrent_list
+    torrent_list = [torrent for torrent in global_torrent_list_nyaa if int(torrent[2]) > 0]
+
+    #To the database
+    edit_scraped_list('torrents','addition', list_=torrent_list)
 
 
 def nyaa_onepage(
@@ -48,7 +52,7 @@ def nyaa_onepage(
         read_pages_number:bool=False
     ):
 
-    global global_torrent_list
+    global global_torrent_list_nyaa
 
     words_sum = "+".join(search.split(" "))
     words_sum = words_sum.replace("'","%27")
@@ -58,7 +62,7 @@ def nyaa_onepage(
 
     torrent_list = []
     while "magnet:?xt=" in raw_result:
-        torrent = ['', '', 0, 0, 'NYAA', '']
+        torrent = ['', '', 0, 0, 'NYAA', '', 0]
 
         magnet_index_0 = raw_result.index("magnet:?xt=")
         magnet_index_1 = raw_result[magnet_index_0:].index('">') + magnet_index_0
@@ -95,5 +99,5 @@ def nyaa_onepage(
     if read_pages_number == True:
         return torrent_list, numb_of_pages
     
-    global_torrent_list += torrent_list
+    global_torrent_list_nyaa += torrent_list
 
