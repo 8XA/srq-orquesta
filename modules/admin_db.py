@@ -134,6 +134,18 @@ def restore_settings():
             edit_simple_list("played_videos", played_video, 'add')
         for downloaded_subtitles in read_simple_list("downloaded_subtitles", "data_backup_route"):
             edit_simple_list("downloaded_subtitles", downloaded_subtitles, 'add')
+        for torrents_history in read_simple_list("torrents_history", "data_backup_route"):
+            edit_simple_list("torrents_history", torrents_history, 'add')
+        for newtorrents_history in read_simple_list("newtorrents_history", "data_backup_route"):
+            edit_simple_list("newtorrents_history", newtorrents_history, 'add')
+        for videos_history in read_simple_list("videos_history", "data_backup_route"):
+            edit_simple_list("videos_history", videos_history, 'add')
+        for folder_history in read_simple_list("folder_history", "data_backup_route"):
+            edit_simple_list("folder_history", folder_history, 'add')
+        for words_history in read_simple_list("words_history", "data_backup_route"):
+            edit_simple_list("words_history", words_history, 'add')
+        for results_history in read_simple_list("results_history", "data_backup_route"):
+            edit_simple_list("results_history", results_history, 'add')
 
     system("rm " + data_backup_route)
 
