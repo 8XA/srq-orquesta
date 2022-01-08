@@ -125,7 +125,7 @@ def create_db():
         #Default values for settings
         cursor.execute("INSERT INTO settings (auto_update) VALUES (1)")
         cursor.execute("UPDATE settings SET auto_start = 1")
-        cursor.execute("UPDATE settings SET sub_getters = 'subdivx'")
+        cursor.execute("UPDATE settings SET sub_getters = 'subdivx,opensubtitles'")
         cursor.execute("UPDATE settings SET torrent_getters = 'tpb,yts,rarbg'")
         cursor.execute("UPDATE settings SET recode = 0")
         cursor.execute("UPDATE settings SET one_line = 1")

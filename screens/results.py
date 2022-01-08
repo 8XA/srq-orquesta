@@ -31,6 +31,9 @@ def results():
             (read_settings("sub_words") != "") and \
             (read_settings("selected_video_name") != ""):
 
+        #Anuncia búsqueda de subtítulo
+        print("Buscando subtítulos...")
+
         #Reiniciar filtro
         edit_settings("subs_filter", "")
 

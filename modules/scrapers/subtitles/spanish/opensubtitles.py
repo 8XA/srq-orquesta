@@ -6,7 +6,8 @@
 #[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 import os, time
-from modules.strange_characters import  corregir
+#from modules.strange_characters import  corregir
+from requests import get
 
 #Determina si la palabra es in indicador de una serie
 #Ejemplo: S01E01
@@ -74,22 +75,23 @@ def opensubtitles(palabras):
         while pagina == 0:
 
             #Curl con headers
-            curl = "curl -H 'authority: 25748s.ha.azioncdn.net' -H 'sec-ch-ua: " + \
-                    '"Chromium";v="91", " Not;A Brand";v="99"' + \
-                    "' -H 'sec-ch-ua-mobile: ?0' -H 'user-agent: Mozilla/5.0 " + \
-                    "(X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " + \
-                    "Chrome/91.0.4472.114 Safari/537.36' -H 'accept: */*' -H " + \
-                    "'origin: https://www.opensubtitles.org' -H 'sec-fetch-site: " + \
-                    "cross-site' -H 'sec-fetch-mode: cors' -H 'sec-fetch-dest: " + \
-                    "empty' -H 'referer: https://www.opensubtitles.org/' -H " + \
-                    "'accept-language: es-ES,es;q=0.9' --compressed -L "
+            #curl = "curl -H 'authority: 25748s.ha.azioncdn.net' -H 'sec-ch-ua: " + \
+            #        '"Chromium";v="91", " Not;A Brand";v="99"' + \
+            #        "' -H 'sec-ch-ua-mobile: ?0' -H 'user-agent: Mozilla/5.0 " + \
+            #        "(X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " + \
+            #        "Chrome/91.0.4472.114 Safari/537.36' -H 'accept: */*' -H " + \
+            #        "'origin: https://www.opensubtitles.org' -H 'sec-fetch-site: " + \
+            #        "cross-site' -H 'sec-fetch-mode: cors' -H 'sec-fetch-dest: " + \
+            #        "empty' -H 'referer: https://www.opensubtitles.org/' -H " + \
+            #        "'accept-language: es-ES,es;q=0.9' --compressed -L "
 
             #Curl sencilla
             #curl = "curl "
             
             linkBusqueda = "https://www.opensubtitles.org/es/search/sublanguageid-spa,spl/" + \
                     temp + cap + "moviename-" + "+".join(palabras_busqueda) + "/offset-" + str(pagina*40)
-            txtBusqueda = os.popen(curl + "'" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
+            #txtBusqueda = os.popen(curl + "'" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
+            txtBusqueda = get(linkBusqueda, timeout=5).text
 
             #Pendiente de solucionar:
             #En estos momentos, si solicitan captcha para la ip, no se recibe ningun sub
@@ -141,17 +143,21 @@ def opensubtitles(palabras):
                 year = renglones[indice-desfase_a][:year_0]
 
                 #Título completo
-                fulltitle = corregir(titulo + " " + year)
+                #fulltitle = corregir(titulo + " " + year)
+                fulltitle = titulo + " " + year
 
                 #Determinando descripción del subtítulo
                 if (renglones[indice][0] == "(") or (renglones[indice-desfase_d][-3:] == "..."):
                     descripcion_0 = renglones[indice-desfase_d].index(indexador_0) + corrector
                     descripcion_1 = renglones[indice-desfase_d][descripcion_0:].index(indexador_1)
-                    descripcion = corregir(renglones[indice-desfase_d][descripcion_0:descripcion_1 + \
-                            descripcion_0])
+                    #descripcion = corregir(renglones[indice-desfase_d][descripcion_0:descripcion_1 + \
+                    #        descripcion_0])
+                    descripcion = renglones[indice-desfase_d][descripcion_0:descripcion_1 + descripcion_0]
                 elif renglones[indice][0] not in "(<":
-                    descripcion = corregir(renglones[indice-1] + " " + \
-                            renglones[indice][:renglones[indice].index("<br /><a")])
+                    #descripcion = corregir(renglones[indice-1] + " " + \
+                    #        renglones[indice][:renglones[indice].index("<br /><a")])
+                    descripcion = renglones[indice-1] + " " + \
+                            renglones[indice][:renglones[indice].index("<br /><a")]
                 else:
                     descripcion = ""
 
