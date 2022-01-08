@@ -6,7 +6,7 @@
 #[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 import os
-from modules.strange_characters import corregir
+from requests import get
 
 def subdivx(palabras):
     try:
@@ -18,7 +18,7 @@ def subdivx(palabras):
             suma = "+".join(palabras)
             suma = suma.replace("'","%27")
             linkBusqueda = "https://www.subdivx.com/index.php?buscar2=" + suma + "&accion=5&masdesc=&subtitulos=1&realiza_b=1=&pg=" + str(pagina)
-            txtBusqueda = os.popen("curl -L '" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
+            txtBusqueda = get(linkBusqueda, timeout=5).text
 
             #Extrae la información del html descargado
             x = 0
@@ -30,13 +30,13 @@ def subdivx(palabras):
 
                 #Título
                 enlace = txtBusqueda[24+x+ind:x+ind+ind2]
-                titulo = corregir(txtBusqueda[x+ind+ind2+2:x+ind+ind2+ind3])
+                titulo = txtBusqueda[x+ind+ind2+2:x+ind+ind2+ind3]
                 
                 #Descripción
                 x += (ind+ind2+ind3)
                 ind4 = txtBusqueda[x:].index('<div id="buscador_detalle_sub"')
                 ind5 = txtBusqueda[x+ind4:].index('</div>')
-                descripcion = corregir(txtBusqueda[31+x+ind4:x+ind4+ind5])
+                descripcion = txtBusqueda[31+x+ind4:x+ind4+ind5]
 
                 subspag.append([titulo, descripcion, enlace])
 

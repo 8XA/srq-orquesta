@@ -147,7 +147,8 @@ def restore_settings():
         for results_history in read_simple_list("results_history", "data_backup_route"):
             edit_simple_list("results_history", results_history, 'add')
 
-    system("rm " + data_backup_route)
+    if isfile(data_backup_route):
+        system("rm " + data_backup_route)
 
 #######################################################################
 

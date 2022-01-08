@@ -103,7 +103,7 @@ def settings():
     scrapers = read_settings("sub_getters")
     opcion(linea_azul_, linea_roja, numcols, "Fuentes de búsqueda", [\
             [scrapers.count("subdivx"), "6s", ": subdivx"],
-            [scrapers.count("opensubtitles"), "6o", ": opensubtitles (experimental)"]
+            [scrapers.count("opensubtitles"), "6o", ": opensubtitles"]
         ])
 
 
