@@ -6,7 +6,6 @@
 #[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 import os, time
-#from modules.strange_characters import  corregir
 from requests import get
 
 #Determina si la palabra es in indicador de una serie
@@ -69,41 +68,13 @@ def opensubtitles(palabras):
         #(ejemplo: s01e01) y las pasa como parametro
         palabras_busqueda = [palabra for palabra in palabras if palabra not in episodio]
         
-        captcha, pagina, subs = False, 0, []
-#        while ((pagina == 0) or (len(txtBusqueda) > 1000)) and (captcha == False):
-        #Solo descargará la primera página, a ver si así evita el bloqueo
+        pagina, subs = 0, []
+        #Solo descargará la primera página para evitar bloqueo
         while pagina == 0:
 
-            #Curl con headers
-            #curl = "curl -H 'authority: 25748s.ha.azioncdn.net' -H 'sec-ch-ua: " + \
-            #        '"Chromium";v="91", " Not;A Brand";v="99"' + \
-            #        "' -H 'sec-ch-ua-mobile: ?0' -H 'user-agent: Mozilla/5.0 " + \
-            #        "(X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " + \
-            #        "Chrome/91.0.4472.114 Safari/537.36' -H 'accept: */*' -H " + \
-            #        "'origin: https://www.opensubtitles.org' -H 'sec-fetch-site: " + \
-            #        "cross-site' -H 'sec-fetch-mode: cors' -H 'sec-fetch-dest: " + \
-            #        "empty' -H 'referer: https://www.opensubtitles.org/' -H " + \
-            #        "'accept-language: es-ES,es;q=0.9' --compressed -L "
-
-            #Curl sencilla
-            #curl = "curl "
-            
             linkBusqueda = "https://www.opensubtitles.org/es/search/sublanguageid-spa,spl/" + \
                     temp + cap + "moviename-" + "+".join(palabras_busqueda) + "/offset-" + str(pagina*40)
-            #txtBusqueda = os.popen(curl + "'" + linkBusqueda + "' | iconv -f iso-8859-1 -t utf-8").read()
             txtBusqueda = get(linkBusqueda, timeout=5).text
-
-            #Pendiente de solucionar:
-            #En estos momentos, si solicitan captcha para la ip, no se recibe ningun sub
-            #Probablemente ya no se repitan los bloqueos de ip con el temporizador
-            #en la funcion, y el uso del user-agent para curl
-            if "captcha" in txtBusqueda:
-                captcha = True
-            
-            #Sección para pruebas
-#            with open("prueba","w") as documento:
-#                #documento.write(linkBusqueda)
-#                documento.write(txtBusqueda)
 
             renglones = txtBusqueda.split("\n")
             indices = [x for x in range(len(renglones)) if " - Ver En l" in renglones[x]]
@@ -133,7 +104,7 @@ def opensubtitles(palabras):
                 #Determinando título del subtítulo
                 titulo_1_des = [x for x in renglones[indice-desfase_t]]
                 titulo_1_des.reverse()
-                titulo_0 = "".join(titulo_1_des).index('>""=')
+                titulo_0 = "".join(titulo_1_des).index('>"')
                 titulo = titulo_1_des[:titulo_0]
                 titulo.reverse()
                 titulo = "".join(titulo)
