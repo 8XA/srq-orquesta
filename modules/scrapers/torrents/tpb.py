@@ -1,5 +1,6 @@
 #!/bin/env python
 
+from modules.admin_db import edit_scraped_list
 from tpblite import TPB, ORDERS, CATEGORIES
 from threading import Thread
 
@@ -10,9 +11,9 @@ def tpb(search):
     [[str_title_1, str_filesize_1, int_seeds_1, str_leechers_1, \
             "TPB", str_magnetlink_1], [str_title_2, ...]...]
     """
-    global global_torrent_list, flag
+    global global_torrent_list_tpb, flag
     
-    global_torrent_list = []
+    global_torrent_list_tpb = []
     thread_dict = {}
     flag = True
 
@@ -31,11 +32,14 @@ def tpb(search):
         for key in thread_dict:
             thread_dict[key].join()
 
-    return global_torrent_list
+    torrent_list = [torrent for torrent in global_torrent_list_tpb if torrent[2] > 0]
+
+    #To the database
+    edit_scraped_list('torrents','addition', list_=torrent_list)
 
 
 def tpb_onepage(search, page):
-    global global_torrent_list, flag
+    global global_torrent_list_tpb, flag
 
     # TPB object with the default domain
     t = TPB()
@@ -44,9 +48,9 @@ def tpb_onepage(search, page):
     torrents = t.search(search, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.ALL, page=page)
 
     torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
-            torrent.leeches, "TPB", torrent.magnetlink] \
+            torrent.leeches, "TPB", torrent.magnetlink, 0] \
             for torrent in torrents]
-    global_torrent_list += torrent_list
+    global_torrent_list_tpb += torrent_list
     
     if 0 in [torrent.seeds for torrent in torrents]:
         flag = False
