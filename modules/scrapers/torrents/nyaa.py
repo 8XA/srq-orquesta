@@ -58,7 +58,7 @@ def nyaa_onepage(
     words_sum = words_sum.replace("'","%27")
 
     search_url = "https://nyaa.si/?f=0&c=0_0&q=" + words_sum + "&s=seeders&o=desc&p=" + str(page_number)
-    raw_result = get(search_url).text
+    raw_result = get(search_url, timeout=5).text
 
     torrent_list = []
     while "magnet:?xt=" in raw_result:
