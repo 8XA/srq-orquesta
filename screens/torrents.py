@@ -10,7 +10,7 @@ from modules.admin_db import read_settings, edit_settings, edit_simple_list, rea
 from modules.columns_number import columns_number_func
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter 
-from modules.admin_db import read_scraped_list
+from modules.admin_db import read_scraped_list, edit_scraped_list
 
 def torrents():
     edit_settings("previous_menu", str(read_settings("menu")))
