@@ -210,7 +210,7 @@ def edit_scraped_list(
             'torrents'.
         - mode: This paramater specify the action that will be executed by the function.
             - 'edit': Edit an element status (This mode is the default value).
-            - 'replace': Replace all the content of a specified table by another list.
+            - 'addition': Add a list of elements to the table..
             - 'clean': Delete all the content of a specified table.
         - id_: ID number of the element you're going to edit its status.
         - status: New status number for the specified element.
@@ -222,8 +222,8 @@ def edit_scraped_list(
                 call edit_scraped_list(table, 'downloaded').
             - Mark an element as the current download (2):
                 call edit_scraped_list(table, id_=elemnt_id, status=new_status).
-        - Replace a table content.
-            call edit_scraped_list(table, 'replace', list_=new_list).
+        - Add a list of elements to a table.
+            call edit_scraped_list(table, 'addition', list_=elements_list).
                 - Subtitles list:
                 [[title (str), description (str), url (str), status (int)], ...
                     [...]].
@@ -249,18 +249,18 @@ def edit_scraped_list(
         elif mode == 'downloaded':
             cursor.execute("UPDATE " + table + " SET status=1 WHERE status=2")
 
-        elif mode in ['replace', 'clean']:
+        elif mode == 'clean':
             #Clean the table
             cursor.execute("DELETE FROM " + table)
 
-            #Replace the table
-            if mode == 'replace':
+        #Replace the table
+        elif mode == 'addition':
 
-                signs = "?,?,?,?"
-                if table == "torrents":
-                    signs = "?,?,?,?,?,?,?"
-                
-                cursor.executemany("INSERT INTO " + table + " VALUES (" + signs + ")", list_)
+            signs = "?,?,?,?"
+            if table == "torrents":
+                signs = "?,?,?,?,?,?,?"
+            
+            cursor.executemany("INSERT INTO " + table + " VALUES (" + signs + ")", list_)
 
         connection.commit()
         connection.close() 

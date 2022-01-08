@@ -49,7 +49,8 @@ def results():
         #Agrega status
         for sub in hallados:
             sub += [0]
-        edit_scraped_list('subtitles', 'replace', list_=hallados)
+        edit_scraped_list('subtitles', 'clean')
+        edit_scraped_list('subtitles', 'addition', list_=hallados)
         edit_settings("sub_search_changed", "0")
 
     #Subtítulos con indices asignados

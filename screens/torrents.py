@@ -4,14 +4,13 @@ from os import system
 from termcolor import colored
 from modules.menu import menu
 from modules.suggested_search import suggested_search
+from modules.torrent_master import torrent_master
 from modules.refresh_history import refresh_history
-from modules.scrapers.torrents.nyaa import nyaa
-from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import read_settings, edit_settings, edit_simple_list, read_simple_list
 from modules.columns_number import columns_number_func
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter 
-from modules.admin_db import read_scraped_list, edit_scraped_list
+from modules.admin_db import read_scraped_list
 
 def torrents():
     edit_settings("previous_menu", str(read_settings("menu")))
@@ -151,12 +150,8 @@ def torrents():
                 print("Buscando torrents...\n\n")
 
                 suggested_words = suggested_search(i[1])
-                torrent_nyaa = nyaa(suggested_words)
-                torrent_tpb = tpb(suggested_words)
-                multi_torrents = torrent_nyaa + torrent_tpb
+                torrent_master(suggested_words)
 
-                torrent_search = [torrent + [0] for torrent in multi_torrents]
-                edit_scraped_list('torrents','replace', list_=torrent_search)
             except:
                 pass
         elif i[1].isdigit() and int(i[1]) in downloadable_ids:
