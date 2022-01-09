@@ -71,6 +71,7 @@ def results():
 
         #Definiendo colores de lineas
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
+        linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
         linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
@@ -141,7 +142,21 @@ def results():
         if len(subs) == 0 or len(subs_filtrados) == 0:
             print(linea_amarilla)
 
+        #Ruta del video
         print(linea_roja)
+        str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
+        print(centered_phrase_fitting(numcols+13, str_Ruta))
+
+        #Si no hay video seleccionado, arroja el sig mensaje
+        if read_settings("selected_video_name") == "":
+            msj = "Aquí aparecerá la ruta del video que selecciones..."
+            print(phrase_fitting(numcols, msj))
+        
+        #Si hay video seleccionado, imprime su ruta
+        else:
+            print(read_settings("selected_video_route"))
+        print(linea_roja)
+
         #Nombre del video
         #Si no hay video seleccionado, envía mensaje
         print(colored(centered_phrase_fitting(numcols, "Video a subtitular:"), \
@@ -151,22 +166,35 @@ def results():
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
             print(phrase_fitting(numcols, msj))
+
         #Imprime video seleccionado
         else:
-            print(colored_centered_filter(numcols, read_settings('selected_video_name')))
-        print(linea_roja)
-        #ruta
-        str_Ruta =  colored("Ruta:", 'white', attrs=['bold'])
-        print(centered_phrase_fitting(numcols+13, str_Ruta))
-        #Si no hay video seleccionado, arroja el sig mensaje
-        if read_settings("selected_video_name") == "":
-            msj = "Aquí aparecerá la ruta del video que selecciones..."
-            print(phrase_fitting(numcols, msj))
-        #Si hay video seleccionado, imprime su ruta
-        else:
-            print(read_settings("selected_video_route"))
+            video_name = read_settings('selected_video_name')
+
+            if len(video_name) >= numcols:
+
+                #Separa en renglones
+                rows = []
+                while video_name != '':
+                    rows.append(video_name[:numcols])
+                    video_name = video_name[numcols:]
+
+                #Completa los espacios del último renglón
+                rows[-1] = rows[-1] + (numcols - len(rows[-1])) * " "
+
+                #Renglones en un solo string
+                fit_video_name = "\n".join(rows)
+
+            else:
+                spaces_num = numcols - (((numcols - len(video_name))//2) + len(video_name))
+                fit_video_name = centered_phrase_fitting(numcols, video_name)
+                fit_video_name += spaces_num * " "
+
+            printable_video_name = colored(fit_video_name, 'grey', 'on_white', ['bold','dark'])
+            print(printable_video_name)
+
         #Imprime filtros
-        print(linea_roja)
+        print(linea_roja_)
         print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
         colored_filters = colored_centered_filter(numcols, \
                 " ".join(lista_filtro))
