@@ -25,7 +25,6 @@ try:
     from modules.storage_verify import *
     from modules.columns_number import columns_number_func
     from modules.refresh_history import clean_history_tables
-    from modules.strings_fitting import phrase_fitting
 
     columns_num = columns_number_func()
 
@@ -75,5 +74,5 @@ except Exception as e:
     backups_route = '/data/data/com.termux/files/usr/share/srq-orquesta/'
     system("rm " + backups_route + "srq-orquesta/pip_freeze.txt")
     system("rm " + backups_route + "srq-orquesta/data.db")
-    input(phrase_fitting("Ops! Ocurrió un error. Todas las configuraciones \
-            se han reiniciado. Inicia de nuevo."))
+    input("Ops! Ocurrió un error. Todas las configuraciones \
+            se han reiniciado. Inicia de nuevo.")
