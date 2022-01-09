@@ -4,6 +4,8 @@ from threading import Thread
 from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import edit_scraped_list, read_scraped_list
+from os import system
+from time import sleep
 
 def torrent_master(search:str):
     """
@@ -52,4 +54,9 @@ def torrent_master(search:str):
         #Update database
         edit_scraped_list('torrents', 'clean')
         edit_scraped_list('torrents','addition', list_=torrent_results)
+    
+    else:
+        system("clear")
+        print("Ningún torrent hallado...")
+        sleep(1.5)
 

@@ -18,7 +18,6 @@ def torrents():
 
     title = "TORRENTS"
     rpp = read_settings("results_per_page")
-    suggested_words = ""
     page = 1
 
     while True:
@@ -104,11 +103,35 @@ def torrents():
 
         #Print the words used for searching
         print(red_line)
-        print(colored("Búsqueda:", 'white', attrs=['bold']))
-        print(suggested_words)
+        if len(torrent_results) > 0:
+
+            search_words = "Palabras de búsqueda:"
+            printable_row_search = colored(centered_phrase_fitting(columns_number, search_words), 'white', attrs=['bold'])
+            spaces_number = columns_number - 6 - (((columns_number - len(search_words))//2) + len(search_words))
+            
+            #Exact search
+            ex = colored("ex", 'green', attrs=['dark','bold'])
+            #Suggested search
+            su = colored("su", 'green', attrs=['dark','bold'])
+            
+            search_to_color ={
+                    'exact': ex,
+                    'suggested': su
+                }
+
+            mode = read_settings('torrent_words_mode')
+            search_to_color[mode] = colored(search_to_color[mode], on_color='on_white')
+            
+            printable_row_search += spaces_number * " " + search_to_color['exact'] + " " + search_to_color['suggested']
+            print(printable_row_search)
+
+            for row in phrase_fitting(columns_number, read_settings('torrent_words')).split("\n"):
+                printable_row = row + (columns_number - len(row)) * " "
+                printable_row = colored(printable_row, 'grey', 'on_white', attrs=['bold','dark'])
+                print(printable_row)
+            print(red_line_)
 
         #Print filters
-        print(red_line)
         print(colored(centered_phrase_fitting(columns_number, \
                 "Filtros:"), 'white', attrs=['bold']))
 
@@ -143,21 +166,32 @@ def torrents():
             page -= 1
             if page < 1:
                 page = total_pages
+        elif i[1].upper() in ["EX","SU"]:
+            mode_dict = {
+                    "EX": "exact",
+                    "SU": "suggested"
+                }
+            edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
         elif len(torrent_results) == 0:
             edit_simple_list(table, i[1],'add')
             try:
                 system("clear")
                 print("Buscando torrents...\n\n")
 
-                suggested_words = suggested_search(i[1])
-                torrent_master(suggested_words)
+                if read_settings('torrent_words_mode') == 'suggested':
+                    edit_settings('torrent_words', suggested_search(i[1]))
+                else:
+                    edit_settings('torrent_words', i[1])
+
+                #Search torrents and save it in database
+                torrent_master(read_settings('torrent_words'))
 
             except:
                 pass
         elif i[1].isdigit() and int(i[1]) in downloadable_ids:
             edit_scraped_list('torrents', 'downloaded')
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
-            system("termux-open '" + torrent_results_ids[int(i[1])][6] + "'")
+            system("xdg-open '" + torrent_results_ids[int(i[1])][6] + "'")
             return 'videos'
         else:
             edit_simple_list('torrents_history', i[1],'add')
