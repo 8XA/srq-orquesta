@@ -114,19 +114,14 @@ def opensubtitles(palabras):
                 year = renglones[indice-desfase_a][:year_0]
 
                 #Título completo
-                #fulltitle = corregir(titulo + " " + year)
                 fulltitle = titulo + " " + year
 
                 #Determinando descripción del subtítulo
                 if (renglones[indice][0] == "(") or (renglones[indice-desfase_d][-3:] == "..."):
                     descripcion_0 = renglones[indice-desfase_d].index(indexador_0) + corrector
                     descripcion_1 = renglones[indice-desfase_d][descripcion_0:].index(indexador_1)
-                    #descripcion = corregir(renglones[indice-desfase_d][descripcion_0:descripcion_1 + \
-                    #        descripcion_0])
                     descripcion = renglones[indice-desfase_d][descripcion_0:descripcion_1 + descripcion_0]
                 elif renglones[indice][0] not in "(<":
-                    #descripcion = corregir(renglones[indice-1] + " " + \
-                    #        renglones[indice][:renglones[indice].index("<br /><a")])
                     descripcion = renglones[indice-1] + " " + \
                             renglones[indice][:renglones[indice].index("<br /><a")]
                 else:
