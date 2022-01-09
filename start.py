@@ -1,5 +1,7 @@
 #!/bin/env python
 
+from modules.dependencies_verify import verify
+verify()
 from modules.create_db import create_db
 create_db()
 from modules.admin_db import read_settings, edit_settings, restore_settings
