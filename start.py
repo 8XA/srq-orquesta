@@ -70,9 +70,9 @@ try:
 except Exception as e:
     print(e)
     print()
-
     backups_route = '/data/data/com.termux/files/usr/share/srq-orquesta/'
-    system("rm " + backups_route + "srq-orquesta/pip_freeze.txt")
+    system("rm " + backups_route + "pip_freeze.txt")
     system("rm " + backups_route + "srq-orquesta/data.db")
+    print("\n\n")
     input("Ops! Ocurrió un error. Todas las configuraciones \
             se han reiniciado. Inicia de nuevo.")
