@@ -108,6 +108,8 @@ def create_db():
                 "previous_menu TEXT, " \
                 #True if the subtitle search has changed
                 "sub_search_changed INTEGER, " \
+                #The mode of searching: 'exact' or 'suggested' by google
+                "torrent_words_mode TEXT, " \
                 #True if the torrent search has changed
                 "torrent_search_changed INTEGER, " \
                 #The words that will be used for the subs search
@@ -144,6 +146,7 @@ def create_db():
         cursor.execute("UPDATE settings SET menu = 'videos'")
         cursor.execute("UPDATE settings SET previous_menu = ''")
         cursor.execute("UPDATE settings SET sub_search_changed = 0")
+        cursor.execute("UPDATE settings SET torrent_words_mode = 'suggested'")
         cursor.execute("UPDATE settings SET torrent_search_changed = 0")
         cursor.execute("UPDATE settings SET sub_words = ''")
         cursor.execute("UPDATE settings SET torrent_words = ''")
