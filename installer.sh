@@ -19,6 +19,7 @@ read
 xdg-open "https://play.google.com/store/apps/details?id=is.xyz.mpv"
 
 clear
-read Para iniciar la instalación de dependencias, presiona Enter: 
+echo "Para iniciar la instalación de dependencias, presiona Enter: "
+read
 
 python /data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/start.py
