@@ -23,67 +23,69 @@ from screens.onesession import one_session
 from modules.storage_verify import *
 from modules.columns_number import columns_number_func
 from modules.refresh_history import clean_history_tables
-#from modules.strings_fitting import phrase_fitting
+from modules.strings_fitting import phrase_fitting
 
 columns_num = columns_number_func()
 
-#try:
-if read_settings("active_instance") == 0:
-    edit_settings("active_instance", "1")
+try:
+    if read_settings("active_instance") == 0:
+        edit_settings("active_instance", "1")
 
-    #All the user interaction screens:
-    srq_orquesta = {
-        'torrents': torrents,
-        'videos': videos,
-        'folder': folder,
-        'words': words,
-        'results': results,
-        'settings': settings,
-        'help_section': help_section,
-        'about': about,
-        'download': download,
-        'update': update,
-    }
-#
-#    srq_orquesta = {
-#        0: torrents,
-#        1: videos,
-#        2: folder,
-#        3: words,
-#        4: results,
-#        5: settings,
-#        6: help_section,
-#        7: about,
-#        101: download,
-#        102: update,
-#
+        #All the user interaction screens:
+        srq_orquesta = {
+            'torrents': torrents,
+            'videos': videos,
+            'folder': folder,
+            'words': words,
+            'results': results,
+            'settings': settings,
+            'help_section': help_section,
+            'about': about,
+            'download': download,
+            'update': update,
+        }
+    #
+    #    srq_orquesta = {
+    #        0: torrents,
+    #        1: videos,
+    #        2: folder,
+    #        3: words,
+    #        4: results,
+    #        5: settings,
+    #        6: help_section,
+    #        7: about,
+    #        101: download,
+    #        102: update,
+    #
 
-    #This is a loop function. It verifies the access to the storage.
-    storage_verify()
+        #This is a loop function. It verifies the access to the storage.
+        storage_verify()
 
-    #Update search
-    execute = 1
-    if read_settings("auto_update") == 1:
-        execute = update()
+        #Update search
+        execute = 1
+        if read_settings("auto_update") == 1:
+            execute = update()
 
-    #This piece of code runs all the interaction screens
-    if read_settings("clean_history") == 1:
-        clean_history_tables()
-    if execute != 'exit_srq':
-        running = srq_orquesta['videos']()
-        while running != 'exit_srq':
-            readline.clear_history()
-            running = srq_orquesta[running]()
-    edit_settings("active_instance", "0") 
+        #This piece of code runs all the interaction screens
+        if read_settings("clean_history") == 1:
+            clean_history_tables()
+        if execute != 'exit_srq':
+            running = srq_orquesta['videos']()
+            while running != 'exit_srq':
+                readline.clear_history()
+                running = srq_orquesta[running]()
+        edit_settings("active_instance", "0") 
 
-else:
-    #This function avoid the double run of srq-orquesta
-    one_session()
+    else:
+        #This function avoid the double run of srq-orquesta
+        one_session()
 
-#except Exception as e:
-#    print(e)
-#    print()
-#
-#    system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
-#    print(phrase_fitting(columns_num, "Base de datos corrupta fue corregida. Reinicia Termux..."))
-#    input()
+except Exception as e:
+    print(e)
+    print()
+
+    backups_route = '/data/data/com.termux/files/usr/share/srq-orquesta/'
+    system("rm " + backups_route + "srq-orquesta/pip_freeze.txt")
+    system("rm " + backups_route + "srq-orquesta/data.db")
+    input(phrase_fitting("Ops! Ocurrió un error. Todas las configuraciones \
+            se han reiniciado. Inicia de nuevo."))
