@@ -16,6 +16,7 @@ def verify():
     #PKG verify and installation
     pkg_dependencies = [
             "wget",
+            "iconv",
             "unrar",
             "p7zip",
             "readline",
