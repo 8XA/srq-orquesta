@@ -148,7 +148,8 @@ def results():
         print(centered_phrase_fitting(numcols+13, str_Ruta))
 
         #Si no hay video seleccionado, arroja el sig mensaje
-        if read_settings("selected_video_name") == "":
+        video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
+        if not os.path.isfile(video_route):
             msj = "Aquí aparecerá la ruta del video que selecciones..."
             print(phrase_fitting(numcols, msj))
         
@@ -162,7 +163,7 @@ def results():
         print(colored(centered_phrase_fitting(numcols, "Video a subtitular:"), \
                 'white', attrs=['bold']))
 
-        if read_settings("selected_video_name") == "":
+        if not os.path.isfile(video_route) or read_settings("selected_video_name") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
             print(phrase_fitting(numcols, msj))

@@ -13,7 +13,7 @@ def archivos_en_ruta(*args):
 
     for ext in extensiones:
         archivos += os.popen("find '" + args[1] + \
-                "' -iname *." + ext).read().split("\n")
+                "' -iname '*." + ext + "'").read().split("\n")
     archivos = [archivo for archivo in archivos if archivo != ""]
     
     #Lista depurada con los nombres de los archivos
