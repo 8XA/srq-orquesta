@@ -1,6 +1,7 @@
 #!/bin/env python
 
 import os
+import time
 from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
@@ -12,12 +13,22 @@ from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
 def download():
+    numcols = columns_number_func()
+    
+    #Verificando que existe el video a subtitular
+    video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
+    if not os.path.isfile(video_route):
+        os.system("clear")
+        print(phrase_fitting(numcols, "Selecciona un video primero..."))
+        time.sleep(1.5)
+
+        return 'videos'
+
     #Actualizando info de pantalla en base de datos
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","download")
     ruta_tmp = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/tmp"
 
-    numcols = columns_number_func()
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_azul_ = colored(numcols*"-", 'blue', attrs=['bold', 'dark'])
     linea_roja_ = colored(numcols*"-", 'red', attrs=['bold', 'dark'])
