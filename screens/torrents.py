@@ -58,7 +58,7 @@ def torrents():
             print(yellow_line)
         elif len(filtered_torrents) == 0:
             print()
-            print(phrase_fitting(columns_number, "Ningún subtítulo coincide. Prueba con otro filtro..."))
+            print(phrase_fitting(columns_number, "Ningún torrent coincide. Prueba con otro filtro..."))
             print()
             print(yellow_line)
 
