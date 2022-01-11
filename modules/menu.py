@@ -179,7 +179,7 @@ def menu(*args):
                 read_settings("selected_video_name")
         if os.path.isfile(video_route):
             edit_simple_list('played_videos', video_route, 'add')
-            os.system("termux-open '" + video_route + "'")
+            os.system('xdg-open "' + video_route + '"')
         else:
             edit_simple_list('played_videos', video_route)
             os.system("clear")
