@@ -4,6 +4,7 @@ from os import popen
 from time import sleep
 from threading import Thread
 from requests import get
+from requests.exceptions import RequestException
 from modules.admin_db import edit_scraped_list, edit_settings, read_settings
 
 def nyaa(search:str):
@@ -65,7 +66,10 @@ def nyaa_onepage(
     words_sum = words_sum.replace("'","%27")
 
     search_url = "https://nyaa.si/?f=0&c=0_0&q=" + words_sum + "&s=seeders&o=desc&p=" + str(page_number)
-    raw_result = get(search_url, timeout=5).text
+    try:
+        raw_result = get(search_url).text
+    except RequestException as e:
+        raw_result = ''
 
     torrent_list = []
     while "magnet:?xt=" in raw_result:
