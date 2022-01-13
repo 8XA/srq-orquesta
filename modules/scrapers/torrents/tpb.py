@@ -1,6 +1,6 @@
 #!/bin/env python
 
-from modules.admin_db import edit_scraped_list
+from modules.admin_db import edit_scraped_list, read_settings, edit_settings
 from tpblite import TPB, ORDERS, CATEGORIES
 from threading import Thread
 
@@ -13,29 +13,36 @@ def tpb(search):
     """
     global global_torrent_list_tpb, flag
     
-    global_torrent_list_tpb = []
-    thread_dict = {}
-    flag = True
+    try:
+        global_torrent_list_tpb = []
+        thread_dict = {}
+        flag = True
 
-    counter = 0
-    while flag:
-        for x in range(10):
-            counter += 1
+        counter = 0
+        while flag:
+            for x in range(10):
+                counter += 1
 
-            thread_dict[counter] = Thread(
-                    target=tpb_onepage,
-                    args=(search, counter),
-                    daemon=True
-                )
-            thread_dict[counter].start()
-        
-        for key in thread_dict:
-            thread_dict[key].join()
+                thread_dict[counter] = Thread(
+                        target=tpb_onepage,
+                        args=(search, counter),
+                        daemon=True
+                    )
+                thread_dict[counter].start()
+            
+            for key in thread_dict:
+                thread_dict[key].join()
 
-    torrent_list = [torrent for torrent in global_torrent_list_tpb if torrent[2] > 0]
+        torrent_list = [torrent for torrent in global_torrent_list_tpb if torrent[2] > 0]
 
-    #To the database
-    edit_scraped_list('torrents','addition', list_=torrent_list)
+        #To the database
+        edit_scraped_list('torrents','addition', list_=torrent_list)
+
+    except:
+        pass
+
+    finished = read_settings("run_animation") + 1
+    edit_settings("run_animation", str(finished))
 
 
 def tpb_onepage(search, page):
