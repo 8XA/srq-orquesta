@@ -95,9 +95,9 @@ def ascii_animation(message, scraper_num):
     screen_number = 3
     while True:
 
-        message_color = color_dict['white_on_dark']
+        message_color = color_dict['dark_on_dark']
         if counter%9 in range(0,5):
-            message_color = color_dict['dark_on_dark']
+            message_color = color_dict['white_on_dark']
 
         #Print message
         message_win.addstr(0, 0, message[:cols_num -2], message_color | curses.A_BOLD)
@@ -148,9 +148,9 @@ def ascii_animation(message, scraper_num):
         #Delay with dark screen
         if circuit == True:
             for x in range(20): 
-                message_color = color_dict['white_on_dark']
+                message_color = color_dict['dark_on_dark']
                 if x%9 in range(0,5):
-                    message_color = color_dict['dark_on_dark']
+                    message_color = color_dict['white_on_dark']
 
                 #Print message
                 message_win.addstr(0, 0, message[:cols_num -2], message_color | curses.A_BOLD)
