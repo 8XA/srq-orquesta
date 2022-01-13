@@ -3,25 +3,33 @@
 from threading import Thread
 from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
-from modules.admin_db import edit_scraped_list, read_scraped_list, edit_settings
+from modules.admin_db import edit_scraped_list, read_scraped_list, edit_settings, read_settings
+from modules.suggested_search import suggested_search
 from ascii_animations.cinema.ascii import ascii_animation
 from os import system
 from time import sleep
 
-def torrent_master(search:str):
+def torrent_master(raw_search:str):
     """
     It gets a search sentence, and it updates the database with the torrents founded.
     """
+
     #It cleans the database
     edit_scraped_list('torrents', 'clean')
-    edit_settings("run_animation", "0")
-    
+
     #ASCII animation
     ascii_thread = Thread(
             target=ascii_animation,
             args=("Buscando torrents...", 2),
-            daemon=True
         )
+    ascii_thread.start()
+
+    #Words for scraping
+    if read_settings('torrent_words_mode') == 'suggested':
+        edit_settings('torrent_words', suggested_search(raw_search))
+    else:
+        edit_settings('torrent_words', raw_search)
+    search = read_settings('torrent_words')
 
     #It gets torrents from all scrapers
     nyaa_thread = Thread(
@@ -36,7 +44,6 @@ def torrent_master(search:str):
             daemon=True
         )
 
-    ascii_thread.start()
     nyaa_thread.start()
     tpb_thread.start()
     ascii_thread.join()
@@ -69,5 +76,5 @@ def torrent_master(search:str):
     else:
         system("clear")
         print("Ningún torrent hallado...")
-        sleep(1.5)
+        sleep(2)
 

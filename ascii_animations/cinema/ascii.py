@@ -8,6 +8,7 @@ from modules.admin_db import read_settings, edit_settings
 
 def ascii_animation(message, scraper_num):
     global layer_dict, color_dict, animation_win
+    edit_settings("run_animation", "0")
 
     screen = curses.initscr()
 
@@ -41,8 +42,9 @@ def ascii_animation(message, scraper_num):
     rows_num = screen.getmaxyx()[0]
     cols_num = screen.getmaxyx()[1]
 
-    animation_win = curses.newwin(rows_num - 1, cols_num, 0, 0)
-    message_win = curses.newwin(1, cols_num, rows_num-1, 0)
+    message_win = curses.newwin(1, cols_num, 0, 0)
+    animation_win = curses.newwin(rows_num - 1, cols_num, 1, 0)
+    #message_win = curses.newwin(1, cols_num, rows_num-1, 0)
 
     #Print message
     message_win.addstr(0, 0, message[:cols_num -2])
@@ -96,7 +98,6 @@ def ascii_animation(message, scraper_num):
 
     counter = 0
     screen_number = 3
-    curses.flash()
     while True:
         #Base printing
         layer_print('light_base', 'blue', ['#','@'])
@@ -169,6 +170,7 @@ def ascii_animation(message, scraper_num):
             break
         sleep(0.1)
 
+    screen.clear()
     curses.endwin()
     system("stty sane && clear")
     edit_settings("run_animation", "0")
