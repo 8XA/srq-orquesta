@@ -45,10 +45,6 @@ def ascii_animation(message, scraper_num):
     message_win = curses.newwin(1, cols_num, 0, 0)
     animation_win = curses.newwin(rows_num - 1, cols_num, 1, 0)
 
-    #Print message
-    message_win.addstr(0, 0, message[:cols_num -2], curses.color_pair(0) | curses.A_BOLD | curses.A_BLINK)
-    message_win.refresh()
-
 
     #####################################################################################################
     #Animation:
@@ -98,6 +94,14 @@ def ascii_animation(message, scraper_num):
     counter = 0
     screen_number = 3
     while True:
+
+        message_color = color_dict['white_on_dark']
+        if counter%9 in range(0,5):
+            message_color = color_dict['dark_on_dark']
+
+        #Print message
+        message_win.addstr(0, 0, message[:cols_num -2], message_color | curses.A_BOLD)
+
         #Base printing
         layer_print('light_base', 'blue', ['#','@'])
         layer_print('shadows_base', 'dark_blue', ['#','@','='])
@@ -144,6 +148,12 @@ def ascii_animation(message, scraper_num):
         #Delay with dark screen
         if circuit == True:
             for x in range(20): 
+                message_color = color_dict['white_on_dark']
+                if x%9 in range(0,5):
+                    message_color = color_dict['dark_on_dark']
+
+                #Print message
+                message_win.addstr(0, 0, message[:cols_num -2], message_color | curses.A_BOLD)
 
                 dirt_on = randint(0,5)
                 dirt_color = 'dark_on_dark'
@@ -156,7 +166,9 @@ def ascii_animation(message, scraper_num):
                 layer_print(screen_dirt, 'dark_on_dark', ['0','-','~','"',',','{','}','S', '´'])
                 layer_print(screen_dirt, dirt_color, ['-','~','"',',','{','}','S', '´'])
                 layer_print('light_base', 'dark_blue', ['#','@'])
+
                 animation_win.refresh()
+                message_win.refresh()
 
                 if read_settings("run_animation") - scraper_num == 0:
                     break
@@ -164,6 +176,7 @@ def ascii_animation(message, scraper_num):
 
         animation_win.box()
         animation_win.refresh()
+        message_win.refresh()
 
         if read_settings("run_animation") - scraper_num == 0:
             break
