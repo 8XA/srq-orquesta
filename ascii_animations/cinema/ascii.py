@@ -44,12 +44,11 @@ def ascii_animation(message, scraper_num):
 
     message_win = curses.newwin(1, cols_num, 0, 0)
     animation_win = curses.newwin(rows_num - 1, cols_num, 1, 0)
-    #message_win = curses.newwin(1, cols_num, rows_num-1, 0)
 
     #Print message
-    message_win.addstr(0, 0, message[:cols_num -2])
+    message_win.addstr(0, 0, message[:cols_num -2], curses.color_pair(0) | curses.A_BOLD | curses.A_BLINK)
     message_win.refresh()
-        
+
 
     #####################################################################################################
     #Animation:
