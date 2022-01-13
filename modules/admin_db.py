@@ -365,7 +365,7 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
             # one row or the complete table
             command_complement = ''
             if value != None:
-                command_complement = ' WHERE ' + column_name + "='" + value + "'"
+                command_complement = ' WHERE ' + column_name + "='" + value.replace("'","''") + "'"
 
             sentence = "DELETE FROM " + table + command_complement
 
