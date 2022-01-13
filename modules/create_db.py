@@ -92,6 +92,9 @@ def create_db():
                 "results_per_page INTEGER, " \
 
                 #TEMPORARY SETTINGS
+                #Number of scraper threads finished, if they are complete,
+                #the animation stops
+                "run_animation INTEGER, " \
                 #True if there is a SRQ ORQUESTA instance running
                 "active_instance INTEGER, " \
                 #Subtitle download URL
@@ -138,6 +141,7 @@ def create_db():
         cursor.execute("UPDATE settings SET results_per_page = 50")
 
         #Default values for temporary settings
+        cursor.execute("UPDATE settings SET run_animation = 0")
         cursor.execute("UPDATE settings SET active_instance = 0")
         cursor.execute("UPDATE settings SET downloadable_sub_url = ''")
         cursor.execute("UPDATE settings SET folder_route = '/sdcard/'")
