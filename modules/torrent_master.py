@@ -3,7 +3,8 @@
 from threading import Thread
 from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
-from modules.admin_db import edit_scraped_list, read_scraped_list
+from modules.admin_db import edit_scraped_list, read_scraped_list, edit_settings
+from ascii_animations.cinema.ascii import ascii_animation
 from os import system
 from time import sleep
 
@@ -13,7 +14,15 @@ def torrent_master(search:str):
     """
     #It cleans the database
     edit_scraped_list('torrents', 'clean')
+    edit_settings("run_animation", "0")
     
+    #ASCII animation
+    ascii_thread = Thread(
+            target=ascii_animation,
+            args=("Buscando torrents...", 2),
+            daemon=True
+        )
+
     #It gets torrents from all scrapers
     nyaa_thread = Thread(
             target=nyaa,
@@ -27,8 +36,10 @@ def torrent_master(search:str):
             daemon=True
         )
 
+    ascii_thread.start()
     nyaa_thread.start()
     tpb_thread.start()
+    ascii_thread.join()
     nyaa_thread.join()
     tpb_thread.join()
 

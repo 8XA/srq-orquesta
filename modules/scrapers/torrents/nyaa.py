@@ -4,7 +4,7 @@ from os import popen
 from time import sleep
 from threading import Thread
 from requests import get
-from modules.admin_db import edit_scraped_list
+from modules.admin_db import edit_scraped_list, edit_settings, read_settings
 
 def nyaa(search:str):
     """
@@ -16,34 +16,41 @@ def nyaa(search:str):
 
     global global_torrent_list_nyaa
 
-    torrent_dict = {}
+    try:
+        torrent_dict = {}
 
-    first_search = nyaa_onepage(search, 1, True)
-    numb_of_pages = first_search[1]
-    global_torrent_list_nyaa = first_search[0]
+        first_search = nyaa_onepage(search, 1, True)
+        numb_of_pages = first_search[1]
+        global_torrent_list_nyaa = first_search[0]
 
-    current_page = 1
-    threads_dict = {}
+        current_page = 1
+        threads_dict = {}
 
-    while current_page < numb_of_pages:
-        current_page += 1
-        threads_dict[current_page] = Thread(
-                target=nyaa_onepage,
-                args=(search, current_page),
-                daemon=True
-            )
-        threads_dict[current_page].start()
-        sleep(0.3)
-    
-    current_thread = 1
-    while current_thread < numb_of_pages:
-        current_thread+=1
-        threads_dict[current_page].join()
+        while current_page < numb_of_pages:
+            current_page += 1
+            threads_dict[current_page] = Thread(
+                    target=nyaa_onepage,
+                    args=(search, current_page),
+                    daemon=True
+                )
+            threads_dict[current_page].start()
+            sleep(0.3)
+        
+        current_thread = 1
+        while current_thread < numb_of_pages:
+            current_thread+=1
+            threads_dict[current_page].join()
 
-    torrent_list = [torrent for torrent in global_torrent_list_nyaa if int(torrent[2]) > 0]
+        torrent_list = [torrent for torrent in global_torrent_list_nyaa if int(torrent[2]) > 0]
 
-    #To the database
-    edit_scraped_list('torrents','addition', list_=torrent_list)
+        #To the database
+        edit_scraped_list('torrents','addition', list_=torrent_list)
+
+    except:
+        pass
+
+    finished = read_settings("run_animation") + 1
+    edit_settings("run_animation", str(finished))
 
 
 def nyaa_onepage(
