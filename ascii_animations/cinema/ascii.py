@@ -103,7 +103,7 @@ def ascii_animation(message, scraper_num):
         message_win.addstr(0, 0, message[:cols_num -2], message_color | curses.A_BOLD)
 
         #Base printing
-        layer_print('light_base', 'blue', ['#','@'])
+        layer_print('light_base', 'blue', ['#','@','='])
         layer_print('shadows_base', 'dark_blue', ['#','@','='])
         layer_print('light_base', 'default', ['/','\\','|','-','_', 'I'])
         layer_print('curtains', 'red', ['|','-','_','.',"'",'¨','´'])
@@ -116,7 +116,7 @@ def ascii_animation(message, scraper_num):
             dirt_color = 'white_on_white'
         screen_color = 'white_on_white'
         if flash_off == 0:
-            layer_print('light_base', 'dark_blue', ['#','@'])
+            layer_print('light_base', 'dark_blue', ['#','@','='])
             dirt_color = 'white_on_dark'
             screen_color = 'dark_on_dark'
         
@@ -165,7 +165,7 @@ def ascii_animation(message, scraper_num):
                         screen_dirt = 'dirt_' + str(randint(1,5))
                 layer_print(screen_dirt, 'dark_on_dark', ['0','-','~','"',',','{','}','S', '´'])
                 layer_print(screen_dirt, dirt_color, ['-','~','"',',','{','}','S', '´'])
-                layer_print('light_base', 'dark_blue', ['#','@'])
+                layer_print('light_base', 'dark_blue', ['#','@','='])
 
                 animation_win.refresh()
                 message_win.refresh()
