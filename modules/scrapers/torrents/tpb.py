@@ -38,7 +38,7 @@ def tpb(search):
         #To the database
         edit_scraped_list('torrents','addition', list_=torrent_list)
 
-    except:
+    except Exception as e:
         pass
 
     finished = read_settings("run_animation") + 1

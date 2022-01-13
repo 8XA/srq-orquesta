@@ -3,7 +3,6 @@
 from os import system
 from termcolor import colored
 from modules.menu import menu
-from modules.suggested_search import suggested_search
 from modules.torrent_master import torrent_master
 from modules.refresh_history import refresh_history
 from modules.admin_db import read_settings, edit_settings, edit_simple_list, read_simple_list
@@ -173,18 +172,12 @@ def torrents():
                 }
             edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
         elif len(torrent_results) == 0:
+            #history
             edit_simple_list(table, i[1],'add')
             try:
-                system("clear")
-                print("Buscando torrents...\n\n")
-
-                if read_settings('torrent_words_mode') == 'suggested':
-                    edit_settings('torrent_words', suggested_search(i[1]))
-                else:
-                    edit_settings('torrent_words', i[1])
-
                 #Search torrents and save it in database
-                torrent_master(read_settings('torrent_words'))
+                torrent_master(i[1])
+                system("clear")
 
             except:
                 pass
