@@ -3,6 +3,7 @@
 from os import system, popen
 from os.path import isfile
 from sys import exit
+from subprocess import Popen, PIPE
 
 def verify():
     """
@@ -25,8 +26,10 @@ def verify():
         ]
 
     #Gets the installed packages with apt
-    raw_apt = popen("apt list --installed").read()
-    split_apt = raw_apt.split("\n")
+    
+    command_apt = Popen("apt list --installed", shell=True, stdout=PIPE, stderr=PIPE)
+    raw_apt = str(command_apt.stdout.read())
+    split_apt = raw_apt.split("\\n")
     apt_list = [pkg[:pkg.index("/")] for pkg in split_apt if "/" in pkg]
 
     #List of the missing packages
