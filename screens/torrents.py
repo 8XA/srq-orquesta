@@ -102,7 +102,7 @@ def torrents():
 
         #Print the words used for searching
         print(red_line)
-        if len(torrent_results) > 0:
+        if read_settings('new_torrent_search') == 0:
 
             search_words = "Palabras de búsqueda:"
             printable_row_search = colored(centered_phrase_fitting(columns_number, search_words), 'white', attrs=['bold'])
@@ -173,6 +173,7 @@ def torrents():
             edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
         elif len(torrent_results) == 0:
             #history
+            edit_settings('new_torrent_search', '0')
             edit_simple_list(table, i[1],'add')
             try:
                 #Search torrents and save it in database

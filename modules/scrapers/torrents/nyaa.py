@@ -6,6 +6,7 @@ from threading import Thread
 from requests import get
 from requests.exceptions import RequestException
 from modules.admin_db import edit_scraped_list, edit_settings, read_settings
+from urllib.parse import quote
 
 def nyaa(search:str):
     """
@@ -62,8 +63,10 @@ def nyaa_onepage(
 
     global global_torrent_list_nyaa
 
-    words_sum = "+".join(search.split(" "))
-    words_sum = words_sum.replace("'","%27")
+    separated_search = search.split(' ')
+    for x in range(len(separated_search)):
+        separated_search[x] = quote(separated_search[x])
+    words_sum = '+'.join(separated_search)
 
     search_url = "https://nyaa.si/?f=0&c=0_0&q=" + words_sum + "&s=seeders&o=desc&p=" + str(page_number)
     try:
