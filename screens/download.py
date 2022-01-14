@@ -159,7 +159,7 @@ def download():
         print(linea_azul)
 
         #Abre el video
-        os.system("termux-open '" + read_settings("selected_video_route") + \
+        os.system("xdg-open '" + read_settings("selected_video_route") + \
                 read_settings("selected_video_name") + "'")
         selected_video = read_settings('selected_video_route') + \
                 read_settings('selected_video_name')

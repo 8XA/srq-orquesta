@@ -26,9 +26,9 @@ def videos():
     videos = rutas_y_videos[1]
     rutas = {}
     for index in range(len(videos)):
-        rutas[videos[index]] = rutas_y_videos[0][index]
-    videos = sorted(videos, key=str.casefold)
-    
+        rutas[videos[index] + "_" + str(index)] = rutas_y_videos[0][index]
+    videos = sorted([video for video in rutas], key=str.casefold)
+
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","videos")
 
@@ -51,14 +51,14 @@ def videos():
     for x in range(len(videos)):
         #Aplica filtro
         if len([palabra for palabra in filtro if palabra \
-                in videos[x].lower()]) == len(filtro):
+                in videos[x][:videos[x].rindex("_")].lower()]) == len(filtro):
 
             print(numcols * "-")
 
             #Marca el video seleccionado actual
             if (read_settings("selected_video_route") != "") and \
                (read_settings("selected_video_route") == rutas[videos[x]]) and \
-               (read_settings("selected_video_name") == videos[x]):
+               (read_settings("selected_video_name") == videos[x][:videos[x].rindex("_")]):
 
                 marca_en_pantalla = True
                 indice_marcado = x
@@ -66,11 +66,11 @@ def videos():
             else:
                 indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 
-            imprimir = videos[x]
+            imprimir = videos[x][:videos[x].rindex("_")]
             if read_settings("one_line") == 1:
                 imprimir = imprimir[:numcols - len(str(x)) -2]
 
-            if rutas[videos[x]] + videos[x] in played_videos:
+            if rutas[videos[x]] + videos[x][:videos[x].rindex("_")] in played_videos:
                 imprimir = colored(imprimir, 'red', 'on_yellow', attrs=['bold'])
 
             print(indice + ": " + imprimir)
@@ -124,7 +124,7 @@ def videos():
             (int(i[1]) < len(videos))):
 
             edit_settings("sub_search_changed", "1")
-            edit_settings("selected_video_name", videos[int(i[1])])
+            edit_settings("selected_video_name", videos[int(i[1])][:videos[int(i[1])].rindex("_")])
             edit_settings("sub_words", "")
             edit_settings("selected_video_route", rutas[videos[int(i[1])]])
 
