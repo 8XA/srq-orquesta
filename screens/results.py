@@ -24,7 +24,7 @@ def results():
 
     #Recuperar scrapers a utilizar
     scrapers = read_settings("sub_getters").split(",")
-    scrapers.reverse()
+    #scrapers.reverse()
 
     #Evita buscar 2 veces seguidas lo mismo
     if (read_settings("sub_search_changed") == 1) and \
@@ -42,8 +42,8 @@ def results():
 
         #obtener subtítulos
         get_subs = {
-                "opensubtitles": opensubtitles,
                 "subdivx": subdivx,
+                "opensubtitles": opensubtitles
                 }
 
         hallados = []
