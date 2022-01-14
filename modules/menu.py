@@ -202,6 +202,7 @@ def menu(*args):
         return ("menu", pantalla)
 
     elif i.upper() == "N":
+        edit_settings('new_torrent_search', '1')
         edit_scraped_list('torrents', 'clean')
         edit_settings('torrents_filter', '')
         return ("menu", 'torrents')

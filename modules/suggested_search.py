@@ -1,6 +1,8 @@
 #!/bin/env python
 
 from requests import get
+from urllib.parse import unquote, quote
+from os import system
 
 def suggested_search(search):
     """
@@ -8,8 +10,10 @@ def suggested_search(search):
     It returns the suggested search by google.
     """
 
-    words_sum = "+".join(search.split(" "))
-    words_sum = words_sum.replace("'","%27")
+    separated_search = search.split(' ')
+    for x in range(len(separated_search)):
+        separated_search[x] = quote(separated_search[x])
+    words_sum = '+'.join(separated_search)
 
     url = "https://www.google.com.mx/search?q=" + words_sum
     try:
@@ -23,6 +27,7 @@ def suggested_search(search):
 
     raw_suggested = raw[index_0:index_1]
     suggested = " ".join(raw_suggested.split("+"))
+    suggested = unquote(suggested, encoding='utf-8', errors=' ')
     
     if len(suggested) == 0:
         return search
