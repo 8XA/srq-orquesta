@@ -7,6 +7,8 @@
 
 import os, time
 from requests import get
+from requests.exceptions import RequestException
+from urllib.parse import quote
 
 #Determina si la palabra es in indicador de una serie
 #Ejemplo: S01E01
@@ -66,7 +68,7 @@ def opensubtitles(palabras):
 
         #Si es una serie, elimina las palabras relativas al episodio
         #(ejemplo: s01e01) y las pasa como parametro
-        palabras_busqueda = [palabra for palabra in palabras if palabra not in episodio]
+        palabras_busqueda = [quote(palabra) for palabra in palabras if palabra not in episodio]
         
         pagina, subs = 0, []
         #Solo descargará la primera página para evitar bloqueo
@@ -74,7 +76,10 @@ def opensubtitles(palabras):
 
             linkBusqueda = "https://www.opensubtitles.org/es/search/sublanguageid-spa,spl/" + \
                     temp + cap + "moviename-" + "+".join(palabras_busqueda) + "/offset-" + str(pagina*40)
-            txtBusqueda = get(linkBusqueda, timeout=5).text
+            try:
+                txtBusqueda = get(linkBusqueda, timeout=7).text
+            except RequestException as e:
+                txtBusqueda = ''
 
             renglones = txtBusqueda.split("\n")
             indices = [x for x in range(len(renglones)) if " - Ver En l" in renglones[x]]

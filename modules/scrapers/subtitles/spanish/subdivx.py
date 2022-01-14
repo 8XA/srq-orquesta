@@ -7,6 +7,7 @@
 
 import os
 from requests import get
+from urllib.parse import quote
 
 def subdivx(palabras):
     try:
@@ -14,9 +15,12 @@ def subdivx(palabras):
         while subspag != [] or pagina == 0:
             pagina+=1
 
+            search = []
+            for word in palabras:
+                search.append(quote(word))
+            suma = "+".join(search)
+
             #Obtiene el html del link con las palabras de búsqueda
-            suma = "+".join(palabras)
-            suma = suma.replace("'","%27")
             linkBusqueda = "https://www.subdivx.com/index.php?buscar2=" + suma + "&accion=5&masdesc=&subtitulos=1&realiza_b=1=&pg=" + str(pagina)
             txtBusqueda = get(linkBusqueda, timeout=5).text
 
