@@ -11,15 +11,15 @@ def update():
     system("clear")
     print("Verificando actualizaciones para SRQ ORQUESTA...\n")
 
-    remote = popen('cd '+ absolute_route + ' && git fetch origin master ' + \
-            '&& git checkout remotes/origin/master').read()
-    local = popen('cd ' + absolute_route + ' && git checkout master').read()
+    remote = popen('cd '+ absolute_route + ' && git fetch origin develop ' + \
+            '&& git checkout remotes/origin/develop').read()
+    local = popen('cd ' + absolute_route + ' && git checkout develop').read()
     
     # Verifies if there is an update in the repositorie
     if "commit" in local:
         print("Actualizando script...\n")
         system('rm -rf update')
-        clonar = system('git clone --branch master --single-branch ' + \
+        clonar = system('git clone --branch develop --single-branch ' + \
                 'https://github.com/8XA/srq-orquesta.git update')
 
         # If the download was successful, it executes the update
