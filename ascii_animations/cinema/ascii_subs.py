@@ -94,7 +94,7 @@ def ascii_animation(message, scraper_num):
             'white_on_red':curses.color_pair(9)
         }
 
-    counter = 0
+    counter = 1
     sub_flag = 0
     guy_number_str = str(randint(1,2))
     while True:
