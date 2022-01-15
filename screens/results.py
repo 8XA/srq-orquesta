@@ -15,6 +15,8 @@ from modules.menu import menu
 from modules.columns_number import columns_number_func
 from modules.scrapers.subtitles.spanish.opensubtitles import opensubtitles
 from modules.scrapers.subtitles.spanish.subdivx import subdivx
+from threading import Thread
+from ascii_animations.cinema.ascii_subs import ascii_animation
 
 def results():
     refresh_history('results_history')
@@ -39,6 +41,14 @@ def results():
         #Recuperar palabras de búsqueda
         palabras = read_settings("sub_words").split(",")
 
+        #Inicia animacion
+        edit_settings("run_animation", '0')
+        ascii_thread = Thread(
+                target=ascii_animation,
+                args=('Buscando subtítulos...', 2),
+            )
+        ascii_thread.start()
+
         #obtener subtítulos
         get_subs = {
                 "subdivx": subdivx,
@@ -48,6 +58,10 @@ def results():
         hallados = []
         for scraper in scrapers:
             hallados += get_subs[scraper](palabras)
+            finished = read_settings("run_animation") + 1
+            edit_settings("run_animation", str(finished))
+        ascii_thread.join()
+
         #Agrega status
         for sub in hallados:
             sub += [0]
