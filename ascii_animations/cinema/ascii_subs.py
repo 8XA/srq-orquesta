@@ -97,8 +97,10 @@ def ascii_animation(message, scraper_num):
     counter = 1
     sub_flag = 0
     guy_number_str = str(randint(1,2))
-    while True:
-
+    k = 0
+    #while True:
+    while k < 100:
+        k+=1
         message_color = color_dict['dark_on_dark']
         if counter%9 in range(0,5):
             message_color = color_dict['white_on_dark']
@@ -113,7 +115,7 @@ def ascii_animation(message, scraper_num):
         layer_print('curtains', 'red', ['|','-','_','.',"'",'¨','´'])
         layer_print('srq', 'white_on_red', ['S','R','Q','_','|'])
         
-        flash_off = randint(0,50)
+        flash_off = randint(0,7)
         dirt_on = randint(0,5)
         dirt_color = 'dark_on_white'
         if dirt_on != 0:
@@ -121,16 +123,11 @@ def ascii_animation(message, scraper_num):
         screen_color = 'white_on_white'
         if flash_off == 0:
             layer_print('light_base', 'dark_blue', ['#','@','='])
-            dirt_color = 'white_on_dark'
-            screen_color = 'dark_on_dark'
         
         #Screen with dirt
         screen_dirt = 'dirt_' + str(randint(1,5))
         layer_print(screen_dirt, dirt_color, ['-','~','"',',','{','}','S', '´'])
         layer_print(screen_dirt, screen_color, ['0'])
-
-        #Screen number
-        circuit = False
 
         mouth_offset = {
                 '1':0,
@@ -146,23 +143,25 @@ def ascii_animation(message, scraper_num):
             guy_number_str= str(randint(1,2))
             choosen_sub = [sub for sub in subs_list if sub != choosen_sub][randint(0,2)]
             sub_flag = 0
-        if flash_off != 0:
-            layer_print('guy_' + guy_number_str, 'dark_on_white', \
-                    ['_','8','─','|','O','(',')','-','7','<','^','/','\\','¨','*','T','0'])
 
-            #mouth
-            if counter%2 == 1 and sub_flag > 2:
-                layer_print('mouth', 'dark_on_white', ['O'], hor_offset=mouth_offset[guy_number_str])
+        guy_color = 'dark_on_white'
 
-            #subs
-            if sub_flag > 4:
-                layer_print(choosen_sub, 'white_on_dark', ['b','l','a','?','!','¡'])
-                layer_print(choosen_sub, 'dark_on_dark', ['.'])
-            sub_flag+=1
-        
+        layer_print('guy_' + guy_number_str, guy_color, \
+                ['_','8','─','|','O','(',')','-','7','<','^','/','\\','¨','*','T','0'])
+
+        #mouth
+        if counter%2 == 1 and sub_flag > 2:
+            layer_print('mouth', guy_color, ['O'], hor_offset=mouth_offset[guy_number_str])
+
+        #subs
+        if sub_flag > 4:
+            layer_print(choosen_sub, 'white_on_dark', ['b','l','a','?','!','¡'])
+            layer_print(choosen_sub, 'dark_on_dark', ['.'])
+        sub_flag+=1
+    
         #eyes
-            if counter%20 == 10:
-                layer_print('eyes','dark_on_white',['─'], hor_offset=eyes_offset[guy_number_str])
+        if counter%20 == 10:
+            layer_print('eyes',guy_color,['─'], hor_offset=eyes_offset[guy_number_str])
 
         counter+=1
 
