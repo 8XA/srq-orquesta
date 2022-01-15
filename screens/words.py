@@ -47,7 +47,7 @@ def words():
 
     print(linea_amarilla)
     print(linea_roja)
-    print(colored(centered_phrase_fitting(numcols, "Palabras a confirmar:"), \
+    print(colored(centered_phrase_fitting(numcols, "Palabras seleccionadas:"), \
             'white', attrs=['bold']))
 
     msj = "Aquí aparecerán las palabras de búsqueda que definas..."
