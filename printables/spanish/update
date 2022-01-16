@@ -1,3 +1,21 @@
+:Wc:Versión 0.4.0
+
+:ff:- Style: Correcciones menores de estilo.
+:ff:- Fix: Videos con el mismo nombre en distintas rutas pueden ser manejados.
+:ff:- Refactor: urllib maneja la conversión de palabras en las solicitudes por URL.
+:ff:- Feat: Animaciones ASCII en tiempos de scraping.
+:ff:- Feat: Se verifica la existencia del video antes de descargar un subtítulo.
+:ff:- Style: Video subrayado en blanco dentro de la pantalla 'Resultados'.
+:ff:- Feat: Instalador llama a LibreTorrent y mpv-android desde en Play Store para su instalación opcional.
+:ff:- Fix: Los scrapers pueden manejar los fallos de conexión.
+:ff:- Feat: Recupera los historiales de comandos tras actualización.
+:ff:- Feat: Tiempo límite de búsqueda agregado en opensubtitles.
+:ff:- Feat: Los torrents de todos los scrapers aparecen ordenados.
+:ff:- Feat: Búsqueda de torrents con palabras exactas, o con palabras corregidas por sugerencia.
+:ff:- Feat: LibreTorrent puede ser llamado ingresando 'lt'.
+:ff:- Feat: Subtítulos con extensión '.ssa' son admitidos.
+
+:la:
 
 :Wc:Versión 0.3.0
 
