@@ -3,7 +3,6 @@
 #Con esta pantalla puedes navegar entre las carpetas
 #para seleccionar una nueva ruta de búsqueda de videos
 
-import os
 from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.admin_db import edit_simple_list
