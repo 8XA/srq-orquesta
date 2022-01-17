@@ -13,7 +13,7 @@ def archivos_en_ruta(extensions:str, route:str):
     archivos = []
 
     for ext in extensiones:
-        ext_files = Popen("find '" + route + "' -iname '*." + ext + "'", \
+        ext_files = Popen("find $'" + route.replace("'","\\'") + "' -iname '*." + ext + "'", \
                 shell=True, stdout=PIPE, stderr=PIPE)
         archivos += str(ext_files.stdout.read()).split("\\n")
     archivos = [archivo for archivo in archivos if archivo != ""]
