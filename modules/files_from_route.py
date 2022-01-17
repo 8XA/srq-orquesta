@@ -4,7 +4,6 @@
 
 from modules.admin_db import read_settings
 from subprocess import Popen, PIPE
-import os
 
 #Extensions: extensiones separadas por coma
 #Route: ruta escaneada
@@ -13,7 +12,7 @@ def archivos_en_ruta(extensions:str, route:str):
     archivos = []
 
     for ext in extensiones:
-        ext_files = Popen("find $'" + route.replace("'","\\'") + "' -iname '*." + ext + "'", \
+        ext_files = Popen("find $'" + route.replace("'","\\'") + "' -type f -iname '*." + ext + "'", \
                 shell=True, stdout=PIPE, stderr=PIPE)
         archivos += str(ext_files.stdout.read()).split("\\n")
     archivos = [archivo for archivo in archivos if archivo != ""]
