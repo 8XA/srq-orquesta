@@ -365,13 +365,14 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
             # one row or the complete table
             command_complement = ''
             if value != None:
-                command_complement = ' WHERE ' + column_name + "='" + value.replace("'","''") + "'"
+                command_complement = ' WHERE ' + column_name + "='" + value.replace("'", "''") + "'"
 
             sentence = "DELETE FROM " + table + command_complement
 
         # Add an element
         elif mode == 'add':
-            clean_value = value.replace("'","''")
+            clean_value = value.replace("\\","")
+            clean_value = clean_value.replace("'","''")
             sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + clean_value + "')"
 
         cursor.execute(sentence)

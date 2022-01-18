@@ -10,9 +10,12 @@ from subprocess import Popen, PIPE
 def archivos_en_ruta(extensions:str, route:str):
     extensiones = extensions.split(",")
     archivos = []
+    
+    command_route = route.replace("\\'","'")
+    command_route = route.replace("'","\\'")
 
     for ext in extensiones:
-        ext_files = Popen("find $'" + route.replace("'","\\'") + "' -type f -iname '*." + ext + "'", \
+        ext_files = Popen("find $'" + command_route + "' -type f -iname '*." + ext + "'", \
                 shell=True, stdout=PIPE, stderr=PIPE)
         archivos += str(ext_files.stdout.read()).split("\\n")
     archivos = [archivo for archivo in archivos if archivo != ""]
@@ -21,9 +24,10 @@ def archivos_en_ruta(extensions:str, route:str):
     lista_rutas, lista_archivos = [], []
     for x in archivos:
         if '/' in x:
-            indice = x.rindex("/")
-            lista_rutas += [x[:indice + 1]]
-            lista_archivos += [x[indice + 1:]]
+            index_0 = x.rindex("/")
+            index_1 = x.index("/")
+            lista_rutas += [x[index_1:index_0 + 1]]
+            lista_archivos += [x[index_0 + 1:]]
 
     return [lista_rutas, lista_archivos]
 
@@ -37,4 +41,5 @@ def subs_en_ruta():
 def videos_en_ruta():
     extensiones = read_settings("extensions")
     ruta = read_settings("folder_route")
+
     return archivos_en_ruta(extensiones, ruta)
