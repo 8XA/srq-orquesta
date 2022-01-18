@@ -5,7 +5,7 @@
 #De manera opcional puedes pasar un segundo parámetro como mensaje imprimible debajo del menu
 
 from time import sleep
-import os
+from subprocess import Popen, PIPE
 from modules.admin_db import read_settings, edit_settings, \
         edit_simple_list, edit_scraped_list
 from termcolor import colored
@@ -175,17 +175,24 @@ def menu(*args):
 
     #Abre el video
     elif i.upper() == "P":
-        video_route = read_settings("selected_video_route") + \
-                read_settings("selected_video_name")
-        if os.path.isfile(video_route):
+        Popen("clear", shell=True)
+        video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
+        video_route = video_route.replace("\\'","'")
+        video_route = video_route.replace("'","\\'")
+        command_exists = "test -f $'" + video_route + "' && echo 'exists'"
+
+        raw_isfile = Popen(command_exists, shell=True, stdout=PIPE, stderr=PIPE)
+        video_isfile = str(raw_isfile.stdout.read()) == "b'exists\\n'"
+
+        if video_isfile:
             edit_simple_list('played_videos', video_route, 'add')
-            os.system('xdg-open "' + video_route + '"')
+            Popen("xdg-open $'" + video_route + "'", shell=True, stdout=PIPE, stderr=PIPE)
         else:
             edit_simple_list('played_videos', video_route)
-            os.system("clear")
+            Popen("clear", shell=True)
             print("No hay un video seleccionado aún...")
             sleep(1)
-
+        
         #Evita repetir descarga
         pantalla = 'results'
         if read_settings("menu") != 'download':
@@ -193,7 +200,8 @@ def menu(*args):
         return ("menu", pantalla)
 
     elif i.upper() == "LT":
-        os.system('am start -n org.proninyaroslav.libretorrent/.ui.main.MainActivity')
+        Popen('am start -n org.proninyaroslav.libretorrent/.ui.main.MainActivity', \
+                shell=True, stdout=PIPE, stderr=PIPE)
 
         #Evita repetir descarga
         pantalla = 'results'

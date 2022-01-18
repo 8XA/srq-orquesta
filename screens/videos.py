@@ -70,10 +70,13 @@ def videos():
             if read_settings("one_line") == 1:
                 imprimir = imprimir[:numcols - len(str(x)) -2]
 
-            if rutas[videos[x]] + videos[x][:videos[x].rindex("_")] in played_videos:
+            marked_video = rutas[videos[x]] + videos[x][:videos[x].rindex("_")]
+            marked_video = marked_video.replace("\\\'","\'")
+            if marked_video in played_videos:
                 imprimir = colored(imprimir, 'red', 'on_yellow', attrs=['bold'])
 
             print(indice + ": " + imprimir)
+
     if len(videos) == 0:
         msj = "Nada para mostrar. Prueba con otra carpeta..."
         print(numcols * "-")
@@ -110,6 +113,7 @@ def videos():
     elif i[1].lower() == 'm':
         selected_video = read_settings('selected_video_route') + \
                 read_settings('selected_video_name')
+        selected_video = selected_video.replace("\\'","\'")
         if selected_video in played_videos:
             edit_simple_list('played_videos', selected_video)
         else:

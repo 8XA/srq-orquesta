@@ -5,7 +5,7 @@
 #Marca los subtítulos ya descargados
 #Selecciona subtítulo deseado y pasa a la pantalla de descarga
 
-import os
+from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.admin_db import *
 from modules.refresh_history import refresh_history
@@ -22,7 +22,7 @@ def results():
     refresh_history('results_history')
     #Resultados por pagina (rpp)
     rpp = read_settings("results_per_page")
-    os.system("clear")
+    Popen("clear", shell=True)
 
     #Recuperar scrapers a utilizar
     scrapers = read_settings("sub_getters").split(",")
@@ -162,13 +162,19 @@ def results():
 
         #Si no hay video seleccionado, arroja el sig mensaje
         video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
-        if not os.path.isfile(video_route):
+
+        #Verifies the video's existence
+        command_exists = "test -f $'" + video_route + "' && echo 'exists'"
+        raw_isfile = Popen(command_exists, shell=True, stdout=PIPE, stderr=PIPE)
+        video_isfile = str(raw_isfile.stdout.read()) == "b'exists\\n'"
+
+        if not video_isfile:
             msj = "Aquí aparecerá la ruta del video que selecciones..."
             print(phrase_fitting(numcols, msj))
         
         #Si hay video seleccionado, imprime su ruta
         else:
-            print(read_settings("selected_video_route"))
+            print(read_settings("selected_video_route").replace("\\'","'"))
         print(linea_roja)
 
         #Nombre del video
@@ -176,14 +182,14 @@ def results():
         print(colored(centered_phrase_fitting(numcols, "Video a subtitular:"), \
                 'white', attrs=['bold']))
 
-        if not os.path.isfile(video_route) or read_settings("selected_video_name") == "":
+        if not video_isfile or read_settings("selected_video_name") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
             print(phrase_fitting(numcols, msj))
 
         #Imprime video seleccionado
         else:
-            video_name = read_settings('selected_video_name')
+            video_name = read_settings('selected_video_name').replace("\\'","\'")
 
             if len(video_name) >= numcols:
 

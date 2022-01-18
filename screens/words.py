@@ -37,7 +37,7 @@ def words():
 
     #Lista de palabras
     else:
-        palabras_del_titulo = [palabra for palabra in \
+        palabras_del_titulo = [palabra.replace("\\'","\'") for palabra in \
                 " ".join(video.split(".")).split(" ") if (palabra != " " and \
                 palabra != "" and palabra.lower() not in extensiones)]
 
