@@ -1,7 +1,7 @@
 #!/bin/env python
 
-import os
-import time
+from time import sleep
+from pathlib import Path
 from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
@@ -17,10 +17,12 @@ def download():
     
     #Verificando que existe el video a subtitular
     video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
-    if not os.path.isfile(video_route):
-        os.system("clear")
+    video_route = video_route.replace("\\'","\'")
+
+    if not Path(video_route).is_file():
+        Popen("clear").wait()
         print(phrase_fitting(numcols, "Selecciona un video primero..."))
-        time.sleep(1.5)
+        sleep(1.5)
 
         return 'videos'
 
@@ -50,9 +52,9 @@ def download():
             link = '--referer="' + link + '" "' + get_enlace(link) + '"'
         
         #Descarga en carpeta temporal
-        os.system("rm -r " + ruta_tmp)
-        os.system("mkdir " + ruta_tmp)
-        os.system("wget -O " + ruta_tmp + "/sub " + link)
+        Popen(["rm", "-r", ruta_tmp]).wait()
+        Popen(["mkdir", ruta_tmp]).wait()
+        Popen("wget -O " + ruta_tmp + "/sub " + link, shell=True).wait()
         print()
 
     except:
@@ -69,16 +71,20 @@ def download():
         print("\n")
 
         #Determinando extension de archivo
+        file_type = Popen(["file", ruta_tmp + "/sub"], stdout=PIPE, stderr=PIPE)
+        file_type = str(file_type.stdout.read())
+        is_rar = "rar" in file_type.lower()
+
         ext = "zip"
-        if "rar" in os.popen("file " + ruta_tmp + "/sub").read().lower():
+        if is_rar:
             ext = "rar"
 
         #Extrae subtitulos
         descomprimir = {
-                "zip": "7z x -y " + ruta_tmp + "/sub -o" + ruta_tmp + "/",
-                "rar": "unrar x -y " + ruta_tmp + "/sub " + ruta_tmp + "/"
+                "zip": ["7z", "x", "-y", ruta_tmp + "/sub", "-o", ruta_tmp + "/"],
+                "rar": ["unrar", "x", "-y", ruta_tmp + "/sub", ruta_tmp + "/"]
                 }
-        os.system(descomprimir[ext])
+        Popen(descomprimir[ext]).wait()
         print("\n")
         
         subs = subs_en_ruta()
@@ -120,8 +126,7 @@ def download():
             sub = [subs[0][0], subs[1][0]]
             print(linea_azul_)
 
-        nombre_final_sub = read_settings("selected_video_route") + \
-                read_settings("selected_video_name")[:-3] + sub[1][-3:]
+        nombre_final_sub = video_route[:-3] + sub[1][-3:]
 
     except:
         print(linea_azul_)
@@ -134,10 +139,12 @@ def download():
     try:
         txt, codificacion = "Asignando...", ''
         if read_settings("recode") == 1:
-            txt = "Recodificando y asignando..."
+            txt = "Recodificado y asignando..."
 
-            os.system('mv "' + sub[0] + sub[1] + '" "' + sub[0] + 'sub.srt"')
-            codificacion = os.popen('chardetect "' + sub[0] + 'sub.srt"').read().split(" ")[1]
+            Popen(["mv", sub[0] + sub[1], sub[0] + "sub.srt"]).wait()
+            codificacion = Popen(["chardetect", sub[0] + "sub.srt"], stdout=PIPE, stderr=PIPE)
+            codificacion = str(codificacion.stdout.read())
+            codificacion = codificacion.split(" ")[1]
             if "UTF-8" in codificacion:
                 codificacion = "utf-8"
             sub[1] = "sub.srt"
@@ -146,24 +153,21 @@ def download():
         print(bold_white(txt))
 
         #Asigna el subtitulo
-        asigna = {
-                0: 'mv "' + ruta_sub + '" "' + nombre_final_sub + '"',
-                1: 'iconv --from-code=' + codificacion + ' --to-code=utf-8 "' + \
-                        ruta_sub + '" > "' + nombre_final_sub + '"'
-                }
-        os.system(asigna[read_settings("recode")])
+        if read_settings("recode") == 1:
+            with open(ruta_sub, 'rb') as source_file:
+                source_content = source_file.read()
+            with open(ruta_sub, 'w+b') as final_file:
+                final_file.write(source_content.decode(codificacion).encode('utf-8'))
+        Popen(["mv", ruta_sub, nombre_final_sub]).wait()
 
         print(".\n.\n.")
         print(bold_white("Listo!"))
-        os.system("rm -r " + ruta_tmp)
+        Popen(["rm", "-r", ruta_tmp]).wait()
         print(linea_azul)
 
         #Abre el video
-        os.system("xdg-open '" + read_settings("selected_video_route") + \
-                read_settings("selected_video_name") + "'")
-        selected_video = read_settings('selected_video_route') + \
-                read_settings('selected_video_name')
-        edit_simple_list('played_videos',selected_video,'add')
+        edit_simple_list('played_videos', video_route, 'add')
+        Popen(["xdg-open", video_route], stdout=PIPE, stderr=PIPE).wait()
 
     except:
         print(linea_azul_)
