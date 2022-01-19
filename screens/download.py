@@ -81,7 +81,7 @@ def download():
 
         #Extrae subtitulos
         descomprimir = {
-                "zip": ["7z", "x", "-y", ruta_tmp + "/sub", "-o", ruta_tmp + "/"],
+                "zip": ["7z", "x", "-y", ruta_tmp + "/sub", "-o" + ruta_tmp + "/"],
                 "rar": ["unrar", "x", "-y", ruta_tmp + "/sub", ruta_tmp + "/"]
                 }
         Popen(descomprimir[ext]).wait()
