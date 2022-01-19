@@ -4,6 +4,7 @@
 #Retorna la acción ingresada e indica si esta acción pertenece al menú o a la pantalla en turno
 #De manera opcional puedes pasar un segundo parámetro como mensaje imprimible debajo del menu
 
+from pathlib import Path
 from time import sleep
 from subprocess import Popen, PIPE
 from modules.admin_db import read_settings, edit_settings, \
@@ -175,21 +176,16 @@ def menu(*args):
 
     #Abre el video
     elif i.upper() == "P":
-        Popen("clear", shell=True)
+        Popen("clear")
         video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
-        video_route = video_route.replace("\\'","'")
-        video_route = video_route.replace("'","\\'")
-        command_exists = "test -f $'" + video_route + "' && echo 'exists'"
+        video_route = video_route.replace("\\'","\'")
 
-        raw_isfile = Popen(command_exists, shell=True, stdout=PIPE, stderr=PIPE)
-        video_isfile = str(raw_isfile.stdout.read()) == "b'exists\\n'"
-
-        if video_isfile:
+        if Path(video_route).is_file():
             edit_simple_list('played_videos', video_route, 'add')
-            Popen("xdg-open $'" + video_route + "'", shell=True, stdout=PIPE, stderr=PIPE)
+            Popen(["xdg-open", video_route], stdout=PIPE, stderr=PIPE)
         else:
             edit_simple_list('played_videos', video_route)
-            Popen("clear", shell=True)
+            Popen("clear")
             print("No hay un video seleccionado aún...")
             sleep(1)
         
@@ -200,8 +196,8 @@ def menu(*args):
         return ("menu", pantalla)
 
     elif i.upper() == "LT":
-        Popen('am start -n org.proninyaroslav.libretorrent/.ui.main.MainActivity', \
-                shell=True, stdout=PIPE, stderr=PIPE)
+        Popen(["am", "start", "-n", "org.proninyaroslav.libretorrent/.ui.main.MainActivity"],\
+                stdout=PIPE, stderr=PIPE)
 
         #Evita repetir descarga
         pantalla = 'results'

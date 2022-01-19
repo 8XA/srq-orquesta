@@ -11,12 +11,11 @@ def archivos_en_ruta(extensions:str, route:str):
     extensiones = extensions.split(",")
     archivos = []
     
-    command_route = route.replace("\\'","'")
-    command_route = route.replace("'","\\'")
+    clean_route = route.replace("\\'","\'")
+    command = ["find", clean_route, "-type", "f", "-iname"]
 
     for ext in extensiones:
-        ext_files = Popen("find $'" + command_route + "' -type f -iname '*." + ext + "'", \
-                shell=True, stdout=PIPE, stderr=PIPE)
+        ext_files = Popen(command + ["*." + ext], stdout=PIPE, stderr=PIPE)
         archivos += str(ext_files.stdout.read()).split("\\n")
     archivos = [archivo for archivo in archivos if archivo != ""]
     

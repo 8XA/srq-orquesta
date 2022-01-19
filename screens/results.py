@@ -5,6 +5,7 @@
 #Marca los subtítulos ya descargados
 #Selecciona subtítulo deseado y pasa a la pantalla de descarga
 
+from pathlib import Path
 from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.admin_db import *
@@ -22,7 +23,7 @@ def results():
     refresh_history('results_history')
     #Resultados por pagina (rpp)
     rpp = read_settings("results_per_page")
-    Popen("clear", shell=True)
+    Popen("clear")
 
     #Recuperar scrapers a utilizar
     scrapers = read_settings("sub_getters").split(",")
@@ -162,11 +163,10 @@ def results():
 
         #Si no hay video seleccionado, arroja el sig mensaje
         video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
+        video_route = video_route.replace("\\'","\'")
 
         #Verifies the video's existence
-        command_exists = "test -f $'" + video_route + "' && echo 'exists'"
-        raw_isfile = Popen(command_exists, shell=True, stdout=PIPE, stderr=PIPE)
-        video_isfile = str(raw_isfile.stdout.read()) == "b'exists\\n'"
+        video_isfile = Path(video_route).is_file()
 
         if not video_isfile:
             msj = "Aquí aparecerá la ruta del video que selecciones..."
