@@ -34,7 +34,6 @@ def videos():
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-    linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
     titulo_colored = colored(titulo, 'white', 'on_red', attrs=['bold', 'dark'])
 
 
@@ -45,7 +44,6 @@ def videos():
     print(((numcols-len(titulo))//2)*" " + titulo_colored)
     print(linea_azul)
 
-    print(linea_amarilla)
     print(((numcols-14)//2)*" " + "Elige un video")
 
     #IMPRIME NOMBRES DE VIDEOS
@@ -90,7 +88,7 @@ def videos():
         print(phrase_fitting(numcols, msj))
         print("\n")
 
-    print(linea_amarilla)
+    print(linea_azul)
     print(linea_roja)
     print(colored(centered_phrase_fitting(numcols, "Ruta:"), 'white', attrs=['bold']))
     print(read_settings("folder_route"))
