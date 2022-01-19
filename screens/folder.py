@@ -4,6 +4,7 @@
 #para seleccionar una nueva ruta de búsqueda de videos
 
 from subprocess import Popen, PIPE
+from pathlib import Path
 from termcolor import colored
 from modules.admin_db import edit_simple_list
 from modules.refresh_history import refresh_history
@@ -28,26 +29,21 @@ def folder():
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
+        #List folders
+        bash_route = ruta.replace("'", "\'")
+        raw_content = Popen(["ls", "-L", bash_route], stdout=PIPE, stderr=PIPE)
+        dirty_folders = str(raw_content.stdout.read())[2:-1].split('\\n')
 
+        carpetas = [folder for folder in dirty_folders if \
+                (Path(ruta + "/" + folder).is_dir() and folder != "")]
+        carpetas = sorted(carpetas, key=str.casefold)
+
+        #Printing title
         titulo = "SELECCIÓN DE CARPETA"
         print(linea_azul)
         print(((numcols-len(titulo))//2)*" " + titulo)
         print(linea_azul)
-
         print(linea_amarilla)
-
-        #Imprime carpetas e indices
-        bash_route = "$'" + ruta.replace("'", "\\'") + "'"
-        raw_content = Popen('ls -L ' + bash_route, shell=True, stdout=PIPE, stderr=PIPE)
-        dirty_folders = str(raw_content.stdout.read())[2:-1].split('\\n')
-
-        carpetas = []
-        for folder in dirty_folders:
-            folder_route = "$'" + (ruta + '/' + folder + '/').replace("'","\\'") + "'"
-            folder_command = Popen('ls -L ' + folder_route, shell=True, stdout=PIPE, stderr=PIPE)
-            if str(folder_command.stderr.read()) == "b''" and folder != "":
-                carpetas.append(folder)
-        carpetas = sorted(carpetas, key=str.casefold)
 
         filtros_str = " ".join(filtros_str.lower().split(","))
         filtros = filtros_str.split(" ")
