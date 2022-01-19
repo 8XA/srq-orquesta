@@ -48,12 +48,14 @@ def videos():
 
     #IMPRIME NOMBRES DE VIDEOS
     played_videos = read_simple_list("played_videos")
+    filtered = False
     for x in range(len(videos)):
         #Aplica filtro
         if len([palabra for palabra in filtro if palabra \
                 in videos[x][:videos[x].rindex("_")].lower()]) == len(filtro):
 
             print(numcols * "-")
+            filtered = True
 
             #Marca el video seleccionado actual
             if (read_settings("selected_video_route") != "") and \
@@ -77,7 +79,7 @@ def videos():
 
             print(indice + ": " + imprimir)
 
-    if len(videos) == 0:
+    if not filtered:
         prueba = "otra carpeta..."
         if len(filtro) > 0:
             prueba = "otro filtro..."
