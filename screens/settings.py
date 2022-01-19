@@ -1,7 +1,8 @@
 #!/bin/env python
 
 from modules.columns_number import columns_number_func
-from termcolor import colored, os
+from termcolor import colored
+from os import system
 from modules.menu import menu
 from modules.admin_db import read_settings, edit_settings
 from modules.auto_start import *
@@ -229,7 +230,8 @@ def settings():
 
     #Reiniciar configuración
     elif i[1].lower() == "i":
-        os.system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
+        system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
+        system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/pip_freeze.txt'")
         creadb()
         edit_settings("active_instance", "1")
 
