@@ -9,7 +9,6 @@ read_simple_list, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
-import os
 
 def videos():
     refresh_history('videos_history')

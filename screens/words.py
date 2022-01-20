@@ -38,8 +38,8 @@ def words():
     #Lista de palabras
     else:
         palabras_del_titulo = [palabra.replace("\\'","\'") for palabra in \
-                " ".join(video.split(".")).split(" ") if (palabra != " " and \
-                palabra != "" and palabra.lower() not in extensiones)]
+                " ".join("_".join(video.split(".")).split("_")).split(" ") \
+                if (palabra != " " and palabra != "" and palabra.lower() not in extensiones)]
 
         for x in range(len(palabras_del_titulo)):
             indice = colored(str(x), 'green', attrs=['bold', 'dark'])
