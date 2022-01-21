@@ -1,5 +1,7 @@
 
-:ff:En esta sección elegirás el video local que deseas subtitular y/o reproducir.
+:ff:En la sección 'Videos' es seleccionado el video local a subtitular y/o reproducir.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
 :Lr:
 :Wc:Subsecciones
@@ -7,21 +9,29 @@
 
 :Wc:Elige un video
 
-:ff:En esta subsección verás listados los videos disponibles en la ruta configurada y sus subcarpetas, cada uno tendrá asignado un número ID de color verde. El ID del vídeo seleccionado (en caso de haberlo) se mostrará marcado.
+:ff:Muestra en lista los videos hallados y filtrados en la ruta definida y sus subcarpetas.
 
-:ff:  - Para seleccionar un video, ingresa el número de ID (señalado en verde) que le corresponde.
+:ff:  - Cada video cuenta con un número :g:ID:g: con el cuál podrá ser seleccionado.
 
-:ff:  - Si hay un video seleccionado y das 'Enter', serás dirigido a la sección 'Palabras', donde podrás buscar un subtítulo adecuado.
+:ff:  - El video seleccionado aparece con su ID marcado en blanco.
 
-:ff:  - Para reproducir el video seleccionado, ingresa 'p'. Esta acción la puedes ejecutar desde cualquier sección.
+:ff:  - El nombre de los videos ya reproducidos aparece marcado en amarillo.
+
+:ff:  - ':g:#ID:g:': Ingresa el número ID de un video para seleccionarlo. Por ejemplo: Ingresar ':g:0:g:' seleccionará el primer video de la lista. 
+
+:ff:  - ':g:Enter:g:': Si hay un video seleccionado, te dirige a la sección 'Palabras' para búsqueda de subtítulos.
+
+:ff:  - ':g:P:g:'/':g:p:g:': Reproduce el video seleccionado.
+
+:ff:  - ':g:M:g:'/':g:m:g:': Marca o desmarca el video seleccionado como reproducido.
+
+:ff:  - ':g:clean:g:': Desmarca todos los videos reproducidos.
 
 :la:
 
 :Wc:Ruta
 
-:ff:En esta subsección aparece la ruta configurada que fue explorada.
-
-:ff:  - Para cambiar la ruta ingresa a la sección Carpeta, disponible en el menú.
+:ff:En esta subsección aparece la ruta configurada que fue explorada. Para modificarla, dirígete a la sección ':g:C:g:arpeta'.
 
 :la:
 
@@ -29,22 +39,9 @@
 
 :ff:En esta subsección aparecerán las palabras que ingreses para filtrar los videos listados en la subsección 'Elige un video'.
 
-:ff:  - Para filtrar videos ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán los videos que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+:ff:  - ':g:palabra1 palabra2:g:': Para filtrar videos ingresa palabras separadas por espacios y/o comas. En la lista sólo aparecerán los videos que contengan todos las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
 
-:ff:  - Para eliminar los filtros ingresa un espacio.
+:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
-:ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '2' en su nombre, ingresa ' 2'.
+:ff:  - ' :g:#ID:g:': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '0' en su nombre, ingresa ' :g:0:g:'.
 
-:Lr:
-
-:Wc:Marcado
-
-:ff:Al reproducir un vídeo, este será marcado de manera automática mediante el subrayado amarillo de su nombre. Puedes marcar y desmarcar videos ingresando las siguientes opciones:
-
-:ff:  - Para marcar/desmarcar el video seleccionado, ingresa 'm'.
-
-:ff:  - Para desmarcar todos los videos, ingresa 'clean'.
-
-:Lr:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
-:Lr:

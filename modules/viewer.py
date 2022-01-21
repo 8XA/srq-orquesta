@@ -162,7 +162,7 @@ def viewer(*arg):
                             row = hoja[linea + posicion][4:]
                             indx_offset = 0
                             for indx in range(len(row) - row.count(":g:") * 3):
-                                if len(row[indx + indx_offset:]) >= 3 and row[indx + indx_offset:indx + indx_offset + 3] == ":g:": 
+                                if len(row[indx + indx_offset:]) >= 3 and row[indx + indx_offset:indx + indx_offset + 3] == ":g:":
                                     green_tag = boolean_options[boolean_options.index(green_tag) -1]
                                     indx_offset += 3
                                 if green_tag:
