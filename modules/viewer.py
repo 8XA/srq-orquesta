@@ -32,7 +32,7 @@ def hoja_imprimible(columns_number, tupla_hojas):
             formato = renglon[:4]
 
             if formato in [":wc:", ":Wc:", ":ff:"]:
-                renglon_formateado = orden[formato[:2].lower()](columns_number - 2, renglon[4:][:-1]).split("\n")
+                renglon_formateado = orden[formato[:2].lower()](columns_number - 2, renglon[4:][:-1], tags=True).split("\n")
             elif (formato[:2].lower() == ":l") and (formato[3] == ":"):
                 renglon_formateado = [orden[formato[:2]]]
             else:
@@ -58,6 +58,7 @@ def hoja_imprimible(columns_number, tupla_hojas):
 #    :Lr: linea = roja
 #    :lb: linea - blanca
 #    :sl: salto de linea
+#    :g:text:g: = texto en verde
 
 #arg[0] = titulo
 #arg[1...10] = archivo1... archivo10
@@ -93,7 +94,11 @@ def viewer(*arg):
         #Colores personalizados
         curses.init_pair(1, -1, -1)
         curses.init_pair(2, curses.COLOR_RED, -1)
-        curses.init_pair(3, curses.COLOR_BLUE, -1)
+        #curses.init_pair(3, curses.COLOR_BLUE, -1)
+        #Blue
+        curses.init_pair(3, 19, -1)
+        #green
+        curses.init_pair(4, 34, -1)
 
         #Par de colores
         par = {
@@ -113,10 +118,10 @@ def viewer(*arg):
         #Solo si hay espacio para el titulo y para el mensaje de retorno:
         if numlines > long_win_titulo + 1:
             win_titulo = curses.newwin(long_win_titulo, columns_number, 0, 0)
-            win_titulo.addstr(0,0, columns_number * "=", curses.color_pair(3))
+            win_titulo.addstr(0,0, columns_number * "=", curses.color_pair(3) | curses.A_BOLD)
             for indice in range(len(titulo)):
                 win_titulo.addstr(indice + 1,0, titulo[indice], curses.color_pair(1))
-            win_titulo.addstr(len(titulo)+1,0, columns_number * "=", curses.color_pair(3))
+            win_titulo.addstr(len(titulo)+1,0, columns_number * "=", curses.color_pair(3) | curses.A_BOLD)
             win_titulo.refresh()
 
             #Mensaje de retorno
@@ -134,24 +139,37 @@ def viewer(*arg):
             #Impresión de pantalla
             long_lineas = numlines - long_win_titulo -2
             i = None
-            #Con esta lista puedo controlar el string de ingreso... jaque mate ;)
-            #Lo que sigue es imprimir el menu y hacer lo correspondiente :)
+            #Con esta lista puedo controlar el string de ingreso.
             caracteres_i = []
-            caracteres_dic = {
-                    116: "t", 84: "t", 118: "v", 86: "v", 99: "c", 67: "c", 97: "a", 65: "a",
-                    114: "r", 82: "r", 111: "o", 79: "o", 121: "y", 89: "y", 101: "e", 69: "e",
-                    115: "s", 83: "s", 112: "p", 80: "p",
-                    }
+            #Para un posible getch futuro:
+#            caracteres_dic = {
+#                    116: "t", 84: "t", 118: "v", 86: "v", 99: "c", 67: "c", 97: "a", 65: "a",
+#                    114: "r", 82: "r", 111: "o", 79: "o", 121: "y", 89: "y", 101: "e", 69: "e",
+#                    115: "s", 83: "s", 112: "p", 80: "p",
+#                    }
 
             #Mientras no haya un resize de pantalla
+            boolean_options = [True, False]
+            green_tag = False
             while i not in (-1, 410):
                 win_manual.clear()
                 for linea in range(long_lineas):
                     if linea+posicion < len(hoja):
                         formato = hoja[linea + posicion][:4]
                         if formato in [":sl:", ":ff:", ":wc:"]:
-                            win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
-                                    curses.color_pair(par[formato[2]]))
+
+                            #Row
+                            row = hoja[linea + posicion][4:]
+                            indx_offset = 0
+                            for indx in range(len(row) - row.count(":g:") * 3):
+                                if len(row[indx + indx_offset:]) >= 3 and row[indx + indx_offset:indx + indx_offset + 3] == ":g:": 
+                                    green_tag = boolean_options[boolean_options.index(green_tag) -1]
+                                    indx_offset += 3
+                                if green_tag:
+                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], curses.color_pair(4) | curses.A_BOLD)
+                                else:
+                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], curses.color_pair(par[formato[2]]))
+                        
                         elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
                             win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \
                                     curses.color_pair(par[formato[2]]) | curses.A_BOLD)

@@ -2,39 +2,44 @@
 
 from termcolor import colored
 
-#Ingresa una frase y retorna la misma frase ajustada al ancho de pantalla
+def phrase_fitting(cols_number, message, tags=False):
+    """
+    It gets a message to fit in a screen with certain columns number (cols_number).
+    With tags=True, this function ingrores the :g: tag.
+    It returns a string with "\n" character as a separator.
+    """
+    words = message.split(' ')
+    final_string = ""
+    row = ""
+    row_lenght = 0
 
-def phrase_fitting(numcols, msj):
-    
-    msj_lista = msj.split(" ")
-    frase = ""
-    longitud = 0
+    if tags:
+        words_lenght = [len(word) - (word.count(":g:") * 3) for word in words]
+    else:
+        words_lenght = [len(word) for word in words]
 
-    for palabra in msj_lista:
-        if len(palabra) > numcols:
-            frase = frase + "\n" + palabra + " "
-
-        elif longitud + len(palabra) <= numcols:
-            longitud = longitud + len(palabra)
-            frase = frase + palabra
-            if longitud < numcols:
-                longitud += 1
-                frase += " "
+    for indx in range(len(words_lenght)):
+        if (row_lenght == 0) or (row_lenght + words_lenght[indx] < cols_number):
+            row += words[indx] + " "
+            row_lenght += words_lenght[indx] + 1
         else:
-            longitud = len(palabra) + 1
-            frase = frase + "\n" + palabra + " "
-
-    return frase
+            if words_lenght[indx] >= cols_number:
+                final_string += (row + "\n" + words[indx] + "\n")
+                row_lenght = 0
+            else:
+                final_string += (row + "\n")
+                row = words[indx] + " "
+                row_lenght = words_lenght[indx] + 1
+    final_string += row
+    
+    return final_string
 
 
 #Centra el resultado de la función anterior
-def centered_phrase_fitting(numcols, msj):
+def centered_phrase_fitting(numcols, msj, tags=None):
     lista = [x for x in phrase_fitting(numcols, msj).split("\n") if x != ""]
-    #print(lista)
     
     for indice in range(len(lista)):
-        #print(indice)
-        #input()
         if lista[indice][-1] == " ":
             lista[indice] = lista[indice][:-1]
         lista[indice] = ((numcols - len(lista[indice]))//2) * " " + lista[indice]
