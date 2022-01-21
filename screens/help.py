@@ -21,7 +21,7 @@ def help_section():
     }
 
     menu_anterior = read_settings("previous_menu")
-    viewer(titulos[menu_anterior], menu_anterior)
+    viewer(titulos[menu_anterior], menu_anterior, "menu")
 
     return read_settings("previous_menu")
 
