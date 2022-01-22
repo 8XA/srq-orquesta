@@ -14,9 +14,9 @@ def phrase_fitting(cols_number, message, tags=False):
     row_lenght = 0
 
     if tags:
-        words_lenght = [len(word) - (word.count("<g>") + word.count("<b>") + \
+        words_lenght = [len(word) - ((word.count("<g>") + word.count("<b>") + \
                 word.count("<r>") + word.count("<a>") + word.count("<R>") + \
-                word.count("<c>") + word.count("<B>") * 3) for word in words]
+                word.count("<c>") + word.count("<B>")) * 3) for word in words]
     else:
         words_lenght = [len(word) for word in words]
 
