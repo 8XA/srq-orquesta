@@ -3,48 +3,48 @@
 :ff:*Las siguientes opciones pueden ser invocadas desde cualquier sección donde aparezca el menú.
 :Lr:
 
-:ff:':g:P:g:'/':g:p:g:': Reproduce de manera local el video elegido en la sección 'Videos'. Para ello se sirve de cualquier reproductor instalado que lo soporte.
+:ff:'<g>P<g>'/'<g>p<g>': Reproduce de manera local el video elegido en la sección '<g>V<g>ideos'. Para ello se sirve de cualquier reproductor instalado que lo soporte.
 
 :la:
 
-:ff:':g:LT:g:'/':g:lt:g:': Abre la aplicación 'LibreTorrent', si esta se encuentra instalada.
+:ff:'<g>LT<g>'/'<g>lt<g>': Abre la aplicación 'LibreTorrent', si esta se encuentra instalada.
 
 :la:
 
-:ff:':g:T:g:'/':g:t:g:': Abre la sección ':g:T:g:orrents' y si existen, muestra los resultados de la búsqueda anterior, de lo contrario permite una nueva búsqueda.
+:ff:'<g>T<g>'/'<g>t<g>': Abre la sección '<g>T<g>orrents' y si existen, muestra los resultados de la búsqueda anterior, de lo contrario permite una nueva búsqueda.
 
-:ff:':g:N:g:'/':g:n:g:': Abre la sección 'Torre:g:N:g:ts' y limpia los resultados previos, permitiendo realizar una nueva búsqueda.
-
-:la:
-
-:ff:':g:V:g:'/':g:v:g:': Abre la sección ':g:V:g:ideos'. Muestra los videos locales hallados a partir de la ruta definida en 'Carpeta' y permite su selección. 
+:ff:'<g>N<g>'/'<g>n<g>': Abre la sección 'Torre<g>N<g>ts' y limpia los resultados previos, permitiendo realizar una nueva búsqueda.
 
 :la:
 
-:ff:':g:C:g:'/':g:c:g:': Abre la sección ':g:C:g:arpeta'. Permite cambiar el directorio explorado en 'Videos'.
+:ff:'<g>V<g>'/'<g>v<g>': Abre la sección '<g>V<g>ideos'. Muestra los videos locales hallados a partir de la ruta definida en '<g>C<g>arpeta' y permite su selección. 
 
 :la:
 
-:ff:':g:A:g:'/':g:a:g:': Abre la sección 'P:g:A:g:labras'. Define las palabras de búsqueda de un subtítulo.
+:ff:'<g>C<g>'/'<g>c<g>': Abre la sección '<g>C<g>arpeta'. Permite cambiar el directorio explorado en '<g>V<g>ideos'.
 
 :la:
 
-:ff:':g:R:g:'/':g:r:g:': Abre la sección ':g:R:g:esultados'. Muestra los subtítulos hallados y permite su descarga.
+:ff:'<g>A<g>'/'<g>a<g>': Abre la sección 'P<g>A<g>labras'. Define las palabras de búsqueda de un subtítulo.
 
 :la:
 
-:ff:':g:O:g:'/':g:o:g:': Abre la sección 'C:g:O:g:nfiguración'. Permite la modificación de parámetros generales del software.
+:ff:'<g>R<g>'/'<g>r<g>': Abre la sección '<g>R<g>esultados'. Muestra los subtítulos hallados y permite su descarga.
 
 :la:
 
-:ff:':g:Y:g:'/':g:y:g:': Abre la sección 'A:g:Y:g:uda'. Muestra información de la sección en turno, así como sus respectivas opciones.
+:ff:'<g>O<g>'/'<g>o<g>': Abre la sección 'C<g>O<g>nfiguración'. Permite la modificación de parámetros generales de SRQ ORQUESTA.
 
 :la:
 
-:ff:':g:E:g:'/':g:e:g:': Abre la sección 'Ac:g:E:g:rca de'. Esta sección contiene información general de SRQ ORQUESTA y sus actualizaciones.
+:ff:'<g>Y<g>'/'<g>y<g>': Abre la sección 'A<g>Y<g>uda'. Muestra información de la sección en turno, así como sus respectivas opciones.
 
 :la:
 
-:ff:':g:S:g:'/':g:s:g:': Opción :g:S:g:alir. Cierra SRQ ORQUESTA.
+:ff:'<g>E<g>'/'<g>e<g>': Abre la sección 'Ac<g>E<g>rca de'. Esta sección contiene información general de SRQ ORQUESTA y sus actualizaciones.
+
+:la:
+
+:ff:'<g>S<g>'/'<g>s<g>': Opción <g>S<g>alir. Cierra SRQ ORQUESTA.
 
 :Lr:

@@ -58,7 +58,13 @@ def hoja_imprimible(columns_number, tupla_hojas):
 #    :Lr: linea = roja
 #    :lb: linea - blanca
 #    :sl: salto de linea
-#    :g:text:g: = texto en verde
+#    <g>text<g> = texto verde
+#    <b>text<b> = texto verde sobre blanco
+#    <r>text<r> = texto verde sobre rojo
+#    <a>text<a> = texto rojo sobre amarillo
+#    <R>text<R> = texto gris sobre rojo
+#    <B>text<B> = gris sobre blanco
+#    <c>text<c> = texto cyan
 
 #arg[0] = titulo
 #arg[1...10] = archivo1... archivo10
@@ -88,17 +94,64 @@ def viewer(*arg):
         if hoja == None:
             hoja = hoja_imprimible(columns_number, arg[1:])
 
+            #Coordenadas [y,x] para cada etiqueta a colorear
+            tag_coordinates = {
+                    "<g>": [],
+                    "<b>": [],
+                    "<r>": [],
+                    "<a>": [],
+                    "<R>": [],
+                    "<c>": [],
+                    "<B>": []
+                }
+
+            tags = {
+                    "<g>": False,
+                    "<b>": False,
+                    "<r>": False,
+                    "<a>": False,
+                    "<R>": False,
+                    "<c>": False,
+                    "<B>": False
+                }
+
+            boolean_options = [True, False]
+            for tag in tag_coordinates:
+                for y in range(len(hoja)):
+                    for x in range(len(hoja[y])):
+                        possible_tag = hoja[y][x:x+3]
+                        if len(possible_tag) >= 3 and possible_tag == tag:
+                            tags[possible_tag] = boolean_options[boolean_options.index(tags[possible_tag]) -1]
+                        if tags[tag]:
+                            tag_coordinates[tag].append([y,x-3])
+
+            all_coordinates = []
+            for tag in tag_coordinates:
+                all_coordinates += tag_coordinates[tag]
+
+
         #Colores por defecto (-1):
         curses.use_default_colors()
 
         #Colores personalizados
         curses.init_pair(1, -1, -1)
         curses.init_pair(2, curses.COLOR_RED, -1)
-        #curses.init_pair(3, curses.COLOR_BLUE, -1)
         #Blue
         curses.init_pair(3, 19, -1)
         #green
         curses.init_pair(4, 34, -1)
+        #green on white
+        curses.init_pair(5, 34, 255)
+        #green on red
+        curses.init_pair(6, 34, 124)
+        #red on yellow
+        curses.init_pair(7, 124, 214)
+        #grey on red
+        curses.init_pair(8, 250, 124)
+        #cyan
+        curses.init_pair(9, 45, -1)
+        #grey on white
+        curses.init_pair(10, 233, 7)
 
         #Par de colores
         par = {
@@ -109,6 +162,16 @@ def viewer(*arg):
                 "r": 2,
                 "a": 3
                 }
+
+        tag_color_pair = {
+                "<g>": 4,
+                "<b>": 5,
+                "<r>": 6,
+                "<a>": 7,
+                "<R>": 8,
+                "<c>": 9,
+                "<B>": 10
+            }
 
         #Ventanas
         #Título
@@ -149,8 +212,6 @@ def viewer(*arg):
 #                    }
 
             #Mientras no haya un resize de pantalla
-            boolean_options = [True, False]
-            green_tag = False
             while i not in (-1, 410):
                 win_manual.clear()
                 for linea in range(long_lineas):
@@ -158,17 +219,26 @@ def viewer(*arg):
                         formato = hoja[linea + posicion][:4]
                         if formato in [":sl:", ":ff:", ":wc:"]:
 
-                            #Row
+                            #Row printing with their setted colors
                             row = hoja[linea + posicion][4:]
                             indx_offset = 0
-                            for indx in range(len(row) - row.count(":g:") * 3):
-                                if len(row[indx + indx_offset:]) >= 3 and row[indx + indx_offset:indx + indx_offset + 3] == ":g:":
-                                    green_tag = boolean_options[boolean_options.index(green_tag) -1]
+                            for indx in range(len(row) - (row.count("<g>") + row.count("<b>") + \
+                                    row.count("<r>") + row.count("<a>") + row.count("<R>") + \
+                                    row.count("<c>") + row.count("<B>")) * 3):
+
+                                possible_tag = row[indx + indx_offset:indx + indx_offset + 3]
+                                if len(row[indx + indx_offset:]) >= 3 and possible_tag in tags:
                                     indx_offset += 3
-                                if green_tag:
-                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], curses.color_pair(4) | curses.A_BOLD)
+                                
+                                if [linea + posicion, indx + indx_offset] in all_coordinates:
+                                    color = [tag for tag in tag_coordinates if \
+                                            [linea + posicion, indx + indx_offset] in tag_coordinates[tag]][0]
+                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], \
+                                            curses.color_pair(tag_color_pair[color]) | curses.A_BOLD)
+
                                 else:
-                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], curses.color_pair(par[formato[2]]))
+                                    win_manual.addch(linea + 1, indx + 1, row[indx + indx_offset], \
+                                            curses.color_pair(par[formato[2]]))
                         
                         elif formato.lower() in [":wc:", ":la:", ":lr:", ":lb:"]:
                             win_manual.addstr(linea+1,1, hoja[linea+posicion][4:], \

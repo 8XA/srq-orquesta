@@ -1,5 +1,5 @@
 
-:ff:En la sección 'Videos' es seleccionado el video local a subtitular y/o reproducir.
+:ff:En la sección '<g>V<g>ideos' es seleccionado el video local a subtitular y/o reproducir.
 
 :Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
@@ -9,39 +9,39 @@
 
 :Wc:Elige un video
 
-:ff:Muestra en lista los videos hallados y filtrados en la ruta definida y sus subcarpetas.
+:ff:Muestra en lista los videos filtrados hallados a partir de la ruta definida, misma que puede ser cambiada en la sección '<g>C<g>arpeta'.
 
-:ff:  - Cada video cuenta con un número :g:ID:g: con el cuál podrá ser seleccionado.
+:ff:  - Ingresa el número ID de un video para seleccionarlo. Por ejemplo: Ingresar '<g>0<g>' seleccionará el primer video de la lista. 
 
-:ff:  - El video seleccionado aparece con su ID marcado en blanco.
+:ff:  - El video seleccionado aparece con su ID marcado, de esta manera: <b>0<b>.
 
-:ff:  - El nombre de los videos ya reproducidos aparece marcado en amarillo.
+:ff:  - El nombre de los videos ya reproducidos aparece <a>marcado en amarillo<a>.
 
-:ff:  - ':g:#ID:g:': Ingresa el número ID de un video para seleccionarlo. Por ejemplo: Ingresar ':g:0:g:' seleccionará el primer video de la lista. 
+:ff:  - '<g>Enter<g>': Si hay un video seleccionado, dar simplemente 'Enter' te dirige a la sección 'P<g>A<g>labras' para búsqueda de subtítulos.
 
-:ff:  - ':g:Enter:g:': Si hay un video seleccionado, te dirige a la sección 'Palabras' para búsqueda de subtítulos.
+:ff:  - '<g>P<g>'/'<g>p<g>': Reproduce el video seleccionado.
 
-:ff:  - ':g:P:g:'/':g:p:g:': Reproduce el video seleccionado.
+:ff:  - '<g>M<g>'/'<g>m<g>': <a>Marca<a> o desmarca el video seleccionado como reproducido.
 
-:ff:  - ':g:M:g:'/':g:m:g:': Marca o desmarca el video seleccionado como reproducido.
-
-:ff:  - ':g:clean:g:': Desmarca todos los videos reproducidos.
+:ff:  - '<g>clean<g>': Desmarca todos los videos reproducidos.
 
 :la:
 
 :Wc:Ruta
 
-:ff:En esta subsección aparece la ruta configurada que fue explorada. Para modificarla, dirígete a la sección ':g:C:g:arpeta'.
+:ff:En esta subsección aparece la ruta configurada que fue explorada. Para modificarla, dirígete a la sección '<g>C<g>arpeta'.
 
 :la:
 
 :Wc:Filtros
 
-:ff:En esta subsección aparecerán las palabras que ingreses para filtrar los videos listados en la subsección 'Elige un video'.
+:ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de la subsección 'Elige un video'.
 
-:ff:  - ':g:palabra1 palabra2:g:': Para filtrar videos ingresa palabras separadas por espacios y/o comas. En la lista sólo aparecerán los videos que contengan todos las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
+:ff:  - '<g>palabra1 palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista sólo aparecerán los videos que contengan todos las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
 
 :ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
-:ff:  - ' :g:#ID:g:': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '0' en su nombre, ingresa ' :g:0:g:'.
+:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '0' en su nombre, ingresa ' <g>0<g>'.
+
+:ff:  - Para navegar entre los filtros utilizados previamente, utilice las flechas 'arriba' y 'abajo'.
 
