@@ -1,5 +1,7 @@
 
-:ff:En esta sección defines las palabras de búsqueda para subtítulos, mismos que podrás visualizar en la sección 'Resultados'.
+:ff:En esta sección defines las palabras de búsqueda para subtítulos, mismos que podrás visualizar en la sección '<g>R<g>esultados'.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
 :Lr:
 :Wc:Subsecciones
@@ -7,18 +9,18 @@
 
 :Wc:Palabras listadas
 
-:ff:En esta primera subsección aparecerán listadas las palabras que componen el título de la película/serie seleccionada en 'Video'. Cada palabra tendra un número de ID en color verde.
+:ff:En esta primera subsección aparecerán listadas las palabras que componen el nombre de la película/serie seleccionada en '<g>V<g>ideo'. Cada palabra tendra asignado un número ID en color verde.
 
 :lb:
 :wc:Ejemplo de lista:
 :lb:
-:ff:0: El
-:ff:1: Perrito
-:ff:2: Alegre
-:ff:3: 2020
-:ff:4: WEBRip
-:ff:5: x264
-:ff:6: aac
+:ff:<g>0<g>: El
+:ff:<g>1<g>: Perrito
+:ff:<g>2<g>: Alegre
+:ff:<g>3<g>: 2020
+:ff:<g>4<g>: WEBRip
+:ff:<g>5<g>: x264
+:ff:<g>6<g>: aac
 :lb:
 
 :Wc:Opciones
@@ -31,25 +33,26 @@
 
 :ff:  - Puedes ignorar las palabras listadas y escribir tu búsqueda de forma libre ingresando el texto.
 
-:ff:  - Puedes seleccionar todas las palabras ingresando 'all'.
+:ff:  - Puedes seleccionar todas las palabras ingresando '<g>all<g>'.
 
 :lb:
 :wc:Ejemplos de selección:
 :lb:
-:ff: 0,2    :  El Alegre
-:ff: 0-2    :  El Perrito Alegre
-:ff: 0-2,4  :  El Perrito Alegre WEBRip
-:ff: 0,2-4  :  El Alegre 2020 WEBRip
-:ff: all    :  El Perrito Alegre 2020 WEBRip x264 aac
+:ff: <g>0,2<g>    :  El Alegre
+:ff: <g>0-2<g>    :  El Perrito Alegre
+:ff: <g>0-2,4<g>  :  El Perrito Alegre WEBRip
+:ff: <g>0,2-4<g>  :  El Alegre 2020 WEBRip
+:ff: <g>El Perrito<g>  :  El Perrito
+:ff: <g>all<g>    :  El Perrito Alegre 2020 WEBRip x264 aac
 :lb:
 
 :la:
 
-:Wc:Palabras a confirmar
+:Wc:Palabras seleccionadas
 
-:ff:En esta subsección aparecerán las palabras que vayas definiendo.
+:ff:En esta subsección aparecerán las <R>palabras<R> <R>que<R> <R>vayas<R> <R>definiendo<R>.
 
-:ff:  - Cuando las palabras de búsqueda hayan sido definidas podrás confirmar con 'Enter', eso hará la búsqueda correspondiente y te dirigirá a la sección 'Resultados'.
+:ff:  - Cuando las palabras de búsqueda hayan sido definidas podrás confirmar con '<g>Enter<g>', eso hará la búsqueda correspondiente y te dirigirá a la sección '<g>R<g>esultados'.
 
 :Lr:
 
@@ -59,7 +62,7 @@
 
 :ff:  - La búsqueda no distingue mayúsculas/minúsculas.
 
-:ff:  - No hay problema con ingresar el título incompleto, siempre y cuando lo ingresado sea un fragmento corrido del título.
+:ff:  - Puedes ingresar el título incompleto, siempre y cuando lo ingresado sea un fragmento corrido del mismo.
 
 :ff:    *Para 'El Perrito Alegre':
 
@@ -67,10 +70,6 @@
 :ff:      - Bien: 'El Perrito Alegre'
 :ff:      - Mal : 'El Alegre'
 
-:ff:  - Es recomendable ingresar solo el título sin temor a obtener demasiados resultados. Si se busca un capítulo en específico para una serie, este podrá ser filtrado en la sección 'Resultados'.
+:ff:  - Es recomendable ingresar solo el título sin temor a obtener demasiados resultados. Si se busca un capítulo en específico para una serie, este podrá ser filtrado en la sección '<g>R<g>esultados'.
 
-:ff:  - Para recalcular la búsqueda utilizando las mismas palabras, ingresa 'u'.
-
-:Lr:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
-:Lr:
+:ff:  - '<g>U<g>'/'<g>u<g>': Recalcula la búsqueda utilizando las mismas palabras.
