@@ -1,5 +1,7 @@
 
-:ff:En esta sección defines la ruta de búsqueda de videos en tu teléfono. La sección "Videos" te mostrará los videos hallados en esta ruta, así como en sus subcarpetas.
+:ff:En esta sección defines una ruta de búsqueda. La sección "<g>V<g>ideos" te mostrará los videos hallados a partir de esta ruta.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
 :Lr:
 :Wc:Subsecciones
@@ -7,32 +9,30 @@
 
 :Wc:Subcarpetas
 
-:ff:Si la ruta actual contiene subcarpetas, podrás verlas listadas en la primera franja azul, cada una con un número ID verde asignado.
+:ff:Podrás ver listadas las carpetas contenidas en la 'Ruta editable'. Cada carpeta tendrá asignado un número ID en color verde.
 
 :la:
 
 :Wc:Ruta editable
 
-:ff:En esta subsección podrás ver la edición de la ruta tal y cual la vayas definiendo:
+:ff:En esta subsección podrás ver la edición de la ruta tal y cual la vayas definiendo.
 
-:ff:  - Para entrar a una subcarpeta, ingresa el número de ID (señalado en verde) que le corresponde.
+:ff:  - '<g>#ID<g>': Para entrar a una carpeta, ingresa el número de ID (señalado en verde) que le corresponde. Por ejemplo '<g>0<g>'.
 
-:ff:  - Para regresar a la carpeta anterior (carpeta padre) de tu carpeta actual, ingresa dos pontos seguidos (..).
+:ff:  - '<g>..<g>': Ingresa dos puntos para regresar a la carpeta padre inmediata.
 
-:ff:  - Para confirmar la ruta editada, da 'Enter'.
+:ff:  - '<g>Enter<g>': Confirma la edición de la ruta y retorna a la sección '<g>V<g>ideos' presionando 'Enter'.
 
 :la:
 
 :Wc:Filtros
 
-:ff:Aquí aparecerán las palabras que ingreses para filtrar las subcarpetas listadas.
+:ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de carpetas mostradas.
 
-:ff:  - Para filtrar subcarpetas ingresa las palabras filtro separadas por espacios y/o comas. En la lista sólo aparecerán las subcarpetas que contengan todos los filtros ingresados (el filtro no distingue mayúsculas/minúsculas).
+:ff:  - '<g>palabra1 palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista sólo aparecerán las carpetas que contengan todas las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
 
-:ff:  - Para eliminar los filtros ingresa un espacio.
+:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
-:ff:  - Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar las carpetas que contengan '2' en su nombre, ingresa ' 2'.
+:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar las carpetas que contengan '0' en su nombre, ingresa ' <g>0<g>'.
 
-:Lr:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
-:Lr:
+:ff:  - Para navegar entre los filtros utilizados previamente, utilice las flechas 'arriba' y 'abajo'.
