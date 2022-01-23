@@ -6,9 +6,10 @@ from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
 def help_section():
-    if read_settings("menu") not in ['help_section','about']:
-        edit_settings("previous_menu", str(read_settings("menu")))
-    edit_settings("menu","help_section")
+    if read_settings("menu") != 'settings':
+        if read_settings("menu") not in ['help_section','about']:
+            edit_settings("previous_menu", str(read_settings("menu")))
+        edit_settings("menu","help_section")
     numcols = columns_number_func()
 
     titulos = {
@@ -21,6 +22,9 @@ def help_section():
     }
 
     menu_anterior = read_settings("previous_menu")
+    if read_settings("menu") == 'settings':
+        viewer(titulos['settings'], 'settings', "menu")
+        return 'settings'
     viewer(titulos[menu_anterior], menu_anterior, "menu")
 
     return read_settings("previous_menu")
