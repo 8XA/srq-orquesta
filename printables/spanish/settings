@@ -1,5 +1,7 @@
 
-:ff:En esta sección podrás reconfigurar SRQ ORQUESTA con las opciones disponibles. Las configuraciones seleccionadas están marcadas en blanco.
+:ff:En esta sección podrás reconfigurar SRQ ORQUESTA con los parámetros disponibles. Las opciones actualmente seleccionadas aparecen marcadas en <B>blanco<B>.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
 :Lr:
 :Wc:Subsecciones
@@ -7,23 +9,23 @@
 
 :Wc:Actualizar SRQ ORQUESTA
 
-:ff:Puedes verificar actualizaciones de forma manual o automática. La vía automática hará verificación al inicio de cada apertura de SRQ ORQUESTA.
+:ff:Puedes verificar actualizaciones de forma manual o automática.
 
-:ff:  - Para desactivar las actualizaciones automáticas, ingresa '1n'.
+:ff:  - '<g>1s<g>': Activa la verificación e instalación automática de actualizaciones al abrir SRQ ORQUESTA.
 
-:ff:  - Para activar las actualizaciones automáticas, ingresa '1s'.
+:ff:  - '<g>1n<g>': Desactiva la verificación e instalación automática de actualizaciones al abrir SRQ ORQUESTA.
 
-:ff:  - Para verificar actualizaciones, ingresa 'u' dentro de 'Configuración'.
+:ff:  - '<g>U<g>'/'<g>u<g>': Verificar e instalar actualizaciones en este momento.
 
 :la:
 
 :Wc:Inicio automático
 
-:ff:SRQ ORQUESTA puede iniciar de manera automática al abrir Termux. Si esta opción esta desactivada, tendrás que ingresar el comando 'srq' en Termux para ejecutar el programa.
+:ff:SRQ ORQUESTA puede iniciar de manera automática al abrir Termux. Si esta opción esta desactivada, tendrás que ingresar el comando '<g>srq<g>' en Termux para ejecutar el programa.
 
-:ff:  - Para activar el inicio automático, ingresa '2s'.
+:ff:  - '<g>2s<g>': Activar inicio automático.
 
-:ff:  - Para desactivar el inicio automático, ingresa '2n'.
+:ff:  - '<g>2n<g>': Desactivar inicio automático.
 
 :la:
 
@@ -31,21 +33,21 @@
 
 :ff:Tener activa esta opción hace que los nombres listados de películas/series y carpetas se muestren en un solo renglón dentro de las diferentes secciones, recortándolos de ser necesario.
 
-:ff:  - Para activar la opción, ingresa '3s'.
+:ff:  - '<g>3s<g>': Activar un renglón por elemento de lista.
 
-:ff:  - Para desactivar la opción, ingresa '3n'.
+:ff:  - '<g>3n<g>': Desactivar un renglón por elemento de lista.
 
 :la:
 
 :Wc:Extensiones de video admitidas
 
-:ff:Extensiones de archivo que SRQ ORQUESTA tomará en cuenta al momento de mostrar la lista de películas/series en 'Videos', se activan y desactivan con el mismo comando. Debes tener por lo menos una activa.
+:ff:Extensiones de archivo que SRQ ORQUESTA tomará en cuenta al momento de mostrar la lista de películas/series en '<g>V<g>ideos', se activan y desactivan con el mismo comando. Debes tener por lo menos una activa.
 
-:ff:  - Para activar/desactivar avi, ingresa '4a'.
+:ff:  - '<g>4a<g>': Activar/desactivar listado de videos avi.
 
-:ff:  - Para activar/desactivar mvk, ingresa '4k'.
+:ff:  - '<g>4k<g>': Activar/desactivar listado de videos mkv.
 
-:ff:  - Para activar/desactivar mp4, ingresa '4m'.
+:ff:  - '<g>4m<g>': Activar/desactivar listado de videos mp4.
 
 :la:
 
@@ -53,48 +55,42 @@
 
 :ff:Algunos reproductores de video mostrarán símbolos extraños en los subtítulos al reproducir caracteres propios del español. Los subtítulos que descargues con esta opción activa serán recodificados a UTF-8 y no presentarán tal problema.
 
-:ff:  - Para recodificar los subtítulos que descargues, ingresa '5s'.
+:ff:  - '<g>5s<g>': Recodificar subtítulos descargados.
 
-:ff:  - Para mantener la codificación original del subtítulo, ingresa '5n'.
+:ff:  - '<g>5n<g>': Mantener la codificación original de los subtítulos.
 
 :la:
 
 :Wc:Fuentes de búsqueda
 
-:ff:De las siguientes fuentes activas es que SRQ ORQUESTA descargará subtítulos. Debes tener por lo menos una activa.
+:ff:SRQ ORQUESTA busca subtítulos en las siguientes plataformas. Debes tener por lo menos una activa.
 
-:ff:  - Para activar/desactivar subdivx, ingresa '6s'.
+:ff:  - '<g>6s<g>': Activar/desactivar subdivx.
 
-:ff:  - Para activar/desactivar opensubtitles, ingresa '6o'.
-
-:wc:*La busqueda en opensubtitles es aún experimental, busca como máximo los primeros 40 resultados. Por otro lado, es frecuente que por mantenimiento del sitio, las búsquedas no estén disponibles.
+:ff:  - '<g>6o<g>': Activar/desactivar opensubtitles.
 
 :la:
 
 :Wc:IDs descargables
 
-:ff:Determina cuáles subtítulos pueden ser descargados de la sección 'Resultados'.
+:ff:Determina cuáles subtítulos y torrents pueden ser descargados.
 
-:ff:  - Para descargar solo los que se muestran en la página actual, ingresa '7p'.
+:ff:  - '<g>7p<g>': Aquellos dentro de la página actual.
 
-:ff:  - Para descargar solo los que hayan sido filtrados, aun si estos no figuran en la página actual, ingresa '7f'.
+:ff:  - '<g>7f<g>': Aquellos filtrados.
 
-:ff:  - Para descargar cualquiera subtítulo disponible resultado de la búsqueda en turno, ingresa '7d'.
+:ff:  - '<g>7d<g>': Cualquiera que se halle disponible.
 
 :la:
 
 :Wc:Reiniciar configuración
 
-:ff:Para reconfigurar las opciones de esta sección a sus valores iniciales, ingresa 'i'.
+:ff:  - '<g>I<g>'/'<g>i<g>': Reiniciar todas las configuraciones y verificar dependencias.
 
 :la:
 
 :Wc:Resultados por página
 
-:ff:Determina el número de subtítulos que pueden ser mostrados por página en la sección 'Resultados'.
+:ff:Determina el número de subtítulos que pueden ser mostrados por página en las secciones '<g>R<g>esultados' y '<g>T<g>orre<g>N<g>ts'.
 
-:ff:  - Para cambiar este valor, solo ingresa el número deseado.
-
-:Lr:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
-:Lr:
+:ff:  - '<g>#<g>': Para cambiar este valor, solo ingresa el número deseado.
