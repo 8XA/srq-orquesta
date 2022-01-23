@@ -13,7 +13,7 @@ from modules.strings_fitting import phrase_fitting, \
 def videos():
     refresh_history('videos_history')
     numcols = columns_number_func()
-    titulo = "SRQ ORQUESTA"
+    titulo = "<- SRQ ORQUESTA ->"
 
     rutas_y_videos = videos_en_ruta()
 
@@ -33,7 +33,7 @@ def videos():
 
     linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
     linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
-    titulo_colored = colored(titulo, 'white', 'on_red', attrs=['bold', 'dark'])
+    titulo_colored = colored(titulo, 'red', 'on_grey', attrs=['bold'])
 
 
     marca_en_pantalla = False
