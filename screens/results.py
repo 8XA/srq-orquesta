@@ -103,6 +103,8 @@ def results():
         total_paginas = len(subs_filtrados)//rpp
         if total_paginas*rpp < len(subs_filtrados):
             total_paginas += 1
+        if total_paginas == 0:
+            total_paginas = 1
 
         #Subs de la página actual
         if pagina == 1:

@@ -69,6 +69,8 @@ def torrents():
         total_pages = len(numbered_filtered_torrents)//rpp
         if total_pages*rpp < len(numbered_filtered_torrents):
             total_pages += 1
+        if total_pages == 0:
+            total_pages = 1
 
         # Torrents of the current page
         page_torrents = numbered_filtered_torrents[(page-1)*rpp:page*rpp]
