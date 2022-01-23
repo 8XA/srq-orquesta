@@ -1,5 +1,7 @@
 
-:ff:Aquí podrás ver y descargar los subtítulos que arrojó como resultado tu búsqueda en la sección 'Palabras'. Al descargar un subtítulo, este será asignado de manera automática al video seleccionado y se abrirá el reproductor que tengas instalado (se sugiere mpv-android).
+:ff:Aquí podrás ver y descargar los subtítulos que arrojó como resultado tu búsqueda en la sección 'P<g>A<g>labras'.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
 
 :Lr:
 :Wc:Subsecciones
@@ -13,25 +15,23 @@
 :wc:Elementos de cada subtítulo:
 :lb:
 
-:ff:- Un número ID de color verde.
+:ff:  - Un número único de ID en color verde.
 
-:ff:- Un número relativo que numera los subtítulos visibles, por lo que cambia con cada filtrado. Se encuentra del lado izquiero del ID.
+:ff:  - Un número relativo en orden ascendente que numera los subtítulos filtrados. Se encuentra del lado izquiero del ID.
 
-:ff:- Nombre del subtítulo. Se encuentra a la derecha del número ID.
+:ff:  - Nombre del subtítulo. Se encuentra a la derecha del número ID.
 
-:ff:- Descripción del subtítulo. Se encuentra debajo del nombre, separado por una línea blanca.
+:ff:  - Descripción del subtítulo. Se encuentra debajo del nombre, separado por una línea blanca.
 
-:ff:- Procedencia. Es la plataforma de procedencia del subtítulo, aparece en la esquina inferior derecha con color cyan.
+:ff:  - Procedencia. Es la plataforma de procedencia del subtítulo, aparece en la esquina inferior derecha con color <c>cyan<c>.
 
 :lb:
 
-:ff:- Para descargar un subtítulo ingresa el número ID que lo identifica.
+:ff:  - '<g>#ID<g>': Para descargar un subtítulo ingresa el número ID que lo identifica. Por ejemplo: Para descargar el primer subtítulo mostrado, ingresa '<g>0<g>'. Al descargar un subtítulo, este se asigna de manera automática al video subtitulado e inicia su reproducción.
 
-:la:
+:ff:  -  Al descargar un subtítulo, SRQ ORQUESTA mantiene en la pantalla información sobre el estado de la descarga. Dar '<g>Enter<g>' retorna a la sección de '<g>R<g>esultados'.
 
-:Wc:Video a subtitular
-
-:ff:Esta subsección muestra el nombre del video seleccionado.
+:ff:  -  Los subtítulos descargados quedan marcados: En blanco el actual (ejemplo: <b>0<b>) y en rojo los anteriores (ejemplo: <r>1<r>).
 
 :la:
 
@@ -41,39 +41,40 @@
 
 :la:
 
+:Wc:Video a subtitular
+
+:ff:Esta subsección muestra <B>subrayado en blanco<B> el nombre del video seleccionado, siendo útil al momento de filtrar.
+
+:la:
+
 :Wc: Filtros
 
-:ff:Aquí aparecerán las palabras que ingreses para filtrar los subtítulos listados.
+:ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar los subtítulos listados.
 
-:ff:  - Para filtrar subtítulos ingresa las palabras filtro separadas por espacios y/o comas. En la lista solo aparecerán los subtítulos que contengan todos los filtros ingresados.
+:ff:  - '<g>palabra1 palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista sólo aparecerán los subtítulos que contengan todas las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
 
-:ff:  - Utiliza las flechas (arriba y abajo) para navegar entre los fltros ingresados previamente.
+:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
+
+:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los subtítulos que contengan '0' en su nombre, ingresa ' <g>0<g>'.
+
+:ff:  - Para navegar entre los filtros utilizados previamente, utiliza las flechas 'arriba' y 'abajo'.
 
 :lb:
 :wc:Sugerencias de filtrado:
 :lb:
-:ff:- Por ripeos:    BRrip, WEBRip, etc.
-:ff:- Resoluciones:  1080p, 720p, etc.
-:ff:- Versión:       EVO, RARBG, YTS, etc.
-:ff:- Procedencia:   subdivx, opensubtitles
-:lb:
-
-:wc:*el filtro no distingue mayúsculas/minúsculas.
+:ff:  - Por ripeos:    '<g>BRrip<g>', '<g>WEBRip<g>', etc.
+:ff:  - Resoluciones:  '<g>1080p<g>', '<g>720p<g>', etc.
+:ff:  - Versión:       '<g>EVO<g>', '<g>RARBG<g>', '<g>YTS<g>', etc.
+:ff:  - Procedencia:   '<g>subdivx<g>', '<g>opensubtitles<g>'.
 
 :Lr:
 
 :Wc:Consideraciones generales
 
-:ff:- Debido a la cantidad de subtítulos que pueden llegar a listarse, estos se separan en páginas. 
-:ff:  - Para avanzar una página, da 'Enter'.
-:ff:  - Para retroceder una página, ingresa dos puntos seguidos (..).
+:ff:- Debido a la cantidad de subtítulos que pueden llegar a listarse, estos se separan en páginas. Puedes cambiar la cantidad máxima de subtítulos que puede mostrar cada página en 'C<g>o<g>nfiguración'. Su valor inicial es 50.
 
-:ff:- La leyenda bajo el menú indica cuántos subtítulos están listados con el filtro actual, de cuántas páginas consta la lista y en cuál te hallas.
+:ff:  - '<g>Enter<g>': Avanza una página.
 
-:ff:- Por defecto cada página contiene máximo 50 subtítulos, puedes cambiar esto en la sección 'Configuración'.
+:ff:  - '<g>..<g>': Ingresa dos puntos para cargar la página anterior.
 
-:ff:- Al descargar un subtítulo su ID será marcado, de manera que si regresas a la misma seccón para probar uno nuevo, sabrás cuáles ya has usado (marcas roja) y cuál es el actual (marca blanca).
-
-:Lr:
-:Wc:*Puedes ir a cualquier sección del menú ingresando la letra verde que le corresponde.
-:Lr:
+:ff:  - La leyenda bajo el menú indica cuántos subtítulos están listados con el filtro actual, de cuántas páginas consta la lista y en cuál te hallas.
