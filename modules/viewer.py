@@ -264,6 +264,7 @@ def viewer(*arg):
                     posicion -= 1
 
         hoja = None
+        screen.clear()
         curses.endwin()
         os.system("stty sane && clear")
 
