@@ -151,7 +151,7 @@ def viewer(*arg):
         #cyan
         curses.init_pair(9, 45, -1)
         #grey on white
-        curses.init_pair(10, 233, 7)
+        curses.init_pair(10, 233, 255)
 
         #Par de colores
         par = {
