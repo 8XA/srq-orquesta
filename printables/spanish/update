@@ -1,6 +1,17 @@
-:Wc:Versión 0.4.0
 
-:ff:- Style: Correcciones menores de estilo.
+:Wc:Versión 0.3.1
+
+:ff:- Fix: Corrección en el contador de páginas en 'Resultados' y 'Torrents'.
+:ff:- Fix: Visor de ayuda limpia la pantalla antes de salir.
+:ff:- Docs: Manuales de ayuda actualizados en todas las pantallas.
+:ff:- Fix: Bucle en la pantalla ayuda de 'Configuración' solucionado.
+:ff:- Feat: La pantalla de ayuda maneja coloreado por etiquetas.
+:ff:- Docs: Las información de menú se integra en la ayuda de todas las pantallas.
+:ff:- Feat: La pantalla 'Palabras' usa también el guión bajo ('_') como separador.
+:ff:- Feat: Reinicio de configuraciones hace también una verificación de dependencias.
+:ff:- Fix: Manejo de rutas con comillas y otros caracteres.
+:ff:- Fix: Búsqueda de archivos y configuración de carpetas se realiza sin errores por negación de permisos.
+:ff:- Style: Correcciones menores de estilo en las pantallas.
 :ff:- Fix: Videos con el mismo nombre en distintas rutas pueden ser manejados.
 :ff:- Refactor: urllib maneja la conversión de palabras en las solicitudes por URL.
 :ff:- Feat: Animaciones ASCII en tiempos de scraping.
