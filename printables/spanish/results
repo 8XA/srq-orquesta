@@ -71,7 +71,7 @@
 
 :Wc:Consideraciones generales
 
-:ff:- Debido a la cantidad de subtítulos que pueden llegar a listarse, estos se separan en páginas. Puedes cambiar la cantidad máxima de subtítulos que puede mostrar cada página en 'C<g>o<g>nfiguración'. Su valor inicial es 50.
+:ff:- Debido a la cantidad de subtítulos que pueden llegar a listarse, estos se separan en páginas. Puedes cambiar la cantidad máxima de subtítulos que puede mostrar cada página en 'C<g>O<g>nfiguración'. Su valor inicial es 50.
 
 :ff:  - '<g>Enter<g>': Avanza una página.
 
