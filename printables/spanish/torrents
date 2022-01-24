@@ -1,1 +1,85 @@
-...
+
+:ff:En esta sección podrás buscar y ejecutar torrents.
+
+:Wc:*Los caracteres verdes indican siempre opciones ingresables.
+
+:Lr:
+:Wc:Subsecciones
+:Lr:
+
+:Wc:Torrents
+
+:ff:Sí hay torrents disponibles como resultado de la búsqueda anterior, estos aparecerán separados entre sí por líneas amarillas. De lo contrario será sugerida una nueva búsqueda.
+
+:lb:
+:wc:Elementos de cada torrent:
+:lb:
+:ff:  - Un número único de ID en color verde.
+
+:ff:  - Un número relativo en orden ascendente que numera los torrents filtrados. Se encuentra del lado izquiero del ID.
+
+:ff:  - Título del torrent. Se encuentra a la derecha del número ID.
+
+:ff:  - size: Tamaño del archivo descargable.
+
+:ff:  - seeds: Número de sembradores compartiendo el archivo.
+
+:ff:  - leechers: Número de sanguijuelas compartiendo y descargando el archivo.
+
+:ff:  - Procedencia. Es la plataforma de procedencia del torrent, aparece en la esquina inferior derecha con color <c>cyan<c>.
+
+:lb:
+
+:Wc:Si hay resultados previos:
+
+:ff:  - '<g>T<g>'/'<g>t<g>': Con esta opción ingresas a '<g>T<g>orre<g>N<g>ts' desde otras secciones sin eliminar los resultados de la búsqueda anterior.
+
+:ff:  - '<g>#ID<g>': Para ejecutar un torrent ingresa el número ID que lo identifica. Por ejemplo: Para ejecutar el primer torrent listado, ingresa '<g>0<g>'.
+
+:ff:  -  Los torrents ejecutados son marcados: En blanco el último ejecutado (ejemplo: <b>0<b>) y en rojo los anteriores (ejemplo: <r>1<r>).
+
+:ff:  - Al ejecutar un torrent serás dirigido a la sección '<g>V<g>ideos' donde podrás seleccionar su contenido una vez que comience su descarga.
+
+:ff:  - '<g>N<g>'/'<g>n<g>': Limpia la lista de resultados previa y permite una nueva búsqueda.
+
+:lb:
+
+:Wc:Si no hay resultados previos:
+
+:ff:  - '<g>palabra1 palabra2<g>': Una nueva búsqueda será realizada con las palabras ingresadas.
+
+:la:
+
+:Wc:Palabras de búsqueda
+
+:ff:Esta subsección aparece sólo cuando hay resultados y muestra en fondo blanco las <B>palabras de búsqueda<B> <g>ex<g>actas o <g>su<g>geridas utilizadas para tal búsqueda.
+
+:ff:  - '<g>ex<g>': Con esta opción tus búsquedas son realizadas de manera <g>ex<g>acta, de manera que si fue mal escrita es muy probable que no obtengas resultados.
+
+:ff:  - '<g>su<g>': Con esta opción tus búsquedas son realizadas tras una corrección <g>su<g>gerida. De manera que es muy probable que obtengas resultados aun si las palabras fueron mal escritas. Esta es la opción por defecto y su selección se indica con el marcador blanco: <b>su<b>.
+
+:la:
+
+:Wc:Filtros
+
+:ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar los torrents listados. Sólo funciona si hay resultados que filtrar.
+
+:ff:  - '<g>palabra1 palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista sólo aparecerán los torrents que contengan todas las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
+
+:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
+
+:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los torrents que contengan '0' en su nombre, ingresa ' <g>0<g>'.
+
+:ff:  - Para navegar entre los filtros utilizados previamente, utiliza las flechas 'arriba' y 'abajo'.
+
+:Lr:
+
+:Wc:Consideraciones generales
+
+:ff:- Debido a la cantidad de torrents que pueden llegar a listarse, estos se separan en páginas. Puedes cambiar la cantidad máxima de torrents que puede mostrar cada página en 'C<g>O<g>nfiguración'. Su valor inicial es 50.
+
+:ff:  - '<g>Enter<g>': Avanza una página.
+
+:ff:  - '<g>..<g>': Ingresa dos puntos para cargar la página anterior.
+
+:ff:  - La leyenda bajo el menú indica cuántos torrents están listados con el filtro actual, de cuántas páginas consta la lista y en cuál te hallas.
