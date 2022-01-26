@@ -1,4 +1,8 @@
 
+:ff: - Fix: Página actual en pantalla 'Torrents' se reinicia en cada nuevo filtro.
+
+:la:
+
 :Wc:Versión 0.3.1
 
 :ff:- Fix: Corrección en el contador de páginas en 'Resultados' y 'Torrents'.
