@@ -192,3 +192,4 @@ def torrents():
         else:
             edit_simple_list('torrents_history', i[1],'add')
             edit_settings("torrents_filter", i[1])
+            page = 1
