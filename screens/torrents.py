@@ -104,37 +104,36 @@ def torrents():
 
         #Print the words used for searching
         print(red_line)
-        if read_settings('new_torrent_search') == 0:
 
-            search_words = "Palabras de búsqueda:"
-            printable_row_search = colored(centered_phrase_fitting(columns_number, search_words), 'white', attrs=['bold'])
-            spaces_number = columns_number - 9 - (((columns_number - len(search_words))//2) + len(search_words))
-            
-            #Original search
-            original = colored("or", 'green', attrs=['dark','bold'])
-            #Exact search
-            ex = colored("ex", 'green', attrs=['dark','bold'])
-            #Suggested search
-            su = colored("su", 'green', attrs=['dark','bold'])
-            
-            search_to_color ={
-                    'original': original,
-                    'exact': ex,
-                    'suggested': su
-                }
+        search_words = "Palabras de búsqueda:"
+        printable_row_search = colored(centered_phrase_fitting(columns_number, search_words), 'white', attrs=['bold'])
+        spaces_number = columns_number - 9 - (((columns_number - len(search_words))//2) + len(search_words))
+        
+        #Original search
+        original = colored("or", 'green', attrs=['dark','bold'])
+        #Exact search
+        ex = colored("ex", 'green', attrs=['dark','bold'])
+        #Suggested search
+        su = colored("su", 'green', attrs=['dark','bold'])
+        
+        search_to_color ={
+                'original': original,
+                'exact': ex,
+                'suggested': su
+            }
 
-            mode = read_settings('torrent_words_mode')
-            search_to_color[mode] = colored(search_to_color[mode], on_color='on_white')
-            
-            printable_row_search += spaces_number * " " + search_to_color['original'] + " " + \
-                    search_to_color['exact'] + " " + search_to_color['suggested']
-            print(printable_row_search)
+        mode = read_settings('torrent_words_mode')
+        search_to_color[mode] = colored(search_to_color[mode], on_color='on_white')
+        
+        printable_row_search += spaces_number * " " + search_to_color['original'] + " " + \
+                search_to_color['exact'] + " " + search_to_color['suggested']
+        print(printable_row_search)
 
-            for row in phrase_fitting(columns_number, read_settings('torrent_words')).split("\n"):
-                printable_row = row + (columns_number - len(row)) * " "
-                printable_row = colored(printable_row, 'grey', 'on_white', attrs=['bold','dark'])
-                print(printable_row)
-            print(red_line_)
+        for row in phrase_fitting(columns_number, read_settings('torrent_words')).split("\n"):
+            printable_row = row + (columns_number - len(row)) * " "
+            printable_row = colored(printable_row, 'grey', 'on_white', attrs=['bold','dark'])
+            print(printable_row)
+        print(red_line_)
 
         #Print filters
         print(colored(centered_phrase_fitting(columns_number, \
@@ -180,7 +179,6 @@ def torrents():
             edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
         elif len(torrent_results) == 0:
             #history
-            edit_settings('new_torrent_search', '0')
             edit_simple_list(table, i[1],'add')
             try:
                 #Search torrents and save it in database
