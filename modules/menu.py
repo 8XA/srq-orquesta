@@ -176,16 +176,16 @@ def menu(*args):
 
     #Abre el video
     elif i.upper() == "P":
-        Popen("clear")
+        Popen("clear").wait()
         video_route = read_settings("selected_video_route") + read_settings("selected_video_name")
         video_route = video_route.replace("\\'","\'")
 
         if Path(video_route).is_file():
             edit_simple_list('played_videos', video_route, 'add')
-            Popen(["xdg-open", video_route], stdout=PIPE, stderr=PIPE)
+            Popen(["xdg-open", video_route], stdout=PIPE, stderr=PIPE).wait()
         else:
             edit_simple_list('played_videos', video_route)
-            Popen("clear")
+            Popen("clear").wait()
             print("No hay un video seleccionado aún...")
             sleep(1)
         
@@ -197,7 +197,7 @@ def menu(*args):
 
     elif i.upper() == "LT":
         Popen(["am", "start", "-n", "org.proninyaroslav.libretorrent/.ui.main.MainActivity"],\
-                stdout=PIPE, stderr=PIPE)
+                stdout=PIPE, stderr=PIPE).wait()
 
         #Evita repetir descarga
         pantalla = 'results'
