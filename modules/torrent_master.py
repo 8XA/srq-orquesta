@@ -8,6 +8,7 @@ from modules.suggested_search import suggested_search
 from ascii_animations.cinema.ascii import ascii_animation
 from os import system
 from time import sleep
+from scrapimdb import ImdbSpider
 
 def torrent_master(raw_search:str):
     """
@@ -25,7 +26,17 @@ def torrent_master(raw_search:str):
     ascii_thread.start()
 
     #Words for scraping
-    if read_settings('torrent_words_mode') == 'suggested':
+    if read_settings('torrent_words_mode') == 'original':
+        suggested = suggested_search(raw_search)
+        try:
+            imdb_info = ImdbSpider(suggested)
+            original_search = imdb_info.get_original_title()
+            if ':' in original_search:
+                original_search = original_search[:original_search.index(':')]
+        except Exception as e:
+            original_search = suggested
+        edit_settings('torrent_words', original_search)
+    elif read_settings('torrent_words_mode') == 'suggested':
         edit_settings('torrent_words', suggested_search(raw_search))
     else:
         edit_settings('torrent_words', raw_search)

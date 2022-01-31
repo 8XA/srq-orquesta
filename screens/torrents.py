@@ -108,14 +108,17 @@ def torrents():
 
             search_words = "Palabras de búsqueda:"
             printable_row_search = colored(centered_phrase_fitting(columns_number, search_words), 'white', attrs=['bold'])
-            spaces_number = columns_number - 6 - (((columns_number - len(search_words))//2) + len(search_words))
+            spaces_number = columns_number - 9 - (((columns_number - len(search_words))//2) + len(search_words))
             
+            #Original search
+            original = colored("or", 'green', attrs=['dark','bold'])
             #Exact search
             ex = colored("ex", 'green', attrs=['dark','bold'])
             #Suggested search
             su = colored("su", 'green', attrs=['dark','bold'])
             
             search_to_color ={
+                    'original': original,
                     'exact': ex,
                     'suggested': su
                 }
@@ -123,7 +126,8 @@ def torrents():
             mode = read_settings('torrent_words_mode')
             search_to_color[mode] = colored(search_to_color[mode], on_color='on_white')
             
-            printable_row_search += spaces_number * " " + search_to_color['exact'] + " " + search_to_color['suggested']
+            printable_row_search += spaces_number * " " + search_to_color['original'] + " " + \
+                    search_to_color['exact'] + " " + search_to_color['suggested']
             print(printable_row_search)
 
             for row in phrase_fitting(columns_number, read_settings('torrent_words')).split("\n"):
@@ -167,8 +171,9 @@ def torrents():
             page -= 1
             if page < 1:
                 page = total_pages
-        elif i[1].upper() in ["EX","SU"]:
+        elif i[1].upper() in ["OR","EX","SU"]:
             mode_dict = {
+                    "OR": "original",
                     "EX": "exact",
                     "SU": "suggested"
                 }
