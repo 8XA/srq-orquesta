@@ -52,11 +52,15 @@
 
 :Wc:Palabras de búsqueda
 
-:ff:Esta subsección aparece sólo cuando hay resultados y muestra en fondo blanco las <B>palabras de búsqueda<B> <g>ex<g>actas o <g>su<g>geridas utilizadas para tal búsqueda.
+:ff:Esta subsección aparece sólo cuando hay resultados y muestra en fondo blanco las <B>palabras de búsqueda<B> utilizadas según la siguiente configuración:
 
-:ff:  - '<g>ex<g>': Con esta opción tus búsquedas son realizadas de manera <g>ex<g>acta, de manera que si fue mal escrita es muy probable que no obtengas resultados.
+:ff:  - '<g>or<g>': Con esta opción marcada, las búsquedas se realizarán utilizando el título <g>or<g>iginal del video.
 
-:ff:  - '<g>su<g>': Con esta opción tus búsquedas son realizadas tras una corrección <g>su<g>gerida. De manera que es muy probable que obtengas resultados aun si las palabras fueron mal escritas. Esta es la opción por defecto y su selección se indica con el marcador blanco: <b>su<b>.
+:ff:  - '<g>ex<g>': Con esta opción tus búsquedas son realizadas de manera <g>ex<g>acta, de manera que si lo ingresado está mal escrito es muy probable que no obtengas resultados.
+
+:ff:  - '<g>su<g>': Con esta opción tus búsquedas son realizadas tras una corrección <g>su<g>gerida. De manera que es muy probable que obtengas resultados aun si las palabras fueron mal escritas. Esta es la opción por defecto.
+
+:ff:*El marcador blanco indica la opción seleccionada, por ejemplo: <b>su<b>.
 
 :la:
 

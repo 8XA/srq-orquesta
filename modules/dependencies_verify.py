@@ -49,7 +49,8 @@ def verify():
             "tpblite",
             "termcolor",
             "chardet",
-            "requests"
+            "requests",
+            "scrap-imdb"
         ]
 
     #Backup of the pip freeze file
