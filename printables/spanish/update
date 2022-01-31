@@ -1,4 +1,5 @@
 
+:ff: - Feat: Subsección 'palabras de búsqueda' siempre visible en 'Torrents'.
 :ff: - Feat: La búsqueda de torrents puede realizarse con el título original, de manera automática.
 :ff: - Fix: Página actual en pantalla 'Torrents' se reinicia en cada nuevo filtro.
 
