@@ -206,7 +206,9 @@ def menu(*args):
         return ("menu", pantalla)
 
     elif i.upper() == "N":
-        edit_settings('torrent_words', "")
+        edit_settings('original_torrent_words', "")
+        edit_settings('exact_torrent_words', "")
+        edit_settings('suggested_torrent_words', "")
         edit_scraped_list('torrents', 'clean')
         edit_settings('torrents_filter', '')
         return ("menu", 'torrents')

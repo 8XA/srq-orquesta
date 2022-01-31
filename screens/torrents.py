@@ -129,7 +129,7 @@ def torrents():
                 search_to_color['exact'] + " " + search_to_color['suggested']
         print(printable_row_search)
 
-        for row in phrase_fitting(columns_number, read_settings('torrent_words')).split("\n"):
+        for row in phrase_fitting(columns_number, read_settings(mode + '_torrent_words')).split("\n"):
             printable_row = row + (columns_number - len(row)) * " "
             printable_row = colored(printable_row, 'grey', 'on_white', attrs=['bold','dark'])
             print(printable_row)
@@ -177,12 +177,18 @@ def torrents():
                     "SU": "suggested"
                 }
             edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
-        elif len(torrent_results) == 0:
-            #history
-            edit_simple_list(table, i[1],'add')
+        elif len(torrent_results) == 0 or i[1].upper() == 'U':
+            search = i[1]
+            if i[1].upper() == 'U':
+                edit_scraped_list('torrents', 'clean')
+                edit_settings('torrents_filter', '')
+                search = None
+            else:
+                #history
+                edit_simple_list(table, i[1],'add')
             try:
                 #Search torrents and save it in database
-                torrent_master(i[1])
+                torrent_master(search)
                 system("clear")
 
             except:
