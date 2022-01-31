@@ -117,8 +117,12 @@ def create_db():
                 "torrent_search_changed INTEGER, " \
                 #The words that will be used for the subs search
                 "sub_words TEXT, " \
-                #The words that will be used for the torrents search
-                "torrent_words TEXT, " \
+                #The original title words that will be used for the torrents search
+                "original_torrent_words TEXT, " \
+                #The exact words that will be used for the torrents search
+                "exact_torrent_words TEXT, " \
+                #The suggested words that will be used for the torrents search
+                "suggested_torrent_words TEXT, " \
                 #Filter for the torrent results
                 "torrents_filter TEXT, " \
                 #Filter for the video list
@@ -153,7 +157,9 @@ def create_db():
         cursor.execute("UPDATE settings SET torrent_words_mode = 'suggested'")
         cursor.execute("UPDATE settings SET torrent_search_changed = 0")
         cursor.execute("UPDATE settings SET sub_words = ''")
-        cursor.execute("UPDATE settings SET torrent_words = ''")
+        cursor.execute("UPDATE settings SET original_torrent_words = ''")
+        cursor.execute("UPDATE settings SET exact_torrent_words = ''")
+        cursor.execute("UPDATE settings SET suggested_torrent_words = ''")
         cursor.execute("UPDATE settings SET torrents_filter = ''")
         cursor.execute("UPDATE settings SET videos_filter = ''")
         cursor.execute("UPDATE settings SET subs_filter = ''")

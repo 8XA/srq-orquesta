@@ -25,22 +25,27 @@ def torrent_master(raw_search:str):
         )
     ascii_thread.start()
 
+    mode = read_settings('torrent_words_mode')
+
     #Words for scraping
-    if read_settings('torrent_words_mode') == 'original':
-        suggested = suggested_search(raw_search)
+    if raw_search != None:
+        exact = raw_search
+        edit_settings('exact_torrent_words', exact)
+
+        suggested = suggested_search(exact)
+        edit_settings('suggested_torrent_words', suggested)
+
         try:
             imdb_info = ImdbSpider(suggested)
-            original_search = imdb_info.get_original_title()
-            if ':' in original_search:
-                original_search = original_search[:original_search.index(':')]
+            original = imdb_info.get_original_title()
+            if ':' in original:
+                original = original[:original.index(':')]
         except Exception as e:
-            original_search = suggested
-        edit_settings('torrent_words', original_search)
-    elif read_settings('torrent_words_mode') == 'suggested':
-        edit_settings('torrent_words', suggested_search(raw_search))
-    else:
-        edit_settings('torrent_words', raw_search)
-    search = read_settings('torrent_words')
+            original = suggested
+        edit_settings('original_torrent_words', original)
+
+    #Selected search
+    search = read_settings(mode + '_torrent_words')
 
     #It gets torrents from all scrapers
     nyaa_thread = Thread(
