@@ -11,6 +11,10 @@
 
 :ff:Podrás ver listadas las carpetas contenidas en la 'Ruta editable'. Cada carpeta tendrá asignado un número ID en color verde.
 
+:ff:  - '<g>NC<g>'/'<g>nc<g>': Crear nueva carpeta.
+
+:ff:  - '<g>D#<g>'/'<g>d#<g>': Eliminar carpeta. Por ejemplo: Para eliminar la carpeta con ID '<g>0<g>', ingresa '<g>d0<g>'.
+
 :la:
 
 :Wc:Ruta editable

@@ -13,6 +13,7 @@ from modules.columns_number import columns_number_func
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
+from time import sleep
 
 def folder():
     refresh_history('folder_history')
@@ -73,6 +74,9 @@ def folder():
             print(phrase_fitting(numcols, msj))
             print("\n")
 
+        print(numcols * "-")
+        print(colored("nc", 'green', attrs=['bold']) + ": Nueva Carpeta")
+        print(colored("d#", 'green', attrs=['bold']) + ": Eliminar Carpeta")
         print(linea_amarilla)
 
         #Ruta actual en franja roja
@@ -100,8 +104,55 @@ def folder():
                     edit_settings("folder_route", ruta)
                 return 'videos'
 
-            elif (i[1].isdigit()) and (len(carpetas) > int(i[1])):
-                cadena.append(carpetas[int(i[1])])
+            elif (i[1][0].lower() == 'd') and (i[1][1:].isdigit()) and (len(carpetas) > int(i[1][1:])):
+                
+                folder = carpetas[int(i[1][1:])]
+                message = phrase_fitting(numcols, "Está a punto de eliminar la carpeta '" + folder + "', así como su contenido. Esta acción requiere confirmación.")
+                Enter = colored("Enter", 'green', attrs=['bold', 'dark'])
+                Cancel = colored("c", 'green', attrs=['bold', 'dark'])
+
+                enter_message = Enter + ": Confirmar"
+                cancel_message = Cancel + ": Cancelar"
+
+                Popen("clear").wait()
+                print(linea_azul)
+                print(message)
+                print(numcols * "-")
+                print(enter_message)
+                print(cancel_message)
+                print(linea_azul)
+
+                delete = input(": ")
+                if delete == "":
+                    deletion = Popen(["rm", "-rf", ruta + "/" + folder], stderr=PIPE, stdout=PIPE)
+                    error_deletion = str(deletion.stderr.read())
+
+                    if error_deletion != "b''":
+                        Popen("clear").wait()
+                        print("Este directorio no puede ser eliminado...")
+                        sleep(1)
+
+
+            elif ((i[1].isdigit()) and (len(carpetas) > int(i[1]))) or i[1].lower() == 'nc':
+                folder = ""
+                new_folder_error = "b''"
+                if i[1].lower() == 'nc':
+                    while folder == "":
+                        Popen("clear").wait()
+                        folder = input("Nombre de carpeta: ")
+                    new_folder = Popen(["mkdir", ruta + "/" + folder], stderr=PIPE, stdout=PIPE)
+                    new_folder_error = str(new_folder.stderr.read())
+
+                else:
+                    folder = carpetas[int(i[1])]
+
+                if i[1].lower() != 'nc' or new_folder_error == "b''":
+                    cadena.append(folder)
+                if new_folder_error != "b''":
+                    Popen("clear").wait()
+                    print("Nueva carpeta inválida...")
+                    sleep(1)
+
                 ruta = "/" + "/".join(cadena) + "/"
                 filtros_str = " "
 
