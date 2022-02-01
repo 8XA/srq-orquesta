@@ -75,8 +75,8 @@ def folder():
             print("\n")
 
         print(numcols * "-")
-        print(colored("nc", 'green', attrs=['bold']) + ": Nueva Carpeta")
-        print(colored("d#", 'green', attrs=['bold']) + ": Eliminar Carpeta")
+        print(colored("nc", 'green', attrs=['bold', 'dark']) + ": Nueva Carpeta")
+        print(colored("d#", 'green', attrs=['bold', 'dark']) + ": Eliminar Carpeta")
         print(linea_amarilla)
 
         #Ruta actual en franja roja

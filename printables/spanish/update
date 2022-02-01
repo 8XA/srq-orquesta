@@ -1,6 +1,7 @@
 
-:ff: - Feat: Automatic restart after updates.
-:ff: - Refactor: lxml installation.
+:ff: - Feat: Sección 'Carpetas' puede crear y eliminar carpetas.
+:ff: - Feat: Reinicio automático tras actualización.
+:ff: - Refactor: Instalación de lxml.
 :ff: - Feat: Recalcula la búsqueda de torrents ingresando '<g>u<g>' en su pantalla.
 :ff: - Feat: Las 'palabras de búsqueda' cambian de modo en la pantalla 'Torrents' sin volver a ingresarlas.
 :ff: - Feat: Subsección 'palabras de búsqueda' siempre visible en 'Torrents'.
