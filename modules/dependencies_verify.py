@@ -2,8 +2,10 @@
 
 from os import system, popen
 from os.path import isfile
-from sys import exit
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, call
+from sys import executable, argv, exit
+import sys #sys.stdout.flush
+from time import sleep
 
 def verify():
     """
@@ -78,5 +80,10 @@ def verify():
 
     if len(pip_to_install) + len(pkg_to_install) > 0:
         system("clear")
-        input("Dependencias actualizadas. Reinicia SRQ ORQUESTA. Enter: ")
+        print("Dependencias actualizadas... ")
+        sleep(1.5)
+
+        #Restart SRQ
+        sys.stdout.flush()
+        call([executable, argv[0]])
         exit()

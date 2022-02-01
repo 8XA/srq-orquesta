@@ -3,6 +3,9 @@
 from time import sleep
 from os import system, popen
 from modules.viewer import viewer
+from subprocess import call
+from sys import executable, argv
+import sys #sys.stdout.flush
 
 def update():
     absolute_route = '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/'
@@ -29,7 +32,11 @@ def update():
             system('mv update ' + absolute_route[:-1] + ' && clear')
             
             viewer("ACTUALIZACIÓN COMPLETA", "update")
-            input("Enter para salir...")
+            input("Enter para iniciar...")
+
+            #Restart SRQ
+            sys.stdout.flush()
+            call([executable, argv[0]])
 
             return 'exit_srq'
 
