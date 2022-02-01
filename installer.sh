@@ -22,4 +22,6 @@ clear
 echo "Para iniciar la instalación de dependencias, presiona Enter: "
 read
 
+clear
+
 python /data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/start.py

@@ -48,6 +48,7 @@ def verify():
 
     #PIP verify and installation
     pip_dependencies = [
+            "wheel",
             "tpblite",
             "termcolor",
             "chardet",
@@ -56,17 +57,27 @@ def verify():
         ]
 
     #Backup of the pip freeze file
-    freeze_route = '/data/data/com.termux/files/usr/share/srq-orquesta/pip_freeze.txt'
-    if not isfile(freeze_route):
-        system("pip freeze > " + freeze_route)
+    pip_freeze_route = '/data/data/com.termux/files/usr/share/srq-orquesta/pip_freeze.txt'
+    pip_list_route = '/data/data/com.termux/files/usr/share/srq-orquesta/pip_list.txt'
+    if not isfile(pip_freeze_route):
+        system("pip freeze > " + pip_freeze_route)
+    if not isfile(pip_list_route):
+        system("pip list > " + pip_list_route)
 
-    #Gets the pip list from the backup pip file
-    with open(freeze_route, "r") as file:
-        raw_pip = file.readlines()
-    pip_list = [pkg[:pkg.index("=")] for pkg in raw_pip]
+    #Gets the pip list from the backup pip files 
+    with open(pip_freeze_route, "r") as file:
+        raw_pip_freeze = file.readlines()
+    pip_freeze = [pkg[:pkg.index("=")] for pkg in raw_pip_freeze]
+
+    with open(pip_list_route, "r") as file:
+        raw_pip_list = file.readlines()
+    pip_list = [pkg.split(" ")[0] for pkg in raw_pip_list[2:]]
+
+    #Installed packages
+    pip_packages = pip_freeze + pip_list
 
     #List of the missing packages
-    pip_to_install = [to_install for to_install in pip_dependencies if to_install not in pip_list]
+    pip_to_install = [to_install for to_install in pip_dependencies if to_install not in pip_packages]
 
     #Upgrade pip
     if len(pip_to_install) > 0:
@@ -76,7 +87,8 @@ def verify():
         system("pip install " + pkg)
     #Updates the pip file
     if len(pip_to_install) > 0:
-        system("pip freeze > " + freeze_route)
+        system("pip freeze > " + pip_freeze_route)
+        system("pip list > " + pip_list_route)
 
     if len(pip_to_install) + len(pkg_to_install) > 0:
         system("clear")

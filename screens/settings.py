@@ -232,6 +232,7 @@ def settings():
     elif i[1].lower() == "i":
         system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db'")
         system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/pip_freeze.txt'")
+        system("rm '/data/data/com.termux/files/usr/share/srq-orquesta/pip_list.txt'")
         creadb()
         edit_settings("active_instance", "1")
 
