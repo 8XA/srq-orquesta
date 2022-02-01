@@ -32,7 +32,6 @@ def update():
             system('mv update ' + absolute_route[:-1] + ' && clear')
             
             viewer("ACTUALIZACIÓN COMPLETA", "update")
-            input("Enter para iniciar...")
 
             #Restart SRQ
             sys.stdout.flush()
