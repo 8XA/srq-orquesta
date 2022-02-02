@@ -6,10 +6,9 @@ from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
 from modules.files_from_route import subs_en_ruta
-from modules.admin_db import read_settings, edit_simple_list
+from modules.admin_db import read_settings, edit_simple_list, edit_settings
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from modules.columns_number import columns_number_func
-from modules.admin_db import read_settings, edit_settings
 from modules.menu import menu
 
 def download():
@@ -159,6 +158,7 @@ def download():
             with open(ruta_sub, 'w+b') as final_file:
                 final_file.write(source_content.decode(codificacion).encode('utf-8'))
         Popen(["mv", ruta_sub, nombre_final_sub]).wait()
+        edit_simple_list('downloaded_subtitles', nombre_final_sub, 'add')
 
         print(".\n.\n.")
         print(bold_white("Listo!"))
@@ -177,10 +177,4 @@ def download():
         input("Enter para continuar...")
         return 'results'
 
-    i = menu(numcols)
-
-    if i[0] == "menu":
-        return i[1]
-    else:
-        return 'results'
-
+    return 'results'
