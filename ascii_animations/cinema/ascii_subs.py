@@ -129,13 +129,14 @@ def ascii_animation(message, scraper_num):
         layer_print(screen_dirt, dirt_color, ['-','~','"',',','{','}','S', '´'])
         layer_print(screen_dirt, screen_color, ['0'])
 
+        #x, y
         mouth_offset = {
-                '1':0,
-                '2':13
+                '1':[0,0],
+                '2':[15,-1]
             }
         eyes_offset = {
-                '1':0,
-                '2':11
+                '1':[0,0],
+                '2':[14,-1]
             }
 
         #guys
@@ -151,7 +152,9 @@ def ascii_animation(message, scraper_num):
 
         #mouth
         if counter%2 == 1 and sub_flag > 2:
-            layer_print('mouth', guy_color, ['O'], hor_offset=mouth_offset[guy_number_str])
+            layer_print('mouth', guy_color, ['O'], \
+                    hor_offset=mouth_offset[guy_number_str][0], \
+                    vert_offset=mouth_offset[guy_number_str][1])
 
         #subs
         if sub_flag > 4:
@@ -161,7 +164,9 @@ def ascii_animation(message, scraper_num):
     
         #eyes
         if counter%20 == 10:
-            layer_print('eyes',guy_color,['─'], hor_offset=eyes_offset[guy_number_str])
+            layer_print('eyes',guy_color,['─'], \
+                    hor_offset=eyes_offset[guy_number_str][0], \
+                    vert_offset=eyes_offset[guy_number_str][1])
 
         counter+=1
 
