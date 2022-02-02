@@ -167,7 +167,7 @@ def videos():
 
         message = phrase_fitting(numcols, "Está a punto de eliminar " + str_deletion + ". Esta acción requiere confirmación.")
         enter = colored("Enter", 'green', attrs=['bold', 'dark'])
-        cancel = colored("c", 'green', attrs=['bold', 'dark'])
+        cancel = colored("C", 'green', attrs=['bold', 'dark'])
 
         enter_message = enter + ": Confirmar"
         cancel_message = cancel + ": Cancelar"
