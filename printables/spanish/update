@@ -1,4 +1,5 @@
 
+:ff: - Feat: Sección 'Videos' puede eliminar videos.
 :ff: - Feat: Sección 'Carpetas' puede crear y eliminar carpetas.
 :ff: - Feat: Reinicio automático tras actualización.
 :ff: - Refactor: Instalación de lxml.

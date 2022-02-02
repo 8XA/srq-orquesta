@@ -25,6 +25,12 @@
 
 :ff:  - '<g>clean<g>': Desmarca todos los videos reproducidos.
 
+:ff:  - '<g>D<g>'/'<g>d<g>': Elimina el video seleccionado. Por ejemplo: <b>0<b>.
+
+:ff:  - '<g>DM<g>'/'<g>dm<g>': Elimina los videos <R>filtrados<R> que hayan sido <a>marcados<a>.
+
+:ff:  - '<g>D#<g>'/'<g>d#<g>': Elimina el video cuyo ID sea el ingresado enseguida del comando '<g>d<g>'. Por ejemplo: '<g>d0<g>' eliminará el video con ID '<g>0<g>'.
+
 :la:
 
 :Wc:Ruta

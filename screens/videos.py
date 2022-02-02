@@ -9,6 +9,10 @@ read_simple_list, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
+from subprocess import Popen, PIPE
+from pathlib import Path
+from time import sleep
+
 
 def videos():
     refresh_history('videos_history')
@@ -47,6 +51,7 @@ def videos():
 
     #IMPRIME NOMBRES DE VIDEOS
     played_videos = read_simple_list("played_videos")
+    marked_video_list = []
     filtered = False
     for x in range(len(videos)):
         #Aplica filtro
@@ -75,6 +80,8 @@ def videos():
             marked_video = marked_video.replace("\\\'","\'")
             if marked_video in played_videos:
                 imprimir = colored(imprimir, 'red', 'on_yellow', attrs=['bold'])
+                marked_video = marked_video.replace("\'","'")
+                marked_video_list.append(marked_video)
 
             print(indice + ": " + imprimir)
 
@@ -106,15 +113,18 @@ def videos():
 
     i = menu(numcols, "Filtra o selecciona un video")
 
-    if type(i[1]) is str:
-        valor_numerico = ((len([x for x in i[1] if x in "0123456789"]) == len(i[1])) and (i[1] != ""))
-
     if i[0] == "menu":
         return i[1]
+
+    #Sends you to 'Palabras'
     elif (marca_en_pantalla) and ((i[1] == "")):
         return 'words'
+
+    #Clean the video marks
     elif i[1].lower() == 'clean':
         edit_simple_list('played_videos')
+
+    #Mark a video
     elif i[1].lower() == 'm':
         selected_video = read_settings('selected_video_route') + \
                 read_settings('selected_video_name')
@@ -123,22 +133,82 @@ def videos():
             edit_simple_list('played_videos', selected_video)
         else:
             edit_simple_list('played_videos', selected_video, 'add')
-    else:
-        #Registrar opción
-        if (
-            #Es valor numérico
-            valor_numerico and \
 
-            #Esta dentro del rango de opciones
-            (int(i[1]) < len(videos))):
+    #Choose a video
+    elif (
+        #Es valor numérico
+        i[1].isdigit() and \
 
-            edit_settings("sub_search_changed", "1")
-            edit_settings("selected_video_name", videos[int(i[1])][:videos[int(i[1])].rindex("_")])
-            edit_settings("sub_words", "")
-            edit_settings("selected_video_route", rutas[videos[int(i[1])]])
+        #Esta dentro del rango de opciones
+        (int(i[1]) < len(videos))):
 
-        elif i[1] != "":
-            edit_simple_list('videos_history', i[1], 'add')
-            edit_settings("videos_filter", i[1].lower())
+        edit_settings("sub_search_changed", "1")
+        edit_settings("selected_video_name", videos[int(i[1])][:videos[int(i[1])].rindex("_")])
+        edit_settings("sub_words", "")
+        edit_settings("selected_video_route", rutas[videos[int(i[1])]])
+
+    #Videos deletion
+    elif any([
+        i[1].lower() == 'd',
+        i[1].lower() == 'dm',
+
+        len(i[1]) > 1 and \
+        i[1][0].lower() == 'd' and \
+        i[1][1:].isdigit() and \
+        int(i[1][1:]) < len(videos)
+        ]):
+
+        if i[1].lower() == 'd':
+            str_deletion = "el video '" + read_settings("selected_video_name") + "'"
+        elif i[1].lower() == 'dm':
+            str_deletion = "los videos filtrados marcados"
+        else:
+            str_deletion = "el video '" + videos[int(i[1][1:])][:videos[int(i[1][1:])].rindex("_")] + "'"
+
+        message = phrase_fitting(numcols, "Está a punto de eliminar " + str_deletion + ". Esta acción requiere confirmación.")
+        enter = colored("Enter", 'green', attrs=['bold', 'dark'])
+        cancel = colored("c", 'green', attrs=['bold', 'dark'])
+
+        enter_message = enter + ": Confirmar"
+        cancel_message = cancel + ": Cancelar"
+
+        Popen("clear").wait()
+        print(linea_azul)
+        print(message)
+        print(numcols * "-")
+        print(enter_message)
+        print(cancel_message)
+        print(linea_azul)
+
+        proceed = input(": ") == ''
+
+        if proceed:
+            if i[1].lower() == 'd' or i[1].lower() != 'dm':
+
+                #Delete the selected video
+                to_delete = read_settings("selected_video_route") + read_settings("selected_video_name")
+                if i[1].lower() != 'd':
+                    #Delete a numbered video
+                    to_delete = rutas[videos[int(i[1][1:])]] + \
+                            videos[int(i[1][1:])][:videos[int(i[1][1:])].rindex("_")]
+                to_delete = to_delete.replace("\\'", "'")
+
+                if Path(to_delete).is_file():
+                    deletion = Popen(["rm", "-f", to_delete], stderr=PIPE, stdout=PIPE)
+                else:
+                    Popen("clear").wait()
+                    print(phrase_fitting(numcols, "El video no existe..."))
+                    sleep(1.5)
+
+            #Delete the marked videos
+            else:
+                for to_delete in marked_video_list:
+                    deletion = Popen(["rm", "-f", to_delete], stderr=PIPE, stdout=PIPE)
+
+    #Set a filter
+    elif i[1] != "":
+        edit_simple_list('videos_history', i[1], 'add')
+        edit_settings("videos_filter", i[1].lower())
+
     return 'videos'
 

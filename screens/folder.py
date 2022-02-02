@@ -108,11 +108,11 @@ def folder():
                 
                 folder = carpetas[int(i[1][1:])]
                 message = phrase_fitting(numcols, "Está a punto de eliminar la carpeta '" + folder + "', así como su contenido. Esta acción requiere confirmación.")
-                Enter = colored("Enter", 'green', attrs=['bold', 'dark'])
-                Cancel = colored("c", 'green', attrs=['bold', 'dark'])
+                enter = colored("Enter", 'green', attrs=['bold', 'dark'])
+                cancel = colored("c", 'green', attrs=['bold', 'dark'])
 
-                enter_message = Enter + ": Confirmar"
-                cancel_message = Cancel + ": Cancelar"
+                enter_message = enter + ": Confirmar"
+                cancel_message = cancel + ": Cancelar"
 
                 Popen("clear").wait()
                 print(linea_azul)
