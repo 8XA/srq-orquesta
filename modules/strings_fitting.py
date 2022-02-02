@@ -10,7 +10,6 @@ def phrase_fitting(cols_number, message, tags=False):
     """
     words = message.split(' ')
     final_string = ""
-    row = ""
     row_lenght = 0
 
     if tags:
@@ -22,18 +21,31 @@ def phrase_fitting(cols_number, message, tags=False):
 
     for indx in range(len(words_lenght)):
         if (row_lenght == 0) or (row_lenght + words_lenght[indx] < cols_number):
-            row += words[indx] + " "
+            final_string += words[indx] + " "
             row_lenght += words_lenght[indx] + 1
         else:
             if words_lenght[indx] >= cols_number:
-                final_string += (row + "\n" + words[indx] + "\n")
-                row_lenght = 0
+
+                #Ripping and fitting the long words for the final string
+                piece_lenght = words_lenght[indx]
+                long_word = words[indx]
+                while piece_lenght >= cols_number:
+                    section_lenght = cols_number - row_lenght
+                    final_string += (long_word[:section_lenght] + "\n")
+                    long_word = long_word[section_lenght:]
+                    piece_lenght = len(long_word)
+                    row_lenght = 0
+                if piece_lenght > 0:
+                    section_lenght = cols_number - row_lenght
+                    final_string += long_word[:section_lenght] + " "
+                    row_lenght = len(long_word[:section_lenght]) + 1
+                else:
+                    row_lenght = 0
+
             else:
-                final_string += (row + "\n")
-                row = words[indx] + " "
+                final_string += "\n" + words[indx] + " "
                 row_lenght = words_lenght[indx] + 1
-    final_string += row
-    
+
     return final_string
 
 
