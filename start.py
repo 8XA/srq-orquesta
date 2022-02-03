@@ -1,13 +1,17 @@
 #!/bin/env python
 
-from modules.dependencies_verify import verify
-verify()
 
 #try:
 from modules.create_db import create_db
 create_db()
 from modules.admin_db import read_settings, edit_settings, restore_settings
 restore_settings()
+
+refresh = read_settings("refresh_videos_screen") == 1
+
+if not refresh:
+    from modules.dependencies_verify import verify
+    verify()
 
 import readline
 from os import system
@@ -45,13 +49,16 @@ if read_settings("active_instance") == 0:
         'update': update,
     }
 
-    #This is a loop function. It verifies the access to the storage.
-    storage_verify()
+    execute = None
+    if not refresh: 
+        #This is a loop function. It verifies the access to the storage.
+        storage_verify()
 
-    #Update search
-    execute = 1
-    if read_settings("auto_update") == 1:
-        execute = update()
+        #Update search
+        if read_settings("auto_update") == 1:
+            execute = update()
+
+    edit_settings("refresh_videos_screen", "0") 
 
     #This piece of code runs all the interaction screens
     if read_settings("clean_history") == 1:
