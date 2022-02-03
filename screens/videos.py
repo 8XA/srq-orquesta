@@ -47,7 +47,7 @@ def videos():
         return to_return
 
     #Restart SRQ
-    edit_settings("refresh_videos_screen", "1") 
+    edit_settings("refresh_screen", "1") 
     edit_settings("active_instance", "0") 
     sys.stdout.flush()
     execv(sys.argv[0], sys.argv)
