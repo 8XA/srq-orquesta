@@ -10,20 +10,59 @@ read_simple_list, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, call
 from pathlib import Path
 from time import sleep
 from threading import Thread
+import sys
+from os import execv
 
+to_return = None
 
 def videos():
-    
+    global to_return
+
     #Cleaning the old remnants
     cleaning = Thread(
             target=subs_and_folders_deletion,
             daemon=True
         )
+    screen_thread = Thread(
+        target=screen_and_options,
+        daemon=True
+        )
+    refresh_thread = Thread(
+        target=refresh_videos,
+        daemon=True
+        )
+    
     cleaning.start()
+    screen_thread.start()
+    refresh_thread.start()
+
+    while screen_thread.is_alive() and refresh_thread.is_alive():
+        sleep(0.05)
+
+    if not screen_thread.is_alive():
+        return to_return
+
+    #Restart SRQ
+    edit_settings("refresh_videos_screen", "1") 
+    edit_settings("active_instance", "0") 
+    sys.stdout.flush()
+    execv(sys.argv[0], sys.argv)
+
+def refresh_videos():
+
+    videos_and_routes = videos_en_ruta()
+    while videos_en_ruta() == videos_and_routes:
+        sleep(0.05)
+
+    return None
+
+
+def screen_and_options():
+    global to_return
 
     refresh_history('videos_history')
     numcols = columns_number_func()
@@ -124,11 +163,13 @@ def videos():
     i = menu(numcols, "Filtra o selecciona un video")
 
     if i[0] == "menu":
-        return i[1]
+        to_return = i[1]
+        return None
 
     #Sends you to 'Palabras'
     elif (marca_en_pantalla) and ((i[1] == "")):
-        return 'words'
+        to_return = 'words'
+        return None
 
     #Clean the video marks
     elif i[1].lower() == 'clean':
@@ -220,5 +261,6 @@ def videos():
         edit_simple_list('videos_history', i[1], 'add')
         edit_settings("videos_filter", i[1].lower())
 
-    return 'videos'
+    to_return = 'videos'
+    return None
 
