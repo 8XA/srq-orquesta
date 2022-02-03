@@ -3,9 +3,8 @@
 #This module has the functions to read and edit the database and its backup
 
 from sqlite3 import connect
-from os.path import isfile
+from pathlib import Path
 from os import system
-from os.path import isfile
 
 data_route = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 data_backup_route = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
@@ -90,7 +89,7 @@ def edit_settings(
 
     global data_route
 
-    if isfile(data_route):
+    if Path(data_route).is_file():
         connection = connect(data_route)
         cursor = connection.cursor()
         clean_new_value = new_value.replace("'","''")
@@ -113,7 +112,7 @@ def restore_settings():
 
     global data_backup_route
 
-    if isfile(data_backup_route):
+    if Path(data_backup_route).is_file():
         settings = read_settings(db='data_backup_route')
 
         for x in range(len(settings[0])):
@@ -147,7 +146,7 @@ def restore_settings():
         for results_history in read_simple_list("results_history", "data_backup_route"):
             edit_simple_list("results_history", results_history, 'add')
 
-    if isfile(data_backup_route):
+    if Path(data_backup_route).is_file():
         system("rm " + data_backup_route)
 
 #######################################################################
@@ -251,7 +250,7 @@ def edit_scraped_list(
 """
     global data_route
     
-    if isfile(data_route):
+    if Path(data_route).is_file():
         connection = connect(data_route)
         cursor = connection.cursor()
 
@@ -292,7 +291,7 @@ def read_simple_list(table: str, db:str='data_route'):
     HOW TO USE:
         - Read a list from the database and its information:
             call read_simple_list(table).
-            *The table parameter must be replaced by 'subtitles' or 'torrents'.
+            *The table parameter is the table name.
 
     RETURNS:
         - It returns a list of tuples containing the registered scraped values
@@ -314,15 +313,15 @@ def read_simple_list(table: str, db:str='data_route'):
     connection.close()
 
     ##################################################
-    if table == 'played_videos':
-        # Delete URIs that point to deleted videos
-        played_list = []
+    if table in ['played_videos', 'downloaded_subtitles']:
+        # Delete URIs that point to deleted elements
+        simple_list = []
         for value in values:
-            if isfile(value[0]):
-                played_list.append(value[0])
+            if Path(value[0]).is_file():
+                simple_list.append(value[0])
             else:
                 edit_simple_list(table, value[0])
-        return played_list
+        return simple_list
     ##################################################
 
     return [value[0] for value in values]
@@ -353,7 +352,7 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
             call edit_simple_list(table,value,'add').
     """
     
-    if isfile(data_route):
+    if Path(data_route).is_file():
         connection = connect(data_route)
         cursor = connection.cursor()
 

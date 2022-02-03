@@ -1,6 +1,7 @@
 #!/bin/env python
 
 from termcolor import colored
+from modules.folders_clean import subs_and_folders_deletion
 from modules.refresh_history import refresh_history
 from modules.columns_number import columns_number_func
 from modules.files_from_route import videos_en_ruta
@@ -12,9 +13,18 @@ from modules.strings_fitting import phrase_fitting, \
 from subprocess import Popen, PIPE
 from pathlib import Path
 from time import sleep
+from threading import Thread
 
 
 def videos():
+    
+    #Cleaning the old remnants
+    cleaning = Thread(
+            target=subs_and_folders_deletion,
+            daemon=True
+        )
+    cleaning.start()
+
     refresh_history('videos_history')
     numcols = columns_number_func()
     titulo = "<- SRQ ORQUESTA ->"
