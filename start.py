@@ -7,7 +7,7 @@ create_db()
 from modules.admin_db import read_settings, edit_settings, restore_settings
 restore_settings()
 
-refresh = read_settings("refresh_videos_screen") == 1
+refresh = read_settings("refresh_screen") == 1
 
 if not refresh:
     from modules.dependencies_verify import verify
@@ -58,7 +58,7 @@ if read_settings("active_instance") == 0:
         if read_settings("auto_update") == 1:
             execute = update()
 
-    edit_settings("refresh_videos_screen", "0") 
+    edit_settings("refresh_screen", "0") 
 
     #This piece of code runs all the interaction screens
     if read_settings("clean_history") == 1:

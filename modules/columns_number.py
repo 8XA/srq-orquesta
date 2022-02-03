@@ -1,21 +1,31 @@
 #!/bin/env python
 
-from curses import initscr, endwin
-from os import system
+from subprocess import Popen, PIPE, call
 
-def columns_number_func():
-
-    """DESCRIPTION:
-        - This function cleans the screen and returns the current columns number.
+def columns_number_func(side:str='cols', clean_screen:bool=True):
+    """
+    DESCRIPTION:
+        - This function return the current sizo of a screen side.
+            * Cleans the screen by default, but this is optional.
 
     HOW TO USE:
-        - call columns_number_func().
+        - call columns_number_func() with the parameters as follows:
+            side: 'rows' or 'cols'
+            clean_screen: True or False
     """
 
-    screen = initscr() 
-    columns_number = screen.getmaxyx()[1]
-    endwin()
+    if clean_screen:
+        call("clear")
 
-    system("stty sane && clear")
+    size_command = Popen(["stty","size"], stdout=PIPE, stderr=PIPE)
+    raw_size = str(size_command.stdout.read())
+    dimentions = raw_size[2:-3].split(" ")
 
-    return columns_number
+    request = dimentions[1]
+    if side == 'rows':
+        request = dimentions[0]
+
+    return int(request)
+
+
+
