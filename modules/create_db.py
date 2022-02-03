@@ -99,8 +99,8 @@ def create_db():
                 "active_instance INTEGER, " \
                 #Subtitle download URL
                 "downloadable_sub_url TEXT, " \
-                #Refresh screen flag
-                "refresh_screen INTEGER, " \
+                #dimention screen monitor status: running, exception, stopped, stop, refreshing
+                "dimention_status TEXT, " \
                 #Folder route
                 "folder_route TEXT, " \
                 #Selected video route
@@ -151,7 +151,7 @@ def create_db():
         cursor.execute("UPDATE settings SET active_instance = 0")
         cursor.execute("UPDATE settings SET downloadable_sub_url = ''")
         cursor.execute("UPDATE settings SET folder_route = '/sdcard/'")
-        cursor.execute("UPDATE settings SET refresh_screen = 0")
+        cursor.execute("UPDATE settings SET dimention_status = 'stopped'")
         cursor.execute("UPDATE settings SET selected_video_route = ''")
         cursor.execute("UPDATE settings SET selected_video_name = ''")
         cursor.execute("UPDATE settings SET menu = 'videos'")

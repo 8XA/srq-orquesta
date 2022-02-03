@@ -50,21 +50,24 @@ def read_settings(
             'data_backup_route': data_backup_route
             }
 
-    connection = connect(db_keys[db])
-    cursor = connection.cursor()
-    cursor.execute("SELECT " + column + " FROM settings")
 
-    #Gets a list of all the column names
-    column_names = [column_name[0] for column_name in cursor.description]
+    if Path(db_keys[db]).is_file():
 
-    #Reads the first row
-    values = cursor.fetchone()
-    connection.close()
+        connection = connect(db_keys[db])
+        cursor = connection.cursor()
+        cursor.execute("SELECT " + column + " FROM settings")
 
-    if column == '*':
-        return [column_names, values]
-    return values[0]
-    
+        #Gets a list of all the column names
+        column_names = [column_name[0] for column_name in cursor.description]
+
+        #Reads the first row
+        values = cursor.fetchone()
+        connection.close()
+
+        if column == '*':
+            return [column_names, values]
+        return values[0]
+        
 
 def edit_settings(
         column: str,
@@ -88,14 +91,15 @@ def edit_settings(
         """
 
     global data_route
-
     if Path(data_route).is_file():
-        connection = connect(data_route)
-        cursor = connection.cursor()
-        clean_new_value = new_value.replace("'","''")
-        cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")
-        connection.commit()
-        connection.close() 
+
+        if Path(data_route).is_file():
+            connection = connect(data_route)
+            cursor = connection.cursor()
+            clean_new_value = new_value.replace("'","''")
+            cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")
+            connection.commit()
+            connection.close() 
 
 
 def restore_settings():

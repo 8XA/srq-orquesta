@@ -43,6 +43,7 @@ def results():
         palabras = read_settings("sub_words").split(",")
 
         #Inicia animacion
+        edit_settings("dimention_status", "exception")
         edit_settings("run_animation", '0')
         ascii_thread = Thread(
                 target=ascii_animation,
@@ -62,6 +63,7 @@ def results():
             finished = read_settings("run_animation") + 1
             edit_settings("run_animation", str(finished))
         ascii_thread.join()
+        edit_settings("dimention_status", "running")
 
         #Agrega status
         for sub in hallados:
