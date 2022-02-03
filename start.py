@@ -1,20 +1,21 @@
 #!/bin/env python
 
-
 #try:
 from modules.create_db import create_db
 create_db()
 from modules.admin_db import read_settings, edit_settings, restore_settings
 restore_settings()
 
-refresh = read_settings("refresh_screen") == 1
+refreshed = read_settings("dimention_status") == "refreshing"
 
-if not refresh:
+if not refreshed:
     from modules.dependencies_verify import verify
     verify()
 
 import readline
+from time import sleep
 from os import system
+from threading import Thread
 from screens.update import update
 from screens.torrents import torrents
 from screens.videos import videos
@@ -29,8 +30,19 @@ from screens.onesession import one_session
 from modules.storage_verify import *
 from modules.columns_number import columns_number_func
 from modules.refresh_history import clean_history_tables
+from modules.dimentions_monitor import dimentions_monitor
 
 columns_num = columns_number_func()
+
+#Dimentions monitoring
+def dimentions_init():
+    dimentions_thread = Thread(
+            target=dimentions_monitor,
+            daemon=True
+        )
+    dimentions_thread.start()
+
+system("stty echo")
 
 if read_settings("active_instance") == 0:
     edit_settings("active_instance", "1")
@@ -49,25 +61,38 @@ if read_settings("active_instance") == 0:
         'update': update,
     }
 
-    execute = None
-    if not refresh: 
+    if not refreshed: 
         #This is a loop function. It verifies the access to the storage.
         storage_verify()
 
         #Update search
         if read_settings("auto_update") == 1:
-            execute = update()
+            update()
 
-    edit_settings("refresh_screen", "0") 
-
-    #This piece of code runs all the interaction screens
     if read_settings("clean_history") == 1:
         clean_history_tables()
-    if execute != 'exit_srq':
-        running = srq_orquesta['videos']()
-        while running != 'exit_srq':
-            readline.clear_history()
-            running = srq_orquesta[running]()
+    
+    first_screen = 'videos'
+    if refreshed:
+        first_screen = read_settings('menu')
+
+    #Starting the first screen
+    edit_settings("dimention_status", "stopped")
+    if first_screen not in ['update', 'help_section', 'download', 'about']:
+        edit_settings("dimention_status", "running")
+        dimentions_init()
+    running = srq_orquesta[first_screen]()
+
+    #This piece of code runs all the interaction screens
+    while running != 'exit_srq':
+        readline.clear_history()
+        while read_settings("dimention_status") != "stopped":
+            edit_settings("dimention_status", "stop")
+            sleep(0.1)
+        if running not in ['update', 'help_section', 'download', 'about']:
+            edit_settings("dimention_status", "running")
+            dimentions_init()
+        running = srq_orquesta[running]()
     edit_settings("active_instance", "0") 
 
 else:

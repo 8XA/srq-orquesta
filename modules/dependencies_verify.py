@@ -24,7 +24,8 @@ def verify():
             "p7zip",
             "readline",
             "file",
-            "libxslt" # tpblite dependency
+            "libxslt", # tpblite dependency
+            "ncurses-utils"
         ]
 
     #Gets the installed packages with apt

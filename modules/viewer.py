@@ -196,12 +196,12 @@ def viewer(*arg):
         #Scrollable
         long_win_manual = numlines - long_win_titulo
         #Solo si cabe la ventana manual:
+        i = None
         if long_win_manual > 2:
             win_manual = curses.newwin(long_win_manual, columns_number, long_win_titulo -1, 0)
 
             #Impresión de pantalla
             long_lineas = numlines - long_win_titulo -2
-            i = None
             #Con esta lista puedo controlar el string de ingreso.
             caracteres_i = []
             #Para un posible getch futuro:
@@ -266,6 +266,7 @@ def viewer(*arg):
         hoja = None
         screen.clear()
         curses.endwin()
+
         os.system("stty sane && clear")
 
         if i == 10:

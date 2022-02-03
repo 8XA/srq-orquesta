@@ -10,22 +10,19 @@ def columns_number_func(side:str='cols', clean_screen:bool=True):
 
     HOW TO USE:
         - call columns_number_func() with the parameters as follows:
-            side: 'rows' or 'cols'
+            side: 'lines' or 'cols'
             clean_screen: True or False
+
+    RETURNS:
+        'row' or 'cols': The integer value
+
     """
 
     if clean_screen:
         call("clear")
 
-    size_command = Popen(["stty","size"], stdout=PIPE, stderr=PIPE)
-    raw_size = str(size_command.stdout.read())
-    dimentions = raw_size[2:-3].split(" ")
+    side_command = Popen("tput " + side, shell=True, stderr=PIPE, stdout=PIPE)
+    raw_side = str(side_command.stdout.read())
+    side_size = int(raw_side[2:-3])
 
-    request = dimentions[1]
-    if side == 'rows':
-        request = dimentions[0]
-
-    return int(request)
-
-
-
+    return side_size

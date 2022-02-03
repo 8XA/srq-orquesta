@@ -188,7 +188,9 @@ def torrents():
                 edit_simple_list(table, i[1],'add')
             try:
                 #Search torrents and save it in database
+                edit_settings("dimention_status", "exception")
                 torrent_master(search)
+                edit_settings("dimention_status", "running")
                 system("clear")
 
             except:

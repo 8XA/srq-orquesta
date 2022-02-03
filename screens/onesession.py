@@ -1,12 +1,11 @@
 #!/bin/env python 
 
-from sys import executable, argv
-import sys #sys.stdout.flush
-from subprocess import call
+import sys
 from modules.columns_number import columns_number_func
 from modules.admin_db import edit_settings
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
 from termcolor import colored
+from os import system, execv
 from time import sleep
 
 def one_session():
@@ -36,6 +35,7 @@ def one_session():
         sleep(1.5)
 
         #Restart SRQ
+        system("stty echo")
         sys.stdout.flush()
-        call([executable, argv[0]])
+        execv(sys.argv[0], sys.argv)
 

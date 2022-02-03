@@ -10,17 +10,18 @@ read_simple_list, edit_simple_list
 from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
-from subprocess import Popen, PIPE, call
+from subprocess import Popen, PIPE
 from pathlib import Path
 from time import sleep
 from threading import Thread
 import sys
 from os import execv
 
-to_return = None
-
 def videos():
-    global to_return
+    global to_return, to_refresh
+
+    to_return = None
+    to_refresh = False
 
     #Cleaning the old remnants
     cleaning = Thread(
@@ -40,27 +41,30 @@ def videos():
     screen_thread.start()
     refresh_thread.start()
 
-    while screen_thread.is_alive() and refresh_thread.is_alive():
-        sleep(0.05)
+    while refresh_thread.is_alive() or screen_thread.is_alive() or cleaning.is_alive():#
+        if to_refresh:
+            #Restart SRQ
+            edit_settings("dimention_status", "refreshing") 
+            edit_settings("active_instance", "0") 
+            sys.stdout.flush()
+            execv(sys.argv[0], sys.argv)
 
-    if not screen_thread.is_alive():
-        return to_return
-
-    #Restart SRQ
-    edit_settings("refresh_screen", "1") 
-    edit_settings("active_instance", "0") 
-    sys.stdout.flush()
-    execv(sys.argv[0], sys.argv)
+        sleep(0.1)
+    
+    return to_return
 
 def refresh_videos():
+    global to_return, to_refresh
 
     videos_and_routes = videos_en_ruta()
     while videos_en_ruta() == videos_and_routes:
-        sleep(0.05)
+        if to_return != None:
+            break
+        sleep(0.1)
 
-    return None
-
-
+    if to_return == None:
+        to_refresh = True
+    
 def screen_and_options():
     global to_return
 
@@ -249,7 +253,7 @@ def screen_and_options():
                 else:
                     Popen("clear").wait()
                     print(phrase_fitting(numcols, "El video no existe..."))
-                    sleep(1.5)
+                    sleep(1)
 
             #Delete the marked videos
             else:
