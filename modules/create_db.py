@@ -130,7 +130,11 @@ def create_db():
                 #Filter for the video list
                 "videos_filter TEXT, " \
                 #Filter for the sub results
-                "subs_filter TEXT " \
+                "subs_filter TEXT, " \
+                #Current subs page number
+                "subs_page INTEGER, " \
+                #Current torrents page number
+                "torrents_page INTEGER" \
                 ")")
 
         #Default values for settings
@@ -166,6 +170,8 @@ def create_db():
         cursor.execute("UPDATE settings SET torrents_filter = ''")
         cursor.execute("UPDATE settings SET videos_filter = ''")
         cursor.execute("UPDATE settings SET subs_filter = ''")
+        cursor.execute("UPDATE settings SET subs_page = 1")
+        cursor.execute("UPDATE settings SET torrents_page = 1")
 
         ##################################################
 

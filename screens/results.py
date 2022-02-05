@@ -80,7 +80,7 @@ def results():
     edit_settings("menu","results")
 
     filtro = read_settings("subs_filter")
-    pagina = 1
+    pagina = read_settings("subs_page")
     while True:
         #Pantalla resultados
         numcols = columns_number_func()
@@ -239,6 +239,7 @@ def results():
 
         #Si es alguna pantalla del menu
         if i[0] == "menu":
+            edit_settings("subs_page", "1")
             return i[1]
 
         #Si es enter
@@ -263,6 +264,7 @@ def results():
             
             edit_scraped_list('subtitles', 'downloaded')
             edit_scraped_list('subtitles', id_=subs[int(i[1])][4], status=2)
+            edit_settings("subs_page", "1")
             return 'download'
 
         #Filtrado de palabras
@@ -271,3 +273,6 @@ def results():
             edit_settings("subs_filter", filtro)
             pagina = 1
             edit_simple_list('results_history', i[1], 'add')
+
+        edit_settings("subs_page", str(pagina))
+

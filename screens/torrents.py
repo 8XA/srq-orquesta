@@ -17,7 +17,7 @@ def torrents():
 
     title = "TORRENTS"
     rpp = read_settings("results_per_page")
-    page = 1
+    page = read_settings("torrents_page")
 
     while True:
         torrent_results = read_scraped_list('torrents')
@@ -161,6 +161,7 @@ def torrents():
                 downloadables_dict[read_settings('downloadable_ids')]]
 
         if i[0] == "menu":
+            edit_settings("torrents_page", "1")
             return i[1]
         elif i[1] == '':
             page += 1
@@ -199,8 +200,11 @@ def torrents():
             edit_scraped_list('torrents', 'downloaded')
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
             system("xdg-open '" + torrent_results_ids[int(i[1])][6] + "'")
+            edit_settings("torrents_page", "1")
             return 'videos'
         else:
             edit_simple_list('torrents_history', i[1],'add')
             edit_settings("torrents_filter", i[1])
             page = 1
+
+        edit_settings("torrents_page", str(page))
