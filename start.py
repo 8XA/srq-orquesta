@@ -9,6 +9,9 @@ restore_settings()
 refreshed = read_settings("dimention_status") == "refreshing"
 
 if not refreshed:
+    edit_settings("torrents_page", "1")
+    edit_settings("subs_page", "1")
+    
     from modules.dependencies_verify import verify
     verify()
 
@@ -27,12 +30,13 @@ from screens.help import help_section
 from screens.about import about
 from screens.download import download
 from screens.onesession import one_session
-from modules.storage_verify import *
+from modules.storage_verify import storage_verify
 from modules.columns_number import columns_number_func
 from modules.refresh_history import clean_history_tables
 from modules.dimentions_monitor import dimentions_monitor
 
 columns_num = columns_number_func()
+system("stty echo")
 
 #Dimentions monitoring
 def dimentions_init():
@@ -41,8 +45,6 @@ def dimentions_init():
             daemon=True
         )
     dimentions_thread.start()
-
-system("stty echo")
 
 if read_settings("active_instance") == 0:
     edit_settings("active_instance", "1")
