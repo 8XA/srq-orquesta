@@ -85,6 +85,8 @@ def viewer(*arg):
         curses.start_color()
         #Demanda Enter
         #curses.nocbreak()
+        #Entrada de texto invisible
+        curses.noecho()
 
         #Dimensiones de pantalla
         numlines = screen.getmaxyx()[0]
@@ -196,6 +198,7 @@ def viewer(*arg):
         #Scrollable
         long_win_manual = numlines - long_win_titulo
         #Solo si cabe la ventana manual:
+        curses.flushinp()
         i = None
         if long_win_manual > 2:
             win_manual = curses.newwin(long_win_manual, columns_number, long_win_titulo -1, 0)
