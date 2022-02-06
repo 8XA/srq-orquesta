@@ -189,6 +189,7 @@ def ascii_animation(message, scraper_num):
             sleep(0.1)
 
         screen.clear()
+        curses.flushinp()
         curses.endwin()
         system("stty sane && clear")
     edit_settings("run_animation", "0")
