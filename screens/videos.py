@@ -49,7 +49,7 @@ def videos():
             sys.stdout.flush()
             execv(sys.argv[0], sys.argv)
 
-        sleep(0.1)
+        sleep(0.01)
     
     return to_return
 
@@ -60,10 +60,11 @@ def refresh_videos():
     while videos_en_ruta() == videos_and_routes:
         if to_return != None:
             break
-        sleep(0.1)
+        sleep(0.01)
 
     if to_return == None:
         to_refresh = True
+    return None
     
 def screen_and_options():
     global to_return
@@ -253,7 +254,7 @@ def screen_and_options():
                 else:
                     Popen("clear").wait()
                     print(phrase_fitting(numcols, "El video no existe..."))
-                    sleep(1)
+                    sleep(0.05)
 
             #Delete the marked videos
             else:
