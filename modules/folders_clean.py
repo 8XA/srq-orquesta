@@ -24,6 +24,7 @@ def subs_and_folders_deletion():
                 deletion = Popen(["rm", "-f", sub], stderr=PIPE, stdout=PIPE)
             if files_number(files_route, all_files=True) == 1:
                 deletion = Popen(["rm", "-rf", files_route], stderr=PIPE, stdout=PIPE)
+    return None
 
 
 def files_number(files_route:str, files_name:str=None, all_files:bool=False):
