@@ -1,4 +1,8 @@
 
+:Wc:Versión 0.3.3
+
+:ff:- Fix: Visor de documentos (A<g>Y<g>uda y Ac<g>E<g>rca de) no parpadea al cambiar sus dimensiones.
+:ff:- Fix: Animaciones ASCII bloquean la entrada de comandos cuando están en ejecución.
 :ff:- Feat: Pantalla se reorganiza en automatico al cambiar dimensiones.
 :ff:- Feat: Pantalla 'Videos' refresca en automático cuando hay un nuevo video.
 :ff:- Feat: Limpieza de subtítulos huérfanos y carpetas vacías.
