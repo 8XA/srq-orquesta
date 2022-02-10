@@ -29,9 +29,6 @@ def refresh_videos():
     
 def videos():
 
-    refresh_history('videos_history')
-    numcols = columns_number_func()
-
     #Parallel processes
     cleaning = Process(
             target=subs_and_folders_deletion
@@ -41,8 +38,11 @@ def videos():
             target=refresh_videos
             #daemon=True
         )
-    cleaning.start()
     refresh_process.start()
+    cleaning.start()
+
+    refresh_history('videos_history')
+    numcols = columns_number_func()
 
     titulo = "<- SRQ ORQUESTA ->"
 
