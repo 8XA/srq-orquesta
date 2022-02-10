@@ -32,14 +32,14 @@ def videos():
     refresh_history('videos_history')
     numcols = columns_number_func()
 
-    #Daemons definition
+    #Parallel processes
     cleaning = Process(
-            target=subs_and_folders_deletion,
-            daemon=True
+            target=subs_and_folders_deletion
+            #daemon=True
         )
     refresh_process = Process(
-            target=refresh_videos,
-            daemon=True
+            target=refresh_videos
+            #daemon=True
         )
     cleaning.start()
     refresh_process.start()
