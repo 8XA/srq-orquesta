@@ -13,64 +13,37 @@ from modules.strings_fitting import phrase_fitting, \
 from subprocess import Popen, PIPE
 from pathlib import Path
 from time import sleep
-from threading import Thread
+from multiprocessing import Process
 import sys
 from os import execv
 
-def videos():
-    global to_return, to_refresh
-
-    to_return = None
-    to_refresh = False
-
-    #Cleaning the old remnants
-    cleaning = Thread(
-            target=subs_and_folders_deletion,
-            daemon=True
-        )
-    screen_thread = Thread(
-        target=screen_and_options,
-        daemon=True
-        )
-    refresh_thread = Thread(
-        target=refresh_videos,
-        daemon=True
-        )
-    
-    cleaning.start()
-    screen_thread.start()
-    refresh_thread.start()
-
-    while refresh_thread.is_alive() or screen_thread.is_alive() or cleaning.is_alive():#
-        if to_refresh:
-            #Restart SRQ
-            edit_settings("dimention_status", "refreshing") 
-            edit_settings("active_instance", "0") 
-            sys.stdout.flush()
-            execv(sys.argv[0], sys.argv)
-
-        sleep(0.01)
-    
-    return to_return
 
 def refresh_videos():
-    global to_return, to_refresh
 
     videos_and_routes = videos_en_ruta()
     while videos_en_ruta() == videos_and_routes:
-        if to_return != None:
-            break
         sleep(0.01)
 
-    if to_return == None:
-        to_refresh = True
-    return None
+    #Restart SRQ
+    edit_settings("dimention_status", "refresh") 
     
-def screen_and_options():
-    global to_return
+def videos():
 
     refresh_history('videos_history')
     numcols = columns_number_func()
+
+    #Daemons definition
+    cleaning = Process(
+            target=subs_and_folders_deletion,
+            daemon=True
+        )
+    refresh_process = Process(
+            target=refresh_videos,
+            daemon=True
+        )
+    cleaning.start()
+    refresh_process.start()
+
     titulo = "<- SRQ ORQUESTA ->"
 
     rutas_y_videos = videos_en_ruta()
@@ -166,15 +139,15 @@ def screen_and_options():
     print(linea_roja)
 
     i = menu(numcols, "Filtra o selecciona un video")
+    cleaning.kill()
+    refresh_process.kill()
 
     if i[0] == "menu":
-        to_return = i[1]
-        return None
+        return i[1]
 
     #Sends you to 'Palabras'
     elif (marca_en_pantalla) and ((i[1] == "")):
-        to_return = 'words'
-        return None
+        return 'words'
 
     #Clean the video marks
     elif i[1].lower() == 'clean':
@@ -266,6 +239,5 @@ def screen_and_options():
         edit_simple_list('videos_history', i[1], 'add')
         edit_settings("videos_filter", i[1].lower())
 
-    to_return = 'videos'
-    return None
+    return 'videos'
 

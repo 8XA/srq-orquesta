@@ -5,6 +5,8 @@ from modules.create_db import create_db
 create_db()
 from modules.admin_db import read_settings, edit_settings, restore_settings
 restore_settings()
+from multiprocessing import current_process
+from subprocess import Popen, PIPE
 
 refreshed = read_settings("dimention_status") == "refreshing"
 
@@ -14,6 +16,17 @@ if not refreshed:
     
     from modules.dependencies_verify import verify
     verify()
+else:
+    #Delete the old processes
+    pid = str(current_process().pid)
+
+    pids_command = Popen(["pidof","python"], stdout=PIPE, stderr=PIPE)
+    raw_pids = str(pids_command.stdout.read())
+    cleaned_raw_pids = raw_pids[2:-3]
+    pids_list = cleaned_raw_pids.split(" ")
+    pids_list.remove(pid)
+    
+    Popen(["kill", "-9"] + pids_list, stdout=PIPE, stderr=PIPE).wait()
 
 import readline
 from time import sleep
@@ -39,12 +52,12 @@ columns_num = columns_number_func()
 system("stty echo")
 
 #Dimentions monitoring
-def dimentions_init():
-    dimentions_thread = Thread(
-            target=dimentions_monitor,
-            daemon=True
-        )
-    dimentions_thread.start()
+edit_settings("dimention_status", "running")
+dimentions_thread = Thread(
+        target=dimentions_monitor,
+        daemon=True
+    )
+dimentions_thread.start()
 
 if read_settings("active_instance") == 0:
     edit_settings("active_instance", "1")
@@ -79,21 +92,11 @@ if read_settings("active_instance") == 0:
         first_screen = read_settings('menu')
 
     #Starting the first screen
-    edit_settings("dimention_status", "stopped")
-    if first_screen not in ['update', 'help_section', 'download', 'about']:
-        edit_settings("dimention_status", "running")
-        dimentions_init()
     running = srq_orquesta[first_screen]()
 
     #This piece of code runs all the interaction screens
     while running != 'exit_srq':
         readline.clear_history()
-        while read_settings("dimention_status") != "stopped":
-            edit_settings("dimention_status", "stop")
-            sleep(0.1)
-        if running not in ['update', 'help_section', 'download', 'about']:
-            edit_settings("dimention_status", "running")
-            dimentions_init()
         running = srq_orquesta[running]()
     edit_settings("active_instance", "0") 
 

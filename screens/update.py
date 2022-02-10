@@ -30,6 +30,9 @@ def update():
 
         # If the download was successful, it executes the update
         if clonar == 0:
+            while read_settings('dimention_status') != 'stopped':
+                edit_settings("dimention_status", "stop")
+                sleep(0.5)
             Popen(["cp", absolute_route + "data.db", data_backup_route], stdout=PIPE, stderr=PIPE).wait()
             Popen(["rm", "-rf", absolute_route[:-1]], stdout=PIPE, stderr=PIPE).wait()
             Popen(["mv", updates_route, absolute_route[:-1]], stdout=PIPE, stderr=PIPE).wait()
