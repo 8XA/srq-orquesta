@@ -27,7 +27,21 @@ def menu(*args):
         'S': 'exit_srq'
     }
 
-    print(((numcols - 4)//2) *  " " + "MENÚ")
+    #Avaliable space
+    df_command = Popen(["df","-h"], stdout=PIPE, stderr=PIPE)
+    raw_stdout = str(df_command.stdout.read())
+    str_stdout = raw_stdout[2:-3]
+    str_list = str_stdout.split("\\n")
+
+    avaliable = ""
+    for row in str_list:
+        clean_list = [value for value in row.split(" ") if value != ""]
+        if clean_list[0] == '/data/media':
+            avaliable = clean_list[3]
+
+    spaces_number = (numcols - 4)//2
+    spaces_number2 = numcols - spaces_number - 5 - len(avaliable) 
+    print(spaces_number *  " " + "MENÚ" + spaces_number2 * " " + avaliable)
     print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
 
     #Marcado de palabra
