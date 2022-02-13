@@ -16,7 +16,8 @@ def archivos_en_ruta(extensions:str, route:str):
 
     for ext in extensiones:
         ext_files = Popen(command + ["*." + ext], stdout=PIPE, stderr=PIPE)
-        archivos += str(ext_files.stdout.read()).split("\\n")
+        output, errors = ext_files.communicate()
+        archivos += output.decode('utf-8').splitlines()
     archivos = [archivo for archivo in archivos if archivo != ""]
     
     #Lista depurada con los nombres de los archivos
