@@ -188,7 +188,7 @@ def videos():
     elif i[1].lower() == 'clean':
         edit_simple_list('played_videos')
 
-    #Mark a video
+    #Mark the selected video
     elif i[1].lower() == 'm':
         selected_video = read_settings('selected_video_route') + \
                 read_settings('selected_video_name')
@@ -197,6 +197,16 @@ def videos():
             edit_simple_list('played_videos', selected_video)
         else:
             edit_simple_list('played_videos', selected_video, 'add')
+
+    #Mark a video
+    elif i[1][-1].lower() == 'm' and i[1][:-1].isdigit():
+        video_name = videos[int(i[1][:-1])][:videos[int(i[1][:-1])].rindex("_")]
+        route_name = rutas[videos[int(i[1][:-1])]]
+
+        if route_name + video_name in played_videos:
+            edit_simple_list('played_videos', route_name + video_name)
+        else:
+            edit_simple_list('played_videos', route_name + video_name, 'add')
 
     #Choose a video
     elif (
@@ -211,15 +221,35 @@ def videos():
         edit_settings("sub_words", "")
         edit_settings("selected_video_route", rutas[videos[int(i[1])]])
 
+    #Play a video
+    elif (
+        #Las character is a 'p'
+        i[1][-1].lower() == 'p' and \
+
+        #It is a number value 
+        i[1][:-1].isdigit() and \
+
+        #It is in a valid range
+        (int(i[1][:-1]) < len(videos))):
+        video_name = videos[int(i[1][:-1])][:videos[int(i[1][:-1])].rindex("_")]
+        route_name = rutas[videos[int(i[1][:-1])]]
+        edit_settings("sub_search_changed", "1")
+        edit_settings("selected_video_name", video_name)
+        edit_settings("selected_video_route", route_name)
+        edit_settings("sub_words", "")
+        edit_simple_list('played_videos', route_name + video_name, 'add')
+
+        Popen(["xdg-open", route_name + video_name], stdout=PIPE, stderr=PIPE).wait()
+
     #Videos deletion
     elif any([
         i[1].lower() == 'd',
         i[1].lower() == 'dm',
 
         len(i[1]) > 1 and \
-        i[1][0].lower() == 'd' and \
-        i[1][1:].isdigit() and \
-        int(i[1][1:]) < len(videos)
+        i[1][-1].lower() == 'd' and \
+        i[1][:-1].isdigit() and \
+        int(i[1][:-1]) < len(videos)
         ]):
 
         if i[1].lower() == 'd':
@@ -227,7 +257,7 @@ def videos():
         elif i[1].lower() == 'dm':
             str_deletion = "los videos filtrados marcados"
         else:
-            str_deletion = "el video '" + videos[int(i[1][1:])][:videos[int(i[1][1:])].rindex("_")] + "'"
+            str_deletion = "el video '" + videos[int(i[1][:-1])][:videos[int(i[1][:-1])].rindex("_")] + "'"
 
         message = phrase_fitting(numcols, "Está a punto de eliminar " + str_deletion + ". Esta acción requiere confirmación.")
         enter = colored("Enter", 'green', attrs=['bold', 'dark'])
@@ -253,8 +283,8 @@ def videos():
                 to_delete = read_settings("selected_video_route") + read_settings("selected_video_name")
                 if i[1].lower() != 'd':
                     #Delete a numbered video
-                    to_delete = rutas[videos[int(i[1][1:])]] + \
-                            videos[int(i[1][1:])][:videos[int(i[1][1:])].rindex("_")]
+                    to_delete = rutas[videos[int(i[1][:-1])]] + \
+                            videos[int(i[1][:-1])][:videos[int(i[1][:-1])].rindex("_")]
                 to_delete = to_delete.replace("\\'", "'")
 
                 if Path(to_delete).is_file():

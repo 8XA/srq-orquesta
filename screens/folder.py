@@ -78,7 +78,7 @@ def folder():
 
         print(numcols * "-")
         print(colored("nc", 'green', attrs=['bold', 'dark']) + ": Nueva Carpeta")
-        print(colored("d#", 'green', attrs=['bold', 'dark']) + ": Eliminar Carpeta")
+        print(colored("#d", 'green', attrs=['bold', 'dark']) + ": Eliminar Carpeta")
         print(linea_amarilla)
 
         #Ruta actual en franja roja
@@ -106,9 +106,9 @@ def folder():
                     edit_settings("folder_route", ruta)
                 return 'videos'
 
-            elif (i[1][0].lower() == 'd') and (i[1][1:].isdigit()) and (len(carpetas) > int(i[1][1:])):
+            elif (i[1][-1].lower() == 'd') and (i[1][:-1].isdigit()) and (len(carpetas) > int(i[1][:-1])):
                 
-                folder = carpetas[int(i[1][1:])]
+                folder = carpetas[int(i[1][:-1])]
                 message = phrase_fitting(numcols, "Está a punto de eliminar la carpeta '" + folder + "', así como su contenido. Esta acción requiere confirmación.")
                 enter = colored("Enter", 'green', attrs=['bold', 'dark'])
                 cancel = colored("C", 'green', attrs=['bold', 'dark'])
