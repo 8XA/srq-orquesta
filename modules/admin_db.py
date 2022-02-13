@@ -53,7 +53,7 @@ def read_settings(
 
     if Path(db_keys[db]).is_file():
 
-        connection = connect(db_keys[db])
+        connection = connect(db_keys[db], timeout=10)
         cursor = connection.cursor()
         cursor.execute("SELECT " + column + " FROM settings")
 
@@ -94,7 +94,7 @@ def edit_settings(
     if Path(data_route).is_file():
 
         if Path(data_route).is_file():
-            connection = connect(data_route)
+            connection = connect(data_route, timeout=10)
             cursor = connection.cursor()
             clean_new_value = new_value.replace("'","''")
             cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")

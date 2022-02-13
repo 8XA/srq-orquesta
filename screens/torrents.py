@@ -199,6 +199,7 @@ def torrents():
         elif i[1].isdigit() and int(i[1]) in downloadable_ids:
             edit_scraped_list('torrents', 'downloaded')
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
+            edit_settings("select_refreshed_video", "1")
             system("xdg-open '" + torrent_results_ids[int(i[1])][6] + "'")
             edit_settings("torrents_page", "1")
             return 'videos'

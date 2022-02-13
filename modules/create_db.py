@@ -134,7 +134,9 @@ def create_db():
                 #Current subs page number
                 "subs_page INTEGER, " \
                 #Current torrents page number
-                "torrents_page INTEGER" \
+                "torrents_page INTEGER, " \
+                #Select the next refreshed video indicator (0 or 1)
+                "select_refreshed_video INTEGER" \
                 ")")
 
         #Default values for settings
@@ -172,6 +174,7 @@ def create_db():
         cursor.execute("UPDATE settings SET subs_filter = ''")
         cursor.execute("UPDATE settings SET subs_page = 1")
         cursor.execute("UPDATE settings SET torrents_page = 1")
+        cursor.execute("UPDATE settings SET select_refreshed_video = 0")
 
         ##################################################
 
