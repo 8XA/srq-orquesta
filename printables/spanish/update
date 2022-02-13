@@ -1,6 +1,11 @@
 
 :Wc:Versión 0.3.3
 
+:ff:- Refactor: Elimina videos o carpetas no seleccionados con '<g>#d<g>'.
+:ff:- Feat: Reproduce videos no seleccionados con '<g>#p<g>'.
+:ff:- Feat: Marca videos no seleccionados con '<g>#m<g>'.
+:ff:- Feat: Autoselección de video cuando este aparece tras descargar un Torrent.
+:ff:- Feat: Espacio disponible en memoria interna visible en el MENÚ.
 :ff:- Fix: Visor de documentos (A<g>Y<g>uda y Ac<g>E<g>rca de) no parpadea al cambiar sus dimensiones.
 :ff:- Fix: Animaciones ASCII bloquean la entrada de comandos cuando están en ejecución.
 :ff:- Feat: Pantalla se reorganiza en automatico al cambiar dimensiones.
