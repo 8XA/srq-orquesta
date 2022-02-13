@@ -33,11 +33,13 @@ def folder():
         #List folders
         bash_route = ruta.replace("'", "\'")
         raw_content = Popen(["ls", "-L", bash_route], stdout=PIPE, stderr=PIPE)
-        dirty_folders = str(raw_content.stdout.read())[2:-1].split('\\n')
+        output, errors = raw_content.communicate()
+        dirty_folders = output.decode('utf-8').splitlines()
 
         carpetas = [folder for folder in dirty_folders if \
                 (Path(ruta + "/" + folder).is_dir() and folder != "")]
         carpetas = sorted(carpetas, key=str.casefold)
+
 
         #Printing title
         titulo = "SELECCIÓN DE CARPETA"
