@@ -21,7 +21,11 @@
 
 :ff:  - '<g>P<g>'/'<g>p<g>': Reproduce el video seleccionado.
 
+:ff:  - '<g>#P<g>'/'<g>#p<g>': Selecciona y reproduce el video cuyo ID corresponde al número ingresado. Por ejemplo: Ingresar '<g>0p<g>' seleccionará y reproducirá el video '<g>0<g>'.
+
 :ff:  - '<g>M<g>'/'<g>m<g>': <a>Marca<a> o desmarca el video seleccionado como reproducido.
+
+:ff:  - '<g>#M<g>'/'<g>#m<g>': <a>Marca<a> o desmarca el video cuyo ID corresponde al número ingresado. Por ejemplo: Ingresar '<g>0m<g>' <a>marcará<a> el video '<g>0<g>' aunque no se encuentre seleccionado.
 
 :ff:  - '<g>clean<g>': Desmarca todos los videos reproducidos.
 
@@ -29,7 +33,7 @@
 
 :ff:  - '<g>DM<g>'/'<g>dm<g>': Elimina los videos <R>filtrados<R> que hayan sido <a>marcados<a>.
 
-:ff:  - '<g>D#<g>'/'<g>d#<g>': Elimina el video cuyo ID sea el ingresado enseguida del comando '<g>d<g>'. Por ejemplo: '<g>d0<g>' eliminará el video con ID '<g>0<g>'.
+:ff:  - '<g>#D<g>'/'<g>#d<g>': Elimina el video cuyo ID sea el ingresado previo al comando '<g>d<g>'. Por ejemplo: '<g>0d<g>' eliminará el video con ID '<g>0<g>'.
 
 :la:
 
