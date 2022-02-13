@@ -21,8 +21,43 @@ from os import execv
 def refresh_videos():
 
     videos_and_routes = videos_en_ruta()
-    while videos_en_ruta() == videos_and_routes:
+    updated_videos = videos_en_ruta()
+    while videos_and_routes == updated_videos:
+        updated_videos = videos_en_ruta()
         sleep(0.01)
+
+    #Changing the selected video
+    if len(updated_videos[1]) > len(videos_and_routes[1]) and \
+            read_settings("select_refreshed_video") == 1:
+
+        edit_settings("select_refreshed_video", "0") 
+        edit_settings("sub_search_changed", "1")
+        edit_settings("sub_words", "")
+
+        full_routes = [videos_and_routes[0][indx] + \
+                videos_and_routes[1][indx] for indx in range(len(videos_and_routes[1]))]
+
+        new_videos = [[updated_videos[0][indx], updated_videos[1][indx]] for indx in \
+                range(len(updated_videos[1])) if updated_videos[0][indx] + \
+                updated_videos[1][indx] not in full_routes]
+
+        #Select the video
+        v_dict = {}
+        for indx in range(len(new_videos)):
+            v_dict[new_videos[indx][1] + "_" + str(indx)] = new_videos[indx][0]
+        ordered = sorted([video for video in v_dict], key=str.casefold)
+        
+        video = ordered[0][:ordered[0].rindex("_")] 
+        route = v_dict[ordered[0]]
+
+        edit_settings("selected_video_name", video)
+        edit_settings("selected_video_route", route)
+
+        filters = [vfilter for vfilter in read_settings("videos_filter").split(',') if vfilter != '']
+        valid_filters = [vfilter for vfilter in filters if vfilter.lower() in video.lower()]
+
+        if len(valid_filters) != len(filters):
+            edit_settings("videos_filter", "")
 
     #Restart SRQ
     edit_settings("dimention_status", "refresh") 
