@@ -26,7 +26,7 @@ def results():
     Popen("clear")
 
     #Recuperar scrapers a utilizar
-    scrapers = read_settings("sub_getters").split(",")
+    scrapers = [scraper for scraper in ['subdivx','opensubtitles'] if scraper in read_settings("sub_getters")]
 
     #Evita buscar 2 veces seguidas lo mismo
     if (read_settings("sub_search_changed") == 1) and \
@@ -47,7 +47,7 @@ def results():
         edit_settings("run_animation", '0')
         ascii_thread = Thread(
                 target=ascii_animation,
-                args=('Buscando subtítulos...', 2),
+                args=('Buscando subtítulos...', len(scrapers)),
             )
         ascii_thread.start()
 
