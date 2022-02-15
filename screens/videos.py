@@ -15,12 +15,11 @@ from pathlib import Path
 from time import sleep
 from multiprocessing import Process
 import sys
-from os import execv
 
 
-def refresh_videos():
+def refresh_videos(videos_list):
 
-    videos_and_routes = videos_en_ruta()
+    videos_and_routes = videos_list
     updated_videos = videos_en_ruta()
     while videos_and_routes == updated_videos:
         updated_videos = videos_en_ruta()
@@ -63,6 +62,7 @@ def refresh_videos():
     edit_settings("dimention_status", "refresh") 
     
 def videos():
+    rutas_y_videos = videos_en_ruta()
 
     #Parallel processes
     cleaning = Process(
@@ -70,7 +70,8 @@ def videos():
             #daemon=True
         )
     refresh_process = Process(
-            target=refresh_videos
+            target=refresh_videos,
+            args=[rutas_y_videos]
             #daemon=True
         )
     refresh_process.start()
@@ -80,8 +81,6 @@ def videos():
     numcols = columns_number_func()
 
     titulo = "<- SRQ ORQUESTA ->"
-
-    rutas_y_videos = videos_en_ruta()
 
     filtro = " ".join(read_settings("videos_filter").split(",")).split(" ")
     while '' in filtro:
