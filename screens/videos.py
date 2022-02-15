@@ -184,6 +184,9 @@ def videos():
     elif (marca_en_pantalla) and ((i[1] == "")):
         return 'words'
 
+    elif i[1] == "":
+        return 'videos'
+
     #Clean the video marks
     elif i[1].lower() == 'clean':
         edit_simple_list('played_videos')
