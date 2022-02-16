@@ -8,6 +8,7 @@ from modules.files_from_route import videos_en_ruta
 from modules.admin_db import read_settings, edit_settings, \
 read_simple_list, edit_simple_list
 from modules.menu import menu
+from modules.is_filtered import is_filtered, ordered_filters
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
 from subprocess import Popen, PIPE
@@ -55,20 +56,8 @@ def refresh_videos(videos_list):
                 edit_settings("selected_video_name", video)
                 edit_settings("selected_video_route", route)
 
-                filters = [vfilter for vfilter in " ".join(read_settings("videos_filter").split(",")).split(" ") \
-                        if vfilter != '']
-                plus_filter = []
-                minus_filter = []
-
-                for filter_ in filters:
-                    if len(filter_) > 1 and filter_[0] == '-':
-                        minus_filter.append(filter_)
-                    else:
-                        plus_filter.append(filter_)
-
-                if not (len([filter_ for filter_ in plus_filter if filter_.lower() in \
-                        video.lower()]) == len(plus_filter) and len([filter_ for filter_ in \
-                        minus_filter if filter_[1:].lower() in video.lower()]) == 0):
+                plus_filter, minus_filter = ordered_filters(read_settings("videos_filter"))
+                if not is_filtered(video, plus_filter, minus_filter):
                     edit_settings("videos_filter", "")
 
             #Restart SRQ
@@ -98,17 +87,7 @@ def videos():
     numcols = columns_number_func()
 
     titulo = "<- SRQ ORQUESTA ->"
-
-    filters = " ".join(read_settings("videos_filter").split(",")).split(" ")
-    plus_filter = []
-    minus_filter = []
-
-    for filter_ in filters:
-        if filter_ != '':
-            if len(filter_) > 1 and filter_[0] == '-':
-                minus_filter.append(filter_)
-            else:
-                plus_filter.append(filter_)
+    plus_filter, minus_filter = ordered_filters(read_settings("videos_filter"))
 
     # Ordered videos and their routes
     videos = rutas_y_videos[1]
@@ -140,10 +119,7 @@ def videos():
     filtered = False
     for x in range(len(videos)):
         #Aplica filtro
-        if len([palabra for palabra in plus_filter if palabra.lower() in \
-                videos[x][:videos[x].rindex("_")].lower()]) == len(plus_filter) and \
-                len([palabra for palabra in minus_filter if palabra[1:].lower() in \
-                videos[x][:videos[x].rindex("_")].lower()]) == 0:
+        if is_filtered(videos[x][:videos[x].rindex("_")], plus_filter, minus_filter):
 
             print(numcols * "-")
             filtered = True

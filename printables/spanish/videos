@@ -47,7 +47,7 @@
 
 :ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de la subsección 'Elige un video'.
 
-:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán los videos que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellos que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>mp4 -webrip<g>', filtrará todos los videos 'mp4' con excepción de aquellos que contengan 'webrip' en su nommbre. Mientras que '<g>mp4 webrip<g>' filtrará solo aquellos que contengan ambos filtros en su nombre.
+:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán los videos que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellos que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>mp4 -webrip<g>', filtrará los videos 'mp4' con excepción de aquellos que contengan 'webrip' en su nommbre. Mientras que '<g>mp4 webrip<g>' filtrará solo aquellos que contengan ambos filtros en su nombre. Los filtros no distinguen mayúsculas/minúsculas.
 
 :ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 

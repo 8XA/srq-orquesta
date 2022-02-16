@@ -9,6 +9,7 @@ from pathlib import Path
 from subprocess import Popen, PIPE
 from termcolor import colored
 from modules.admin_db import *
+from modules.is_filtered import is_filtered, ordered_filters
 from modules.refresh_history import refresh_history
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
@@ -79,9 +80,10 @@ def results():
     edit_settings("previous_menu", str(read_settings("menu")))
     edit_settings("menu","results")
 
-    filtro = read_settings("subs_filter")
     pagina = read_settings("subs_page")
     while True:
+        plus_filter, minus_filter = ordered_filters(read_settings("subs_filter"))
+
         #Pantalla resultados
         numcols = columns_number_func()
 
@@ -92,13 +94,7 @@ def results():
         linea_amarilla = colored(numcols*"=", 'yellow', attrs=['bold', 'dark'])
 
         #Subs filtrados
-        lista_filtro_str = " ".join(filtro.split(","))
-        lista_filtro = lista_filtro_str.split(" ")
-        while '' in lista_filtro:
-            lista_filtro.remove('')
-        subs_filtrados = [sub for sub in subs if len([palabra_filtro \
-                for palabra_filtro in lista_filtro if palabra_filtro.lower() \
-                in sub[0].lower() + sub[1].lower() + sub[2].lower()]) == len(lista_filtro)]
+        subs_filtrados = [sub for sub in subs if is_filtered(sub[0] + sub[1] + sub[2], plus_filter, minus_filter)]
         subs_filtrados = [subs_filtrados[x]+[x] for x in range(len(subs_filtrados))]
 
         #Total de paginas
@@ -221,8 +217,8 @@ def results():
         print(linea_roja_)
         print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
         colored_filters = colored_centered_filter(numcols, \
-                " ".join(lista_filtro))
-        if len(lista_filtro) > 0:
+                " ".join(plus_filter + minus_filter))
+        if len(plus_filter + minus_filter) > 0:
             print(colored_filters)
         print(linea_roja)
 
