@@ -65,6 +65,13 @@ def menu(*args):
 
     avaliable = current_space()
 
+    number = ''.join([digit for digit in avaliable if digit.isdigit() or digit == '.'])
+    unit = avaliable[len(number):]
+    avaliable_printable = ''
+    if len(avaliable) > 1 and avaliable[-1] in ['G','M','K']:
+        avaliable_printable = ' ' + number + " " + unit + 'iB '
+    colored_avaliable = colored(avaliable_printable, 'white', 'on_red', attrs=['bold'])
+
     update_space = Process(
             target=space_monitor,
             args=[avaliable],
@@ -73,10 +80,9 @@ def menu(*args):
     #Feature ready to be activated when the configuration has their support
     #Uncoment teir killing command too
     #update_space.start()
-
     spaces_number = (numcols - 4)//2
-    spaces_number2 = numcols - spaces_number - 5 - len(avaliable) 
-    print(spaces_number *  " " + "MENÚ" + spaces_number2 * " " + avaliable)
+    spaces_number2 = numcols - spaces_number - 4 - len(avaliable_printable) 
+    print(spaces_number *  " " + "MENÚ" + spaces_number2 * " " + colored_avaliable)
     print(colored(numcols*"=", 'blue', attrs=['bold', 'dark']))
 
     #Marcado de palabra
