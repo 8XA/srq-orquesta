@@ -55,10 +55,20 @@ def refresh_videos(videos_list):
                 edit_settings("selected_video_name", video)
                 edit_settings("selected_video_route", route)
 
-                filters = [vfilter for vfilter in read_settings("videos_filter").split(',') if vfilter != '']
-                valid_filters = [vfilter for vfilter in filters if vfilter.lower() in video.lower()]
+                filters = [vfilter for vfilter in " ".join(read_settings("videos_filter").split(",")).split(" ") \
+                        if vfilter != '']
+                plus_filter = []
+                minus_filter = []
 
-                if len(valid_filters) != len(filters):
+                for filter_ in filters:
+                    if len(filter_) > 1 and filter_[0] == '-':
+                        minus_filter.append(filter_)
+                    else:
+                        plus_filter.append(filter_)
+
+                if not (len([filter_ for filter_ in plus_filter if filter_.lower() in \
+                        video.lower()]) == len(plus_filter) and len([filter_ for filter_ in \
+                        minus_filter if filter_[1:].lower() in video.lower()]) == 0):
                     edit_settings("videos_filter", "")
 
             #Restart SRQ
@@ -89,9 +99,16 @@ def videos():
 
     titulo = "<- SRQ ORQUESTA ->"
 
-    filtro = " ".join(read_settings("videos_filter").split(",")).split(" ")
-    while '' in filtro:
-        filtro.remove('')
+    filters = " ".join(read_settings("videos_filter").split(",")).split(" ")
+    plus_filter = []
+    minus_filter = []
+
+    for filter_ in filters:
+        if filter_ != '':
+            if len(filter_) > 1 and filter_[0] == '-':
+                minus_filter.append(filter_)
+            else:
+                plus_filter.append(filter_)
 
     # Ordered videos and their routes
     videos = rutas_y_videos[1]
@@ -123,8 +140,10 @@ def videos():
     filtered = False
     for x in range(len(videos)):
         #Aplica filtro
-        if len([palabra for palabra in filtro if palabra \
-                in videos[x][:videos[x].rindex("_")].lower()]) == len(filtro):
+        if len([palabra for palabra in plus_filter if palabra.lower() in \
+                videos[x][:videos[x].rindex("_")].lower()]) == len(plus_filter) and \
+                len([palabra for palabra in minus_filter if palabra[1:].lower() in \
+                videos[x][:videos[x].rindex("_")].lower()]) == 0:
 
             print(numcols * "-")
             filtered = True
@@ -155,7 +174,7 @@ def videos():
 
     if not filtered:
         prueba = "otra carpeta..."
-        if len(filtro) > 0:
+        if len(plus_filter + minus_filter) > 0:
             prueba = "otro filtro..."
 
         msj = "Nada para mostrar. Prueba con " + prueba
@@ -172,9 +191,9 @@ def videos():
     print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
 
     colored_filters = colored_centered_filter(numcols, \
-            "  ".join(filtro))
+            "  ".join(plus_filter + minus_filter))
     
-    if len(filtro) > 0:
+    if len(plus_filter + minus_filter) > 0:
         print(colored_filters)
 
     print(linea_roja)
