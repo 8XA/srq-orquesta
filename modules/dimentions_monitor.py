@@ -15,19 +15,22 @@ def dimentions_monitor():
     status = read_settings("dimention_status")
     while status != 'stopped':
 
-        if read_settings("dimention_status") == "stop":
-            edit_settings("dimention_status", "stopped")
-            status = 'stopped'
+        try:
+            if read_settings("dimention_status") == "stop":
+                edit_settings("dimention_status", "stopped")
+                status = 'stopped'
 
-        elif (read_settings("dimention_status") == "running" and \
-                current_size != columns_number_func(clean_screen=False) and \
-                read_settings('menu') not in ['update', 'help_section', 'download', 'about']) or \
-                read_settings("dimention_status") == 'refresh':
+            elif (read_settings("dimention_status") == "running" and \
+                    current_size != columns_number_func(clean_screen=False) and \
+                    read_settings('menu') not in ['update', 'help_section', 'download', 'about']) or \
+                    read_settings("dimention_status") == 'refresh':
 
-            edit_settings("dimention_status", "refreshing")
-            edit_settings("active_instance", "0") 
-            sys.stdout.flush()
-            execv(sys.argv[0], sys.argv)
+                edit_settings("dimention_status", "refreshing")
+                edit_settings("active_instance", "0") 
+                sys.stdout.flush()
+                execv(sys.argv[0], sys.argv)
+        except:
+            pass
 
         sleep(0.05)
                     

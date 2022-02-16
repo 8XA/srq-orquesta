@@ -10,6 +10,42 @@ from subprocess import Popen, PIPE
 from modules.admin_db import read_settings, edit_settings, \
         edit_simple_list, edit_scraped_list
 from termcolor import colored
+from multiprocessing import Process
+
+def space_monitor(first_value:str):
+    """
+    It gets a value as a parameter. It runs a loop until the current
+    value is different, then edit the setting to refresh the screen.
+    """
+    while first_value == current_space():
+        sleep(0.5)
+    
+    good = False
+    while not good:
+        try:
+            #Restart SRQ
+            edit_settings("dimention_status", "refresh") 
+            good = True
+        except:
+            sleep(0.5)
+
+def current_space():
+    """
+    It returns the current avaliable space on the internal memory.
+    """
+    #Avaliable space
+    df_command = Popen(["df","-h"], stdout=PIPE, stderr=PIPE)
+    raw_stdout = str(df_command.stdout.read())
+    str_stdout = raw_stdout[2:-3]
+    str_list = str_stdout.split("\\n")
+
+    avaliable = ""
+    for row in str_list:
+        clean_list = [value for value in row.split(" ") if value != ""]
+        if clean_list[0] == '/data/media':
+            avaliable = clean_list[3]
+
+    return avaliable
 
 def menu(*args):
     numcols = args[0]
@@ -27,17 +63,14 @@ def menu(*args):
         'S': 'exit_srq'
     }
 
-    #Avaliable space
-    df_command = Popen(["df","-h"], stdout=PIPE, stderr=PIPE)
-    raw_stdout = str(df_command.stdout.read())
-    str_stdout = raw_stdout[2:-3]
-    str_list = str_stdout.split("\\n")
+    avaliable = current_space()
 
-    avaliable = ""
-    for row in str_list:
-        clean_list = [value for value in row.split(" ") if value != ""]
-        if clean_list[0] == '/data/media':
-            avaliable = clean_list[3]
+    update_space = Process(
+            target=space_monitor,
+            args=[avaliable],
+            daemon=True
+        )
+    update_space.start()
 
     spaces_number = (numcols - 4)//2
     spaces_number2 = numcols - spaces_number - 5 - len(avaliable) 
@@ -180,6 +213,7 @@ def menu(*args):
     if len(args) > 1:
         print(args[1])
     i = input(": ")
+    update_space.kill()
     
     #Retorna una tupla con dos valores:
     #El primero indica si la opcion ingresada va dirigida al menu o a la pantalla
