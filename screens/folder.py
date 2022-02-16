@@ -6,6 +6,7 @@
 from subprocess import Popen, PIPE
 from pathlib import Path
 from termcolor import colored
+from modules.is_filtered import is_filtered, ordered_filters
 from modules.admin_db import edit_simple_list
 from modules.refresh_history import refresh_history
 from modules.admin_db import read_settings, edit_settings
@@ -79,15 +80,11 @@ def folder():
         print(linea_azul)
         print(linea_amarilla)
 
-        filtros_str = " ".join(filtros_str.lower().split(","))
-        filtros = filtros_str.split(" ")
-        while '' in filtros:
-            filtros.remove('')
+        plus_filter, minus_filter = ordered_filters(filtros_str)
 
         show_message = False
         for x in range(len(carpetas)):
-            if len([filtro for filtro in filtros if filtro in \
-                    carpetas[x].lower()]) == len(filtros):
+            if is_filtered(carpetas[x], plus_filter, minus_filter):
 
                 indice = colored(str(x), 'green', attrs=['bold', 'dark'])
 
@@ -120,8 +117,8 @@ def folder():
         #Filtros
         print(colored(centered_phrase_fitting(numcols, "Filtros:"), 'white', attrs=['bold']))
         colored_filters = colored_centered_filter(numcols, \
-                "  ".join(filtros))
-        if len(filtros) > 0:
+                "  ".join(plus_filter + minus_filter))
+        if len(plus_filter + minus_filter) > 0:
             print(colored_filters)
         print(linea_roja)
 

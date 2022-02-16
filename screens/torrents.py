@@ -3,6 +3,7 @@
 from os import system
 from termcolor import colored
 from modules.menu import menu
+from modules.is_filtered import is_filtered, ordered_filters
 from modules.torrent_master import torrent_master
 from modules.refresh_history import refresh_history
 from modules.admin_db import read_settings, edit_settings, edit_simple_list, read_simple_list
@@ -28,18 +29,14 @@ def torrents():
         refresh_history(table)
 
         columns_number = columns_number_func()
-        filters = " ".join(read_settings('torrents_filter').split(','))
-        filters = filters.split(" ")
-        while '' in filters:
-            filters.remove('')
+        plus_filter, minus_filter = ordered_filters(read_settings('torrents_filter'))
 
         # Download ID assigned
         torrent_results_ids = [[id_] + list(torrent_results[id_]) for id_ in \
                 range(len(torrent_results))]
 
         filtered_torrents = [torrent for torrent in torrent_results_ids if \
-                len([word for word in filters if word.lower() in \
-                (torrent[1] + " " + torrent[5]).lower()]) == len(filters)]
+                is_filtered(torrent[1] + " " + torrent[5], plus_filter, minus_filter)]
 
         red_line_ = colored(columns_number*"-", 'red', attrs=['bold', 'dark'])
         red_line = colored(columns_number*"=", 'red', attrs=['bold', 'dark'])
@@ -140,9 +137,9 @@ def torrents():
                 "Filtros:"), 'white', attrs=['bold']))
 
         colored_filters = colored_centered_filter(columns_number, \
-                "  ".join(filters))
+                "  ".join(plus_filter + minus_filter))
         
-        if len(filters) > 0:
+        if len(plus_filter + minus_filter) > 0:
             print(colored_filters)
         print(red_line)
 

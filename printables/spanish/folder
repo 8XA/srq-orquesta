@@ -33,7 +33,7 @@
 
 :ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de carpetas mostradas.
 
-:ff:  - '<g>palabra1 palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista sólo aparecerán las carpetas que contengan todas las palabras ingresadas (el filtro no distingue mayúsculas/minúsculas).
+:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán las carpetas que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellas que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>imagenes -Juanito<g>', filtrará las carpetas que contengan la palabra 'imagenes' en el nombre, con excepción de aquellas que contengan 'Juanito'. Mientras que '<g>imagenes Juanito<g>' filtrará solo aquellas que contengan ambos filtros. Los filtros no distinguen mayúsculas/minúsculas.
 
 :ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
