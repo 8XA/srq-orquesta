@@ -70,7 +70,9 @@ def menu(*args):
             args=[avaliable],
             daemon=True
         )
-    update_space.start()
+    #Feature ready to be activated when the configuration has their support
+    #Uncoment teir killing command too
+    #update_space.start()
 
     spaces_number = (numcols - 4)//2
     spaces_number2 = numcols - spaces_number - 5 - len(avaliable) 
@@ -213,7 +215,7 @@ def menu(*args):
     if len(args) > 1:
         print(args[1])
     i = input(": ")
-    update_space.kill()
+    #update_space.kill()
     
     #Retorna una tupla con dos valores:
     #El primero indica si la opcion ingresada va dirigida al menu o a la pantalla

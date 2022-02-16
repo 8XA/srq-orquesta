@@ -1,6 +1,7 @@
 
 :Wc:Versión 0.3.3
 
+:ff:- Feat: Actualiza la pantalla '<g>C<g>arpeta' cuando hay cambios.
 :ff:- Fix: Scraper de opensubtitles revisa todas las páginas disponibles.
 :ff:- Refactor: Elimina videos o carpetas no seleccionados con '<g>#d<g>'.
 :ff:- Feat: Reproduce videos no seleccionados con '<g>#p<g>'.

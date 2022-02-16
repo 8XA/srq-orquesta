@@ -14,6 +14,40 @@ from modules.menu import menu
 from modules.strings_fitting import phrase_fitting, \
         centered_phrase_fitting, colored_centered_filter
 from time import sleep
+from multiprocessing import Process
+
+
+def folders_verify(current_list:list, route:str):
+    """
+    Gets the current list of folders on a route and verifies when this is changed.
+    """
+    while current_list == folders_list(route):
+        sleep(0.5)
+
+    good = False
+    while not good:
+        try:
+            #Restart SRQ
+            edit_settings("dimention_status", "refresh") 
+            good = True
+        except:
+            sleep(0.5)
+
+def folders_list(route):
+    """
+    Gets a route an returns their current subfolders.
+    """
+
+    #List folders
+    bash_route = route.replace("'", "\'")
+    raw_content = Popen(["ls", "-L", bash_route], stdout=PIPE, stderr=PIPE)
+    output, errors = raw_content.communicate()
+    dirty_folders = output.decode('utf-8').splitlines()
+
+    carpetas = [folder for folder in dirty_folders if \
+            (Path(route + "/" + folder).is_dir() and folder != "")]
+
+    return sorted(carpetas, key=str.casefold)
 
 def folder():
     refresh_history('folder_history')
@@ -30,16 +64,13 @@ def folder():
         linea_azul = colored(numcols*"=", 'blue', attrs=['bold', 'dark'])
         linea_roja = colored(numcols*"=", 'red', attrs=['bold', 'dark'])
 
-        #List folders
-        bash_route = ruta.replace("'", "\'")
-        raw_content = Popen(["ls", "-L", bash_route], stdout=PIPE, stderr=PIPE)
-        output, errors = raw_content.communicate()
-        dirty_folders = output.decode('utf-8').splitlines()
-
-        carpetas = [folder for folder in dirty_folders if \
-                (Path(ruta + "/" + folder).is_dir() and folder != "")]
-        carpetas = sorted(carpetas, key=str.casefold)
-
+        carpetas = folders_list(ruta)
+        folders_verify_process = Process(
+                target=folders_verify,
+                args=[carpetas, ruta],
+                daemon=True
+            )
+        folders_verify_process.start()
 
         #Printing title
         titulo = "SELECCIÓN DE CARPETA"
@@ -98,12 +129,14 @@ def folder():
 
         #Ejecuta una acción dependiendo del comando ingresado
         if i[0] == "menu":
+            folders_verify_process.kill()
             return i[1]
         else:
             if i[1] == "":
                 if read_settings("folder_route") != ruta:
                     edit_settings("videos_filter", "")
                     edit_settings("folder_route", ruta)
+                folders_verify_process.kill()
                 return 'videos'
 
             elif (i[1][-1].lower() == 'd') and (i[1][:-1].isdigit()) and (len(carpetas) > int(i[1][:-1])):
