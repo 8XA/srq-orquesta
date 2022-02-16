@@ -1,6 +1,7 @@
 
 :Wc:Versión 0.3.3
 
+:ff:- Fix: Scraper de opensubtitles revisa todas las páginas disponibles.
 :ff:- Refactor: Elimina videos o carpetas no seleccionados con '<g>#d<g>'.
 :ff:- Feat: Reproduce videos no seleccionados con '<g>#p<g>'.
 :ff:- Feat: Marca videos no seleccionados con '<g>#m<g>'.
