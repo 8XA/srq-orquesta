@@ -6,9 +6,11 @@ def is_filtered(sentence:str, plus_filter:list=[], minus_filter:list=[]):
     It returns True if the sentence can be filtered.
     """
     
-    if (len([filter_ for filter_ in plus_filter if filter_.lower() in \
-            sentence.lower()]) == len(plus_filter) and len([filter_ for \
-            filter_ in minus_filter if filter_[1:].lower() in sentence.lower()]) == 0):
+    or_filters = [filter_.split('/') for filter_ in plus_filter]
+
+    if len([filter_ for filter_ in or_filters if len([subfilter for subfilter in \
+            filter_ if subfilter.lower() in sentence.lower()]) > 0]) == len(or_filters) and \
+            len([filter_ for filter_ in minus_filter if filter_[1:].lower() in sentence.lower()]) == 0:
 
         return True
     return False
