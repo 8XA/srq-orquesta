@@ -84,6 +84,7 @@ def words():
         elif (i[1].lower() == "all") and \
                 (",".join(palabras_del_titulo) != read_settings("sub_words")):
 
+            edit_simple_list('words_history', i[1], 'add')
             edit_settings("sub_search_changed","1")
             edit_settings("sub_words", ",".join(palabras_del_titulo))
 
@@ -137,7 +138,9 @@ def words():
             if ",".join(palabras_candidatas) != read_settings("sub_words"):
                 edit_settings("sub_search_changed","1")
                 edit_settings("sub_words", ",".join(palabras_candidatas))
-                edit_simple_list('words_history', i[1], 'add')
+
+                if len([word for word in i[1].split(" ") if word != '']) > 0:
+                    edit_simple_list('words_history', i[1], 'add')
 
         #busqueda libre
         else:
@@ -147,7 +150,8 @@ def words():
                 edit_settings("sub_words", ",".join(palabras_candidatas))
 
                 if len(palabras_candidatas) > 0:
-                    edit_simple_list('words_history', i[1], 'add')
+                    if len([word for word in i[1].split(" ") if word != '']) > 0:
+                        edit_simple_list('words_history', i[1], 'add')
                     edit_settings("sub_search_changed","1")
 
         return 'words'

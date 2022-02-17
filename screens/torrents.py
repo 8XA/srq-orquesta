@@ -181,7 +181,7 @@ def torrents():
                 edit_scraped_list('torrents', 'clean')
                 edit_settings('torrents_filter', '')
                 search = None
-            else:
+            elif len([word for word in i[1].split(" ") if word != '']) > 0:
                 #history
                 edit_simple_list(table, i[1],'add')
             try:
@@ -201,7 +201,8 @@ def torrents():
             edit_settings("torrents_page", "1")
             return 'videos'
         else:
-            edit_simple_list('torrents_history', i[1],'add')
+            if len([word for word in i[1].split(" ") if word != '']) > 0:
+                edit_simple_list('torrents_history', i[1],'add')
             edit_settings("torrents_filter", i[1])
             page = 1
 

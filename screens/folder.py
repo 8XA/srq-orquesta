@@ -194,5 +194,7 @@ def folder():
                     filtros_str = " "
                 ruta = "/" + "/".join(cadena) + "/"
             else:
-                edit_simple_list('folder_history', i[1], 'add')
+                if len([word for word in i[1].split(" ") if word != '']) > 0:
+                    edit_simple_list('folder_history', i[1], 'add')
+                refresh_history('folder_history')
                 filtros_str = i[1]
