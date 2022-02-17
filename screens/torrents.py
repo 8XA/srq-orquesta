@@ -1,7 +1,8 @@
 #!/bin/env python 
 
-from os import system
+from subprocess import Popen, PIPE
 from termcolor import colored
+from urllib.parse import quote
 from modules.menu import menu
 from modules.is_filtered import is_filtered, ordered_filters
 from modules.torrent_master import torrent_master
@@ -175,6 +176,25 @@ def torrents():
                     "SU": "suggested"
                 }
             edit_settings('torrent_words_mode', mode_dict[i[1].upper()])
+        elif i[1].upper() in ["YT","IM"]:
+            url_dict = {
+                    "YT": "https://www.youtube.com/results?search_query=",
+                    "IM": "https://www.imdb.com/find?q="
+                }
+            url = url_dict[i[1].upper()]
+
+            mode = read_settings('torrent_words_mode')
+            raw_search = read_settings(mode + '_torrent_words')
+            
+            url_word = []
+            for word in raw_search.split(" "):
+                url_word.append(quote(word))
+            url_search = url + "+".join(url_word)
+
+            if 'youtube' in url:
+                url_search += '+trailer+sub+esp'
+
+            Popen(['xdg-open', url_search], stderr=PIPE, stdout=PIPE).wait()
         elif len(torrent_results) == 0 or i[1].upper() == 'U':
             search = i[1]
             if i[1].upper() == 'U':
@@ -189,15 +209,14 @@ def torrents():
                 edit_settings("dimention_status", "exception")
                 torrent_master(search)
                 edit_settings("dimention_status", "running")
-                system("clear")
-
+                Popen('clear').wait()
             except:
                 pass
         elif i[1].isdigit() and int(i[1]) in downloadable_ids:
             edit_scraped_list('torrents', 'downloaded')
             edit_scraped_list('torrents', id_=int(i[1]), status=2)
             edit_settings("select_refreshed_video", "1")
-            system("xdg-open '" + torrent_results_ids[int(i[1])][6] + "'")
+            Popen(['xdg-open', torrent_results_ids[int(i[1])][6]], stdout=PIPE, stderr=PIPE).wait()
             edit_settings("torrents_page", "1")
             return 'videos'
         else:
