@@ -20,6 +20,75 @@ from modules.scrapers.subtitles.spanish.subdivx import subdivx
 from threading import Thread
 from ascii_animations.cinema.ascii_subs import ascii_animation
 
+def suggested_filter():
+    video_route = read_settings("selected_video_route").replace("\\'","\'")
+    video_name = read_settings('selected_video_name').replace("\\'","\'")
+    lower_name = video_name.lower()
+
+    edit_settings("subs_filter", '')
+
+    #Verifies the video's existence
+    if Path(video_route + video_name).is_file():
+
+        #Rips
+        suggested_rip = ''
+        if 'dvd' in lower_name:
+            suggested_rip += 'dvd'
+        elif 'web' in lower_name:
+            suggested_rip += 'web'
+        elif 'tv' in lower_name:
+            suggested_rip += 'tv'
+        elif len([rip for rip in ['bdrip', 'brrip', 'blu'] if rip in lower_name]) > 0:
+            suggested_rip += 'bdrip/brrip/blu'
+        elif 'hdrip' in lower_name:
+            suggested_rip += 'hdrip'
+
+        #Versions
+        suggested_version = ''
+        if len([version for version in ['yts', 'yify'] if version in lower_name]) > 0:
+            suggested_version += 'yts/yify'
+        elif 'rarbg' in lower_name:
+            suggested_version += 'rarbg'
+        elif 'ion10' in lower_name:
+            suggested_version += 'ion10'
+
+        suggested_filter = suggested_rip + suggested_version
+        if len(suggested_rip) > 0 and len(suggested_version) > 0:
+            suggested_filter = '/'.join([suggested_rip, suggested_version])
+
+        #Season and chapter
+        season = []
+        chapter = []
+        for indx in range(len(lower_name)):
+            if lower_name[indx] == 's' and indx + 3 <= len(lower_name):
+                possible_season = lower_name[indx:indx+3]
+                if possible_season[1:].isdigit():
+                    season.append(possible_season)
+            elif lower_name[indx] == 'e' and indx + 3 <= len(lower_name):
+                possible_chapter = lower_name[indx:indx+3]
+                if possible_chapter[1:].isdigit():
+                    chapter.append(possible_chapter)
+
+        space = ''
+        if len(suggested_filter) > 0:
+            space = ' '
+        if len(season) > 0:
+            suggested_filter += space + '/'.join(season)
+
+        space = ''
+        if len(suggested_filter) > 0:
+            space = ' '
+        if len(chapter) > 0:
+            suggested_filter += space + '/'.join(chapter)
+
+        if suggested_filter != '':
+            edit_settings("subs_filter", suggested_filter)
+            pagina = 1
+
+            edit_simple_list('results_history', suggested_filter, 'add')
+    refresh_history('results_history')
+
+
 def results():
     refresh_history('results_history')
     #Resultados por pagina (rpp)
@@ -64,6 +133,7 @@ def results():
             finished = read_settings("run_animation") + 1
             edit_settings("run_animation", str(finished))
         ascii_thread.join()
+
         edit_settings("dimention_status", "running")
 
         #Agrega status
@@ -72,6 +142,8 @@ def results():
         edit_scraped_list('subtitles', 'clean')
         edit_scraped_list('subtitles', 'addition', list_=hallados)
         edit_settings("sub_search_changed", "0")
+
+        suggested_filter()
 
     #Subtítulos con indices asignados
     raw_subs = read_scraped_list('subtitles')
@@ -182,6 +254,7 @@ def results():
         print(colored(centered_phrase_fitting(numcols, "Video a subtitular:"), \
                 'white', attrs=['bold']))
 
+        video_name = ''
         if not video_isfile or read_settings("selected_video_name") == "":
             msj = "Cuando lo selecciones, aquí aparecerá el " + \
                     "nombre del video para ayudarte a filtrar palabras..."
@@ -222,8 +295,8 @@ def results():
             print(colored_filters)
         print(linea_roja)
 
-        i = menu(numcols, "Página: " + str(pagina) + " de " + \
-                str(total_paginas)  + " - " + str(len(subs_filtrados))  + " subs")
+        i = menu(numcols, "Página: " + str(pagina) + " de " + str(total_paginas)  + \
+                " | Filtrados: " + str(len(subs_filtrados)) + " | Total: " + str(len(subs)))
 
         #Determina cuales IDs pueden ser descargados
         dict_descargables = {
@@ -262,6 +335,10 @@ def results():
             edit_scraped_list('subtitles', id_=subs[int(i[1])][4], status=2)
             edit_settings("subs_page", "1")
             return 'download'
+
+        #Suggested filter
+        elif i[1].lower() == "su":
+            suggested_filter()
 
         #Filtrado de palabras
         else:
