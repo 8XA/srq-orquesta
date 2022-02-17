@@ -7,6 +7,7 @@
 from pathlib import Path
 from time import sleep
 from subprocess import Popen, PIPE
+from modules.strings_fitting import phrase_fitting
 from modules.admin_db import read_settings, edit_settings, \
         edit_simple_list, edit_scraped_list
 from termcolor import colored
@@ -219,7 +220,7 @@ def menu(*args):
 
     #Acción del usuario
     if len(args) > 1:
-        print(args[1])
+        print(phrase_fitting(numcols, args[1]))
     i = input(": ")
     #update_space.kill()
     

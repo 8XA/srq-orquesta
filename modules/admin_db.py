@@ -376,6 +376,8 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
         elif mode == 'add':
             clean_value = value.replace("\\","")
             clean_value = clean_value.replace("'","''")
+            if "_history" in table and clean_value[-1] != ' ':
+                clean_value += ' '
             sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + clean_value + "')"
 
         cursor.execute(sentence)
