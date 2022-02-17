@@ -1,6 +1,8 @@
 
 :Wc:Versión 0.3.3
 
+:ff:- Fix: El historial de comandos no guarda comandos vacíos (' ').
+:ff:- Feat: Soporte de filtros de excepción al añadiendo un guión '<g>-<g>' al inicio.
 :ff:- Feat: Actualiza la pantalla '<g>C<g>arpeta' cuando hay cambios.
 :ff:- Fix: Scraper de opensubtitles revisa todas las páginas disponibles.
 :ff:- Refactor: Elimina videos o carpetas no seleccionados con '<g>#d<g>'.
