@@ -265,10 +265,11 @@ def results():
 
         #Filtrado de palabras
         else:
-            filtro = i[1]
-            edit_settings("subs_filter", filtro)
+            edit_settings("subs_filter", i[1])
             pagina = 1
-            edit_simple_list('results_history', i[1], 'add')
+            if len([word for word in i[1].split(" ") if word != '']) > 0:
+                edit_simple_list('results_history', i[1], 'add')
+            refresh_history('results_history')
 
         edit_settings("subs_page", str(pagina))
 

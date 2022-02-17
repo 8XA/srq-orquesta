@@ -305,7 +305,8 @@ def videos():
 
     #Set a filter
     elif i[1] != "":
-        edit_simple_list('videos_history', i[1], 'add')
+        if len([word for word in i[1].split(" ") if word != '']) > 0:
+            edit_simple_list('videos_history', i[1], 'add')
         edit_settings("videos_filter", i[1].lower())
 
     return 'videos'
