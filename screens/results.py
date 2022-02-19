@@ -81,6 +81,12 @@ def suggested_filter():
         if len(chapter) > 0:
             suggested_filter += space + '/'.join(chapter)
 
+        #Extended and remastered
+        if 'remaster' in lower_name:
+            suggested_filter += ' remaster'
+        if 'ext' in lower_name:
+            suggested_filter += ' ext'
+
         if suggested_filter != '':
             edit_settings("subs_filter", suggested_filter)
             pagina = 1
