@@ -12,7 +12,13 @@ def dimentions_monitor():
     """
 
     current_size = columns_number_func(clean_screen=False)
-    status = read_settings("dimention_status")
+    status = None
+    while status == None:
+        try:
+            status = read_settings("dimention_status")
+        except:
+            sleep(0.1)
+
     while status != 'stopped':
 
         try:
