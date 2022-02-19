@@ -20,9 +20,8 @@ import sys
 
 def refresh_videos(videos_list):
 
-    videos_and_routes = videos_list
     updated_videos = videos_en_ruta()
-    while videos_and_routes == updated_videos:
+    while videos_list == updated_videos:
         updated_videos = videos_en_ruta()
         sleep(0.01)
 
@@ -30,15 +29,15 @@ def refresh_videos(videos_list):
     while not good:
         try:
             #Changing the selected video
-            if len(updated_videos[1]) > len(videos_and_routes[1]) and \
+            if len(updated_videos[1]) > len(videos_list[1]) and \
                     read_settings("select_refreshed_video") == 1:
 
                 edit_settings("select_refreshed_video", "0") 
                 edit_settings("sub_search_changed", "1")
                 edit_settings("sub_words", "")
 
-                full_routes = [videos_and_routes[0][indx] + \
-                        videos_and_routes[1][indx] for indx in range(len(videos_and_routes[1]))]
+                full_routes = [videos_list[0][indx] + \
+                        videos_list[1][indx] for indx in range(len(videos_list[1]))]
 
                 new_videos = [[updated_videos[0][indx], updated_videos[1][indx]] for indx in \
                         range(len(updated_videos[1])) if updated_videos[0][indx] + \
