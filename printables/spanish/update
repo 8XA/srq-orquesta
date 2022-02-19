@@ -1,8 +1,10 @@
 
 :Wc:Versión 0.3.3
 
+:ff:- Feat: Filtros de subtítulos sugeridos al ejecutar una nueva búsqueda. Esta opción puede ejecutarse también manualmente ingresando '<g>su<g>' en la sección '<g>R<g>esultados'.
 :ff:- Feat: YouTube trailers e información IMDB con '<g>yt<g>' ó '<g>im<g>' en la sección '<g>T<g>orre<g>N<g>ts'.
 :ff:- Fix: El historial de comandos no guarda comandos vacíos (' ').
+:ff:- Feat: Soporte de filtros opcionales añadiendo un slash ('<g>/<g>') como separador de opciones.
 :ff:- Feat: Soporte de filtros de excepción al añadiendo un guión '<g>-<g>' al inicio.
 :ff:- Feat: Actualiza la pantalla '<g>C<g>arpeta' cuando hay cambios.
 :ff:- Fix: Scraper de opensubtitles revisa todas las páginas disponibles.

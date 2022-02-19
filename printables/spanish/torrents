@@ -70,15 +70,37 @@
 
 :ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar los torrents listados. Sólo funciona si hay resultados que filtrar.
 
-:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán los torrents que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellos que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>s01 -e01<g>', filtrará los torrents que contengan 's01' en su nombre, con excepción de aquellos que contengan 'e01'. Mientras que '<g>s01 e01<g>' filtrará solo aquellos que contengan ambos filtros. Los filtros no distinguen mayúsculas/minúsculas.
+:lb:
+:wc:Métodos de filtrado:
+:lb:
 
-:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
+:ff:  - '<g>palabra1 palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') filtrará únicamente los resultados que contengan todas estas palabras.
+
+:ff:  - '<g>-palabra1 -palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') precedidas por el símbolo menos ('<g>-<g>') filtrará unicamente los resultados que no contengan alguna de estas palabras.
+
+:ff:  - '<g>palabra1/palabra2<g>: Ingresar palabras separadas por barras ('<g>/<g>') filtrará únicamente los resultados que contengan alguna de estas palabras.
+
+:lb:
+
+:ff:*Estas reglas pueden ser combinadas en cualquier orden, por ejemplo: Ingresar '<g>palabra1/palabra2 palabra3 -palabra4<g>', filtrará los resultados que cumplan con los tres requisitos especificados:
+
+:ff:1.- Contiene 'palabra1' o 'palabra2'.
+:ff:2.- Contiene 'palabra3'.
+:ff:3.- No contiene 'palabra4'.
+
+:lb:
+:wc:Opciones generales:
+:lb:
 
 :ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los torrents que contengan '0' en su nombre, ingresa ' <g>0<g>'.
 
 :ff:  - Para navegar entre los filtros utilizados previamente, utiliza las flechas 'arriba' y 'abajo'.
 
-:Lr:
+:ff:  - ' ': Para eliminar los filtros ingresa un espacio.
+
+:ff:*Los filtros no distinguen mayúsculas/minúsculas.
+
+:la:
 
 :Wc:Consideraciones generales
 

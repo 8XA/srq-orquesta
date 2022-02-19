@@ -33,10 +33,32 @@
 
 :ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de carpetas mostradas.
 
-:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán las carpetas que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellas que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>imagenes -Juanito<g>', filtrará las carpetas que contengan la palabra 'imagenes' en el nombre, con excepción de aquellas que contengan 'Juanito'. Mientras que '<g>imagenes Juanito<g>' filtrará solo aquellas que contengan ambos filtros. Los filtros no distinguen mayúsculas/minúsculas.
+:lb:
+:wc:Métodos de filtrado:
+:lb:
+
+:ff:  - '<g>palabra1 palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') filtrará únicamente las carpetas que contengan todas estas palabras.
+
+:ff:  - '<g>-palabra1 -palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') precedidas por el símbolo menos ('<g>-<g>') filtrará unicamente las carpetas que no contengan alguna de estas palabras.
+
+:ff:  - '<g>palabra1/palabra2<g>: Ingresar palabras separadas por barras ('<g>/<g>') filtrará únicamente las carpetas que contengan alguna de estas palabras.
+
+:lb:
+
+:ff:*Estas reglas pueden ser combinadas en cualquier orden, por ejemplo: Ingresar '<g>palabra1/palabra2 palabra3 -palabra4<g>', filtrará las carpetas que cumplan con los tres requisitos especificados:
+
+:ff:1.- Contiene 'palabra1' o 'palabra2'.
+:ff:2.- Contiene 'palabra3'.
+:ff:3.- No contiene 'palabra4'.
+
+:lb:
+:wc:Opciones generales:
+:lb:
 
 :ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
 :ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar las carpetas que contengan '0' en su nombre, ingresa ' <g>0<g>'.
 
 :ff:  - Para navegar entre los filtros utilizados previamente, utiliza las flechas 'arriba' y 'abajo'.
+
+:ff:*Los filtros no distinguen mayúsculas/minúsculas.

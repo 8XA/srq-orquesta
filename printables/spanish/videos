@@ -47,11 +47,32 @@
 
 :ff:Aquí aparecerán las <R>palabras<R> <R>ingresadas<R> para filtrar la lista de la subsección 'Elige un video'.
 
-:ff:  - '<g>palabra1 -palabra2<g>': Un filtro se configura ingresando las palabras separadas por espacios y/o comas. En la lista aparecerán los videos que contengan todas las palabras del filtro que no inicien con guión ('<g>-<g>'), con excepción de aquellos que contengan alguno de los filtros que comienzan con guión. Por ejemplo: Ingresar '<g>mp4 -webrip<g>', filtrará los videos 'mp4' con excepción de aquellos que contengan 'webrip' en su nommbre. Mientras que '<g>mp4 webrip<g>' filtrará solo aquellos que contengan ambos filtros en su nombre. Los filtros no distinguen mayúsculas/minúsculas.
+:lb:
+:wc:Métodos de filtrado:
+:lb:
+
+:ff:  - '<g>palabra1 palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') filtrará únicamente los videos que contengan todas estas palabras.
+
+:ff:  - '<g>-palabra1 -palabra2<g>': Ingresar palabras separadas por espacios (' ') o comas ('<g>,<g>') precedidas por el símbolo menos ('<g>-<g>') filtrará unicamente los videos que no contengan alguna de estas palabras.
+
+:ff:  - '<g>palabra1/palabra2<g>: Ingresar palabras separadas por barras ('<g>/<g>') filtrará únicamente los videos que contengan alguna de estas palabras.
+
+:lb:
+
+:ff:*Estas reglas pueden ser combinadas en cualquier orden, por ejemplo: Ingresar '<g>palabra1/palabra2 palabra3 -palabra4<g>', filtrará los videos que cumplan con los tres requisitos especificados:
+
+:ff:1.- Contiene 'palabra1' o 'palabra2'.
+:ff:2.- Contiene 'palabra3'.
+:ff:3.- No contiene 'palabra4'.
+
+:lb:
+:wc:Opciones generales:
+:lb:
 
 :ff:  - ' ': Para eliminar los filtros ingresa un espacio.
 
-:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los videos que contengan '0' en su nombre, ingresa ' <g>0<g>'.
+:ff:  - ' <g>#ID<g>': Para utilizar un ID como filtro u otros caracteres reservados a opciones, ingresa un espacio antes. Por ejemplo, para filtrar los subtítulos que contengan '0' en su nombre, ingresa ' <g>0<g>'.
 
 :ff:  - Para navegar entre los filtros utilizados previamente, utiliza las flechas 'arriba' y 'abajo'.
 
+:ff:*Los filtros no distinguen mayúsculas/minúsculas.
