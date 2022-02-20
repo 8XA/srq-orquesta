@@ -1,8 +1,9 @@
 #!/bin/env python
 
-from modules.admin_db import read_simple_list, edit_simple_list
+from modules.admin_db import read_simple_list
 from subprocess import Popen, PIPE
 from pathlib import Path
+from time import sleep
 
 def subs_and_folders_deletion():
     """
@@ -12,7 +13,13 @@ def subs_and_folders_deletion():
     
     It takes no parameters and returns nothing.
    """ 
-    registered_subs = read_simple_list('downloaded_subtitles')
+
+    registered_subs = None
+    while registered_subs == None:
+        try:
+            registered_subs = read_simple_list('downloaded_subtitles')
+        except:
+            sleep(0.3)
     
     for sub in registered_subs:
         
