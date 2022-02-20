@@ -1,4 +1,11 @@
 
+:Wc:Versión 0.3.4
+
+:ff:- Hotfix: El espacio disponible toma a '/storage/emulated' como referencia.
+:ff:- Hotfix: Limpieza de carpetas maneja el bloqueo de la base de datos.
+
+:la:
+
 :Wc:Versión 0.3.3
 
 :ff:- Feat: Filtros de subtítulos sugeridos al ejecutar una nueva búsqueda. Esta opción puede ejecutarse también manualmente ingresando '<g>su<g>' en la sección '<g>R<g>esultados'.
