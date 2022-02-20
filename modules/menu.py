@@ -43,7 +43,7 @@ def current_space():
     avaliable = ""
     for row in str_list:
         clean_list = [value for value in row.split(" ") if value != ""]
-        if clean_list[0] == '/data/media':
+        if clean_list[-1] == '/storage/emulated':
             avaliable = clean_list[3]
 
     return avaliable
@@ -55,6 +55,8 @@ def menu(*args):
     return_keys = {
         'T': 'torrents',
         'V': 'videos',
+
+
         'C': 'folder',
         'A': 'words',
         'R': 'results',
