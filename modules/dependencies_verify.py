@@ -3,9 +3,7 @@
 from os import system, popen
 from os.path import isfile
 from subprocess import Popen, PIPE, call
-from sys import executable, argv, exit
-import sys #sys.stdout.flush
-from time import sleep
+from sys import exit
 
 def verify():
     """
@@ -93,10 +91,7 @@ def verify():
 
     if len(pip_to_install) + len(pkg_to_install) > 0:
         system("clear")
-        print("Dependencias actualizadas... ")
-        sleep(1.5)
+        input("Dependencias actualizadas. Presiona Enter para reiniciar Termux: ")
 
-        #Restart SRQ
-        sys.stdout.flush()
-        call([executable, argv[0]])
+        #Exiting SRQ
         exit()
