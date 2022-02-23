@@ -5,6 +5,7 @@
 from sqlite3 import connect
 from pathlib import Path
 from os import system
+from time import sleep
 
 data_route = "/data/data/com.termux/files/usr/share/srq-orquesta/srq-orquesta/data.db"
 data_backup_route = "/data/data/com.termux/files/usr/share/srq-orquesta/data_backup.db"
@@ -52,21 +53,28 @@ def read_settings(
 
 
     if Path(db_keys[db]).is_file():
+        success = False
+        while not success:
+            try:
+                connection = connect(db_keys[db], timeout=120)
+                cursor = connection.cursor()
+                cursor.execute("SELECT " + column + " FROM settings")
 
-        connection = connect(db_keys[db], timeout=10)
-        cursor = connection.cursor()
-        cursor.execute("SELECT " + column + " FROM settings")
+                #Gets a list of all the column names
+                column_names = [column_name[0] for column_name in cursor.description]
 
-        #Gets a list of all the column names
-        column_names = [column_name[0] for column_name in cursor.description]
+                #Reads the first row
+                values = cursor.fetchone()
+                connection.close()
 
-        #Reads the first row
-        values = cursor.fetchone()
-        connection.close()
+                if column == '*':
+                    return [column_names, values]
+                success = True
 
-        if column == '*':
-            return [column_names, values]
-        return values[0]
+                return values[0]
+            
+            except:
+                sleep(0.1)
         
 
 def edit_settings(
@@ -94,12 +102,18 @@ def edit_settings(
     if Path(data_route).is_file():
 
         if Path(data_route).is_file():
-            connection = connect(data_route, timeout=10)
-            cursor = connection.cursor()
-            clean_new_value = new_value.replace("'","''")
-            cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")
-            connection.commit()
-            connection.close() 
+            success = False
+            while not success:
+                try:
+                    connection = connect(data_route, timeout=120)
+                    cursor = connection.cursor()
+                    clean_new_value = new_value.replace("'","''")
+                    cursor.execute("UPDATE settings SET " + column + "='" + str(clean_new_value) + "'")
+                    connection.commit()
+                    connection.close() 
+                    success = True
+                except:
+                    sleep(0.1)
 
 
 def restore_settings():
@@ -193,16 +207,22 @@ def read_scraped_list(
             'data_backup_route': data_backup_route
             }
 
-    connection = connect(db_keys[db])
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM " + table)
+    success = False
+    while not success:
+        try:
+            connection = connect(db_keys[db], timeout=120)
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM " + table)
 
-    #It reads all the values
-    values = cursor.fetchall()
-    connection.close()
+            #It reads all the values
+            values = cursor.fetchall()
+            connection.close()
+            success = True
 
-    return values
+            return values
 
+        except:
+            sleep(0.1)
 
 def edit_scraped_list(
         table: str,
@@ -255,31 +275,37 @@ def edit_scraped_list(
     global data_route
     
     if Path(data_route).is_file():
-        connection = connect(data_route)
-        cursor = connection.cursor()
+        success = False
+        while not success:
+            try:
+                connection = connect(data_route, timeout=120)
+                cursor = connection.cursor()
 
-        #Edit an element status
-        if mode == 'current_download':
-            cursor.execute("UPDATE " + table + " SET status=2 WHERE rowid=" + \
-                    str(id_ + 1))
-        elif mode == 'downloaded':
-            cursor.execute("UPDATE " + table + " SET status=1 WHERE status=2")
+                #Edit an element status
+                if mode == 'current_download':
+                    cursor.execute("UPDATE " + table + " SET status=2 WHERE rowid=" + \
+                            str(id_ + 1))
+                elif mode == 'downloaded':
+                    cursor.execute("UPDATE " + table + " SET status=1 WHERE status=2")
 
-        elif mode == 'clean':
-            #Clean the table
-            cursor.execute("DELETE FROM " + table)
+                elif mode == 'clean':
+                    #Clean the table
+                    cursor.execute("DELETE FROM " + table)
 
-        #Replace the table
-        elif mode == 'addition':
+                #Replace the table
+                elif mode == 'addition':
 
-            signs = "?,?,?,?"
-            if table == "torrents":
-                signs = "?,?,?,?,?,?,?"
-            
-            cursor.executemany("INSERT INTO " + table + " VALUES (" + signs + ")", list_)
+                    signs = "?,?,?,?"
+                    if table == "torrents":
+                        signs = "?,?,?,?,?,?,?"
+                    
+                    cursor.executemany("INSERT INTO " + table + " VALUES (" + signs + ")", list_)
 
-        connection.commit()
-        connection.close() 
+                connection.commit()
+                connection.close() 
+                success = True
+            except:
+                sleep(0.1)
 
 ######################################################################
 
@@ -309,12 +335,18 @@ def read_simple_list(table: str, db:str='data_route'):
             'data_backup_route': data_backup_route
             }
 
-    connection = connect(db_keys[db])
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM " + table)
+    success = False
+    while not success:
+        try:
+            connection = connect(db_keys[db], timeout=120)
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM " + table)
 
-    values = cursor.fetchall()
-    connection.close()
+            values = cursor.fetchall()
+            connection.close()
+            success = True
+        except:
+            sleep(0.1)
 
     ##################################################
     if table in ['played_videos', 'downloaded_subtitles']:
@@ -357,32 +389,39 @@ def edit_simple_list(table: str, value: str=None, mode: str='delete'):
     """
     
     if Path(data_route).is_file():
-        connection = connect(data_route)
-        cursor = connection.cursor()
+        success = False
+        while not success:
+            try:
+                connection = connect(data_route, timeout=120)
+                cursor = connection.cursor()
 
-        column_name = table[table.index("_")+1:]
+                column_name = table[table.index("_")+1:]
 
-        # Delete an element or clear a table
-        if mode == 'delete':
-            # The command_complement determines the deletion:
-            # one row or the complete table
-            command_complement = ''
-            if value != None:
-                command_complement = ' WHERE ' + column_name + "='" + value.replace("'", "''") + "'"
+                # Delete an element or clear a table
+                if mode == 'delete':
+                    # The command_complement determines the deletion:
+                    # one row or the complete table
+                    command_complement = ''
+                    if value != None:
+                        command_complement = ' WHERE ' + column_name + "='" + value.replace("'", "''") + "'"
 
-            sentence = "DELETE FROM " + table + command_complement
+                    sentence = "DELETE FROM " + table + command_complement
 
-        # Add an element
-        elif mode == 'add':
-            clean_value = value.replace("\\","")
-            clean_value = clean_value.replace("'","''")
-            if "_history" in table and clean_value[-1] != ' ':
-                clean_value += ' '
-            sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + clean_value + "')"
+                # Add an element
+                elif mode == 'add':
+                    clean_value = value.replace("\\","")
+                    clean_value = clean_value.replace("'","''")
+                    if "_history" in table and clean_value[-1] != ' ':
+                        clean_value += ' '
+                    sentence = "INSERT INTO " + table + " (" + column_name + ") VALUES ('" + clean_value + "')"
 
-        cursor.execute(sentence)
+                cursor.execute(sentence)
 
-        connection.commit()
-        connection.close() 
+                connection.commit()
+                connection.close() 
+                success = True
+
+            except:
+                sleep(0.1)
 
 ######################################################################
