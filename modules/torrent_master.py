@@ -1,6 +1,7 @@
 #!/bin/env python
 
 from threading import Thread
+from modules.scrapers.torrents.yts import yts
 from modules.scrapers.torrents.nyaa import nyaa
 from modules.scrapers.torrents.tpb import tpb
 from modules.admin_db import edit_scraped_list, read_scraped_list, edit_settings, read_settings
@@ -21,7 +22,7 @@ def torrent_master(raw_search:str):
     #ASCII animation
     ascii_thread = Thread(
             target=ascii_animation,
-            args=("Buscando torrents...", 2),
+            args=("Buscando torrents...", 3),
         )
     ascii_thread.start()
 
@@ -60,11 +61,19 @@ def torrent_master(raw_search:str):
             daemon=True
         )
 
+    yts_thread = Thread(
+            target=yts,
+            args=(search,),
+            daemon=True
+        )
+
     nyaa_thread.start()
     tpb_thread.start()
+    yts_thread.start()
     ascii_thread.join()
     nyaa_thread.join()
     tpb_thread.join()
+    yts_thread.join()
 
     #Disordered torrents
     torrent_results = read_scraped_list('torrents')

@@ -1,6 +1,7 @@
 #!/bin/env python
 
 from modules.admin_db import edit_scraped_list, read_settings, edit_settings
+from modules.rows_from_text_file import rows_from_text_file
 from tpblite import TPB, ORDERS, CATEGORIES
 from threading import Thread
 
@@ -51,12 +52,13 @@ def tpb_onepage(search, page):
     try:
         # TPB object with the default domain
         t = TPB()
+        trackers = rows_from_text_file('trackers.txt')
 
         # Getting the data
         torrents = t.search(search, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.ALL, page=page)
 
         torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
-                torrent.leeches, "TPB", torrent.magnetlink, 0] \
+                torrent.leeches, "TPB", f"{ torrent.magnetlink }&tr={ '&tr='.join(trackers) }", 0] \
                 for torrent in torrents]
         global_torrent_list_tpb += torrent_list
         

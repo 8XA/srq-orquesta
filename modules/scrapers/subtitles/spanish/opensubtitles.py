@@ -7,14 +7,14 @@
 
 import os
 from requests import get, Session
-from modules.user_agents import user_agents
+from modules.rows_from_text_file import rows_from_text_file
 from requests.exceptions import RequestException
 from urllib.parse import quote
 
 def opensubtitles(palabras):
     try:
         palabras_busqueda = [quote(palabra) for palabra in palabras]
-        agents = user_agents()
+        agents = rows_from_text_file('user_agents.txt')
         
         pagina, subs = 0, []
         to_iterate = True

@@ -6,6 +6,7 @@ from threading import Thread
 from requests import get
 from requests.exceptions import RequestException
 from modules.admin_db import edit_scraped_list, edit_settings, read_settings
+from modules.rows_from_text_file import rows_from_text_file
 from urllib.parse import quote
 
 def nyaa(search:str):
@@ -62,6 +63,7 @@ def nyaa_onepage(
     ):
 
     global global_torrent_list_nyaa
+    trackers = rows_from_text_file('trackers.txt')
 
     separated_search = search.split(' ')
     for x in range(len(separated_search)):
@@ -80,7 +82,7 @@ def nyaa_onepage(
 
         magnet_index_0 = raw_result.index("magnet:?xt=")
         magnet_index_1 = raw_result[magnet_index_0:].index('">') + magnet_index_0
-        torrent[5] = raw_result[magnet_index_0: magnet_index_1]
+        torrent[5] = f"{ raw_result[magnet_index_0: magnet_index_1] }&tr={ '&tr='.join(trackers) }"
 
         title_index_0 = raw_result.rindex('title="', 0, magnet_index_0)
         title_index_1 = raw_result[title_index_0:].index('">') + title_index_0
