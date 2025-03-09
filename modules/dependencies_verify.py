@@ -14,6 +14,9 @@ def verify():
     if not isfile("/data/data/com.termux/files/usr/bin/termux-info"):
         return None
     
+    # Upgrading openssl
+    system("pkg up openssl")
+
     #PKG verify and installation
     pkg_dependencies = [
             "wget",
@@ -80,7 +83,7 @@ def verify():
 
     #Upgrade pip
     if len(pip_to_install) > 0:
-        system("pip install --upgrade pip")
+        system("pkg up python-pip")
     #Install the missing packages
     for pkg in pip_to_install:
         system("pip install " + pkg)
