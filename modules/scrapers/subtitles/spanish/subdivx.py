@@ -1,53 +1,54 @@
 #!/bin/env python
 
-#Recibe una lista de palabras de busqueda y retorna una
-#lista con los subtitulos encontrados en la página de
 #subdivx. El retorno tiene el formato:
 #[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
-import os
-from requests import get
-from urllib.parse import quote
+from requests import Session
 
-def subdivx(palabras):
-    try:
-        subs, subspag, pagina = [], [], 0
-        while subspag != [] or pagina == 0:
-            pagina+=1
 
-            search = []
-            for word in palabras:
-                search.append(quote(word))
-            suma = "+".join(search)
+def subdivx(search_words):
+    url_base = "https://subdivx.com"
+    url_token = f"{ url_base }/inc/gt.php?gt=1"
+    url_queries = f"{ url_base }/inc/ajax.php"
 
-            #Obtiene el html del link con las palabras de búsqueda
-            linkBusqueda = "https://www.subdivx.com/index.php?buscar2=" + suma + "&accion=5&masdesc=&subtitulos=1&realiza_b=1=&pg=" + str(pagina)
-            txtBusqueda = get(linkBusqueda, timeout=5).text
+    session = Session()
+    token_request = session.get(url_token, timeout=5)
 
-            #Extrae la información del html descargado
-            x = 0
-            subspag = []
-            while '"titulo_menu_izq" href="' in txtBusqueda[x:]:
-                ind = txtBusqueda[x:].index('"titulo_menu_izq" href="')
-                ind2 = txtBusqueda[x+ind:].index('">')
-                ind3 = txtBusqueda[x+ind+ind2:].index('</a>')
-
-                #Título
-                enlace = txtBusqueda[24+x+ind:x+ind+ind2]
-                titulo = txtBusqueda[x+ind+ind2+2:x+ind+ind2+ind3]
-                
-                #Descripción
-                x += (ind+ind2+ind3)
-                ind4 = txtBusqueda[x:].index('<div id="buscador_detalle_sub"')
-                ind5 = txtBusqueda[x+ind4:].index('</div>')
-                descripcion = txtBusqueda[31+x+ind4:x+ind4+ind5]
-
-                subspag.append([titulo, descripcion, enlace])
-
-                x += (ind4+ind5)
-
-            subs += subspag
-        return subs
-
-    except:
+    if token_request.status_code != 200:
         return []
+
+    payload = {
+        'tabla': 'resultados',
+        'filtros': '',
+        'buscar396b': search_words,
+        'token': token_request.json()['token']
+    }
+
+    headers = {
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'accept-language': 'es-419,es;q=0.9',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'origin': 'https://subdivx.com',
+        'priority': 'u=1, i',
+        'referer': 'https://subdivx.com/',
+        'sec-ch-ua': '"Not:A-Brand";v="24", "Chromium";v="134"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest',
+    }
+
+    search_request = session.post(url_queries, headers=headers, data=payload, timeout=5)
+
+    if search_request.status_code != 200:
+        return []
+
+    return [[
+        sub['titulo'],
+        sub['descripcion'],
+        f"https://subdivx.com/descargar.php?id={ sub['id'] }"
+    ] for sub in search_request.json()['aaData']]
+
