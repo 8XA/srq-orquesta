@@ -4,7 +4,6 @@ from time import sleep
 from pathlib import Path
 from subprocess import Popen, PIPE
 from termcolor import colored
-from modules.scrapers.subtitles.spanish.helpers.subdivx.download_url_getter import get_enlace
 from modules.files_from_route import subs_en_ruta
 from modules.admin_db import read_settings, edit_simple_list, edit_settings
 from modules.strings_fitting import phrase_fitting, centered_phrase_fitting
@@ -47,8 +46,6 @@ def download():
 
         #Recupera enlace de descarga
         link = read_settings("downloadable_sub_url")
-        if "subdivx" in link:
-            link = '--referer="' + link + '" "' + get_enlace(link) + '"'
         
         #Descarga en carpeta temporal
         Popen(["rm", "-r", ruta_tmp]).wait()
