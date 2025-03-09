@@ -156,7 +156,7 @@ def create_db():
         cursor.execute("UPDATE settings SET run_animation = 0")
         cursor.execute("UPDATE settings SET active_instance = 0")
         cursor.execute("UPDATE settings SET downloadable_sub_url = ''")
-        cursor.execute("UPDATE settings SET folder_route = '/sdcard/'")
+        cursor.execute("UPDATE settings SET folder_route = '/sdcard/Download/'")
         cursor.execute("UPDATE settings SET dimention_status = 'stopped'")
         cursor.execute("UPDATE settings SET selected_video_route = ''")
         cursor.execute("UPDATE settings SET selected_video_name = ''")
