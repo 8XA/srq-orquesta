@@ -51,6 +51,7 @@ def verify():
     #PIP verify and installation
     pip_dependencies = [
             "wheel",
+            "cloudscraper",
             "tpblite",
             "termcolor",
             "chardet",
