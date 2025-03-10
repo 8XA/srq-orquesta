@@ -1,3 +1,12 @@
+:Wc:Versión 0.3.6
+
+:ff:- Refactor: SRQ fue adaptado para trabajar con Termux v0.118.
+:ff:- Fix: Los siguientes scrapers fueron arreglados: TPB, YTS, NYAA, subdivx.
+:ff:- Refactor: Las sugerencias de búsqueda de Torrents funciona con la API de Google.
+:ff:- Refactor: La carpeta de búsqueda de vídeos comienza en Descargas.
+
+:la:
+
 :Wc:Versión 0.3.5
 
 :ff: Feat: Fuentes de torrents incluyen a YTS.
