@@ -15,7 +15,7 @@ def verify():
         return None
     
     # Upgrading openssl
-    system("pkg up openssl")
+    system("pkg up -y openssl")
 
     #PKG verify and installation
     pkg_dependencies = [
