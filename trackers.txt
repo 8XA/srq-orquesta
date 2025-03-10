@@ -1,3 +1,7 @@
+udp://tracker.torrent.eu.org:451/announce
+udp://tracker.dler.org:6969/announce
+udp://exodus.desync.com:6969
+udp://open.demonii.com:1337/announce
 udp://public.popcorn-tracker.org:6969/announce
 http://104.28.1.30:8080/announce
 http://104.28.16.69/announce

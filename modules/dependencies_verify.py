@@ -25,7 +25,6 @@ def verify():
             "p7zip",
             "readline",
             "file",
-            "libxslt", # tpblite dependency
             "ncurses-utils"
         ]
 
@@ -51,8 +50,6 @@ def verify():
     #PIP verify and installation
     pip_dependencies = [
             "wheel",
-            "cloudscraper",
-            "tpblite",
             "termcolor",
             "chardet",
             "requests",
