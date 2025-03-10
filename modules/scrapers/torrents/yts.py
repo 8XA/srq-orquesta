@@ -7,7 +7,7 @@ from modules.admin_db import edit_scraped_list, edit_settings, read_settings
 
 
 def yts(search:str):
-    url = f"https://yts.torrentbay.to/api/v2/list_movies.json?query_term={ quote(search) }&limit=50"
+    url = f"https://yts.mx/api/v2/list_movies.json?query_term={ quote(search) }&limit=50"
     yts_response = get(url)
     if yts_response.status_code == 200:
 
