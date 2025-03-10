@@ -7,7 +7,9 @@ try:
     restore_settings()
     from multiprocessing import current_process
     from subprocess import Popen, PIPE
+    from modules.allow_external_apps import allow_external_apps
 
+    allow_external_apps()
     refreshed = read_settings("dimention_status") == "refreshing"
 
     if not refreshed:
