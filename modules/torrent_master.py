@@ -22,7 +22,7 @@ def torrent_master(raw_search:str):
     #ASCII animation
     ascii_thread = Thread(
             target=ascii_animation,
-            args=("Buscando torrents...", 1),
+            args=("Buscando torrents...", 2),
         )
     ascii_thread.start()
 
@@ -69,11 +69,11 @@ def torrent_master(raw_search:str):
 
     nyaa_thread.start()
 #    tpb_thread.start()
-#    yts_thread.start()
+    yts_thread.start()
 #    ascii_thread.join()
     nyaa_thread.join()
 #    tpb_thread.join()
-#    yts_thread.join()
+    yts_thread.join()
 
     #Disordered torrents
     torrent_results = read_scraped_list('torrents')
