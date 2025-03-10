@@ -1,69 +1,51 @@
 #!/bin/env python
 
-from modules.admin_db import edit_scraped_list, read_settings, edit_settings
+
+from requests import Session
+from urllib.parse import quote
+
 from modules.rows_from_text_file import rows_from_text_file
-from tpblite import TPB, ORDERS, CATEGORIES
-from threading import Thread
+from modules.admin_db import edit_scraped_list, read_settings, edit_settings
 
-def tpb(search):
-    """
-    It gets a string search, for example: the happy dog
-    It returns a founded torrents list with the format as follows:
-    [[str_title_1, str_filesize_1, int_seeds_1, str_leechers_1, \
-            "TPB", str_magnetlink_1], [str_title_2, ...]...]
-    """
-    global global_torrent_list_tpb, flag
-    
-    try:
-        global_torrent_list_tpb = []
-        thread_dict = {}
-        flag = True
 
-        counter = 0
-        while flag:
-            for x in range(10):
-                counter += 1
+"""
+It gets a string search, for example: the happy dog
+It returns a torrents list with the following format:
+[[str_title_1, str_filesize_1, int_seeds_1, str_leechers_1, \
+        "TPB", str_magnetlink_1, 0], [str_title_2, ...]...]
+"""
+def tpb(search_words):
 
-                thread_dict[counter] = Thread(
-                        target=tpb_onepage,
-                        args=(search, counter),
-                        daemon=True
-                    )
-                thread_dict[counter].start()
-            
-            for key in thread_dict:
-                thread_dict[key].join()
+    url = f"https://apibay.org/q.php?q={ quote(search_words.strip())  }&cat=200"
+    session = Session()
+    request = session.get(url)
+    trackers = rows_from_text_file('trackers.txt')
 
-        torrent_list = [torrent for torrent in global_torrent_list_tpb if torrent[2] > 0]
+    if request.status_code != 200:
+        finished = read_settings("run_animation") + 1
+        edit_settings("run_animation", str(finished))
+        return
 
-        #To the database
-        edit_scraped_list('torrents','addition', list_=torrent_list)
+    torrents = [[
+        torrent['name'],
+        bytes_to_legible(torrent['size']), #String
+        int(torrent['seeders']),
+        int(torrent['leechers']),
+        "TPB",
+        f"magnet:?xt=urn:btih:{ (torrent['info_hash']) }&dn={ quote(torrent['name']) }&tr={ quote('&tr='.join(trackers)) }",
+        0
+    ] for torrent in request.json()]
 
-    except Exception as e:
-        pass
-
+    edit_scraped_list('torrents','addition', list_=torrents)
     finished = read_settings("run_animation") + 1
     edit_settings("run_animation", str(finished))
 
 
-def tpb_onepage(search, page):
-    global global_torrent_list_tpb, flag
-
-    try:
-        # TPB object with the default domain
-        t = TPB()
-        trackers = rows_from_text_file('trackers.txt')
-
-        # Getting the data
-        torrents = t.search(search, order=ORDERS.SEEDERS.DES, category=CATEGORIES.VIDEO.ALL, page=page)
-
-        torrent_list = [[torrent.title, torrent.filesize, torrent.seeds, \
-                torrent.leeches, "TPB", f"{ torrent.magnetlink }&tr={ '&tr='.join(trackers) }", 0] \
-                for torrent in torrents]
-        global_torrent_list_tpb += torrent_list
-        
-        if 0 in [torrent.seeds for torrent in torrents]:
-            flag = False
-    except:
-        flag = False
-
+def bytes_to_legible(size):
+    size = int(size)
+    units = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"]
+    index = 0
+    while size >= 1024 and index < len(units) - 1:
+        size /= 1024.0
+        index += 1
+    return f"{size:.2f} {units[index]}"
