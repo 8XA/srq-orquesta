@@ -10,8 +10,7 @@ def allow_external_apps():
         
         for idx in range(len(raw_lines)):
             if raw_lines[idx] == "# allow-external-apps = true\n":
-                raw_lines[idx] == "allow-external-apps = true\n"
-                break
+                raw_lines[idx] = "allow-external-apps = true\n"
 
         file.seek(0)
         file.writelines(raw_lines)
