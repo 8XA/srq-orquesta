@@ -14,9 +14,6 @@ def verify():
     if not isfile("/data/data/com.termux/files/usr/bin/termux-info"):
         return None
     
-    # Upgrading openssl
-    system("pkg up -y openssl")
-
     #PKG verify and installation
     pkg_dependencies = [
             "wget",
@@ -25,11 +22,11 @@ def verify():
             "p7zip",
             "readline",
             "file",
-            "ncurses-utils"
+            "ncurses-utils",
+            "python-lxml", # Parser used for BeautifulSoup4
         ]
 
     #Gets the installed packages with apt
-    
     command_apt = Popen("apt list --installed", shell=True, stdout=PIPE, stderr=PIPE)
     raw_apt = str(command_apt.stdout.read())
     split_apt = raw_apt.split("\\n")
@@ -45,14 +42,15 @@ def verify():
 
     #Install the missing packages
     for pkg in pkg_to_install:
-        system("pkg install -y " + pkg)
+        system(f"pkg install -y { pkg }")
 
     #PIP verify and installation
     pip_dependencies = [
-            "wheel",
+            "beautifulsoup4",
             "termcolor",
             "chardet",
             "requests",
+            "cloudscraper", # Dependency for scrap-imdb
             "scrap-imdb"
         ]
 
@@ -60,14 +58,14 @@ def verify():
     pip_freeze_route = '/data/data/com.termux/files/usr/share/srq-orquesta/pip_freeze.txt'
     pip_list_route = '/data/data/com.termux/files/usr/share/srq-orquesta/pip_list.txt'
     if not isfile(pip_freeze_route):
-        system("pip freeze > " + pip_freeze_route)
+        system("pip freeze --user > " + pip_freeze_route)
     if not isfile(pip_list_route):
         system("pip list > " + pip_list_route)
 
     #Gets the pip list from the backup pip files 
     with open(pip_freeze_route, "r") as file:
         raw_pip_freeze = file.readlines()
-    pip_freeze = [pkg[:pkg.index("=")] for pkg in raw_pip_freeze]
+    pip_freeze = [pkg[:pkg.index("=")] for pkg in raw_pip_freeze if "==" in pkg]
 
     with open(pip_list_route, "r") as file:
         raw_pip_list = file.readlines()
@@ -81,14 +79,14 @@ def verify():
 
     #Upgrade pip
     if len(pip_to_install) > 0:
-        system("pkg up python-pip")
+        system("pkg up -y python-pip")
     #Install the missing packages
     for pkg in pip_to_install:
-        system("pip install " + pkg)
+        system(f"pip install { pkg } --no-input")
     #Updates the pip file
     if len(pip_to_install) > 0:
-        system("pip freeze > " + pip_freeze_route)
-        system("pip list > " + pip_list_route)
+        system(f"pip freeze --user > { pip_freeze_route }")
+        system(f"pip list > { pip_list_route }")
 
     if len(pip_to_install) + len(pkg_to_install) > 0:
         system("clear")

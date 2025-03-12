@@ -11,6 +11,7 @@ from os import system
 from time import sleep
 from scrapimdb import ImdbSpider
 
+
 def torrent_master(raw_search:str):
     """
     It gets a search sentence, and it updates the database with the torrents founded.
