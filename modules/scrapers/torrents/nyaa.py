@@ -1,6 +1,5 @@
 #!/bin/env python
 
-from os import popen
 from time import sleep
 from threading import Thread
 from requests import get
@@ -9,7 +8,8 @@ from modules.admin_db import edit_scraped_list, edit_settings, read_settings
 from modules.rows_from_text_file import rows_from_text_file
 from urllib.parse import quote
 
-def nyaa(search:str):
+
+def nyaa(search: str):
     """
     It gets a string search, for example: the happy dog
     It returns a founded torrents list with the format as follows:
@@ -20,8 +20,6 @@ def nyaa(search:str):
     global global_torrent_list_nyaa
 
     try:
-        torrent_dict = {}
-
         first_search = nyaa_onepage(search, 1, True)
         numb_of_pages = first_search[1]
         global_torrent_list_nyaa = first_search[0]
@@ -32,22 +30,22 @@ def nyaa(search:str):
         while current_page < numb_of_pages:
             current_page += 1
             threads_dict[current_page] = Thread(
-                    target=nyaa_onepage,
-                    args=(search, current_page),
-                    daemon=True
-                )
+                target=nyaa_onepage,
+                args=(search, current_page),
+                daemon=True
+            )
             threads_dict[current_page].start()
             sleep(0.3)
-        
+
         current_thread = 1
         while current_thread < numb_of_pages:
-            current_thread+=1
+            current_thread += 1
             threads_dict[current_page].join()
 
         torrent_list = [torrent for torrent in global_torrent_list_nyaa if int(torrent[2]) > 0]
 
-        #To the database
-        edit_scraped_list('torrents','addition', list_=torrent_list)
+        # To the database
+        edit_scraped_list('torrents', 'addition', list_=torrent_list)
 
     except:
         pass
@@ -57,10 +55,10 @@ def nyaa(search:str):
 
 
 def nyaa_onepage(
-        search:str,
-        page_number:int,
-        read_pages_number:bool=False
-    ):
+    search: str,
+    page_number: int,
+    read_pages_number: bool = False
+):
 
     global global_torrent_list_nyaa
     trackers = rows_from_text_file('trackers.txt')
@@ -70,7 +68,11 @@ def nyaa_onepage(
         separated_search[x] = quote(separated_search[x])
     words_sum = '+'.join(separated_search)
 
-    search_url = "https://nyaa.si/?f=0&c=0_0&q=" + words_sum + "&s=seeders&o=desc&p=" + str(page_number)
+    search_url = (
+        f"https://nyaa.si/?f=0&c=0_0&q={words_sum}"
+        f"&s=seeders&o=desc&p={str(page_number)}"
+    )
+
     try:
         raw_result = get(search_url).text
     except RequestException as e:
@@ -82,7 +84,7 @@ def nyaa_onepage(
 
         magnet_index_0 = raw_result.index("magnet:?xt=")
         magnet_index_1 = raw_result[magnet_index_0:].index('">') + magnet_index_0
-        torrent[5] = f"{ raw_result[magnet_index_0: magnet_index_1] }&tr={ '&tr='.join(trackers) }"
+        torrent[5] = f"{raw_result[magnet_index_0: magnet_index_1]}&tr={'&tr='.join(trackers)}"
 
         title_index_0 = raw_result.rindex('title="', 0, magnet_index_0)
         title_index_1 = raw_result[title_index_0:].index('">') + title_index_0
@@ -104,16 +106,16 @@ def nyaa_onepage(
         raw_result = raw_result[leechers_index_1:]
 
     numb_of_torrents = 0
-    if read_pages_number == True:
+    if read_pages_number:
         numb_of_torrents_0 = raw_result.index('">Displaying results')
         numb_of_torrents_1 = raw_result[numb_of_torrents_0 + 20:].index('results') + numb_of_torrents_0
         numb_of_torrents = raw_result[numb_of_torrents_0 + 20: numb_of_torrents_1 + 20]
         numb_of_torrents = numb_of_torrents.split(" ")
         numb_of_torrents = int(numb_of_torrents[4])
-    numb_of_pages = numb_of_torrents/75
+    numb_of_pages = numb_of_torrents / 75
 
-    if read_pages_number == True:
+    if read_pages_number:
         return torrent_list, numb_of_pages
-    
+
     global_torrent_list_nyaa += torrent_list
 
