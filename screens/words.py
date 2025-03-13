@@ -70,7 +70,7 @@ def words():
     else:
         #Si da enter
         if i[1] == "":
-            if read_settings("sub_words") != "":
+            if read_settings("sub_words").strip() != "":
                 return 'results'
             else:
                 return 'words'
@@ -82,11 +82,11 @@ def words():
             return 'results'
 
         elif (i[1].lower() == "all") and \
-                (",".join(palabras_del_titulo) != read_settings("sub_words")):
+                (" ".join(palabras_del_titulo).strip() != read_settings("sub_words").strip()):
 
             edit_simple_list('words_history', i[1], 'add')
             edit_settings("sub_search_changed","1")
-            edit_settings("sub_words", ",".join(palabras_del_titulo))
+            edit_settings("sub_words", " ".join(palabras_del_titulo).strip())
 
             return 'words'
 
@@ -137,7 +137,7 @@ def words():
             #Si todo esta correcto, guarda
             if ",".join(palabras_candidatas) != read_settings("sub_words"):
                 edit_settings("sub_search_changed","1")
-                edit_settings("sub_words", ",".join(palabras_candidatas))
+                edit_settings("sub_words", " ".join(palabras_candidatas).strip())
 
                 if len([word for word in i[1].split(" ") if word != '']) > 0:
                     edit_simple_list('words_history', i[1], 'add')
@@ -146,8 +146,8 @@ def words():
         else:
             palabras_candidatas = [x for x in " ".join(i[1].split(",")).split(" ") if x != ""]
 
-            if (",".join(palabras_candidatas) != read_settings("sub_words")):
-                edit_settings("sub_words", ",".join(palabras_candidatas))
+            if (" ".join(palabras_candidatas).strip() != read_settings("sub_words").strip()):
+                edit_settings("sub_words", " ".join(palabras_candidatas).strip())
 
                 if len(palabras_candidatas) > 0:
                     if len([word for word in i[1].split(" ") if word != '']) > 0:

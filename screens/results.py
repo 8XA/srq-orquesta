@@ -116,7 +116,7 @@ def results():
         edit_settings("subs_filter", "")
 
         #Recuperar palabras de búsqueda
-        palabras = read_settings("sub_words").split(",")
+        palabras = read_settings("sub_words")
 
         #Inicia animacion
         edit_settings("dimention_status", "exception")
