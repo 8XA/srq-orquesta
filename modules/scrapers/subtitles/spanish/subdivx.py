@@ -1,15 +1,15 @@
 #!/bin/env python
 
-#subdivx. El retorno tiene el formato:
-#[["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
+# subdivx. El retorno tiene el formato:
+# [["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 from requests import Session
 
 
 def subdivx(search_words):
     url_base = "https://subdivx.com"
-    url_token = f"{ url_base }/inc/gt.php?gt=1"
-    url_queries = f"{ url_base }/inc/ajax.php"
+    url_token = f"{url_base}/inc/gt.php?gt=1"
+    url_queries = f"{url_base}/inc/ajax.php"
 
     session = Session()
     token_request = session.get(url_token, timeout=5)
@@ -37,7 +37,10 @@ def subdivx(search_words):
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36',
+        'user-agent': (
+            'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36'
+        ),
         'x-requested-with': 'XMLHttpRequest',
     }
 
@@ -49,6 +52,6 @@ def subdivx(search_words):
     return [[
         sub['titulo'],
         sub['descripcion'],
-        f"https://subdivx.com/descargar.php?id={ sub['id'] }"
+        f"https://subdivx.com/descargar.php?id={sub['id']}"
     ] for sub in search_request.json()['aaData']]
 
