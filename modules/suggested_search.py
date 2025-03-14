@@ -2,13 +2,15 @@
 
 
 from requests import get
+from urllib.parse import quote
+
 
 def suggested_search(search):
     url = "https://suggestqueries.google.com/complete/search"
 
     params = {
         "client": "firefox",
-        "q": search,
+        "q": quote(search),
         "hl": "es"
     }
 
@@ -17,7 +19,7 @@ def suggested_search(search):
     }
     
     response = get(url, params=params, headers=headers)
-    if response.status_code == 200:
+    if response.status_code == 200 and len(response.json()[1]) > 0:
         return response.json()[1][0]
     else:
         return search

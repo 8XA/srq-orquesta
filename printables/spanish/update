@@ -1,3 +1,9 @@
+:Wc:Versión 0.3.7
+
+:ff:- Fix: Crash cuando la API de sugerencias de Google entrega listas vacías.
+
+:la:
+
 :Wc:Versión 0.3.6
 
 :ff:- Refactor: SRQ fue adaptado para trabajar con Termux v0.118.
