@@ -1,11 +1,14 @@
 #!/bin/env python
 
-# subdivx. El retorno tiene el formato:
-# [["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 
 from requests import Session
+from random import sample
+
+from modules.rows_from_text_file import rows_from_text_file
 
 
+# subdivx. El retorno tiene el formato:
+# [["titulo1", "descripcion1", "url1"], ["titulo2", "descripcion2", "url2"] ... ]
 def subdivx(search_words):
     url_base = "https://subdivx.com"
     url_token = f"{url_base}/inc/gt.php?gt=1"
@@ -37,10 +40,7 @@ def subdivx(search_words):
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
-        'user-agent': (
-            'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) '
-            'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36'
-        ),
+        "user-agent": sample(rows_from_text_file('user_agents.txt'), 1)[0],
         'x-requested-with': 'XMLHttpRequest',
     }
 
