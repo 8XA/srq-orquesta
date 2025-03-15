@@ -1,6 +1,8 @@
 :Wc:Versión 0.3.7
 
-:ff:- Fix: Crash cuando la API de sugerencias de Google entrega listas vacías.
+:ff:- Refactor: Las sugerencias de búsqueda de Torrents ahora se realizan con el corrector de búsqueda de Yahoo.
+:ff:- CleanUp: Dependencias innecesarias elimiadas.
+:ff:- Chore: Rotación aleatoria de headers para scraper subdivx.
 
 :la:
 

@@ -12,7 +12,6 @@ ___
 1. Búsqueda y reproducción de videos locales (Requiere un reproductor de videos externo).  
 2. Busqueda y ejecución de Torrents de video (Requiere un cliente de descarga externo).  
 3. Búsqueda y descarga de subtítulos.  
-4. *Próximamente: Soporte para chromecast.*  
 
 ___
 
