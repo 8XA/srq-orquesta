@@ -5,7 +5,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from requests import Session
 from bs4 import BeautifulSoup
 from urllib.parse import quote
-import lxml
 from random import shuffle
 from itertools import cycle
 
