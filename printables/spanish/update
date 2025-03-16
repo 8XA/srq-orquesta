@@ -1,3 +1,9 @@
+:Wc:Versión 0.3.8
+
+:ff:- Refactor: La ejecución de una sola sesión corre por defecto y se settea así cuando es necesario.
+
+:la:
+
 :Wc:Versión 0.3.7
 
 :ff:- Refactor: Las sugerencias de búsqueda de Torrents ahora se realizan con el corrector de búsqueda de Yahoo.
