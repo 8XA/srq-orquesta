@@ -1,6 +1,7 @@
 :Wc:Versión 0.3.8
 
 :ff:- Refactor: La ejecución de una sola sesión corre por defecto y se settea así cuando es necesario.
+:ff:- Refactor: Actualizaciones basadas en versiones (tags de git).
 
 :la:
 
