@@ -17,6 +17,7 @@ def update():
     Popen("clear").wait()
     print("Verificando actualizaciones para SRQ ORQUESTA...\n")
 
+    system("git fetch --tags")
     versions_list = [tag[:-1] for tag in popen("git tag").readlines()]
     current_version = popen("git describe --tags --exact-match").read()[:-1]
 
@@ -24,6 +25,7 @@ def update():
         # Verifies if there is an update in the repositorie
         print("Actualizando script...\n")
         Popen(["rm", "-rf", updates_route], stdout=PIPE, stderr=PIPE)
+        print()
 
         is_clonned = not system(
             f"git clone --branch {versions_list[-1]} --single-branch "
@@ -54,6 +56,7 @@ def update():
                 stderr=PIPE
             ).wait()
 
+            print()
             viewer("ACTUALIZACIÓN COMPLETA", "update")
 
             # Restart SRQ
