@@ -144,9 +144,13 @@ def torrents():
             print(colored_filters)
         print(red_line)
 
-        i = menu(columns_number, "Página " + str(page) + \
-                " de "+ str(total_pages) + " - " + \
-                str(len(filtered_torrents)) + " torrents")
+        i = menu(
+            columns_number, 
+            (
+                f"Página: {page} de {total_pages} | Filtrados: "
+                f"{len(filtered_torrents)} | Total: {len(torrent_results_ids)}"
+            )
+        )
 
         #Downloadable torrents
         downloadables_dict = {
