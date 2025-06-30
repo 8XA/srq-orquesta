@@ -23,7 +23,7 @@ def subdivx(search_words):
     payload = {
         'tabla': 'resultados',
         'filtros': '',
-        'buscar396b': search_words,
+        'buscar396c': search_words,
         'token': token_request.json()['token']
     }
 
@@ -49,9 +49,13 @@ def subdivx(search_words):
     if search_request.status_code != 200:
         return []
 
-    return [[
-        sub['titulo'],
-        sub['descripcion'],
-        f"https://subdivx.com/descargar.php?id={sub['id']}"
-    ] for sub in search_request.json()['aaData']]
+    try:
+        return [[
+            sub['titulo'],
+            sub['descripcion'],
+            f"https://subdivx.com/descargar.php?id={sub['id']}"
+        ] for sub in search_request.json()['aaData']]
+    except:
+        # This must to be refactored to register logs
+        return []
 
