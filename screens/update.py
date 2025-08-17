@@ -1,5 +1,6 @@
 #!/bin/env python
 
+import re
 from time import sleep
 from os import system, popen, execv
 from subprocess import Popen, PIPE
@@ -17,9 +18,12 @@ def update():
     Popen("clear").wait()
     print("Verificando actualizaciones para SRQ ORQUESTA...\n")
 
-    system("git fetch --tags")
-    versions_list = [tag[:-1] for tag in popen("git tag").readlines()]
-    current_version = popen("git describe --tags --exact-match").read()[:-1]
+    system(f"cd {absolute_route} && git fetch --tags")
+    versions_list = sorted(
+        [tag[:-1] for tag in popen(f"cd {absolute_route} && git tag").readlines()],
+        key=lambda x: tuple(map(int, re.findall(r'\d+', x)))
+    )
+    current_version = popen(f"cd {absolute_route} && git describe --tags --exact-match").read()[:-1]
 
     if current_version in versions_list and versions_list[-1] != current_version:
         # Verifies if there is an update in the repositorie
@@ -29,7 +33,7 @@ def update():
 
         is_clonned = not system(
             f"git clone --branch {versions_list[-1]} --single-branch "
-            "https://github.com/8XA/srq-orquesta.git {updates_route}"
+            f"https://github.com/8XA/srq-orquesta.git {updates_route}"
         )
 
         # If the download was successful, it executes the update
