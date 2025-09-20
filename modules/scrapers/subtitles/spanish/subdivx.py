@@ -23,7 +23,7 @@ def subdivx(search_words):
     payload = {
         'tabla': 'resultados',
         'filtros': '',
-        'buscar398a': search_words,
+        'buscar412': search_words,
         'token': token_request.json()['token']
     }
 
