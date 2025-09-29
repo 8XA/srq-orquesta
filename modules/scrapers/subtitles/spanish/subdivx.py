@@ -1,6 +1,7 @@
 #!/bin/env python
 
 
+from bs4 import BeautifulSoup
 from requests import Session
 from random import sample
 
@@ -20,10 +21,20 @@ def subdivx(search_words):
     if token_request.status_code != 200:
         return []
 
+    html_url_base = session.get(url_base)
+    if html_url_base.status_code != 200:
+        return []
+
+    soup = BeautifulSoup(str(html_url_base.text), "lxml")
+    try:
+        version = soup.body.footer.div.string[1:].replace(".","")
+    except:
+        return []
+
     payload = {
         'tabla': 'resultados',
         'filtros': '',
-        'buscar413': search_words,
+        f"buscar{version}": search_words,
         'token': token_request.json()['token']
     }
 

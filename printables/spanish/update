@@ -1,4 +1,10 @@
 
+:Wc:Versión 0.3.13
+
+:ff:- Fix: Scraper de subdivx no requiere actualización constante con cada cambio de versión del sitio. El scraper considera los cambios de versión automaticamente.
+
+:la:
+
 :Wc:Versión 0.3.12
 
 :ff:- Fix: Scraper de subdivx arroja resultados.
