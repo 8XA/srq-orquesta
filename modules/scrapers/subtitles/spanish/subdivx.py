@@ -55,7 +55,7 @@ def subdivx(search_words):
         'x-requested-with': 'XMLHttpRequest',
     }
 
-    search_request = session.post(url_queries, headers=headers, data=payload, timeout=5)
+    search_request = session.post(url_queries, headers=headers, data=payload)
 
     if search_request.status_code != 200:
         return []

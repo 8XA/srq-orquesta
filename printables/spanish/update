@@ -1,4 +1,10 @@
 
+:Wc:Versión 0.3.14
+
+:ff:- Refactor: Scraper subdivx funciona sin timeout.
+
+:la:
+
 :Wc:Versión 0.3.13
 
 :ff:- Fix: Scraper de subdivx no requiere actualización constante con cada cambio de versión del sitio. El scraper considera los cambios de versión automaticamente.
