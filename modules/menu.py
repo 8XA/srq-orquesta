@@ -255,7 +255,7 @@ def menu(*args):
         return ("menu", pantalla)
 
     elif i.upper() == "LT":
-        Popen(["am", "start", "-n", "org.proninyaroslav.libretorrent/.ui.main.MainActivity"],\
+        Popen(["am", "start", "-n", "org.proninyaroslav.libretorrent/.MainActivity"],\
                 stdout=PIPE, stderr=PIPE).wait()
 
         #Evita repetir descarga

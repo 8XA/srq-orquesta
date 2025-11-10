@@ -46,7 +46,7 @@ def suggested_filter():
             suggested_rip += 'dvd'
         elif 'web' in lower_name:
             suggested_rip += 'web'
-        elif 'tv' in lower_name:
+        elif 'tv' in lower_name.replace("galaxytv", ""):
             suggested_rip += 'tv'
         elif len([rip for rip in ['bdrip', 'brrip', 'blu'] if rip in lower_name]) > 0:
             suggested_rip += 'bdrip/brrip/blu'

@@ -1,4 +1,11 @@
 
+:Wc:Versión 0.3.15
+
+:ff:- Fix: Sugerencia de filtrado en subtítulos descarta 'TV' cuando la recomendación deriva de GalaxyTv.
+:ff:- Fix: Lanzador de LibreTorrent funciona con su versión 4.0.1.
+
+:la:
+
 :Wc:Versión 0.3.14
 
 :ff:- Refactor: Scraper subdivx funciona sin timeout.
