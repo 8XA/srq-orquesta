@@ -1,4 +1,10 @@
 
+:Wc:Versión 0.3.16
+
+:ff:- Fix: Scraper de YTS apunta al nuevo servidor y evita crash en la app cuando el servidor está caído.
+
+:la:
+
 :Wc:Versión 0.3.15
 
 :ff:- Fix: Sugerencia de filtrado en subtítulos descarta 'TV' cuando la recomendación deriva de GalaxyTv.

@@ -16,7 +16,7 @@ def subdivx(search_words):
     url_queries = f"{url_base}/inc/ajax.php"
 
     session = Session()
-    token_request = session.get(url_token, timeout=5)
+    token_request = session.get(url_token)
 
     if token_request.status_code != 200:
         return []

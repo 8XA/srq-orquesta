@@ -8,9 +8,13 @@ from modules.admin_db import edit_scraped_list, edit_settings, read_settings
 
 
 def yts(search: str):
-    url = f"https://yts.mx/api/v2/list_movies.json?query_term={quote(search)}&limit=50"
-    yts_response = get(url)
-    if yts_response.status_code == 200:
+    url = f"https://yts.lt/api/v2/list_movies.json?query_term={quote(search)}&limit=50"
+    try:
+        yts_response = get(url)
+    except Exception as e:
+        yts_response = False
+
+    if yts_response and yts_response.status_code == 200:
 
         # Trackers
         trackers = rows_from_text_file('trackers.txt')
