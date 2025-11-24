@@ -22,12 +22,13 @@ def opensubtitles(search_words):
     last_page = 0
     agent = user_agent_generator()
     scraping_lead = opensubtitles_onepage(search_words, last_page, next(agent))
+    MAX_SUBTITLES = 1000 # maximum quantity of subtitles to return
 
     complete_subs_list = scraping_lead['subs_list']
-    executor = ThreadPoolExecutor(max_workers=20)
+    executor = ThreadPoolExecutor(max_workers=5)
     threads = dict()
 
-    while not scraping_lead['pagination_done'] or len(threads) != last_page:
+    while (not scraping_lead['pagination_done'] or len(threads) != last_page) and last_page < (MAX_SUBTITLES/40):
         for page in range(last_page + 1, scraping_lead['last_page']):
             threads[page] = executor.submit(opensubtitles_onepage, search_words, page, next(agent))
 
